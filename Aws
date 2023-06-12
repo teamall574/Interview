@@ -1,3 +1,13 @@
+APPLICATION-----------------------------------------------|this two is SAAS
+DATA------------------------------------------------------|
+RUNTIME                              |
+MIDDEL-WARE                          |
+OPERATING SYSTEM ----                |------>This all are PAAS like mysql,Azure app service
+VIRTUALIZATION      |                |
+SERVER              |----------------|------------->This all are IAAS ex:-AWS
+STORAGE             |                |
+NETWORK-------------------------------
+
 1 - what is IAAS
 
 >>Infrastructure as a service (IaaS) is also known as Hardware as a service. the cloud provider provides the Infrastructure to the developers
@@ -1812,3 +1822,22 @@ two ways to send the file password less like add your ssh keys in destination se
 
 >>history -c  //it will delete all history
 >>history -d //it will delete the one line particular you can mention
+
+232-what is the secret_key and access_key
+
+>>Access keys consist of an access key ID and secret access key, which are used to sign programmatic requests that you make to AWS. 
+If you don't have access keys, you can create them by using the IAM console
+
+>>AWS access key ID is a form of unique user/account identifier. AWS secret key is like private key. When AWS CLI sends a API request, 
+the payload is signed by generating an HMAC with the secret key as the key
+
+233-day to day activites
+
+>>my self K Anjaneyulu Iam from karimnagar iam done by b-tech in mother theressa college in the stream of ece comming to my family background
+we are 4 members mother father and younger brother. young brother is an android developer mother and father formers
+>>iam doing devops engineer in keeno technologies 
+>>currently we using agile methodology we manage the configuration management multiple machines and infrstructure as an on-premises cloud using tools like terraform
+>>we deploy the applications and deliver the containers on the platform like kubernetes and end of the day take care of montoring this applications on kubernetes that
+deployed as containers or pods and and we also montior tools like grafana promethus and node exporter
+
+
