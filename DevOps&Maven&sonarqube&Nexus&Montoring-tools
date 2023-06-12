@@ -1,0 +1,857 @@
+1-what is DevOps 
+
+>>DevOps is a methodology in the software development and IT industry.
+so many teams involve together like cloud team , montoring team, security team and automation task and testing and so many involve
+and work together this called devops
+
+2-what is RCA
+
+>>root cause analaysis (providing the analysis for an error this RCA)
+
+3-why file is getting deleted automatically why
+
+>>cronjobs running every second
+>>your set any lambda script then when ever file created then automatically delete
+>>set any script to deletete file automatically  
+>>expiry of old file to wrie a script to delete
+
+4-the core principal of devops
+
+1-collaboration
+2-Automation
+3-CI/CD
+4-Feedback Montoring
+5-Continous learing and improvement
+
+5-what is benfites of devops
+
+1-faster delivery and time to market
+2-improved quality and reliabilty
+3-enhanced collabiration
+4-cost saving
+5-increase customer satisfaction
+
+6-how to promote your application dev to test to production
+
+>>we will follow this stragey build once run in any environment. 
+>>we build our application in development environment we push to the artifactory nexus or jfrog artifactory. we will have configuration files differnet
+environment when we deploy the applications dev environment we will apply the dev configuration file when we deploying the applications in testing environment
+we will apply the test configuration files same as like production also
+
+7-Why has DevOps become famous?
+>>As we know before DevOps there are two other software development models:
+Waterfall model
+Agile model
+In the waterfall model, we have limitations of one-way working and lack of communication with customers. This was overcome in Agile by including
+the communication between the customer and the company by taking feedback. But in this model, another issue is faced regarding communication between 
+the Development team and operations team due to which there is a delay in the speed of production. This is where DevOps is introduced. It bridges the 
+gap between the development team and the operation team by including the automation feature. Due to this, the speed of production is increased. 
+By including automation, testing is integrated into the development stage. Which resulted in finding the bugs at the very initial stage which increased 
+the speed and efficiency.
+
+8-How DevOps is helpful to developers?
+
+>>DevOps is very helpful for developers to fix the bugs and quickly implement the new features. It also helps in more transparent communication 
+between the team members.
+
+9-Explain some popular devops tools
+
+1-jenkins
+2-Ansible
+3-Grafana
+4-Docker
+5-Git
+6-Kubernetes
+
+10-What are the prerequisites for the DevOps implementation?
+
+Proper communication between the team members.
+At least one version control software.
+Automated testing.
+Automated deployment.
+
+11- What are the different phases in DevOps?
+
+Plan - Initially, there should be a plan for the type of application that needs to be developed. Getting a rough picture of the development process is always a good idea.
+Code - The application is coded as per the end-user requirements. 
+Build - Build the application by integrating various codes formed in the previous steps.
+Test - This is the most crucial step of the application development. Test the application and rebuild, if necessary.
+Integrate - Multiple codes from different programmers are integrated into one.
+Deploy - Code is deployed into a cloud environment for further usage. It is ensured that any new changes do not affect the functioning of a high traffic website.
+Operate - Operations are performed on the code if required.
+Monitor - Application performance is monitored. Changes are made to meet the end-user requirements.
+
+12-What are the key components of DevOps?
+
+Continuous integration
+Continuous testing
+Continuous delivery
+Continuous montiring
+
+13-How is DevOps different from agile methodology?
+
+>>DevOps is a culture that allows the development and the operations team to work together. This results in continuous development, testing, integration, 
+deployment, and monitoring of the software throughout the lifecycle. 
+
+14-what is continous delivery and continous deployment 
+
+>>continous delivery:- is state where your application always ready to be deployed manual  step is required to be actually deply the application
+
+>>continous deployment:- is the automation of building testing and deploying if all test pass every commit will push new code through the entire development pipeline
+to production with no manual intervention
+
+>>continous integration:- is the automated building and testing of your application on every new commit
+
+15 - What is the difference between continuous delivery and continuous deployment?
+
+>>the main difference between them is that continous delivery requires manual intervention to deploy.continous deployment is completely automated
+
+16-Which scripting tools are used in DevOps?
+
+>>Both Python and Ruby scripting tools are used in the DevOps.
+
+17- Why open source tools boost DevOps?
+
+>>Open source tools mainly used by any organization which is adapted by DevOps pipeline because DevOps came with the focus of automation 
+in various aspects of organization build, release, change management, and infrastructure management areas.
+
+18-What is the role of AWS in DevOps?
+
+>>AWS is a cloud-based service provided by Amazon that ensures scalability through unlimited computing power and storage. 
+It empowers IT enterprises to develop and deliver experienced products and deploy applications on the cloud
+
+19- Explain two-factor authentication?
+
+>>The two-factor authentication is a security method in which the user provides two ways of identification from separate categories.
+
+20-Which makes AWS DevOps highly accessible?
+
+AWS CloudFormation
+AWS EC2
+AWS CloudWatch
+AWS CodePipeline
+
+21-what is continuous testing in devops
+
+>>Continuous testing in DevOps is a type of software testing that involves testing at every stage of the development life cycle. 
+The goal of continuous testing is to evaluate the quality of the software as part of a continuous delivery process, by testing early and often
+
+22- What is Automation Testing?
+
+>>DevOps automation is the addition of technology that performs tasks with reduced human assistance to processes that facilitate feedback loops 
+between operations and development teams so that iterative updates can be deployed faster to applications in production
+
+Helps to save money and time.
+Unattended execution can be easily done.
+Huge test matrices can be easily tested.
+Parallel execution is enabled.
+
+23- what is infrastructure deployment
+
+>>two ways to build infrastructure deployment
+1-cloud native tools
+a)-aws    -->cloud formation  yaml or json uses
+b)-azure  -->arm templates
+code is heavy in aws and azure
+
+2-third party tools (terraform)
+>>hashicorp tool it is an open-souce
+>>it is famous it is easy to use and understand
+>>it support to all clouds
+>>terraform have idempotnce
+
+24-what is configuration mangement tools
+
+>>tools:-
+1-chef
+2-puppet
+3-ansible
+4-rundeck
+5-salt
+
+25- what is montoring tools
+
+>>A monitoring application tracks your app's hardware utilization, SLA status, platform performance, and user response times. Among the metrics, 
+DevOps engineers can monitor here are server diagnostics, error logs, network traffic reports, historical statistics, and failure diagnostics
+
+Infrastrucrure-Monitoring tool
+1-nagios
+2-Prometheus 
+3-Zabbix
+4-datadog
+5-new-relica
+6-grafana
+7-app dynamics
+8-dynatrace
+
+Application-monitoring tool
+1-ELK stack
+2-splunk
+3-suma-logic
+4-solar-wind
+
+Notifications tool
+1- opsgenie
+2- pagerduty
+
+26- What is a ticketing tool?
+
+>>A ticketing system is a management tool that processes and catalogs customer service requests. 
+Tickets, also known as cases or issues, need to be properly stored alongside relevant user information. 
+The ticketing system should be user-friendly for customer service representatives, managers, and administrators.
+
+types:-
+1-jira
+2-ServiceNow.
+
+27-what is artifactes 
+
+>>artifact is a by-product produced during the software development process. 
+It may consist of the project source code, dependencies, binaries or resources, and could be represented in different layout depending on the technology
+
+28-what is tomcat
+
+>>>>tomcat is open-source
+>>it is a web-server and developed by apache software foundation
+>>apche tomcat is purely java based application and serve java servlets, jsp pages 
+>>you can deploy the war files in tomcat
+>>the default port number is 8080
+
+29-how to add multiple servers in garfana
+
+>>your installing prometheus and grafana server in one system your installed node exporter on that server and then launch 5 systems then added into the
+prometheus system and adding this ip and port number 9100 into the prometheus.yml file then go to grafana and select the prometheus and select the dashboard
+you will get the servers details
+
+30-what is SRE
+
+>>so we have pipeline is ready updates are ready need to update the app or application then we have middle in the production if the jenkins is 
+not responding the application will stop or production also stop right
+devops team will do applcication development
+
+SRE this way to do it SRE is like implentation
+
+SRE Team will come to any tools take responsible for 
+installing and authentication and autherazation patches and updates and montoring creating multiple projects
+giving access to multiple projects persons doing adminstration if devops person will get any probleam then call to sre person and solving that probleam
+
+31-what is jenkins
+
+>>default port number is 8080 and Jenkins version 2.375.2
+
+
+============================================Maven=============================
+
+1-what is maven
+
+>>Maven is build tool to build your code it is powerful tool 
+>>Maven is a build automation tool used primarily for Java projects
+>>Maven is a powerful project management tool that is based on POM (project object model). It is used for projects build, dependency and documentation
+>>maven will do resource, compile, Test, Package 
+
+2-what is the pre-requesite for maven
+
+1-java above 7.1 version
+
+3-types of build tools
+
+1-Maven
+2-Ant
+3-Gradle ...etc
+
+4-what is build lifecycles
+
+1-Default:-
+2-clean:-remove all files generated by the previous build(we use build the code everytime so that can use clean it will remove previous files )
+3-site:-documentation(99% we will not use, very regularly for audits...)
+
+5-what are the maven Goals
+
+1-Validate:- validate the project is correct and all necessary information is availble
+2-compile:- compile the source code of the project
+3-Test:- run test using suitable unit testing framework
+4-Package:- take the compiled code package it in distributable format
+5-Verify:- run any checks to verfiy the package is valid and meets quality criteria
+6-Install:- install the package into the local repository for use as a dependency in other projects locally
+7-Deploy:- copies the final package to the remote repository for sharing with other projects 
+
+6-what is the differnce between Ant and Maven
+
+Ant:-
+1-Actions are defined in Ant(so much of scripting)
+2-Sequences are defined in Ant
+3-librarays are part of source code(diffcult to maintain)
+4-Ant are follows you you need to tell how to work
+
+
+Maven:-
+1-Maven say what to do not how to do
+2-How to build is defined maven(life cycle)
+3-librarys are not part of source code
+4-You need to follow maven no need to tell how to do
+
+7-what is diff with other tools
+	
+>> open source
+>> it is not only build tool and also project management tool
+>> it follows set of standards/rules/protocals	
+>> default project lifecycle 
+>> dependency management
+
+8-what is build 
+
+>>build creating the package like war are jar file 
+
+9-what is variable
+
+>>variable is name which store the data 
+
+10-if your system is installed java 11 and you need to install 17 make it primary how you will o
+
+>>/usr/sbin/alternativer --config java 
+then select the version of your java if it 1 is 17 2 is 11 and also see the * mark then give the 17 version number
+
+11-what is pom.xml how it works
+
+>>A project object model(pom) is the fundmental unit of work in maven it is an xml file that contains information about the project and configuration details
+used by maven build the project.it conatins default values for most projects
+
+what contains pom.xml
+>>pom.xml version and groupid and artifact id and dependencies junit and name of the project plugins nothing but goals indirectly
+>>dependencies, build directory, source directory, test source directory, plugin, goals, versions, unit tests etc
+
+12-Where does Maven store dependencies?
+
+>>Maven's local repository is a directory on the local machine that stores all the project artifacts. When we execute a Maven build, Maven automatically downloads all 
+the dependency jars into the local repository. Usually, this directory is named 
+>>ls -a   (.m2)   -->it will hide yu can see that in .m2 directory
+
+13-how to create a pom file using cmd in linux
+
+>>mvn archetype:generate
+
+14-What is Nexus Repository Manager?
+
+>>Nexus by Sonatype is a repository manager that organizes, stores and distributes artifacts needed for development. With Nexus, developers can completely 
+control access to, and deployment of, every artifact in an organization from a single location, making it easier to distribute software
+
+15-what are the pre-requesistes for nexus 
+
+>>java need install
+
+16-What are the key features of Nexus Repository Manager?
+
+>>Nexus Repository Manager offers features like artifact management, dependency management, proxying remote repositories, security and access control, repository health check, 
+and support for multiple repository formats (e.g., Maven, npm, NuGet, Docker).
+
+17-How does Nexus Repository handle authentication and authorization?
+
+>>Nexus Repository comes with a few different authentication and authorization modules out of the box, including LDAP, Apache Commons, and JBoss modules.
+
+18-What’s the difference between a Maven, NPM, and Docker repository in Nexus Repository?
+
+>>Maven repositories are used for storing Java artifacts, while NPM repositories are used for storing JavaScript artifacts, and Docker repositories are used for storing Docker images.
+
+19-What are the different ways to configure Nexus Repository Manager 3?
+
+>>There are three ways to configure Nexus Repository Manager 3: the GUI, the command line, and the REST API.
+
+20-How can you monitor the health of your repositories in Nexus Repository?
+
+>>Nexus Repository provides a few different ways to monitor the health of your repositories. The first is the Repository Health Check, which will scan your repositories and report on any potential problems.
+You can also use the Repository Monitor to keep an eye on the status of your repositories in real-time. Finally, the Repository Manager also provides some basic reporting that can be used to track the health
+of your repositories over time.
+
+21-What types of files can be stored in Nexus Repository?
+
+>>Nexus Repository can store any type of file, but it is most commonly used for storing Java artifacts, such as JARs and WARs.
+
+22-Are there any limitations to consider when using Nexus Repository?
+
+>>Yes, there are a few potential limitations to consider when using Nexus Repository. First, Nexus Repository is not free and will require a subscription for continued use. Additionally, Nexus Repository 
+is not compatible with all software, so it is important to check compatibility before using it. Finally, Nexus Repository can be complex to set up and use, 
+so it is important to have some technical expertise before using it
+
+23-Is it possible to create custom repositories in Nexus Repository? If yes, then how?
+
+>>Yes, it is possible to create custom repositories in Nexus Repository. You can do this by going to the “Repositories” section of the Nexus Repository Manager, 
+and then clicking on the “Create Repository” button. From there, you will be able to select the type of repository that you want to create, and then follow the prompts to complete the process.
+
+24-Can Nexus 2 and 3 be run at the same time?
+
+>>Yes, but will need different ports.
+
+25-How does Nexus Repository Manager ensure the security of artifacts?
+
+>>Nexus Repository Manager offers security and access control mechanisms. It allows you to define roles and permissions to restrict access to repositories, artifacts, and operations.
+It also supports integration with external authentication systems like LDAP or Active Directory.
+
+26-How can Nexus Repository Manager help in continuous integration and delivery (CI/CD) pipelines?
+
+>> Nexus Repository Manager can act as a central artifact repository in CI/CD pipelines. It provides APIs and integrations with popular build tools and CI/CD systems, enabling seamless artifact management
+and deployment automation.
+
+27-Are there any alternatives to Nexus Repository Manager?
+
+>>Yes, there are alternative artifact repository managers available, such as JFrog Artifactory and Apache Archiva. These tools offer similar functionalities and are widely used in the software development 
+industry.
+
+28-How does Nexus Repository Manager handle repository backup and restore?
+
+>>Nexus Repository Manager provides backup and restore functionality, allowing administrators to create backups of repositories and configurations. These backups can be used to restore the repository 
+in case of data loss or system failure.
+
+29-what is sonarqube
+
+>>SonarQube is a Code Quality Assurance tool that collects and analyzes source code, and provides reports for the code quality of your project. It combines static and dynamic analysis tools and enables 
+quality to be measured continually over time.
+
+30-what is quality code
+
+>>Quality Gates are the perfect way to guarantee standards are met and governed across all the organization's projects. Quality Gates are a group of threshold measures 
+set on your project such as Technical Debt Measure, Code Coverage, Number of Blocker / Critical Issues, Security Rating / Unit Test Pass Rate and so on. 
+Quality Gates are described and managed in the Quality Gates page found in the top menu.
+>>is it bug free
+>>is it secure
+>>duplications avoided like code duplicate
+>>tested properly
+>>any complex code
+>>easy to integare with other code
+>>Maintainability
+>>Quality gates
+
+31-what is static code analysis
+
+>>by using static code analysis you can do review your code and improve your code quality and alos its reduces lot of time and efforts
+
+32-what are the tools availble in market
+
+1-sonarqube
+2-coverity
+3-raxis
+4-veracode
+5-codescene
+
+33-what is the advantages of sonarqube using
+
+>>its act as quality management tool
+1-code analysis
+2-test reports
+3-code coverage
+
+34-what are the prerequisite for SonarQube Installation
+
+1-java jdk-11 version
+2-database
+
+35-List the components in SonarQube architecture
+
+>>Sonar server: -it is takes the code or it is web-server
+>>SonarQube Database:->>the database stores the the metrics issues any kind anaylis reports of projects 
+>>Sonar Scanner:- it is used to analyize the source code 
+>>Source Code
+
+36-what languages should support sonarqube
+
+1-java
+2-c#
+3-c++
+4-python
+5-ruby
+6-php
+
+37-what is sonarqube metrics
+
+>>Quality gate defined as set of rules or threshold measures
+>>when you creating a code coverage you add conditions
+
+Complexity
+Duplications
+Issues
+Maintainability
+Quality gates
+Reliability
+Security
+Size
+Tests
+
+38-How does Sonar measure code coverage?
+
+>>SonarQube itself does not calculate coverage. To include coverage results in your analysis, you must set up a third-party coverage tool and configure SonarQube to 
+import the results produced by that tool. Below, you'll find guidelines and resources, as well as language- and tool-specific analysis parameters.
+
+39-Explain why does SonarQube need a database
+
+>>SonarQube needs to communicate with the database to save the results of the analysis. The SonarQube Runner needs to interact with both the web server and the database
+and is suggested as the default launcher to analyze a project with SonarQube. This means all the passwords should be stored in the database.
+
+40-Explain the difference between SonarLint and SonarQube?
+
+SonarQube:
+>>SonarQube is the main server that performs complete analysis (activated by the different SonarQube scanners).
+>>The analysis is to provide your code base a 360 Â° view of the quality. To this end, it periodically analyzes each source line of your project.
+
+SonarLint:
+>>SonarLint is available only in the IDE (IntelliJ, Visual Studio and Eclipse).
+>>Its objective is to offer immediate feedback as you enter your code.
+>>It concentrates on what code you specify or modify for this function.
+>>SonarLint is an agent that enables us to connect with SonarQube and executes the analysis remotely.
+
+>>Both SonarQube and SonarLint are dependent on the same analyzers for static source code, most of which is written using SonarSource technology.
+
+41-Is SonarQube Replacement for Checkstyle, PMD, FindBugs?
+
+>>By default, for Java projects, Sonar executes FindBugs, CheckStyle, and PMD, as well as a few other "plugins", such as Cobertura. The main advantage is that it 
+stores the history in a database. Sonar uses these three tools as plugins and the data from all three of these tools is applied with a value that displays graphs.
+
+42-Does SonarQube support MySQL?
+
+>>Supported databases are MySQL, Oracle, PostgreSQL and Microsoft SQLServer. # - Changes to database connection URL (sonar. jdbc.
+
+43-what is code anaylsis
+
+>>Improving the overall code quality
+>>Detecting areas of code which can be simplified
+>>find bugs early in the development cycle which less cost to fix them
+
+44-how can you create a report in sonarqube
+
+>>using jacoco plugin you can you can add plugins pom.xml
+
+45-what is reversy proxy for jenkins or sonarqube or any tools
+
+>>A reverse proxy server is a type of proxy server that typically sits behind the firewall in a private network and directs client requests to the 
+appropriate backend server. A reverse proxy provides an additional level of abstraction and control to ensure the smooth flow of network
+traffic between clients and servers.
+
+46-what are there in reversy proxy setup
+
+>>upstream it will point your server address and server port details and access and error logs and proxy buffers and sizes and locations like headers many more 
+upstream jenkins {
+	server 127.0.0.1:8080;
+}
+server
+	listen 80;
+	server_name bughunteranji or your server ip;
+	access _log /var/log/nginx/jenkins.access.log;
+	error_log /var/log/nginx/jenkins.error.log;
+	proxy_buffers 16 64k;
+	proxy_buffer_size 128k;
+
+	location / {
+		proxy_pass http://jenkins;
+		proxy_next_upstream error timeout invalid_header http_500 http_502 http_503 http_504;
+		proxy_redirect off;
+		
+		proxy_set_header Host $host;
+		proxy_set_header X-Real-Ip $remote_addr;
+		proxy_set_header X-Forwarded-For $proxy_add_x_forward_for;
+		proxy_set_header X-Forwarded-proto https;
+	
+	}
+}
+
+===============================================Montoring-Tools========================================
+
+1-What is Prometheus
+
+>>prometheus is a time series database. prometheus is designed to monitor targets servers,databases, standlone virtual machines pretty much everything can be 
+monitored with prometheus
+>>Prometheus is an open-source linux server montoring tool mainly used for metrics montoring, event montoring, alert montoring etc
+>>prometheus uses for own powerful lanaguage "promQL"
+>>promotheus uses multiple modes used for graphing and dashboarding support
+>>you can create the custom roles and add in prometheus rules you can see in the prometheus this will help you to end complex commands
+like what the amount free size memoty and data and cpu utilization
+>>like wise you can add the alrets rules also
+
+ex:-
+groups:
+  - name: custom_rules
+    rules:
+      - record: node_memory_MemFree_percent
+        export: 100*-(100 * node_memory_Memfree_bytes / node_memory_MemTotal_bytes
+      - record: node_filesystems_free_percents
+        export:
+ >>systemctl deamon-reload   -->it wil restart the deamon-sets
+        
+ record name will take the prometheus site or gui interface it will show the command output like how much free space or cpu utilization accroding to command
+
+2-what is alert in Promethus
+
+>>Alert is used to send notifications to the users or specified persons you can configure if the server fails then you cna send the notifications to user 
+
+3-what is prometheus metrics endpoint
+
+>>Prometheus is a monitoring platform that collects metrics from monitored targets by scraping metrics HTTP endpoints on these targets.
+
+4-what is node exporter
+
+>>node exportes is one of the prometheus exporters which is used to expose servers or systems OS Metrics
+>>node exporter helps you to various resources of the system like RAM,CPU Utilzation, Memory Utilization, Disk Space
+
+5-what is Alert manger
+
+>>whenever alerts gone trigger the prometheus should inform to alert manager alert manager will send messages to users
+>>The Alertmanager handles alerts sent by client applications such as the Prometheus server. It takes care of deduplicating, grouping, and routing them to the 
+correct receiver integration such as email, PagerDuty, or OpsGenie. It also takes care of silencing and inhibition of alerts
+
+6-what is montoring
+
+>>The Periodic tracking (for example, daily, weekly, monthly, quarterly, annually) of any activity's progress by systematically gathering and analyzing data and 
+information is called Monitoring. like RAM , CPU , Memory , Network satistics or alerts 
+>>monitoring on other hand to report or see the overall helath of the system
+
+Monitoring types
+
+1-white box monitoring 
+
+>>white box monitoring is the monitoring of application running on the server. monitoring based on exposed by the internals of the system including logs interface
+http handler that emits internal statists
+
+2-Block box
+
+>>most of the people will focus on black box monitor.block box monitoring refers to the monitoring of server with a focus an area like disk space, memeory usage, 
+load average, cpu utilization etc
+
+7-what is observability
+
+>>Observability means assembling all fragments from logs, monitoring tools and organize them in such a way which gives actionable knowledge of the whole environment 
+thus creating an insight
+
+Observability=Logging+Montoring+Visualization+Tracing
+tools:-
+1-dataddog
+2-new-relic
+3-splunk
+4-elastic
+5-grafana
+
+8-what is the difference between montoring and observability
+
+>>Monitoring tells you whether a system is working or not
+>>Observability lets you ask why its not working
+
+9-what is telemetry
+
+>>Telemetry automatically collects, transmits and measures data from remote sources, using sensors and other devices to collect data. It uses communication systems to transmit the data back to a
+central location.Subsequently, the data is analyzed to monitor and control the remote system.
+>>tel menas remote
+>>metron means measure
+
+telmetry data types
+1-metrics (cpu and ram)
+2-events (system evnets ,application evenets)
+3-logs (system logs or network logs or anything)
+4-traces (request)
+this four types is called MELT
+
+10-what is node exporter
+
+>>node exportes is one of the prometheus exporters which is used to expose servers or systems OS Metrics
+>>node exporter helps you to various resources of the system like RAM,CPU Utilzation, Memory Utilization, Disk Space
+
+11-what is grafana
+
+>>grafana is a multi-platform open-source analytics and interactive visualization tool it provides charts graph and alert when connected to supported data sources.
+it is expandable through a plug-in system
+
+>>dashboard number 14513 is linux
+>>dasboard number  14510 is winodws
+>>dashboard number 11802 is kubernetes
+1860
+405
+11074
+
+12-Is it possible to change the port number 
+
+Yes its possible /etc/garafana/grafana.ini
+
+13-What databases work with Grafana?
+
+>>by default grafana installs with sqlite is an embedded database stored in the grafana installtion location 
+Grafana was first launched in 2014 and can now connect to a variety of data sources such as MySQL, SQL Server, Graphite, Prometheus, and others. 
+This tool is most commonly used to build a time-series data visualization, which illustrates the health or utilization of a resource over time.
+
+14-Is it possible to change grafana database sqlite to mysql 
+
+>>yes its possible it will supports only in this databases postgress or sqlite or mysql 
+
+15-what is grafana latest version
+
+>>9.4.3
+
+16-if we changing one version to another version what should you do 
+
+>>you sholud take the backup of your database in grafana server using mysqldump or dump commands using 
+
+17-What are the features provided by Grafana?
+
+Visualization – Grafana helps us in viewing and understanding our data easily.
+Alerting – Grafana is used in supporting numerous number of notification channels such as Slack, Pagerduty, etc.
+Annotations – Grafana is used in helping us in annotate or in leaving notes on graphs.
+Open Source – Grafana is used in backing an active vibrant community.
+
+18-Is this possible to create the Report in grafana
+
+>>Yes is possible to create the reports in Grafana using OpenNMS Dashboard
+
+19-What is Grafana Cloud?
+
+>>Grafana Cloud is used in observing platform, integrating metrics, tracing and logging with the help of Grafana.It is the best open source observability 
+software that consists of Prometheus, Loki and Tempo without installing, maintaining and in scaling our observability stack.
+
+20-What are Grafana Alerts?
+
+>>Grafana Alerts helps in allows in attching rules in our dashboard panels, we can save the dashboard as it extracts the alert rules in a separate alert rule 
+storage and schedules it for the evaluation.
+
+Dashboard Alerts consists of 4 components as follows:
+
+Alerting Rule used in creating an alert.
+Contact Point used in sending notification when conditions of alerts rule are met.
+Notification Policy used in grouping, matching and determining where, how to send notifications.
+Silences used in matching and silencing notifications.
+
+21-What are Cloud Logs?
+
+Cloud Loggings helps in storing, searching, analyzing, monitoring and alerting on logging data and events from AWS Web Service and Google Cloud.
+
+22-What is Grafana Dashboard Templates?
+
+>>Grafana Dashboard Templates are used in making our dashboards interactive, we can create dashboard template variables which can be used anywhere in the 
+Grafana Dashboard.These variables helps in allowing us in making dynamic changes to the dashboard.
+
+23-What are Cloud Metrics?
+
+>>Cloud Metrics helps in providing insights in our Cloud Computing and also predictive analysis of our system, and in determining when our servers are under load 
+and requires provisioning.Cloud Metrics are also used in setting up thresholds through policies which will react in conditions during the cloud operations.
+It also allows the cloud in self healing with auto fixing in the event of any operational failures
+
+24-How do you check if the Grafana service is running or not?
+
+You can validate that Grafana is running by checking the service’s status command as given below:
+
+$ sudo systemctl status grafana-server
+
+25-How to configure Grafana, so that dashboards can be viewed without requiring a password?
+
+Make the following small configuration modifications to the default.ini/grafana.ini file to enable anonymous login (Grafana\conf).
+
+26-What Is Graphite Grafana?
+
+Graphite is a monitoring tool yet again. It makes time series data storage and viewing easier. In a data monitoring setup, Graphite is best used as a data source
+for Grafana dashboard.
+Grafana provides an advanced Graphite query editor that allows us to interact with data using expressions and functions.
+
+27-What is Loki Grafana?
+
+Loki is a Prometheus-inspired horizontally scalable, highly available, multi-tenant log aggregation system. It is intended to be both cost-effective and simple to use.
+It uses a set of labels for each log stream rather than indexing the contents of the logs.
+
+28- What Alert Notification Channels does Grafana Support?
+
+Majorly it supports below Alert Notification Channels
+
+Email
+Slack
+Kafka
+Google Hangouts Chat
+Microsoft Teams
+
+29-What is difference between Grafana and Kibana?
+
+>>Kibana’s main purpose was to analyze and monitor logs. In the ELK stack, K stands for Kibana. The ElasticSearch team developed Kibana with the goal of 
+having a useful tool for monitoring logs. Instead of running Linux commands on the console to identify exceptions in production, simply navigate around and
+track the context from the Kibana.
+
+>>Grafana, on the other hand, is developed as a generic monitoring solution that can be used to monitor and analyze pretty much anything. 
+This is a very high-level overview of the differences between the two tools.
+
+30- How do you backup Grafana dashboards?
+
+In order to backup your Grafana dashboard you may wish to consider using an open-source tool such as the Grafana backup tool.
+
+This tool uses a Python application to backup not only Grafana dashboards but also backups your settings, folder permissions and alert channel configurations. 
+There is also the option to use a managed service such as the platform offered by Logit.io, which offers this service by default as part of our commitment to our users.
+
+31-How do you send data to Grafana?
+
+To forward data to Grafana from different data sources you will need to navigate to “Data Sources” from the configuration menu.
+
+32-What is InfluxDB used for?
+
+>>InfluxDB is a time-series database written in the Go programming language.
+>>InfluxDB is used for both the storage and retrieval of time series data and is commonly used by those who wish to perform operations monitoring as well as logs 
+and metrics analysis.
+
+33-What can I monitor with Grafana?
+
+Grafana supports graph, singlestat, table, heatmap, and freetext panels, as well as integration with official and community-built plugins (like world map or clock)
+and apps that could be visualized, too.
+
+34-What is the difference between Splunk and Grafana?
+
+Grafana is your tool if you need a product only for data visualization without spending a fortune on it. … Splunk is your product if you need a more 
+versatile solution that can ingest any kind of data or logs and give you the capabilities to query and search through the data quickly.
+
+35-What are the disadvantages of Grafana?
+
+Cons to Grafana include:
+
+Limitations on dashboard organization and design. Visualization panels are limited to those made available by Grafana Labs and its community. …
+No data collection and storage. …
+Limited data type visualizations.
+
+36-What is Grafana Enterprise?
+
+>>Grafana Enterprise is a paid version of Grafana that offers capabilities not available in the free source version. Grafana Enterprise gives you access to 
+enterprise plugins, which allow you to use your existing data sources in Grafana. This means you can get the most out of your complicated, 
+costly monitoring solutions and databases by viewing all of the data in a more efficient and effective manner.
+
+37-What is Grafana Loki and How does it work?
+
+>>Grafana Loki is a log aggregation tool that collects and organizes logs from all of your apps and infrastructure. It offers a unique approach by 
+indexing only the metadata of the log lines rather than the complete text
+
+38-Why use Grafana Loki?
+
+Because you may distribute logs in any format, from any source, and through a number of clients, getting started is simple.
+With 100 per cent persistence to object storage, you get petabyte-scale, fast throughput, cost-effective & durable storage, and cost-effective & durable storage.
+Your log lines can be used to create metrics and alarms.
+Ingestion logs have no formatting requirements, providing you more flexibility and the ability to format at query time.
+Follow your logs in real-time to see them as they arrive in the system, to have them updated after a set length of time, to see logs for a given day, and so on.
+Prometheus, Grafana, and K8s all have native integrations, allowing you to seamlessly move between metrics, logs, and traces.
+
+39-What are Grafana plugins?
+
+1-panel plugins
+2-data source plugins
+3-app plugins
+
+40-how to save logs in grafana to s3
+
+>>it depends which S3 logging option 70 you choose. If you choose CloudTrail you could export the logs CloudWatch Logs 16 and then import them with our 
+Lambda Promtail 136. However, if you choose to store the logs in an S3 bucket we would have to add a Promtail target for S3.
+
+41- What is Graphite DB?
+
+A: Graphite DB is an open-source time-series database. This means that it is able to store time-series data and render graphs based upon this data.
+
+42-what is datadog
+
+>>datadog is a montoring service tool for cloud-scale applications providing monitoring of servers databases tools and services through a SAAS based data analytics
+platform
+>>it is easy to use
+>>providing functionalty
+>>it will install an agent in all servers and get the metrics and cpu utilization and events and alrets and network
+>>it will check the availbilty and performance and reliability of your application or servers
+>>datadog uses go based agent 
+>>it will support more than 400 + integartions
+
+======================================================Thankyou=========================================================================================================
+
+7-what is the difference between latency and geo dns
+
+>>
+
+8-
