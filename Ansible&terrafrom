@@ -1,0 +1,939 @@
+>>vi anji.yml
+
+---
+-name: Install the nginx
+ hosts: all # or single host add in host file then specify the host here
+ become: true
+ tasks:
+ - name: install nginx
+   yum:
+     name: nginx
+     state: latest
+ - name: start nginx
+   service:
+     name: nginx
+     state: start
+     
+:wq
+
+>>ansible-playbook -i hosts anji.yml   --check
+
+=====when commands
+
+>>vi instal.yml
+
+---
+- name: install package
+  hosts: all
+  become: true
+  tasks:
+  - name: install package
+    yum:
+      name: httpd
+      state: installed
+    when: ansible_os_family == "RedHat"
+
+  - name: start apache
+    service:
+      name: httpd
+      state: started
+    when: ansible_os_family == "RedHat"
+ 
+  - name: install apace2
+    apt:
+      name: apach2
+      state: present
+    when: ansible_os_family == "Debain"
+  
+  - name: start apache2
+    service:
+      name: apache
+      state: started
+    when: ansible_os_family == "Debain"
+
+:wq
+
+>>ansible-playbook instal.yml
+
+>>vi install.yml
+
+---
+- name: this will install multiple packegs
+  hosts: all
+  become: true
+  tasks:
+  - name: install package
+    yum: 
+      name: ['git', 'telnet', 'make', 'wget', 'gcc']
+      state: installed
+:wq
+
+>>ansible-playbook install.yml
+
+>>vi install.yml
+---
+- name: this will install multiple packegs
+  hosts: all
+  become: true
+  tasks:
+  - name: install package
+    yum: 
+      name: "{{item}}'
+        state: installed
+      with_items:
+        - git
+        - make
+        - telnet
+:wq
+
+>>ansible-playbook install.yml
+>>it will not execute why because it is deprected
+
+=====variables
+
+>>vi var.yml
+
+---
+- name: variables to see
+  hosts: all
+  become: true
+  vars:
+    user: john
+  tasks:
+  - name: creating user john
+    user: 
+      name: "{{ user }}"
+:wq
+
+>>ansible-playbook vars.yml   -->if anyone joined just change user: modi
+
+>>vi user.yml
+user: test
+:wq
+
+>>vi vars.yml
+---
+- name: this playbook to create user
+  hosts: all
+  become: true
+  vars_files:
+    - user.yml
+  tasks:
+  - name: creating user
+    user:
+      name: "{{ user }}"
+
+:wq
+
+>>ansible-playbook vars.yml       -->using the files also you can create the user
+
+===install image outside
+
+>>vi tom.yml
+
+---
+- name: setup tomcat
+  hosts: all
+  become: true
+  tasks: 
+  - name: install java
+    yum:
+      name: java
+      state: installe
+    when: ansible_os_family == "RedHat"
+  - name: install java in ubuntu
+    apt:
+      name: default-jdk
+      state: present
+    when_os_family  == "Debain"
+  - name: download tomcat server
+    get_url:
+      url: http://mirrors.estointernet.in/apache/tomcat/tomcat-8/v8.5.50/bin/apache-tomcat-8.5.50.tar.gz
+      dest: /opt
+  - name: untar apache packages
+    unarchive:
+      src: /opt/apache-tomcat-8.5.50.tar.gz
+      dest: /opt
+      remote_src: yes
+  - name: add execution permissions
+    file:
+      path: /opt/apache-tomcat-8.5.50.tar.gz
+      mode: 0777
+  - name: start tomcat service
+    shell: nohup ./startup.sh
+    args:
+      chdir: /opt/apache-tomcat-8.5.50/bin
+:wq
+
+>>ansible-playbook tom.yml  --check
+
+===clone git private repo
+>>vi cl.yml
+---
+- name: clone the repository
+  become:true
+  hosts: all
+  tasks:
+  - name: git clo
+    git:
+      repo: https://anji:anji1592@github.com/teamall574/yankils.git
+      dest: /opt/ansadmin/test-vault
+:wq
+
+>>ansible-playbook cl.yml 
+
+===Ad-hoc commands
+>>ansible demo -a "sudo yum install httpd -y"   -->it will install the httpd server in the nodes
+>>ansible demo --list-hosts       -->it will show the nodes or hosts
+>>ansible demo -b -m yum -a "pkg=httpd state=present"   -->it will install the httpd
+>>ansible demo -b -m service -a "name=httpd state=started"   -->it will start the httpd
+>>ansible demo -b -m user -a "name=sampi"   -->it will create the user in all the nodes
+>>ansible demo[-1] -b -m copy -a "src=copiedfile dest=/tmp"  -->it will copy the file from server to nodes 
+
+==================================================================Ansible===============================================================================
+
+what is Ansible
+
+>>Ansible is an open-source automation tool. and it follows push mechansim
+>>Ansible is Idempotent
+>>Ansible is an open-source software provisioning configuartion management and application deployment tool
+>>Ansible is used for managing multiple servers in the infrastructure
+>>it is very very simple to setup and yet powerful tool
+>>Ansible will be helpful to perform:-
+configuration management
+application deployment
+task automation
+and also it orchestration
+
+2-why Ansible why not puppet or chef
+
+>>it is a free open-source automation tool
+>>using existing openssh
+>>agentless-no need to install any agent on ansible on clients
+>>it uses yaml 
+>>and it follows push mechansim
+>>large number of ready to use modules for system management
+>>custom modules can be added if needed
+
+3-what is pre-requisites for Ansible
+
+>>python adn pip
+>>pip install ansible
+>>windows dont support cluster/control node only linux support
+
+4-how many ways create connection between managed to node/cluster to clients or worker nodes
+
+>>two ways to create the ssh connection 
+1-password authentication
+2-password less authentication(this is with ssh keys)
+
+5-what is Ansible home directory and which consists of
+
+>>/etc/ansible
+consist of
+1-ansibel.cfg
+2-hosts
+3-roles
+
+6-what is Inventory file
+
+>>the collection of hosts is know as Ansible Inventory
+>>The Ansible Inventory file defines the list of hosts upon which anisble works
+>>The Ansible inventory file defines the hosts and groups of hosts upon which commands, modules, and tasks in a playbook operate. The file can be in one of 
+many formats depending on your Ansible environment and plugins. Common formats include INI and YAML.
+
+7-how many types of invnetory files
+
+Two types
+1-static:-
+>>This is a static file managed by the ansible operators. This file has a list of devices that can be in the form of IP addresses or hostnames.
+2-Dynamic:-you are creating the file and giving the apth
+A dynamic inventory plugin allows users to point at data sources to compile the inventory of hosts that Ansible uses to target tasks, 
+either via the -i /path/to/file and/or -i 'host1, host2' command line parameters or from other configuration sources.
+
+8-What is host key checking?
+
+>>In host key checking, ssh automatically maintains and checks a database containing identification for all hosts it has ever been used with. 
+Host keys are stored in ~/. ssh/known_hosts in the user's home directory. Additionally, the /etc/ssh/ssh_known_hosts file is automatically checked for known hosts.
+
+>>when you not copyied your ssh keys into worker node .and your accessing the node using ssh it will ask yes or no this called host key checking
+
+9-how to disable host key checking
+
+>>vi /etc/ansible/ansible.cfg
+host_key-checking= false
+exit
+>>this temporary
+export host_key_checking= false ## if the system restarts automatically wipeed up 
+
+10-how you will manage your ansible
+
+>>no of devops engineer working together that reason i just created my own folder copied that files into that folder and changed inventory path location so
+we can your configuartion easily because you will confuse with the other servers also
+>>mkdir ansible_prod
+>>cd ansible_prod
+>>cp -r /etc/ansible/*  . 
+it will copy that files you can change your config hosts and everything 
+
+11-what is group in inventory files
+
+>>dividing hosts into specific group easy to manage the servers
+[web-servers]
+10.24.25.45
+10.24.25.56
+[db-servers]
+10.24.25.36
+10.24.25.37
+[app-servers]
+10.24.25.46
+10.24.25.65
+
+>>ansible all -m ping ##it will ping all servers even your created group but you can use the all means it will ping all ips of your groups
+
+12-what is ansible.cfg file in ansible
+
+>>ansible.cfg file is simple ansible configuration file you can o some setting in ansible.cfg thoe settings will use by ansible while running ad-hoc commadns 
+are playbooks or modules
+settings like
+>>location of inventory file
+>>host_key_checking 
+>>forks=5
+
+vi /etc/ansible.ansible..cfg  -->this is the path location
+
+13-what is Adhoc commands
+
+>>Ansible commands are useful to execute one task to your remote node or nodes or groups. Ad-hoc commands are quick and easy, but they are not re-usable and there
+is no idempotant in Ad-hoc commnads. Ad-hoc commands are like one-line playbooks to perform a specific task only. The syntax for the ad-hoc command is
+
+14-what is Ansible playbook
+
+>>playbooks are nothing but whatever the individual task your going to execute your going to get with adhoc commands those adhoc commands going to written 
+in a playbook
+>>Ansible Playbooks are lists of tasks that automatically execute against hosts. Groups of hosts form your Ansible inventory. 
+>>ansible is text file written in yaml format and normal saved as .yaml
+
+15- What exactly is a configuration management tool?
+
+>>Configuartion management is tool is a helps adminstarotrs to mainstain system consistency and it is known as configuartion neforcemnt. it is used to deploy
+your software packages and applications adn updates and patches and installtion and deploymeny
+>>>>Configuration management tools help keep a system running within the desired parameters. They help reduce deployment time and substantially 
+reduce the effort required to perform repetitive tasks. Popular configuration management tools on the market today include Chef, Puppet, Salt, 
+and of course, Ansible.
+
+16-what is Ansible modules
+
+>>module is nothing pre-defined program that program is able to execute is task on your managed nodes .A module is a reusable, standalone script that Ansible 
+runs on your behalf, either locally or remotely. Modules interact with your local machine, an API,or a remote system to perform specific tasks like 
+changing a database password or spinning up a cloud instance.
+
+>>creating users
+>>installing packages
+>>updating configuartion
+>>spinning up instances etc
+
+17-how many modules is ther in ansible 
+
+>>ansible-doc -l | wc -l  --->it will show the list
+>>2834
+
+18-types of modules in ansible
+
+1-yum
+2-apt
+3-copy
+4-service
+5-file
+6-template
+7-git
+8-command
+9-debug
+10-ping
+11-fetch
+12-patch
+13-stat
+14-unarchive
+15-get_url
+16-tasks
+17-raw
+
+19-what is ansible forks
+
+>>if you have ten servers in host file, but ansible forks it will run first 5hosts and then execute next 5hosts. it will run only 5hosts
+Ansible uses batches for task execution, which are controlled by a parameter called forks . The default value for forks is 5, which means Ansible executes a
+task on the first five hosts, waits for the task to complete, and then takes the next batch of five hosts, and so on
+
+20-what is gather facts
+
+>>gather-facts is equal to setup command nothing but its going to pull the target system related information this is the default task every playbook
+
+>>we can restrict the gather_facts why means if you have 100 servers it will collect all the its take ongtime thats why we can restrict if necessary
+>>ansible all -m setup         -->it will show all the gather_facts 
+>>vi te.yml
+---
+- name: this playbook create a file or dir
+  hosts: all
+  become: true
+  gather_facts: no
+  tasks:
+  - name: creating a file
+    file:
+      path: /home/ansadmin/dir1
+      state: directory
+:wq
+
+>>ansible-playbook te.yml
+
+>>this will help you
+
+21-what is Anisble facts or gather facts
+
+>>the task of collecting the remote system information is called gather_facts
+>>Ansible facts are nothing but information about managed nodes like OS distribution,release, processor, python etc
+>>by executing the playbook or adhoc commands automatically collect the facts it will take some time if you have 100 servers that 100 servers facts will collect 
+the data it will take the time so you can disable the facts
+
+>>ansible all -m setup         -->it will show all the gather_facts 
+>>vi te.yml
+---
+- name: this playbook create a file or dir
+  hosts: all
+  become: true
+  gather_facts: no
+  tasks:
+  - name: creating a file
+    file:
+      path: /home/ansadmin/dir1
+      state: directory
+:wq
+
+>>ansible-playbook te.yml
+
+22-types of ansible facts
+
+>>there are two types of ansible facts or variable
+1-default-facts:-by default you will you cant modify
+2-custom-facts:-you can modify the facts custom you want
+
+23-why we need custom facts
+
+>>you can create you custom scripts are playbook you can reducce the number of lines
+your having number of servers you ant take inventory like versions are git version,httpd version you can customize the facts waht you want you can create 
+
+24-what is raw module
+
+>>raw: executes low-level commands where the interpreter is missing on the target host, a common use case is for installing python. This module should not be used 
+in all other cases (where command and shell are suggested)
+
+25-what is ansible varibales
+
+>>ansible variables are used to store the values
+>>types of variables
+1-default variables:-
+Ansible defines some variables for us and these are very helpful
+1-inventory_hostname
+2-inventory_hostname_short
+3-group/group.keys()
+2-inventory variables(host & groups)
+3-register variables
+
+26-why we need to use the playbooks in ansible
+
+>>ad-hoc commands are not helpful when dealing with multiple tasks 
+>>if you want install multiple packages you need to run number of commands so that reason we can use playbookwe can install or deploy number of tasks easy way in 
+single playbook 
+
+27-what is ignore errors in ansible
+
+>>if your running a playbook in differnet servers install the packages but 25 server package is not installed then after remaing servers will not execute the task
+if we add the ignore errors then if 25 server failed then it will continue and install reaing system or servers
+
+28-What language does Ansible use?
+
+>>Python
+>>Ansible is a tool written in Python, and it uses the declarative markup language YAML to describe the desired state of devices and configuration
+
+29-structure of playbook
+
+>>concepts:-
+1-task
+2-play
+3-playbook
+
+30-waht is data structure or data collections
+
+>>data structure or data collections are used to store multiple values
+
+31-what is the difference between Ansible and chef
+
+>>Another key distinction is that Ansible uses YAML, a Python-based configuration language that is easier to learn and oriented to administrators, whereas Chef 
+uses Ruby, a Domain Specific Language (DSL) that is oriented to developers and has a steeper learning curve
+>>Cookbooks vs. Playbooks: So what’s this all about? Ansible’s playbooks are easier to grasp as a concept as well as to create, but you pay for that with the 
+limitation on how complex you can make your configuration tasks.
+
+32-what is command line arguments in ansible
+
+>>command line arguments are useful to pass variables from command line
+
+33-what is handler and notify
+
+>>handlers are just like regular tasks in ansible playbook
+>>lets assume that you have two tasks and you want execute the second task if the first task is chnaged. simplelly if the first task is changed then execute the 
+second task
+>>handlers are basically similar to the normal tasks in ansible but they only run when a task contains notify directive lets assume that you have basic task 
+in your ansible for example for creation of an nginx your installing httpd or nginx so the next step is basically start the service so in some cases you only
+want to start on conditional basis you can use this directive called notify and this notify would call the task that you create din the handler and that gets 
+called its basically calling whenever it is required 
+
+34-what is tags in ansible
+
+>>tags are useful to execute/skip required tasks from number of tasks
+
+35-what is ansible import and include
+
+>>Ansible has two modes of operation for reusable content with Including and Importing and Roles: dynamic and static. The main difference is: All import* statements
+are pre-processed at the time playbooks are parsed. All include* statements are processed as they encountered during the execution of the playbook
+>>all import statements are pre-processed at the time playbooks are parsed
+>>all include statements are processed at they encountered during the execution of the playbooks
+
+36-what is template Module
+
+>>A template is a file that contains all your configuration parameters, but the dynamic values are given as variables in the Ansible. During the playbook execution,
+it depends on the conditions such as which cluster you are using, and the variables will be replaced with the relevant values.
+
+37-What is Ansible Vault?
+
+>>ansible vault is feature of ansible that allows you to keep sensitive data such as passwords or keys in encrypted files
+rather than as plaintext in playbooks or roles
+>>Ansible vault is used to keep sensitive data such as passwords instead of placing it as plaintext in playbooks or roles. 
+Any structured data file or any single value inside the YAML file can be encrypted by Ansible.
+
+>>ansible-vault craete encrypt install.yml
+it will ask password create the password anji
+>>ansible-vault view install.yml
+it will ask the password anji
+>>ansible-vault edit install.yml
+it will ask the password anji    -->you can edit the data
+
+>>ansible-vault encrypt foo.yml bar.yml baz.yml
+>>ansible-vault decrypt foo.yml bar.yml baz.yml
+
+38-Do you think Ansible is better than other configutration managemnet tool ? if yes why
+
+>>basically there is lot of configuration managemnet tools avilable in market so justify ansible is better ansible is differnet from other 
+configuartion managemnet tools and it is better in acheving a specific use case Ansible is agentless 
+
+39-I would like to run a specific et of tasks only on windows VMS and not linux VMS is it possible
+
+>>yes using tags or conditional basis scripts
+
+40-Does Ansible support Parallel execution of tasks 
+
+>>if assigning 10 tasks in 5 server it will 1 task then run in 5 servers then it will execute the second task 
+
+41--what is the protocal that Ansible uses to connect the Windows VMs
+
+>>Ansible uses Winrm to connect windows and ssh to connect the linux
+
+42-how do you handle secrets in Ansible
+
+>>Ansible vault store all your secrets in encrypted way
+
+43-can we Ansible is IAC > Infrastructure as a code? If yes can you compare with any other IAC tools like Terraform
+
+>>Ansible also supports IAC I will not say Infrastructure as a code tool because predominantly ansible is a configuartion mangemnet tool there is a 
+cross pf paths ansible also achieve some of the tasks that terrfform can do but i would say ansible is configuartion management tool
+
+44-what do you think that Ansible can improve
+
+>>Ansible curreently not provide option to increase the verbosity of teh tasks like can improve is that aspects it can provide verbosity on the task basic uh 
+this is one of the most liked issue
+
+>>Ansible windows support can be improved we all know that ansible supports windows but the support for linux is much better than winodws and windows support
+can be need to improve
+
+45-What language does Ansible use?
+
+>>Python
+>>Ansible is a tool written in Python, and it uses the declarative markup language YAML to describe the desired state of devices and configuration
+
+46-38-what is Roles
+
+>>In Ansible, the role is the primary mechanism for breaking a playbook into multiple files. This simplifies writing complex playbooks, and it makes them easier
+to reuse. The breaking of playbook allows you to logically break the playbook into reusable components.
+>>you have multiple tasks and handlers and varibles files you can specfiy the code into differnt files and then you can write the file below
+
+>>ansible-galaxy init anji
+>>cd anji
+>>ls
+-tasks:-contains the main list of taks
+-handlers:-contains handlers which may be used by this role
+-defaults:-defaults variables for the role
+-vars:- other variables for the role
+-files:- contains files which can be deployed via this role
+-templates:- contains templates which can be deployed in this role
+-meta:-defines some meta data for this role
+
+
+>>vi roles.yml
+---
+- name: using roles
+  hosts: all
+  become: true
+  roles: 
+    - anji
+ :wq
+ 
+ >>ansible-playbook roles.yml         -->in anji role we divide the code belwo you can 
+>>cd anji
+>>vi vars/main.yml
+  - name: install package
+    yum: 
+      name: httpd
+      state: installed
+    when: ansible_os_family == "RedHat"
+    notify: start apache
+  - name: install apache2
+    apt:
+      name: apache2
+      state: present
+    when: ansible_os_family == "Debian"
+  - name: ensure the default apache port is 8081
+    lineinfile:
+      path: /etc/httpd/conf/httpd.conf
+      regexp: '^Listen'
+      insertafter: '^#Listen'
+      line: Listen 8081
+    when: ansible_os_family == "RedHat"
+    notify: restart apache
+
+  - name: ensure the default apache port is 8081 on ubuntu
+    lineinfile: 
+      path: /etc/apache2/ports.conf
+      regexp: '^Listen'
+      insertafter: '^#Listen'
+      line: Listen 8081
+    when: ansible_os_family == "Debian"
+    notify: restart apache2
+:wq
+>>vi handlers/main.yml
+  handlers:
+  - name: start apache
+    service:
+      name: httpd
+      state: started
+  - name: start apache2
+    service:
+      name: apache2
+      state: started
+  - name: restart apache
+    service: 
+      name: httpd
+      state: restarted
+
+  - name: restart apache2
+    service: 
+      name: apache2
+      state: restarted
+
+:wq
+>>thats it if you many more you divide accroding to that
+>>you can push your code in to github 
+>>vi /etc/httpd/conf/httpd.conf                 -->you can change your port number rhel
+>>vi /etc/apache2/ports.conf
+========================================================Terraform========================================================================================
+
+==================================================================Terraform and packer=====================================================================================
+
+1 - what is terraform
+
+>>Terraform version 1.4.0
+>>terraform is infrastructure as a tool used to create resource on cloud providers like aws ,azure,gcp so on..
+>>for example if you want create an ec2 instance using terraform rather then going to managemnet console to click on service you will write a code 
+>>using terraform is easy to manage the infrastucture you can reuse the code to create multipule resources you can also store the code on version control system like
+github code commit bitbucket to keep track your changes of resources 
+>>terraform as a code (Iaac)
+>>terraform is not easy but effective
+>>things are not easy to implement infrastructure in aws or azure
+>>when any changes happen tfstate will save the data
+>>tfstate is very important
+
+---Addvantages:-
+>>terraform code is easy to understand and easy to use
+>>it is open-source
+>>it uses hashicorp language
+>>it can used with multiple vendors(code will changed)
+>>it not platform aganstics(the code will changed when deploying azure and aws code will be changed)
+>>config can be split into multiple files (variables)
+>>terraform have an idempotant
+>>can perform dry-run easily (you can check your code without runing test the code is write or not to run the plan)
+>>importing of manual resources
+>>terraform is fast compared to others
+
+---Disadvantages
+>>this is third party tool (there is no support in all time and all the new services not availble)
+>>new service might not be availble(when aws developing an service when he relases aws services then he ca
+can develop the terraform )
+>>bugs will not fixed (fast)
+>>lack of support
+
+
+#>>terraform is an infrastructure as a tool that allows you to build infrastructure and change versions,safely and efficently
+#>>Terraform is a tool for building, changing and versioning infrastructure safely and efficiently. Terraform can manage existing and popular cloud service providers
+#as well as custom in-house solutions.Configuration files describe to Terraform the components needed to run a single application or your entire datacenter
+
+2 - is it terraform cloud aganstics
+
+>>terraform is cloud aganstic  -->yes terraform will work every cloud but the code is difference that why we calling cloud aganstics
+
+3 - what is proprietory
+
+>>it is like not a open-source when you using terraform you advised some code to then can verfiy and give resopnce 
+but in aws your rasing an ticket but its take some time to contact and its not accept your advise this proprietory
+
+4 - what is the differnce between argument refernce and attribute refernce in terraform
+
+>>In Terraform v0. 12 and later, the language makes a distinction between argument syntax and nested block syntax within blocks: 
+Argument syntax sets a named argument for the containing object. If the attribute has a default value then an explicitly-specified value entirely overrides that
+default.
+
+5 - how to deploy dev environment and prod environment in a single folder 
+
+>>yes you can use workspace usinng you can deploy the devand prod environmet by chnaging code in dev.tfvars and prod.tfvars by chnaging workspace context
+there is chance to overwrite the environmet in case if you do mistake so need to be carefully. either you can seprate folders is good in production environment
+
+6 - what is splat syntax in terraform and element ,functions,
+
+>>splat syntax if the resource has a count attributes set you can access individual attributes with a zero-based 
+index such as ${aws_instance.web.0.id} you can also use the splat syntax to get a list of attributes ${aws_instance.web.*.id}
+ 
+>>functions using we can do duplicate the code
+>>element idicates when you give the index in terraform it indicates starts from 0 
+>>index is count
+
+7 -what is concat
+
+>>concat takes two or more lists and combines them into a single list.
+
+--How do I merge two lists in Terraform?
+
+>>You can use terraform concat() function to combine multiple lists into a single list. concat() takes two or more lists and combines them into a single list.
+
+8 - Define null resource in Terraform.
+
+>>null_resource is used to run the resources using which present the resource using we can create the new resouces
+
+9 - what is local-exec and remote-exec
+
+>>local-exec provisioners. The local-exec using we can retrive or take information from the terraform deployment code and see. where you are executed 
+terraform we can use this in local-exec command and write some details to see without going to aws you can see your system terraform folder
+
+>>remote-exec provisioner is used it will login to your server run your commands inside the server and execute that files inside the server
+
+10- what is for_each and count how to use in terraform and how many types of variables and what is variables 
+
+>>count is using create multiple resources instances according to the count
+>>count is good if there is not change in the list index and changes are sequentical/leanier. any changes in the existing index will for the resource to recreate
+
+this can be solved by for_each bcoz it uses key rather than
+
+>>for_each using you can create multiple instances accroding to the map, or set of strings
+
+11 - what is modules in terraform 
+
+>>A Terraform module is a set of Terraform configuration files in a single directory. Even a simple configuration consisting of a single directory with
+one or more .tf files is a module. When you run Terraform commands directly from such a directory, it is considered the root module.
+
+>>modules is using we can use code many times
+>>modules using you can source the files you can use github repository also
+>>modules using ./main.tf file another tab also
+>>it is repetable code.one code you can use number of times
+
+12 -  what is terraform life cycle, Imports , terraform cloud 
+
+---Life cycle:-
+>>create_before_destroy
+--if your created an s3 or any system but your created wrong bucket or wrong vpc this logs have store in vpc flow logs
+but you dont want lose that dat on that you use create_before_destroy and then your write a code to
+copy the files to some other bucket store the data 
+
+>>prevent_destroy
+--if your createdan s3 bucket are any vpc or any ec2 system or anything no one want to delete you can use 
+this prevent_destory 
+
+lifecycle {
+prevent_destory = true
+}
+
+>>ignore_changes
+--if deployed some instance using terraform but your changed some of the tags or some data change 
+maually but in terraform you need to use ignore_changes then the the cant destory what you changed manually
+
+lifecycle {
+ignore changes = [
+ tags,enable_dns_hostname
+]
+}
+
+13 - what is terraform Imports?
+
+>>terraform Imports:-
+---when we have mistkaley or already deployed server in ec2 any service you need import that service
+using terraform command you can take the code command to copy the the code code into .tf file
+
+commands:-
+
+>>terraform import aws_instance.importing "instance-id from the aws"
+>>terraform state list
+>>terraform state show aws_instance.importing          -->you will get code copy and paste below your code page
+
+resource "aws_instance" "importing" {
+
+paste that copy that data
+
+}
+
+14 - what is terraform-cloud
+
+>>What is Terraform Cloud? Terraform Cloud is HashiCorp's managed service offering. It eliminates the need for unnecessary tooling and
+documentation for practitioners, teams, and organizations to use Terraform in production. Provision infrastructure in a remote environment 
+that is optimized for the Terraform workflow.
+
+What is Terraform cloud used for?
+Terraform Cloud enables infrastructure automation for provisioning, compliance, and management of any cloud, datacenter, and service
+
+15 - what is packer
+
+>>packer is used to create only images
+>>Packer is an open-source VM image creation tool from Hashicorp. 
+It helps you automate the process of Virtual machine image creation on the cloud and on-prem virtualized environments.
+
+16 - what is terraform dry-run
+
+>>Dry runs help you identify trouble spots, discover sections you may not fully understand, and get a better understanding of how everything fits together.
+It's also a good way to find out if you don't fully understand how an activity is supposed to be conducted or how the virtual tools function.
+
+17 - What are the most useful Terraform commands?
+
+terraform init - initializes the current directory
+terraform refresh - refreshes the state file
+terraform output - views Terraform outputs
+terraform apply - applies the Terraform code and builds stuff
+terraform destroy - destroys what has been built by Terraform
+terraform graph - creates a DOT-formatted graph
+terraform plan - a dry run to see what Terraform will do
+
+18 - What are some of the built-in provisioners available in Terraform?
+
+Salt-masterless Provisioner
+Remote-exec Provisioner
+Puppet Provisioner
+Local-exec Provisioner
+Habitat Provisioner
+File Provisioner
+Chef Provisioner
+
+19 - What is terraform taint and untaint?
+
+the commands comes under terrafomr forcing recreation of resources
+>>terraform taint command manually marks a terraform-managed reosuce as tainted forcing it to be destroyed
+and recreated on the next apply
+>>terraform untaint command manually umarks a terraform managed resource as tainted restoring it as the primary instance in the state
+
+>>terraform state list
+>>terraform taint "resource-name"
+>>terraform taint aws_instance.my-ec2-vm-new
+>>terraform plan
+>>terraform apply --auto-approve
+>>terraform untaint aws_instance.my-ec2-vm-new
+>>terraform plan
+
+20 - what is the use of provisoners in packer and terraform
+
+>>Terraform Provisioners are used for executing scripts or shell commands on a local or remote machine as part of resource creation/deletion. 
+They are similar to “EC2 instance user data” scripts that only run once on the creation and if it fails terraform marks it tainted
+
+21-What is a tuple Terraform?
+A tuple is a strongly typed collection of one or more values. So, for example, we could define a tuple of three values: string , number , number , 
+or two values: string ,string . Once a tuple is defined, it always has to contain the number of values defined in that tuple.
+
+22- what is .tfstate in terraform
+
+>>when your deploying any resources it will save your code in .tfstate file if any changes happen in code it will go and check the .tfstate file and it will change 
+what need to chnage the resources. it will idempotant so it update the resource what changed only that resources change not changed all the rsources
+
+23-is it possible to execute the dev.tfvars and prod.tfvars
+
+>>No if you executed first dev.tfvars and later add prod.tfvars it will think need to change the .tfvars and destroy your first dev.tfvars and add into prod.tfvars 
+so dont use this method you can use the instead of WorkSpaces. if your using workspace but inside prod workspace if your using the dev.tfvars  it will destroy the 
+prod environment so be careful when you using the workspace
+
+24- how you can give to other devlopers terraform.tfstate
+
+>>when we deploying the code onthat time we saving the terraform.tfstate file in s3 bucket or any version control system then we can give that terraform.tfstae to
+other developer he can easily understand the situvation and he can do chnages then the state file update when we can changes on that time we can use that
+terraform.tfstate to avoid the complications and any errors or misunderstandings. so when the runing the backend it will run first backend so its give an error
+need to add access-key and secret-key in your system. it will not take the access and secret key in your var.tf
+
+25 - what is lookup in terraform
+
+>>The lookup() function can be used to lookup a particular value inside of a map , given its key and if the given key does not exist, the given default value is 
+returned instead: lookup(map, key, default)
+
+26- what is triggers
+
+>>A map of values which should cause this set of provisioners to re-run values are mean to interpolated refernace varibales to attributes of other resources
+
+27-what is DNS_Hostnames
+
+>>For example, when a Web address (URL) is typed into a browser, a DNS query is made to learn an IP address of a Web server associated with that name. 
+Using the www.example.com URL, example.com is the domain name, and www is the hostname. DNS resolution maps www.example.com into an IP address (such as 192.168.2.10)
+
+28-what is variable
+
+>>giving name to storage location. variable is a great way to define centrally controlled reusable values
+
+29-what is terraform data-sources
+
+>>Terraform data sources let you dynamically fetch data from APIs or other Terraform state backends. Examples of data sources include machine image IDs from a 
+cloud provider or Terraform outputs from other configurations.
+
+30-what is terraform functions
+
+>>The Terraform language includes a number of built-in functions that you can call from within expressions to transform and combine values. 
+The general syntax for function calls is a function name followed by comma-separated arguments in parentheses: max(5, 12, 9)
+
+31-what is dynamic blocks in terraform
+
+>>Terraform provides the dynamic block to create repeatable nested blocks within a resource. A dynamic block is similar to the for expression. Where for creates 
+repeatable top-level resources, like VNets, dynamic creates nested blocks within a top-level resource, like subnets within a VNet.
+
+32-what is teraform lock file
+
+>>terraform. lock. hcl , and this name is intended to signify that it is a lock file for various items that Terraform caches in the . terraform subdirectory of your
+working directory. Terraform automatically creates or updates the dependency lock file each time you run the terraform init command.
+
+33-what is terraform count
+
+>>To manage several of the same resources, you can use either count or for_each , which removes the need to write a separate block of code for each one.
+
+34-what is Terraform state locking 
+
+>>any two developers working on same state you an able lok that file then second person get an error to avoid duplications. your mentiong in the backend file like 
+s3 where s3 storing on that your mentioning and that will dynamodb lock
+
+35-what is terrafomr depends-on
+
+>>using depends_on you cna create the resources like you want create the vpc then after need to create the subnet then you can use the depends-on then it will
+create when vpc created after it will create the reaming resource
+depends_on = {
+aws_vpc.default
+}
+
+36-
+
+
+
+
+
+
