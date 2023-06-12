@@ -2219,7 +2219,83 @@ many features for selecting lines to be modified and making changes only to the 
 >>history -c  //it will delete all history
 >>history -d //it will delete the one line particular you can mention
 
-259-
+259-What is the difference between CloudWatch and CloudTrail?
+
+>>CloudWatch is a tool provided by Amazon Web Services that monitors and reports on the performance of various AWS resources and services.
+>>CloudTrail, on the other hand, is a log of all actions in your AWS environment since it was first launched.
+
+260-What is the data retention period in CloudWatch?
+
+>>You can change the log data retention setting for CloudWatch logs. By default, logs are kept indefinitely and never expire. You can adjust the retention policy for each log group, 
+keeping the indefinite retention, or choosing a retention period between 10 years and one day.
+
+261-What Statistics Can I View And Graph In Cloudwatch?
+
+Disk I/O Activity
+Memory Share 
+CPU Usage
+Memory Usage
+Network Interface Usage.
+
+262-If I disable monitoring for an Ec2 instance, will I lose the metrics data?
+
+>>No, the metrics data will not be lost.
+>>If you disable monitoring for an EC2 instance, the metrics you've collected are still safely preserved in a SQL database as part of the AWS CloudTrail logs.
+
+263. Can I Retrieve Data from a Deleted ELB or Ec2 Instance?
+
+>>Metrics data for deleted ELBs and decommissioned EC2 instances are still available. MetricsData associated with a terminated instance will be removed when the Instance is shut down. 
+In contrast, MetricsData associated with your account will remain on the MetricInfraService until you delete it. This information can be used for diagnosing problems with your ECS cluster or ELB.
+
+264-What is the AWS CloudWatch Agent?
+
+>>The AWS CloudWatch Agent is software that can be deployed to any server, whether hosted on Amazon EC2, Amazon ECS, or on-premises. Using the AWS CloudWatch Agent, you can quickly gather 
+and send system-level performance information from specific AWS resources.
+
+265-What are three things you can do in CloudWatch?
+
+>>Real-time monitoring is available for AWS resources and apps.
+>>Create alerts that will respond automatically to changes in your AWS resources.
+>>AWS CloudWatch Logs allows you to see and search log data.
+
+266-What Types Of Cloudwatch Alarms Can Be Created?
+
+>>Any CloudWatch measure can be displayed via an alarm you set up. You can also set off an alert based on metrics specific to your application or system.
+
+267-What Actions Can We Take From a Cloudwatch Alarm?
+
+Share an email with the team.
+Schedule a Cron task to run.
+Share on Slack or HipChat.
+Run a script on this machine, such as one that imports data into a spreadsheet.
+
+268-What Types Of Cloudwatch Alarms Can Be Created?
+
+A warning about a specific resource (e.g., a virtual machine).
+A regular notification for a specific metric (e.g., CPU usage).
+A user-defined alarm (for example, if your application runs slowly, the alarm will trigger when the CPU reaches 80% and notify you immediately).
+A personalized alarm based on user-defined rules.
+
+269-How Long Do Cloudwatch Logs Store My Data?
+
+>>Your information will be kept in Cloudwatch Logs for up to 7 days. After that point, only the most current logs will be kept, with older ones automatically deleted to save space.
+
+270- What is an AWS CloudWatch Alarm?
+
+>>An AWS CloudWatch Alarm is a monitoring and management solution for AWS resources. It enables the configuration of alarms based on individual indicators or as part of a larger monitoring plan.
+
+271-What are Cloudwatch Logs?
+
+>>CloudWatch Logs is a tool that helps us monitor and troubleshoot our systems and applications. It uses our already-established systems, applications, and custom log files. 
+In addition, it allows us to monitor our logs in real-time for particular phrases, values, or patterns.
+
+272-
+
+
+
+
+
+
 
 
 
