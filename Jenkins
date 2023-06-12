@@ -1,0 +1,714 @@
+nexusArtifactUploader
+pipeline utiltysteps
+maven
+docker plugin
+rbac
+git
+publish over ssh
+deploy to containers
+credentials binding plugin
+aws
+azure
+amazonECR
+active directory
+docker build setup 
+nexus
+sonarqube 
+docker-swam
+kubeconfig
+kubernets pipeline
+kubernetes cli
+
+#!/usr/bin/env groovy
+
+@Library('shared-library@master') _ //master or whatever barnch 
+##you need to add first shared library in configure system in global pipeline libraries this another github url  then you specifying in jenkinsfile 
+in another repository this will help you to use this shared library any number of repository
+git repository name anji.groovy
+def call () {
+sh 'apt-get update'
+}
+
+>>then go to configure system then create a shared library name "anything" and give branch name and url 
+>>then go your jenkins file first line give your shared library name @library(anything) in jenkins what you give then in jenkins file give like this below
+steps{
+    anji() //this shared liberay name what you have to share 
+}
+
+pipeline {
+    agent {
+        lable "Anji"  ##need to give slave name slave name is Anji
+    }
+    environment {
+        registryCredential = "anjitest"
+        dockerimagename = "anji1592/kubetest"
+        dockerImage = " "
+    }
+    stages {
+        stage("clean workspace"){
+            steps {
+                cleanWS()  ##it will clear the workspace every build
+            }
+        }
+    
+        stages {
+            stage('checkout source') {
+                steps {
+                    git 'https://github.com/teamall574/test.git'   ##it is public repository
+                }
+            }
+            stage (clone) {
+                steps{     ##if it is private repository if not then not need credentials
+                    git credentialsId: 'git_credentials', url: 'https://github.com/teamall574/test.git', branch:'dev'  #if you want add another barnch corner add 
+                }
+            } 
+        }
+        stage('sonar quality status'){
+            script{
+                withsonarQubeEnv(credentialsId: 'sonar-token') {
+                sh 'mvn sonar:sonar' #it will send the code into the sonarqube
+                sh 'npm run sonar' #It will send the code into the sonarqube you need to set the sonar:sonarqube-scanner in package.json andd version also
+                }
+            }
+        }
+        stage('quality gate staus') {
+            steps {
+                script{
+                waitForQualityGate abortPipeline: false, credentialsId: 'sonar-token'
+                }
+            }
+        }
+        stage (maven build##need to install maven and configure in jenkins system) {
+            steps{
+                sh 'mvn clean package'
+            }
+        }
+        stage (maven build##need to install maven and configure in jenkins system) {
+            steps{
+                sh 'mvn test'
+            }
+        }
+
+        stage('OWASP-CHECK'){  ##it will check owasp top 10 issues in jar file or package application
+            steps {
+                sh "dependencyCheck additionalArgumnets: '--scan target/', odcInstallation: 'owasp' dependencyCheckPublisher pattern: '**/dependency-check-report.xml'"
+            }
+        }
+        stage {
+            steps{ ##this using pom.xml configuartion or else you cna use the pipeline syntax to create the syntax 
+            sh 'mvn deploy' ##this will copy your artifacts into nexus repository
+            }
+        }
+        stage (tomcat server##need ssh key to connect the tomcat server and the code push tomcat server) {
+            steps{
+                scp webapp/target/webapp.war ec2-user@25..15.25.24:/opt/tomcat/webapps
+            }
+        }
+        stage('build image') {
+            steps {
+                script {
+                    dockerImage = docker.build dockerimagename
+                }
+            }
+        }
+        stage('push image') {
+            steps {
+                script {
+                    docker.withRegistry( 'https://registry.hub.docker.com', registryCredential) {
+                        dockerImage.push("latest")
+                    }
+                }
+            }
+        }
+        stage('get cedentials'){  ##need to add first vault plugin url and then add username and password of vault
+            withVault(configuration: [timeout: 60, vaultCredentialId: 'vaultId', vaultUrl: 'https://172.65.45.3.anji.com'], valueSecret: [path: 'secret/dockercred'], secretValues: [valuekey: 'username'], [valuekey: 'password']) 
+            sh 'echo $username' 
+        }   
+        stage('Docker Build & Push') {  ##this second method 
+            steps {
+                script{
+                    withDockerRegistry(credentialsId: '2fe19d8a-3d12-4b82-ba20-9d22e6bf1672', toolName: 'docker') {
+                        
+                        sh "docker build -t anji ."
+                        sh "docker tag  anji anji1592/kubetest:latest"
+                        sh "docker push anji1592/kubetest:latest"
+                    }
+                }
+            }
+        }
+
+        stage('test docker image') {
+            steps {
+                sh "trivy --version"  
+                sh "trivy image anji1592/kubetes"
+                sh "bash anji.sh"
+            }
+        }
+        stage('k8s deploy') {
+        steps{
+            withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'k8s', namespace: '', restrictKubeConfigAccess: false, serverUrl: '') {
+                sh 'kubectl get pods'
+                sh 'kubectl create -f deployment.yml'
+            }
+          }
+        }
+        post {
+            success {
+                slackSend "Build deployed successfully - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
+            }
+        }
+        post {
+            failure {
+              slackSend failOnError:true message:"Build failed  - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
+            }
+        }
+    }
+}
+
+1-what is Jenkins
+
+>>Jenkins version 2.375.2 
+>>jenkins is open-source and it is used to continous integration(CI)/continoud deployment(CD) tools. Jenkins is used to build and test your 
+software projects continuously making it easier for developers to integrate changes to the project, and making it easier for users to obtain a fresh build.
+>>you can integrate the plugins to jenkins without plugins you can do anything
+
+highly available jenkins:-
+>>All Jenkins instances within the Region can access the Amazon EFS file system and data durably stored in multiple Availability Zones. 
+If a single Availability Zone experiences an outage, the Jenkins file system is still accessible from other Availability Zones providing HA for the storage laye
+
+Why Jenkins is important?
+>>Jenkins is used today along the entire software development lifecycle, enabling the integration and automation of different processes, including building, testing, 
+and deployment. Jenkins creates 'pipelines', which define the series of steps that the server will take to perform the required tasks.
+
+>>open source
+>>continuous integration
+>>continuous deployment
+>>jenkins has thousands of plugins which is used to connect to other tools also
+>>jenkins is  a frame work( you chose what process you want and ask jenkins to do)
+>>crontab(jobs), job schedules.
+
+2-Types of CI/CD Tools
+
+1-Teamcity
+2-Bamboo
+3-Travis ci
+4-Jenkins
+5-Go Ci
+
+3--what language is used in jenkins pipeline
+
+>>Groovy programming language
+>>Pipelines are Jenkins jobs enabled by the Pipeline (formerly called “workflow”) plugin and built with simple text scripts that use a Pipeline DSL (domain-specific
+language) based on the Groovy programming language
+
+4-what are the Prerequisites:
+
+>>Java openjdk 11 or 17 should be installed
+
+5-How to change default port in jenkins
+
+Go to
+cd /usr/lib/systemd/system
+ls *jenkins*
+sudo vi jenkins.service
+Environment="JENKINS_PORT=8585"
+sudo systemctl restart jenkins.service
+sudo systemctl daemon-reload
+sudo systemctl restart jenkins
+
+6-How to recover password in jenkins
+
+Go to
+cd /var/lib/jenkins
+sudo vi config.xml
+change false in <userSecurity>True</userSecurity>
+sudo systemctl restart jenkins
+login to jenkins
+
+7-what is the use of jenkins slave or node
+
+>>the main purpose of jenkins slaves or nodes came into the picture the master will distribute the lot of jobs then it will excute so amny things
+it will take lot of CPU/Memory/Network utilization it will increase so if your using slaves then it will distribute the traffic to slaves
+>>The Jenkins master acts to schedule the jobs, assign slaves, and send builds to slaves to execute the jobs. It will also monitor the slave state (offline or online) 
+and get back the build result responses from slaves and the display build results on the console output.
+
+8 - what is on-demand-slave in jenkins
+
+>>Slaves are Jenkins agents it's used to execute jobs scheduled by the master. But there we need lots of different slaves with their respective tools. 
+For example, one slave is configured for maven to run a java application, one is for docker, and so on
+
+9 - How many slaves can Jenkins have?
+
+>>1-200 is the range you can get to without having to *heavily* tune GC or change some Jenkins hidden properties
+
+10-what is role-based-access-control in jenkins
+
+>>The Role Strategy plugin is meant to be used from Jenkins to add a new role-based mechanism to manage users' permissions. Supported features. Creating global roles, 
+such as admin, job creator, anonymous, etc., allowing to set Overall, Agent, Job, Run, View and SCM permissions on a global basis
+
+11 - what is jenkins pipeline and types of pipeline
+
+>>pipeline is collection of events. pipeline is a set of codes and stages and stage contains steps and steps will execute your script
+>>In Jenkins, a pipeline is a collection of events or jobs which are interlinked with one another in a sequence. 
+It is a combination of plugins that support the integration and implementation of continuous delivery pipelines using Jenkins
+this is written groovy sccript
+
+Types:-
+1-declartive
+2-scripted
+
+12-what is the differnce between scripted pipeline and declartive pipeline
+
+>>Scripted pipeline:-
+1-Scripted was the first and traditional implementation of the pipeline as a code in Jenkins. It was designed as a general-purpose DSL
+(Domain Specific Language) built with Groovy
+2-Scripted Pipelines follow a more Imperative Programming Model. In Imperative programming, you specify what you want and how it should be done.
+3-Scripted pipeline provides very few limits, such as structure and syntax are the only limits defined by Groovy itself
+4-In a scripted Pipeline, users can inject a groovy code during declaring. One of the major advantages of scripted pipelines is that they are very flexible 
+and expressive.
+5-The scripted pipeline does not support Environment block but you can define global variables and use credentials in a different way using Groovy.
+6-The scripted pipeline does not support Blue Ocean integration.
+
+>>Declartive pipeline:-
+1-Declarative is a more recent and advanced implementation of a pipeline as a code.
+2-Declarative Pipeline encourages a Declarative Programming Model. In declarative programming, you specify what you want. You don’t care how it will get done
+3-Declarative pipeline limits what is available to the user with a more strict and pre-defined structure, making it an ideal choice for simpler CI/CD pipelines.
+4-restart at only one particular stage like which stage is failed
+5-Declarative: Declarative pipeline supports the Environment block. Environment block helps to define global variables and load credentials into the pipeline. 
+6-A declarative pipeline can be integrated with Blue Ocean (Blue Ocean is a new user experience for Jenkins based on a personalizable, modern design that 
+allows users to graphically create, visualize and debug CI/CD Pipelines)
+
+13-do you worked on the multi-branch pipeline and use case of multi-branch pipeline
+
+>>yes i worked on multi-branch pipeline we have blue-ocean inplace, we are using blue-ocean  
+so that the blue-ocean give very good graphical representation to manage the multi-branch pipline
+we have like dev-env and prod-env when ever the commit is done it will be build 
+>>What's a Jenkins Multibranch Pipeline? A multibranch job is simply a folder of pipeline jobs. For every branch you have, Jenkins will create a folder.
+So instead of creating a pipeline job for each of the branches you have in a git repository, you could use a multibranch job.
+
+>>To create a Multibranch Pipeline in Jenkins, follow the following steps:
+
+Open the Jenkins dashboard and create a new item by clicking on 'new item'
+Enter the project name and, from the options, select 'Multibranch pipeline'
+Click on OK
+pipeline
+
+Source: https://www.jenkins.io/doc/book/pipeline/multibranch/
+
+Then select the repository location, branch source (GitHub/Bitbucket), and add the branch source credentials.
+Save the project
+Now, Jenkins automatically creates new Multibranch Pipelines for repositories
+Then to connect to the GitHub repo, we need the HookURL
+To get this URL from the repository settings, add this HookURL to the Webhooks section
+Once the jobs are created, Jenkins will automatically trigger the build
+
+14- what is the use of active directory in jenkins
+
+>>With this plugin, you can configure Jenkins to authenticate the username and the password through Active Directory. 
+This plugin internally uses two very different implementations, depending on whether Jenkins is running on Windows or non-Windows and if you specify a domain.
+
+15- What is a CI/CD pipeline?
+CI/CD Pipeline or Continuous Integration/ Continuous Delivery is considered the DevOps approach's backbone. 
+The pipeline is responsible for building codes, running tests, and deploying new software versions.
+
+16- Name some of the useful plugins in Jenkins.
+Some of the plugins in Jenkins include:
+
+Maven 2 project
+Amazon EC2
+Docker
+sonarqube
+nexus
+trivy
+publishoverssh
+deploy container
+HTML publisher
+Green Balls
+kubeconfig
+
+17-How can you create a backup and copy files in Jenkins?
+
+Jenkins stores all the settings, builds scripts, and logs in the home directory. 
+Then, if you want to create a backup of this Jenkins set up all you have to do is copy this directory. 
+The job directory may also be copied to clone a job or rename the directory.
+
+18-Assume that you have a pipeline. The first job that you performed was successful, but the second one failed.  What would you do now?
+
+>>You don't have to worry, and you just have to restart the pipeline from the point where it failed by doing 'restart from stage.'
+
+19- Explain the process in which Jenkins works?
+Here’s the process in which Jenkins works:
+
+Jenkins checks changes in repositories regularly, and developers must secure their code regularly. 
+Once the changes are defined, Jenkins detects them and uses them to prepare a new build.
+After that, Jenkins will transverse through various stages in its usual pipeline. As one stage completes, the process will move further on to the next stage.
+If a stage fails, the Jenkins build will stop there, and the software will email the team using it. When completed successfully, 
+the code implements itself in the proper server so that testing begins.
+After the successful testing phase, Jenkins shares the results with the team using it.
+
+20-What is Jenkinsfile? 
+
+>>Jenkins file is a text file that has a definition of a Jenkins pipeline and is checked into the source control repository.
+It enables code review and iteration on the pipeline. It also permits an audit trail for the pipeline.
+
+21-Differentiate between Maven, Ant, and Jenkins.
+
+Maven:-
+Build tool
+Perform build operations 
+
+ANT:-
+Build tool
+Perform build operations 
+
+Jenkins:-
+Continuous Integration tool
+Jenkins may run unit tests and deploy applications
+
+22- Why is Jenkins used with Selenium?
+
+>>Using Selenium allows Jenkins’s testing whenever there are any software changes or any changes in the environment. 
+When the Selenium test suite is integrated with Jenkins, the testing part is also automated as part of the build process.
+
+23-what is jenkins agent
+
+>>The agent section specifies where the entire Pipeline, or a specific stage, will execute in the Jenkins environment depending on where the agent section is placed
+                  (or)
+>>An agent is typically a machine, or container, which connects to a Jenkins controller and executes tasks when directed by the controller.
+Artifact. An immutable file generated during a Build or Pipeline run which is archived onto the Jenkins Controller for later retrieval by users.
+
+24-what is stash and unstash in jenkins
+
+>>stash:-stash using when your building pipeline so many agents. but the configuartion file is stored only one agent you need copy or move that files into remaing agent
+you can use stash(name: 'mystash') this command will use next agent like unstash 'mystash' it will copy that files into first agent to next agent
+you can includes: '**/*.war' this will includes copy to the next agent 
+you can excludes: '**/*.war' this will will not copy that files remaning files will be copy into the agent
+pipeline {
+  agent none 
+  stages {
+    stage ('hello') {
+      agent {label 'linux'}
+      steps {
+        sh '''
+           touch file.txt
+           mkdir -p target
+           touch target/file2.jar
+           touch target/anji.war
+           tree   
+           stash(name: 'mystash')
+      }
+    }
+    stage ('hello') {
+      agent {label 'mac'}
+      steps {
+        unstash 'mystash'
+        sh 'tree'
+      }
+    }
+  }
+}
+
+==========================================================includes===================================================================================
+pipeline {
+  agent none 
+  stages {
+    stage ('hello') {
+      agent {label 'linux'}
+      steps {
+        sh '''
+           touch file.txt
+           mkdir -p target
+           touch target/file2.jar
+           touch target/anji.war
+           tree   
+           stash(name: 'mystash' includes: '**/*.war')
+      }
+    }
+    stage ('hello') {
+      agent {label 'mac'}
+      steps {
+        unstash 'mystash'
+        sh 'tree'
+      }
+    }
+  }
+}
+
+===================================excludes==============================================================================================================
+pipeline {
+  agent none 
+  stages {
+    stage ('hello') {
+      agent {label 'linux'}
+      steps {
+        sh '''
+           touch file.txt
+           mkdir -p target
+           touch target/file2.jar
+           touch target/anji.war
+           tree   
+           stash(name: 'mystash' excludes: '**/*.war')
+      }
+    }
+    stage ('hello') {
+      agent {label 'mac'}
+      steps {
+        unstash 'mystash'
+        sh 'tree'
+      }
+    }
+  }
+}
+
+25-what is junit plugin
+
+>>The JUnit plugin provides a publisher that consumes XML test reports generated during the builds and provides some graphical visualization of 
+the historical test results (see JUnit graph for a sample) as well as a web UI for viewing test reports, tracking failures, and so on.
+
+26-what is check-style project
+
+>>Checkstyle is a static code analysis tool used in software development for checking if Java source code is compliant with specified coding rules.
+
+27-what is findbugs in jnekins
+
+>>FindBugs is a static analysis tool for Java code that searches for and reports on various code use that may result in bugs. Whilst the tool can be noisy,
+it has detected real issues in plugins that have been reported in the wild
+
+28-what is pmd in jenkins
+
+>>It is a static rule-set based Java source code analyser that identifies potential problems in your source code. There are other static analysers like FindBugs. 
+You can get PMD from here. From our previous AntProject, open the jbuild.xml file
+>>it is deprected
+
+29-what is checkmarx in jenkins
+
+>>Checkmarx CxSAST is a unique source code analysis solution that provides tools for identifying, tracking, and repairing technical and logical flaws in the 
+source code,such as security vulnerabilities, compliance issues, and business logic problems
+
+30-what is deploy-container plugin in jenkins 
+
+>>Jenkins provides many plugins which can be used to transfer the build files to the respective application or web server after a successful build, for example, 
+the "Deploy to container" plugin. This plugin takes a war or ear file and then it deploys to a running remote application server at the end of a build.
+
+31-how to integrate your docker and ansible servers to jenkins
+
+>>using publish over ssh we can connect the docker and ansible servers
+
+32-what is publish over ssh
+
+>>This plugin includes a builder which enables the use of the publisher during the build process. This means that you can send newly created packages 
+to a remote server and install them, start and stop services that the build may depend on and many other use cases.
+
+33-how do you take backup in jenkins
+
+>>using thin-backup and perdioc backup using backup your jobs
+
+34-how many ways to install plugins
+
+the plugin extenstion will be name .hpi ends with .hpi format
+1-availble section in manage jenkins 
+2-upload your own plugin
+3-download the pluginand copy that plugin into jenkis sserver plugin path /var/lib/jenkins/plugin
+
+35-what is label and none and any in pipeline
+
+>>lable used to tell whether you should you master or slave to execute the task or job
+>>any means any one like master or slaves
+>>none means no-one to execute the task or job
+>>docker It is a Jenkins Cloud plugin for Docker. The aim of this docker plugin is to be able to use a Docker host to dynamically provision a docker container as a 
+Jenkins agent node, let that run a single build, then tear-down that node, without the build process (or Jenkins job definition) requiring any awareness of docker
+
+36-how to upgarde your jenkins version 2.9 to 3.5 or any new version
+
+Step 1: Stop The Running Jenkins Server. ...
+Step 2: Take Jenkins Server Backup For Safety. ...
+Step 3: Take The Backup Of Current Jenkins Version Binary. ...
+Step 4: Download The New Jenkins Version. ...
+Step 5: Change The Ownership Of New Jenkins Binary. ...
+Step 6: Start The Jenkins Server.
+
+37-what is upstream and downstream in jenkins
+
+>>An upstream job is a configured project that triggers a project as part of its execution. A downstream job is a configured project that is triggered 
+as part of a execution of pipeline.
+
+38-how can you send the email notifaction without plugin
+
+Step 1: Log in to the Jenkins Homepage. Go to Jenkins homepage.
+Step 2: Configure System. Click on Manage Jenkins->Configure System. ...
+Step 3: Add post-build action in your project. ...
+Step 4: Build the project and check your email.
+
+39-Can you explain the CI/CD process in your current project ? or Can you talk about any CICD process that you have implemented ?
+
+A: In the current project we use the following tools orchestrated with Jenkins to achieve CICD.
+
+Maven, Sonar, AppScan, ArgoCD, and Kubernetes
+Coming to the implementation, the entire process takes place in 8 steps
+
+1. Code Commit: Developers commit code changes to a Git repository hosted on GitHub.
+2. Jenkins Build: Jenkins is triggered to build the code using Maven. Maven builds the code and runs unit tests.
+3. Code Analysis: Sonar is used to perform static code analysis to identify any code quality issues, security vulnerabilities, and bugs.
+4. Security Scan: AppScan is used to perform a security scan on the application to identify any security vulnerabilities.
+5. Deploy to Dev Environment: If the build and scans pass, Jenkins deploys the code to a development environment managed by Kubernetes.
+6. Continuous Deployment: ArgoCD is used to manage continuous deployment. ArgoCD watches the Git repository and automatically deploys new changes to the development
+environment as soon as they are committed.
+7. Promote to Production: When the code is ready for production, it is manually promoted using ArgoCD to the production environment.
+8. Monitoring: The application is monitored for performance and availability using Kubernetes tools and other monitoring tools.
+
+40-What are the different ways to trigger jenkins pipelines ?
+
+A: This can be done in multiple ways, To briefly explain about the different options,
+
+   - Poll SCM: Jenkins can periodically check the repository for changes and automatically build if changes are detected. 
+              This can be configured in the "Build Triggers" section of a job.
+              
+  - Build Triggers: Jenkins can be configured to use the Git plugin, which allows you to specify a Git repository and branch to build. 
+              The plugin can be configured to automatically build when changes are pushed to the repository.
+              
+  - Webhooks: A webhook can be created in GitHub to notify Jenkins when changes are pushed to the repository. 
+              Jenkins can then automatically build the updated code. This can be set up in the "Build Triggers" section of a job and in the GitHub repository settings.
+
+41-How do you store/secure/handle secrets in Jenkins ?
+
+>>Credentials can be stored securely in Jenkins using the Credentials plugin, which stores different types of credentials like - Username with a password, 
+SSH username with the private key, AWS Credentials,Jenkins Build Token, Secret File/Text, X509 & other certificates, Vault related credentials securely 
+with proper encryption & decryption as and when required. 
+>>secrest exist throuhout the delivery lifecycle as application secret credentials and other sensitive information should be secured obfuscated and governed 
+Tools:- Ansible vault and aws system manager
+  
+42-What is shared modules in Jenkins ?
+
+A: Shared modules in Jenkins refer to a collection of reusable code and resources that can be shared across multiple Jenkins jobs. This allows for easier maintenance,
+reduced duplication, and improved consistency across multiple build processes. For example, shared modules can be used in cases like:
+
+>>libraries: Custom Java libraries, shell scripts, and other resources that can be reused across multiple jobs.
+>>Jenkinsfile: A shared Jenkinsfile can be used to define the build process for multiple jobs, reducing duplication and making it easier to manage the
+     build process for multiple projects      
+>>Plugins: Common plugins can be installed once as a shared module and reused across multiple jobs, reducing the overhead of managing plugins on individual jobs.     
+>>Global Variables: Shared global variables can be defined and used across multiple jobs, making it easier to manage common build parame
+     
+>>Jenkins shared libraty is the concept of having a common pipeline code in the version control system that can be used by any number of pipelines just by referencing it.
+in fact multiple teams can use the same liberary for their pipelines
+
+>>for example:- if have a ten micro services pipelines the maven build step will be duplicated in all the 10 pipelines and whenever a new service gets added you will
+copy and paste the pipeline code again. also let say you want to change some parameter in the maven build step you will have to do it all the pipelines manually
+
+43- can you use Jenkins to build applications with multiple programming languages using different agents in different stages ?
+
+>> Yes, Jenkins can be used to build applications with multiple programming languages by using different build agents in different stages of the build process.
+
+>>Jenkins supports multiple build agents, which can be used to run build jobs on different platforms and with different configurations. 
+By using different agents in different stages of the build process, you can build applications with multiple programming languages and ensure that 
+the appropriate tools and libraries are available for each language.
+>>For example, you can use one agent for compiling Java code and another agent for building a Node.js application. The agents can be configured to use different
+operating systems, different versions of programming languages, and different libraries and tools.
+>>Jenkins also provides a wide range of plugins that can be used to support multiple programming languages and build tools, making it easy to integrate different 
+parts of the build process and manage the dependencies required for each stage.
+>>Overall, Jenkins is a flexible and powerful tool that can be used to build applications with multiple programming languages and support different stages of the 
+build process.
+
+44-How to setup auto-scaling group for Jenkins in AWS ?
+
+A: Here is a high-level overview of how to set up an autoscaling group for Jenkins in Amazon Web Services (AWS):
+
+>>Launch EC2 instances: Create an Amazon Elastic Compute Cloud (EC2) instance with the desired configuration and install Jenkins on it. 
+This instance will be used as the base image for the autoscaling group.
+>>Create Launch Configuration: Create a launch configuration in AWS Auto Scaling that specifies the EC2 instance type, the base image (created in step 1), 
+and any additional configuration settings such as storage, security groups, and key pairs.   
+>>Create Autoscaling Group: Create an autoscaling group in AWS Auto Scaling and specify the launch configuration created in step 2. Also, 
+specify the desired number of instances, the minimum number of instances, and the maximum number of instances for the autoscaling group.
+>>Configure Scaling Policy: Configure a scaling policy for the autoscaling group to determine when new instances should be added or removed from the group. 
+This can be based on the average CPU utilization of the instances or other performance metrics.
+>>Load Balancer: Create a load balancer in Amazon Elastic Load Balancer (ELB) and configure it to forward traffic to the autoscaling group.
+>>Connect to Jenkins: Connect to the Jenkins instance using the load balancer endpoint or the public IP address of one of the instances in the autoscaling group.
+>>Monitoring: Monitor the instances in the autoscaling group using Amazon CloudWatch to ensure that they are healthy and that the autoscaling policy is 
+functioning as expected.
+>>By using an autoscaling group for Jenkins, you can ensure that you have the appropriate number of instances available to handle the
+ 
+45-How to add a new worker node in Jenkins ?
+
+A: Log into the Jenkins master and navigate to Manage Jenkins > Manage Nodes > New Node. Enter a name for the new node and select Permanent Agent. 
+Configure SSH and click on Launch.
+
+46- How to add a new plugin in Jenkins ?
+
+A: Using the CLI, java -jar jenkins-cli.jar install-plugin <PLUGIN_NAME>
+
+Using the UI,
+
+Click on the "Manage Jenkins" link in the left-side menu.
+Click on the "Manage Plugins" link.
+
+47- What is JNLP and why is it used in Jenkins ?
+
+>> In Jenkins, JNLP is used to allow agents (also known as "slave nodes") to be launched and managed remotely by the Jenkins master instance. 
+This allows Jenkins to distribute build tasks to multiple agents, providing scalability and improving performance.
+
+>>When a Jenkins agent is launched using JNLP, it connects to the Jenkins master and receives build tasks, which it then executes. 
+The results of the build are then sent back to the master and displayed in the Jenkins user interface.
+
+48-Explain your CI/CD setup
+
+>>CI/CD is aprocess of continous integartion and continous delivery in the current organization we use githubas a source code repository we have 
+configured github webhook that triggers a jenkisn pipeline on every momment the jenkins pipeline is setup with multiple stages
+
+1-build stage:- takes care of static code analysis, ubit testing and build
+2-test stage:- running smoke and functional tests
+
+49-Continue Jenkins pipeline past failed stage
+
+>>This is now possible. Below is an example of a declarative pipeline, but catchError works for scripted pipelines as well.
+
+50-Jenkins Architecture
+
+>>jenkins is distributed architectue which means that simgle master and multiple salves 
+>>sometime you need several different environments needed like prod,test,stage,dev this cant be done by single jenkins server
+>>if a large project builds a single server cannot handle entire load
+
+master:-
+1-scheduling 
+2-communicating with the slaves
+3-monitor the slaves
+4-present the results
+5-master can also execute the build jobs
+
+Jenkins-Slave:-
+1-communicates with jenkins master
+2-can run in differnt OS
+3-execute jobs
+4-flexibility
+
+51-What happens when a Jenkins agent is offline and what is the best practice in that situation?
+
+>>When a job is tied to a specific agent on a specific node, the job can only be run on that agent and no other agents can fulfill the job request. If the target node
+is offline or all the agents on that particular node are busy building other jobs, then the triggered job has to wait until the node comes online or an agent from 
+that node becomes available to execute the triggered build request.
+
+52-what is jenkins feature
+
+1-it is an open source automation tool is used to build and automate the tasks
+2-jenkins used to do various tasks like build and deployments of software
+3-it is used the plugins you can develop your own plugins also
+4-jenkins has a web based interface to see build historys and to see the logs 
+5-jenkins can be integrated to testing tool like junit and selenium also
+
+53-How To Trigger Another Job in Jenkins Using Pipeline
+
+>>in jenkins post build actions in build other jobs and select A job name and configure then if a job is success are stable then B job will execute
+
+54-how to integrate jenkins to vault
+
+>>need to install vault plugin then provide the url of the vault and then username and pasword
+
+stage('get cedentials'){
+	withVault(configuration: [timeout: 60, vaultCredentialId: 'vaultId', vaultUrl: 'https://172.65.45.3.anji.com'], valueSecret: [[path: 'secret/dockercred', secretValues: [[valuekey: 'username'], [valuekey: 'password]]]
+	sh 'echo $username'
+}
+
+55-is it possible to check the owasp depends on the jenkins pipleine
+
+>>yes it possible to check OWASP the tool called DEPENDENCY-CHECK . this tool will be used after build the applications it will check the package file or jar/war file in known vulnerabilites 
+the tool name is owasp Dependency-Check in jenkins plugin and install that in jenkins server then use this 
+
+
