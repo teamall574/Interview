@@ -1,0 +1,478 @@
+$  -->normal user
+#  -->root user
+pwd  -->present working directory
+uname   -->it will show operating system using
+uname -a  -->it will show linux details
+uname -r  -->it will show releases
+uname --all  -->it will show linux details
+uname --help  -->it will show details how to use
+man uname  -->it will show details how to use or manually how to use
+CRUD  -->Create, Read, Update, Delete
+ls  -->it will show list the files and folders
+ls -l  -->it will show length format and permissions and size
+ls  -lr  -->reverse length format
+ls -ltr   -->time reverse, old to new
+ls -la   -->it will show hidden and list files
+touch anji.txt  -->it will create the anji.txt
+mkdir anji   -->it will create the anji folder or directory
+cat > anjii.txt  -->if you enter this will give cursor to enter the data
+hi anji  then exist use control+d
+cat anjii.txt   -->it will show the data of anjii.txt
+clear  -->it will clear the scrren
+>   -->if you use this remove old data and add new data
+>>   -->if you use this this will add nwe data old data also will be there 
+cat anji.txt anjii.txt > anjitest.txt   -->it will copy the data anjitest.txt
+cp annji.txt anji -->it will copy the anji.txt into anji folder
+mv anji.txt anji  -->it will move the file into anji folder
+you can move folders also
+cp anji anji1 -r  -->you can copy folders also but you need to  use -r recursvly
+rm anji.txt  -->it will delete file
+rm -r anji  -->it will delete the folder
+grep anji anji.txt  -->it will grep the anji name in the file
+grep -i anji anji.txt -->it will show captial anji and small letters anji also
+head anji.txt   -->it will show only first 10 lines only
+head -n 2 anji.txt -->it will show the first 2 lines only
+tail anji.txt  -->it will show last 10 lines only
+tail -n 2 anji.txt  -->it will show the only last 2 lines
+echo hai anji   -->it will print hii anji 
+echo $?   -->it will show the previous command is successful or not 
+if you get 0 means successful otherthan 0 everything is failure
+history  -->it will show history of commands what your running
+wget https://anji.com  -->it will download the file wget helps to download
+curl -->to view the source at the console 
+chmod  -->chmod used to chnage the permission of file or user 
+cat /etc/os-release  -->it will show os version and details
+apt list installed | wc -l  -->it will list the installed packages
+yum list installed | wc -l 
+yum list all   -->it will show availble list 
+date +"%Y-%m-%d"   -->it will print year month date
+
+
+----vim--
+vim anji.txt   -->you can edit the file or if the file exist it will open if not it will create
+vim  -->visually improved full form
+:set nu   -->display numberswise
+:set nonu  -->remove numbers form the file
+:set ic  -->case insensitive
+:set noic  -->case sensitive
+:wq  -->exit the file
+:wq!  -->exit the file
+:q!  -->when you write something but that is wrong then you can use this exit it will not save 
+:100  -->it will go on line number 100
+:u   -->undo it will keep as it is if you press u all remove wat you write
+:yy  -->yank/copy 
+:ctrl+p  -->paste the line
+:dd  -->cut the lines
+:10dd  -->cut the 10 lines
+:10 p  ->it will paste 10 lines 
+:2s/anji/sampi  -->it will remove anji and replace sampi in first line of the anji
+:%s/anji/sampi/g  -->it will replace anji where it is replace with sampi
+:%d   -->it will delete entire content
+
+-----------
+
+Ownership-->
+1-symbolic method
+
+>>user   -->the one who created
+>>group  -->which group
+>>others  -->other than owner and group
+
+-                  rw-     rw-      r--
+<file/directory>   [user/owner]  [group]  [others]
+
+r   -->read access
+w   -->write acess
+x   -->execute
+
+>>useradd  john              -->it will add john user
+>>passwd john              -->it will create the password
+john
+john
+>>useradd  anji             -->it will add john user
+>>passwd anji              -->it will create the password
+anji
+anji
+>>groupadd anji     -->it will create the anji group
+
+>>cat /etc/groups              -->it will show group
+
+>>usermod -G john anji          -->anji added into john group
+>>vi /etc/ssh/sshd_config
+
+password authentication yes
+
+:wq          -->it will give login permission to user anji
+
+>>chmod u+x  anji.tf  -->it will give executable access
+>>chmod g-w  anji.tf  -->it will remove the executable access
+>>chmod o+x  anji.tf  -->it will give permission to other usersonly executable not read write
+>>chmod ugo+x anji.tf   -->every one will execute access
+
+2-Absolute method
+
+Read - 4    
+Write - 2
+Execute - 1
+
+>>chmod 777 anji.txt        -->it will give full permission 
+first 7 user/owner second 7 group last 7 others
+
+>>chmod 754 anji.txt   -->
+7 read write execute into user
+5 read execute into group
+4 execute only others 
+
+>>chmod 764 anji.txt         -->it will read write user and read write group and read in others 
+first 7 user/owner second 6 group last 4 others
+
+>>chmod 666 anji.txt          -->it will give read write only
+>>chmod 400 anji.text  -->it is read access only
+
+>>chmod 000 anji.txt          -->there is no permission to owner also
+
+>>chmod 777 /home/john        -->any user go to this directory and create the files and anything
+>>sudo anji
+
+>>cd /home/john          -->anji can go and do anything in john directory
+
+>>sudo su -
+
+>>chown john:john anji.txt         -->this file Owner of john user transfering ownership 
+
+------------------process management-------------------
+
+1-what is process management
+
+>>when you start a program running an application in linux it actually run as a process
+>>whatever you do linux create a PID. in linux everything is a process
+>>PID -->process instance id
+>>ps -->process from your terminal
+>>ps -e  -->it will show the process
+how can you list out the procee in linux server
+ps -ef
+>>ps -ef        -->it is like task manager in linux
+>>top          -->it will show the cpu utilization ram and memory and it will show how many service runing in background
+>>foreground   -->which runsin the terminal stick to terminal we cant do anything
+sleep 300 &  -->it will run backgound
+>>background  -->it will runs in background
+
+>>ps -ef | grep sleep  -->it will search sleep in 
+
+>>service jenkins status        -->it will show thr pid
+
+>>kill 1665           -->it will the jenkins service or request stop
+>>kill -9 1665  -->it is forcefully delete the service
+
+------user-management------------------------
+
+>>userada anji  -->it will add anji user and automatically create the group also
+>>passwd anji  -->it will ask to create the password for anji
+>>id       -->it will present user details
+>>root user id is 0 
+>>id anji   -->see the user information like group 
+>>groupadd anji  -->it will create the group
+>>usermod -a -G sampi anji  -->anji added into the sampi group
+>>usermod -g sampi anji   -->it will add sampi primary group dont use -a 
+>>gpasswd  -d anji sampi   -->delete the anji user in sampi group
+>>groupdel sampi  -->deleting the sampi group
+
+--user not able to acess using password based authentication need o enable
+
+>>vi /etc/ssh/sshd_config
+
+passwordAuthentication yes
+
+:wq  -->this will not encourage the organizations do this below
+
+>>ssh-keygen -f anji  -->it will create the anji ssh keys public and private 
+then adminstartor will add the public keys into the linux system 
+
+>>ec2-system 
+>>su -kumar
+>>mkdir .ssh
+>>ls -la
+>>chmod 700 .ssh -R
+>>cd .ssh
+>>touch authorized_keys
+paste the public key of your system
+:wq
+>>chmod 400 authorized_keys
+>>exit
+>>
+>>cd ..
+>>usermod -a -G wheel anji   -->anji added into the wheel group get root access
+>>vi /etc/sudoers
+anji ALL=(ALL) NOPASSWD: ALL
+:wq   -->then user get root permisssions 
+
+>>local system
+>>ssh -i anji(private-key) anji(user)@14.25.23.56
+he can login into the anji user
+
+--user exist organisation
+
+first remove him from primary and secondary group
+
+>>gpasswd -d <username> <group-name>
+>>usermod -g <user-name(default-group or own group)> <username>
+>>userdel <user-name>
+>>groupdel <group-name>
+
+-------package-management--------------------
+
+>>yum   -->yellow dog utility manager
+>>rpm   -->redhat package manager
+
+----------------service-management-------------------
+
+>>systemctl start nginx   -->this will start the service
+>>systemctl status nginx  -->this can check the status
+>>systemctl stop nginx   -->this will stop the service
+>>systemctl restart nginx  -->this will restart the service
+>>systemctl enable nginx   -->if you given this whenever service reatart automatically start the service
+
+how to see the os distribution or details of 
+
+>>cat /etc/release
+or 
+>>ls /etc/release
+
+how to see cpu info in linux
+
+>>cat /proc/cpuinfo
+
+how to see memory info linux
+
+>>cat /proc/meminfo
+
+how to see free memory 
+
+>>free 
+
+how to see the free memory of volume or harddisk
+
+>>df -h -->The df command displays information about total space and available space on a file system.
+>>df -hT    -->it will show the type of harddisk
+>>cd /bin
+>>du -sh *  -->it will show the how much memory used in folders 
+
+how to find the files in linux
+
+>>find /etc -name "passwd"  -->it will find the passwd files 
+>>find . -type f -size +100M  ##find the large in 100mb
+>>find / -name testfile.txt          ##it will find the file  in linux
+>>find / -name anji.txt         -->it will locate the anji.txt where exactly availble
+
+>>find / -maxdepth 2 --name "passwd"
+>>find / -maxdepth 3 --name "passwd"
+
+what is cut commad in linux
+
+>>using cut commans
+>>cat anji.txt | cut -d "/" -f2
+
+what is awk command in linux
+
+iam giving varibale in linux
+TRAFILE=https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.75/bin/apache-tomcat-9.0.75.tar.gz
+>>echo $TRAFILE | awk -F "/" '{print $1}'
+https
+>>echo $TRAFILE | awk -F "/" '{print $2}'
+dlcdn.apache.org
+>>echo $TRAFILE | awk -F "/" '{print $6}'
+bin
+>>echo $TRAFILE | awk -F "/" '{print $NF}'   ->>NF is last line
+apache-tomcat-9.0.75.tar.gz
+>>echo $TRAFILE | awk -F "/" '{print $1F}'   -->1F is the lst line
+https
+>>echo $Trafile | rev | cut -d "/" -f1 | rev   -->it will first reverse the order then it correct the order
+apache-tomcat-9.0.75.tar.gz
+>>cat /etc/passwd | awk -F ":" '{print $F}'
+root
+anji
+sampi
+
+vi ani.sh
+
+#!/bin/bash
+TARFILE=https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.75/bin/apache-tomcat-9.0.75.tar.gz
+FILENAME=$(echo $TARFILE | rev | cut -d "/" -f1 | rev)
+DIRECTORY=$(echo $FILENAME | sed -e 's/.tar.gz//')
+echo "Downloading $FILENAME"
+wget $TARFILE
+echo "untar $FILENAME"
+tar -xf $FILENAME
+echo "install java"
+yum install java-11-openjdk-dlevel -y
+cd $DIRECTORY/bin
+sh startup.sh
+
+:wq
+
+what is sed 
+
+>>echo $FILENAME | sed -e 's/.tar.gz//'  -->it will remove the tar.gz of your file
+
+---------------------network-management----------------------------
+
+how many ports there in network
+
+>>0-65535 ports
+
+how to see the runnig ports in linux
+
+>>netstat
+>>netstat -l
+>>netstat -ltn   -->it will show port numbers what we used 
+>>netstat -ltnp  -->
+
+how to see whether another server is accepting the request like port no 22 or not
+
+>>you can telnet 31.33.78.52 80   -->it will help you to show whether is accept or not
+
+what is 1-tier application
+
+>>In 1-tier architecture, the data is directly provided to the user and that user can directly use the database through the computer. Any changes or updates that are done will reflect directly to the database
+
+what is 2-tier application
+
+>>Two-tier architecture. In a two-tier architecture, the client is on the first tier. The database server and web application server reside on the same server machine, which is the second tier. 
+This second tier serves the data and executes the business logic for the web application.
+
+what is 3-tier application
+
+>>first we have extranal load balancer and internal load balancer then the extranal load balancer is open to the internet
+through route53 and internal load balancer is between app and web and the app is connected to database
+
+web technologies:
+1-HTML
+2-css
+3-javascript
+
+Web-Servers
+1-nginx
+2-apache
+3-tomcat
+
+Application servers
+1-java
+2-.Net
+3-python
+4-node js
+5-gp lang
+
+DB-Servers
+1-Mysql
+2-MSSql
+3-Postgress
+4-Oracle
+
+how to rename file name
+
+>>mv anji.txt sampi.txt
+
+how to attach ebs volume
+
+
+>>launch ec2 instance
+>>creat new volume and attach to ec2 instance  4gb
+>>sudo su -
+>>lsblk            -->to see the list of drives
+>>df -h            -->to see the list of drives
+>>fdisk /dev/xvdf                        
+>>mkfs.ext4 /dev/xvdf1
+>>mkdir /anji          -->createing drive name anji
+>>mount /dev/xvdf1  /anji/
+>>nano /etc/fstab
+
+/dev/xvdf1   /anji/  ext4 defaults,noatime  1  1
+
+:wq
+>>restart the system you can check the drive attached or not
+>>sudo su -
+>>lsblk
+you will see the drive and files
+
+how to add extra storage 4gb to 6gb adding 2gb
+
+>>adding extra 2gb in aws console then go the linux
+>>sudo su -
+>>growpart /dev/xvdf1  
+>>resize2fs /dev/xvdf1
+
+how to unmount and detach ec2-volume
+
+>>sudo su -
+>>umount /anji
+>>then go to aws console deattach to volume to instance
+
+what is soft and hard link in cmd or symbolic link
+
+>>Symbolic links (also called "soft" links) are files that point to a file or directory in your system, but don't mirror the other file's data.
+>>soft link is an actual link to the original file, whereas a hard link is a mirror copy of the original file. 
+>>ln -s /opt/tomcat/bin/startup.sh /usr/local/bin/tomcatup    -->it will create short-cut to start and down the server
+>>ln -s /opt/tomcat/bin/shutdown.sh /usr/local/bin/tomcatdown         -->this soft link or symbalic link
+>>ln /opt/tomcat/bin/shutdown.sh /usr/local/bin/tomcatdown   -->this hard link
+>>tomcatup    -->it will start the server
+>> If you delete the original file, the soft link has no value, because it points to a non-existent file. But in the case of hard link, it is entirely opposite.
+
+how to delete all the services in linux
+
+>>killall 
+
+how to stop all services in linux command
+
+>>sytemctl stop -all
+
+how to clear history in linux
+
+history -c
+
+how can i lock the user accounts
+
+>>passwd --lock anji   -->it is used to lock the anji user
+or 
+>>usermod -L anji
+>>passwd --unlock anji  -->it is used to unlock the anji user
+or 
+>>usermod -U anji
+
+What is in chown?
+
+>>The command chown  an abbreviation of change owner, is used on Unix and Unix-like operating systems to change the owner of file system files, directories.
+>>chown   -->change owner
+>>chown john:john anji.txt         -->this file Owner of john user transfering ownership 
+
+what is Repository
+
+>>repository refers to a place where all the package files are stored. These files can either be stored on the local repository or on the remote repository.
+
+what is Daemons 
+
+>>Daemons play a crucial role in the background operation and management of computer systems, servers, and networks. They help provide essential services, maintain system stability, and automate tasks
+without requiring direct user involvement.
+>>Daemons are designed to perform specific tasks or provide services on a computer or server.Background Process: Daemons run in the background, often starting automatically when the computer or operating
+system boots up.
+1-No User Interaction
+2-System Services
+3-Independent and Autonomus 
+4-Log Output
+5-
+
+how to see the ssh port number is opened folder or you want change the port number
+
+>>cat /usr/lib/firewalld/services/dns.xml
+
+where we can see the logs in lnux 
+
+>>cd /var/log
+>>cat /var/log/auth.log  -->by using this you can see which user logged
+or 
+>>cat /var/log/last
+
+where the packages or installed softwares stored
+
+>>/usr/local/bin or /usr/bin or /usr/local/sbin or /usr/sbin
+>>
+
