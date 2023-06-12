@@ -1,0 +1,475 @@
+1-Types of git version control tools
+
+1-git
+2-SubVersion
+3-CVS
+4-perforce
+
+2-What is Git?
+
+>>Git is a DevOps tool used for source code management. It is a free and open-source distributed version control system used to handle small to very large projects efficiently. 
+Git is used to tracking changes in the source code, enabling multiple developers to work together on non-linear development.
+>>While Git is a tool that's used to manage multiple versions of source code edits that are then transferred to files in a Git repository,
+
+git config:-
+=========
+>>git config --global user.name "VmTutes"
+>>git config --global user.email "vmtutes@gmail.com
+>>git config --list   -->it will show the details
+>>git config --global core.sshCommand "ssh -i ~/.ssh/id_rsa"   -->it will add ssh keys into your private repository 
+
+3-What is GitHub?
+
+>>GitHub serves as a location for uploading copies of a Git repository.
+>>To provide Internet hosting for version control and software development, GitHub makes use of Git.
+
+4-What’s the difference between Git and GitHub?
+
+Git:-
+1-Git is a software
+2-git is command line tool
+3-Git can be installed locally on the system
+4-git mainatained by linux foundation
+5-git is focused on version control and code sharing
+6-It does not support user management features
+
+github:-
+1-GitHub is a service
+2-github is graphical user interface
+3-GitHub is hosted on the web
+4-github maintained by microsoft
+5-github is centrailzed source hosting
+6-Provides built-in user management
+
+5-git features compare to other tools:-
+
+1. Speed
+2. Support for non-linear development(thounds of branches, for parallel development)
+3. Able to handle large-scale projects.
+4. distributed version control system
+
+6-Is git Distributed or Centralizes version control system? what is the differnce between them
+
+>>git is distributed version control system the major difference is that in centralized version control system you have the client and server architecture and 
+server is a remote repository has all the copies of your code like all the version of the code are only availble with server whereas in the distributed version control
+system every developer has all the versions of the code like all the copies of code are which and every and every developer who has cloned the remote repository 
+so thats why this called distibued version control system
+
+7-Different types of version control systems
+
+>>Local version control systems have a database that stores all file changes under revision control on disc in a special format.
+>>Centralized version control systems have a single repository, from which each user receives their working copy.
+>>Distributed version control systems contain multiple repositories, and different users can access each one with their working copy.
+
+8-what are 4 stages in git
+
+1-creation
+2-modification
+3-refactoring
+4-deletion
+
+9-what are the git commands that you use to commit changes to you remote repository
+
+>>git add, git commit, git push
+
+10-What is a Git repository?
+
+>>Git repository refers to a place where all the Git files are stored. These files can either be stored on the local repository or on the remote repository.
+
+11-what is Git Branch. and how to create a branch and how to change one branch to another branch
+
+>>A branch is a way to isolate development work on a particular aspect of a project. When a branch is created, it diverges from the primary branch. It allows 
+developers to work on a new feature or bug fix without affecting the main codebase.
+>>In Git, a branch is a new/separate version of the main repository.
+>>git branch hello   -->it will create the hello branch
+>>git checkout master   -->it will change the hello to master branch
+>>git checkout -b anji   -->it will create anji branch and move to anji branch
+>>git switch anji   -->it will move to anji branch
+>>git branch -d anji           -->delete the anji branch
+>>git branch   -->it will show the git branches
+
+12-how to clone private repository in local machine
+
+>>first create the ssh keys using this commands 
+ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+cat ~/.ssh/id_rsa.pub    -->addd public key into github account
+git config --global user.name "anji"
+git config --global user.email "anji@anji.com"
+git config --global core.sshCommand "ssh -i ~/.ssh/id_rsa"
+then clone your private repository
+
+13-what are the git stages
+
+1-Working directory/space:- where we work perform differnet action on files
+2-staging/index Area:- it helps to create commit id(it is virtual area, here workspace dont know which one existing and modifeied area)
+3-commit area:- where changes commits permanently and generates commit id's
+
+14-what are the Types of Git Repository
+
+1. bare repo: is the centrailized repository which is used to store and share the changes, but we cannot view the data.
+>>git init --bare central.git
+>>cd central.git
+you can see below files
+branches config description HEAD hooks info objects refs
+2. non-bare repo: user (or) workspace (or) local repository whih is used to modify,del,create the changes.
+			(OR)
+1-Local Repository:
+
+A local repository is a Git repository stored on your local machine.
+It contains the complete history and version control information of a project.
+
+2-Remote Repository:
+
+A remote repository is a Git repository hosted on a remote server or service.
+It acts as a centralized location where multiple developers can collaborate on a project.
+
+15-what are the commands will do before pushing
+
+>>git status
+>>git add .
+>>git commit -m "anji"
+>>git push origin master 
+
+16-what is .git and .gitignore
+
+>>so .git is everything in git so you know .git folder contains all the information like project details and file information everything present in .git file or
+folder if you should not be delete that file if you delete that file 
+>>dot ignore suggest so if you want to ignore anything from dot git 
+
+17-if your adding your github repository into your system
+
+>>git remote add origin "https://github.com/teamall574/adding.git"
+
+18-what is git merge and what is the use
+
+>>merge will help you to combine two branches
+>>Git merge is a command used to combine the changes from one branch into another. It integrates the commit history and changes from one branch (source branch) into another branch (target branch).
+uses:-
+1-combining branches
+2-automatic merging
+3-fast-forward merge
+4-recursive merge
+5-resolving conflicts
+6-commiting the merge
+7-branch management
+
+19-how to see the logs in git
+
+>>git log   -->it will show all the logs
+>git log -1
+>>git log -2    -->it will show only last two logs
+>>git log --oneline    -->it will show the logs in online
+>>git log --grep "ignore"   -->what you want to see  to grep it you will get
+>>git log --graph
+>>git log --graph --pretty=oneline
+>>git show commit id -->>it will show the commits of the code
+>>git log "branch name"   -->if the branch name is anji then it will show the logs of anji branch only
+
+20-what is git init
+
+>>The git init command is used to initialize a new Git repository in a directory. It sets up the necessary data structures and files that Git uses to manage version control for your project. Here are the key aspects of the git init command:
+
+21-what is git status
+
+>>The git status command is helpful for understanding the current state of your Git repository and determining which files have been modified, staged, or are untracked
+
+22-what is git add 
+
+>>The git add command is used to stage changes in your working directory and prepare them for a commit. It allows you to select specific files or parts of files to be included in the next commit. Here's how the git add command works:
+
+23-what is git commit
+
+>>A commit is a way to save changes to a branch. When a commit is made, a snapshot of the current state of the branch is created. 
+This snapshot can be used to revert the branch to that state if necessary.
+
+24-what is git push 
+
+>>The Git push command is used to push the content in a local repository to a remote repository. After a local repository has been modified,
+a push is executed to share the modifications with remote team members.
+
+25-what is git clone
+
+>>cloneing is nothing copying of the file into remote to local
+
+26-how many ways to clone the git repo into the local system
+
+1-Using the Command Line.
+2-Using the Git GUI.
+3-Using Visual Studio.
+
+27-What is git pull
+
+>>The git pull command is used to fetch and download content from a remote repository and immediately update the local repository to match that content.
+
+28-what is the differnce between git pull and fetch 
+
+>>Both of these commands will fetch any new commits from the remote repository, but they differ in how they handle these commits.
+>>if you want use git fetch you need to enter first git fetch then you need to use git merge then new commits will come into your local repository
+>>if you git pull automatically uses this git pull=git merge+git fetch
+>>git pull directly code from github there is a disadvantage is there like some is pushed the code but the code is wrong if you pull directly 
+pull the code grom github to your local system directly
+>>same scenraio in git fetch if you git fetch it will pull the code but will not merge into local code it will goto staging area then you can review and 
+then you can git merge then it will meege into local code there is disadvantage is that need to review your code and again you can merge the code 
+>>the advantage is that to you can review your code bfore merging locally
+
+29-what is git revert 
+
+>>This command	helps you in reverting a commit, to a previous version
+ 
+>>git revert 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
+then push
+>>git push origin feature1
+
+30-how to see the differnce between commits
+
+>>git diff "commit-id 1" "commit-id 2"
+
+31-how to retrive deleted data or commit and how to push into the any branch
+
+>>git checkout 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
+
+then push
+
+>>git push origin feature1
+
+32-how to see the modification in your file
+
+>>git diff HEAD .
+
+33-how to delete the untracked file in git 
+
+>>git clean -f
+
+34-how to add tags in a file
+
+if you want to add important file to tag in your commit
+
+>>git tag -a important -m "this very important" commit-id
+
+>>git show important
+
+>>git tag -d important   -->it will delete the file what you tagged important
+
+35-how to edit the your username and mail in git in your local system
+
+>>git config --edit --global
+then change what you want
+
+36-can you explain branching strategy what you are using
+
+>>we are feature branching startegy we master development and remaing short-lived branches we are using the developer will commit the code into the short-lived branch 
+the code will review by team head then we can test that ci/cd in every commit if that happiens successfully then we can push into the development testing and q&a then 
+we can push into the master branch
+
+>>two types of branching strategy
+
+git model:-
+we have two branches long-lived branches
+1-master
+2-development    -->this not gone delete 
+
+>>we are not commiting any code into the git like master and developement branch
+>>we use feature branch for if we have release in nest week we can create the feature branch we can develop the code into the feature if the developing code is 
+complted we push into the development branch like first we can pull the code into the local and then we cna push into the code 
+>>pull before push that is also we can create the pull request to head of the branch member will review that code and accept the pull request or if any changes 
+then we can do one more changes
+>>the source is feature branch to development branch
+>>when we push the code into the development then we can do q&a testing and testing and pre-prod testing then we can push into the production and development and 
+then iwe will create next release next month or next week we work together
+>>whenever we chnages something the code will be availble in development and master branch
+hotfix:- we can create the one branch we can test the code push into development
+
+3-feature
+4-release
+5-hotfix     -->this can delete any time 
+1-name
+2-long lived short lived 
+3-source and destination
+4-merge how to promte prod
+5-conflicts
+
+>>we use this startegy
+feature branching strategy:-
+feature branching strategy:-
+
+>>main branches are master and development remaing all are features or test branches
+>>we can push the code into the feature branch whenever the commit happens we are create ci/cd job in jenkins and test if the ci/cd happens perfectly 
+we can push into the development branch. then we can send it into the q&a testing and pre-prod trhen we can push into the release or production directly
+>>this happens daily basis or weekly basis if the code corectly working we can release daily basic
+>>if another developer working together means they need to pull the code first into the github then he can develop the code 
+
+37-what is the differnce between git clone and git fork
+
+>>your creating a copy of whatever remote repository that is 
+>>where as git fork is that your getting the git repository into your namespace 
+
+38-What do you understand about the Git merge conflict?
+
+>>A Git merge conflict is an event that occurs when Git is unable to resolve the differences in code between the two commits automatically. 
+
+Git is capable of automatically merging the changes only if the commits are on different lines or branches.
+
+39 - how to solve merge conflicts
+
+>>git throughs the conflicts when the differnce content of the same lines both party should work together. and decide which one should be there which 
+one should delete. and they have to merge there codes create merge commit
+>>onc we have Identified the merge conflicts we can use this tool ex:- git mergetool
+>>merge conflicts occur when we try to merge two branches which we have the same file updated by two differnet developers.
+
+developer finished his code and pushes the changes to master branch
+
+main ()
+{
+function1()
+{
+//intial code
+}
+function2()
+{
+//developer A code
+}
+}
+
+developerB finished his code and pushes the chnages to master branch
+main ()
+{
+function1()
+{
+//intial code
+}
+function3()
+{
+//developer B code
+}
+}
+
+when the deleoper B pushes the code we can cause the Merge conflicts problem
+
+40-what is git merge and rebase
+
+>>Git merge is a command used to combine the changes from one branch into another. It integrates the commit history and changes from one branch (source branch) into another branch (target branch).
+>>Rebasing is the process of moving or combining a sequence of commits to a new base commit. Rebasing is most useful and easily visualized in the context of a feature branching workflow.
+
+41-what is the differnce between git merge and rebase
+
+>>both of them are actually designed to do same purpose that means if you want bring the code changes from one branch to other branch like you have changes that 
+you want to bring from branch x to branch y you can do either git merge or git rebase both of them does the same purpose but the only differnce is how they are 
+projectig the history
+>>if you have x branch and y branch then your merging y to x branch the history and every commit will be there
+>>if you have x branch and y branch then your rebaseing y to x branch the y data and commits will be deleted only x branch commits and data will be shown i recomended to use git merge 
+>>Merge is best used when the target branch is supposed to be shared. Rebase is best not used in public branches and used when the target branch is private. Merge preserves history. Rebase rewrites history.
+
+42-what is git cherry-pick command
+
+>>git cherry-pick command is used to merge the particular one commit only you can do
+like your have 100 of commits in your branch your want mergr that into master or any feature branch if you merge 100 commits will go you dont want that 
+you can do simply git cherry-pick "commit-id" it will merge only onthat commit id data into that branch 
+
+43-what is the differnce between merge and pull request
+
+>>it pull commnad fetches the latest commits and downloads content from the specified remote repository. 
+Then a git merge is executed to merge the remote content refs and heads into a new local merge commit. 
+
+44-what is git stash
+
+>>git stash temporarily shelves (or stashes) changes you've made to your working copy so you can work on something else, and then come back and re-apply them later on.
+>>git stash save "manager call"   -->it will stash the file
+>>git stash list   -->it will list stash files and names
+stash@{0}
+>>git stash apply stash@{0}   -->it will unstash the file
+>>git stash clear   -->it will delete the stash files
+>>git stash pop   --> it will apply and remove the last stash array[0]
+>>git stash drop  --> it will drop the latest one (or) you can specify perticular one also eg:- git stash drop stash@{3}
+
+45-what is trufflehog and how to use it
+
+>>Now, on to the more popularly used scanning tool — truffleHog. This GitHub repository scanner will look into your commit 
+history and spot anything that looks like a password or confidential information using regex and entropy.
+
+46-What is git pull
+
+>>The git pull command is used to fetch and download content from a remote repository and immediately update the local repository to match that content.
+
+47-what is pre-commit hooks and post-commit hooks 
+
+>>git hooks are allow you to run your own scripts whenever important events occur in the git-life-cycle. like commiting merging and pushing.
+>>git hooks run locally. git hooks are built in feature no need to download anything
+>>hooks are there in .git/hooks folder
+>>pre-commit hooks are the actions that are taken before you do git commit and 
+you can create precommit hooks .git folder under hooks you can create custom scripts if the script satifys you can push the code into github .otherwise you cant push 
+the code into github(ex:-you can create git config.username, git config.gmail like wise your created mail but not gmail configuration you cant push the code into github
+>>post commit hooks are the actions that are taken by after git commit
+
+48-what is webhook
+
+>>webhook is part of github it is used to trigger or perform action trigger pipeline or python program after your git commit is done you want github to 
+perform actions so simply you can configure a webhook 
+
+49-what is the differnce between git clone and git fork
+
+>>your creating a copy of whatever remote repository that is 
+>>where as git fork is that your getting the git repository into your namespace 
+
+50-what is github Actions
+
+>>GitHub Actions is a continuous integration and continuous delivery (CI/CD) platform that allows you to automate your build, test, and deployment pipeline
+
+51-what is protection in github
+
+>>You can protect important branches by setting branch protection rules, which define whether collaborators can delete or force push to the branch and
+set requirements for any pushes to the branch, such as passing status checks or a linear commit history.
+>>you can restrict adminstors also need to review some one need to add you can also add how many members need to approve that then if they approve 
+then you can push into the master branch
+>>go to settings >>branches >>select branch protection
+
+52-what is git reset hard???
+
+>>Summary. To review, git reset is a powerful command that is used to undo local changes to the state of a Git repo. 
+
+three types of git reset
+                or
+>>git reset --hard , which will completely destroy any changes and remove them from the local directory.
+
+>>git reset --soft , which will keep your files, and stage all changes back automatically
+
+>>git reset --mixed, which will keep the files and it will come to the staging back like you will see it commited you can chnage what you want and commit into the directory
+
+53-what are the git commands that you use to commit changes to you remote repository
+
+>>git add, git commit, git push
+
+54-types of files in git
+
+1-tracked files
+2-untracked files
+3-ignored files
+
+55-what is git snapshorts
+
+>>it store difference between the files in the form of snapshort
+
+56-what is git tags
+
+>>to identify/reference for a commitid to quick access/ creating specific point in history for our repository
+git tag -a <tag-name> -m "comment" <commitid> --> annotated tag
+git tag -delete <tag-name>   -->delete the tag
+
+57-what is git reflog
+
+>>it shows when we commit,checkout branch, reset....etc
+>>git reflog 
+>>git reflog show --all
+>>git reflog show <branch_name>
+>>git reflog master@{1.minute.ago}
+>>git reflog show HEAD@{5}
+
+58-
+
+
+
+
+
+
+
+
+
