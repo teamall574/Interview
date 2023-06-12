@@ -1,0 +1,632 @@
+============================================================Docker=========================================================================================
+virtual machines-->infrastructure->hypersvisior->guest os->librays->app1,app2,app3
+containers-->infrastructure->operating system->container engine->librays->app1,app2,app3
+
+how to backup andd restoe docker volume
+
+sudo apt update
+
+sudo apt install nodejs
+
+sudo apt install npm
+
+nodejs -v  
+#jenkins configuartion
+git url https://github.com/teamall574/test.git
+
+#post-build-actions
+npm install
+npm test
+tar czvf node.tar.gz node_modules
+#post build actions
+
+Source file : **/*.gz 
+
+Exec Command 
+
+mv ./home/ubuntu/one/node-js-sample/Node.tar.gz /home/ubuntu/test/Node.tar.gz;
+cd /home/ubuntu/test/
+tar -xf Node.tar.gz ;
+docker rmi nodeimage;
+docker stop nodecontainer;
+docker rm nodecontainer;
+docker build -t nodeimage .;
+docker run -d --name nodecontainer -p 5001:5000 nodeimage;
+
+#creating dockerfile
+FROM node:latest
+MAINTAINER Anji 
+RUN echo "Tryin to build my first application"
+COPY . /var/www
+WORKDIR /var/www
+RUN npm install
+EXPOSE 3000
+ENTRYPOINT ["npm","start"]
+
+##################
+FROM tomcat:8-jre8
+COPY webapp.war /usr/local/tomcat/webapps
+EXPOSE 8080
+
+1-what is differnce between kubernetes and docker
+
+>Docker is container platform where as kubernets is a container orchestation environment that offers capabilites like auto-scaling,auto helaing,clusterng
+and enterprse level support like load balancing
+
+1 - what is docker and conatiner how to use in docker containers
+
+>>Docker is tool deisgned to create,deploy and run applications easily by using containers
+>>docker packages the application and dependies to the required to run the appliation in single bundle and ship to the target environment in docker world we called docker image. when we run this image 
+in any environement this creates an isolated environment for the application to run by installing reuired packages and we called this isolated environment is called container 
+>>no matter where you can run this images this will works fine 
+>>by taking advantage of Dockers methodologies for shipping  testing and deploying code quickly we can significantly reduce the delay between writting code and running it in production
+
+probleams solves in docker
+1-time consuming
+2-isolating in different environment(if you want create the 3 server you cant create the 3 server it will cost you can cant create the 3 vms in a system its not goof then create the 3 images its good)
+
+Advantages:-
+1-portability
+2-High performance
+3-Isolation
+4-Scalability
+5-Rapid Development
+
+--disadvantages:-
+1-Docker is not good for application that requires rich GUI.
+2-It is difficult to manage large amount of containers.
+3-container is process it can fail anytime
+
+2 - Name and explain the various Docker components.
+>>The three main Docker components are:
+
+Docker Client:- The Docker client enables users to interact with Docker. like docker pull , build , push 
+Docker Host:-The Docker host provides a complete environment to execute and run applications. It includes Docker daemon, Images, Containers, Networks, and Storage.
+Registry. This is where Docker images are stored. There are two of them, a public registry and a private one. 
+Docker Hub and Docker Cloud are two public registries available for use by anyone.
+
+3 - why everyone using production environment in kubernets and why not using docker and docker swarm
+
+>>The major difference between the platforms is based on complexity. Kubernetes is well suited for complex applications. 
+On the other hand, Docker Swarm is designed for ease of use, making it a preferable choice for simple applications
+
+>>kubernets have additional network plugins thats why using kubernets and this is this reason docker swarm not using
+plugins ex:-panel and kolak 
+
+4 - what is docker storage
+
+>>docker has come to used in first stateless applications later it come to used  stateful applications also.stateless applications means
+is no need to save the data or stateful applications is storing the data
+>>you need to store the data then we can use docker volumes so if the container stopped the data not gone loose
+>>you need persistent storage if the container deleted the data should be store 
+>>docker volume create anji
+>>docker volume ls
+>>docker run --rm -dit -v anji:/myapp sreeharshav/utils            -->it will create one container and create the myapp one folder
+
+5 - What is a container?
+
+>>A Docker container image is a lightweight, standalone, executable package of software that includes everything needed to run an application:
+code, runtime, system tools, system libraries and settings
+>>container is combination of linux features which is namespace->its like virtual spaces and cgroups
+>>containers is microservices container is process
+>>container doesn't need any (opearting system)
+>>docker-container is likea service or process the process can end anytime or anytime it will crashed
+
+6 - Explain virtualization.
+
+>>Virtualization uses software to create an abstraction layer over computer hardware that allows the hardware elements of a single computer—processors, memory, 
+storage and more—to be divided into multiple virtual computers, commonly called virtual machines (VMs)
+
+7 - What’s the difference between virtualization and containerization?
+
+>>Virtualization is an abstract version of a physical machine, while containerization is the abstract version of an application.
+
+8 - Describe a Docker container’s lifecycle.
+
+Create container
+Run container
+Pause container
+Unpause container
+Start container
+Stop container
+Restart container
+Kill container
+Destroy container
+
+9 - Name the essential Docker commands and what they do.
+
+Build. Builds a Docker image file
+Commit. Creates a new image from container changes
+Create. Creates a new container
+Dockerd. Launches Docker daemon
+Kill. Kills a container
+
+10 - What are Docker object labels?
+
+>>Labels are the mechanism for applying metadata to Docker objects such as containers, images, local daemons, networks, volumes, and nodes.
+
+11 - what is nodes in docker 
+
+>>A Node is a worker machine in docker and may be either a virtual or a physical machine, depending on the cluster. Each Node is managed by the control plane
+
+12 - what docker volumes and mounts explain briefly.How do you find stored Docker volumes?
+
+>>Docker volumes are dependent on Docker's file system and are the preferred method of persisting data for Docker containers and services. When a container is 
+started, Docker loads the read-only image layer, adds a read-write layer on top of the image stack, and mounts volumes onto the container filesystem
+
+Use the command: /var/lib/docker/volumes
+
+13 - what is docker file and can you write a docker file???
+
+>>A Dockerfile is used to run Docker instructions and build the images
+>>there are three types of instructions(commands) used in a dockerfile
+1-instructions to build the image
+2-instructions ro run the container
+3-instructions to customize the container
+
+--vi Dockerfile
+FROM ubuntu
+LABEL  owner=kanji5413@gmail.com
+RUN apt-get update; \
+    apt install -y nginx vi nano wget curl net-tools; \
+    mkdir /myapp 
+RUN groupadd -r mongodb && useradd -r -g mongodb mongodb
+WORKDIR /myapp
+#CMD ["nginx", "-g", "daemon off;"]
+USER mongodb
+
+--------second dockerfile
+
+FROM ubuntu:latest
+LABEL owner=anji
+RUN apt-get update -y; \
+    apt install git vi nano wget curl net-tools -y; \
+    mkdir /opt/tomcat
+WORKDIR /opt/tomcat
+ADD  https://xxxxxxxxxxxxxxxxxxxx
+RUN tar -xvzf xxxxxxxxxxxxx
+RUN mv xxxxxxxx /opt/tomcat
+EXPOSE 8080
+CMD ["/opt/tomcat/catalina.sh" "run"]
+
+:wq
+>>docker build -t anji .       -->. means present directory 
+>>docker run --rm -dit --name anji1592/test -p 8081:8080 anji  -->it will run the container
+
+14 - what is docker compose and docker stack
+
+>>Compose is a tool for defining and running multi-container Docker applications. With Compose, you use a YAML file to configure your application’s services. 
+Then, with a single command, you create and start all the services from your configuration.
+>>docker compose is make easy your work.creating yaml file then it will execute your yaml file or deploying
+>>it will execute multiple docker container at a time
+>>docker compose is installed in only system it is not cluster level that is the reason we are not using docker-compose
+>>docker compose is not for production purpose
+>>docker compoe helps developers to deploy multiple container in easy way
+>>docker compose written in yaml file
+
+>>docker stack:-Docker Stack sits at a higher level than Docker containers and helps to manage the orchestration of multiple containers across several machines. 
+Docker Stack is run across a Docker Swarm, which is essentially a group of machines running the Docker daemon, which are grouped together, essentially pooling 
+resources.
+
+15 - what is docker swarm 
+
+>>A Docker Swarm is a container orchestration tool running the Docker application. It has been configured to join together in a cluster.
+it is like kubernets but not work efficent way of like kubernets.in docker-swarm run a docker-stack in docker-swarm
+
+>>docker swarm is similar to kubernets
+>>docker swarm is kluster
+>>docker swarm uses orcus station layers or management layer (ex: AKS/EKS/Kubernets)
+>>docker swarm you can upto use masters in docker swarm is 7 master either you can use idd numbers 1 3 5 7
+>>docker masters must be in odd numbers ex:-1,3,5,7
+>>docker swarm uses Raft Algorithm up to (N-1)/2 failures and reauires a majority or quoram 
+of (N/2)+1 members to agree on values proposed to the cluster
+>>when you enable docke swarm automatically enable two networks one ingress and docker gwbridge
+>>docker swarm distribute the load into multiple worker nodes
+
+>>docker service create --name nginx5 -p 8100:80 sreeharshav/testcontainer:v1      -->it will create the container
+>>docker service scale nginx5=5           -->it will create 5 containers
+>>docker service update nginx5 --replicas 5           -->you can this command also to increase the containers
+
+16 - what is docker swarm is quoram 
+
+>>In a swarm of N managers, a quorum (a majority) of manager nodes must always be available. For example, in a swarm with five managers,
+ a minimum of three must be operational and in communication with each other
+
+17 - why quoram needs an odd number
+>>quoram is an latein word
+>>minimum number of nodes in swarm cluster that needs to be up and running for swarm cluster to work
+
+18 - what is docker ingress and docker gateway-bridge
+>>The docker_gwbridge is a virtual bridge that connects the overlay networks (including the ingress network) to an individual Docker daemon's physical network.
+Docker creates it automatically when you initialize a swarm or join a Docker host to a swarm, but it is not a Docker device.
+
+19 - what is ingress docker
+>>When a user initializes a docker swarm an overlay network is generated called an ingress network which handles swarm service control and data traffic.
+
+20 - what is rooling update in docker
+
+>>rolling update is used without downtime you change your version or image on container or servers
+>>The scheduler applies rolling updates as follows by default: Stop the first task. Schedule update for the stopped task. 
+Start the container for the updated task. If the update to a task returns RUNNING , wait for the specified delay period then start the next task
+
+21 - what is in efk stack in docker
+
+>>EFK Stack is an enterprise-ready log aggregation and logs analysis framework for bare-metal and container infrastructure. 
+But before deploying an EFK stack, you'll first set up a project directory and create a Docker configuration for deploying EFK Stack on your Docker host
+
+22 - what is resource managment 
+
+>>resource managment is nothing but how much cpu utilization and memory utilization docker container. container consume the total memory
+you can specify the docker container how much need to use the cpu or memory utilization it will reduce java memory leaks
+
+>>docker service create --name limittest --reserve-memory 100M --reserve-cpu .25 --limit-cpu 1 --limit-memory 300M
+--repicas 3 --publish 3000:80 sreeharshav/rollingupdate:v3
+
+>docker servicce inspect limittest
+>>docker service update limittest --limit-memory 500M
+
+23 - what does docker swarm do
+
+1-worker node availibility
+2-resource utilization
+3-container scheduling
+4-container fail-over or self-healing
+
+24 - what is docker traefik ingress controller
+
+>>Traefik  ingress controller is a act as load balancer in docker swarm
+>>docker network create --driver=overlay traefik-net 
+>>docker service create --name traefik --constraint=node.role==manager --publish 80:80 --publish 8080:8080 --mount type=bind,
+source=/var/run/docker.sock,target=/var/run/docker.sock --network traefik-net traefik:v1.6 --docker --docker.swarmmode --docker.domain=traefik --docker.watch --web
+it will create the taefil network 
+
+>>create websites in systems
+>>docker service create --name app1 --label traefik.port=80 --network traefik-net --label traefik.frontend.rule=host:app1.bughunteranji.xyz 
+sreeharshav/rollingupdate:v1
+>>docker service create --name app2 --label traefik.port=80 --network traefik-net --label traefik.frontend.rule=host:app2.bughunteranji.xyz 
+sreeharshav/rollingupdate:v3
+>>docker service create --name app3 --label traefik.port=80 --network traefik-net --label traefik.frontend.rule=host:app3.bughunteranji.xyz 
+sreeharshav/testcontainer:v1
+
+>>now add rout53 and create recodrs using app1.bughunteranji.xyz
+app1.bughunteranji.xyz
+app2.bughunteranji.xyz
+app3.bughunteranji.xyz
+
+>>docker service logs app1                   -->it will show your logs
+>>now try access the browser differnt differnt urls
+
+25 - what is docker node maintaince and types
+
+>>node maintaince are 3 types
+--pause  -->if your runing in 3 container your need to troubleshoot or maintaince the one container
+no need to send any new activies in first container use pause option only run old activites but not added
+any new activites
+>>docker node ls
+>>docker node update --availability pause ip-192-168-2-199
+
+--Drain
+if your using drain means the activites will go on to add another container no new activites is not
+gone add its like temporarily suspended
+>>docker node update --availability drain ip-192-168-2-199
+
+-- active
+active means the containers running node no need to maintaine the work so it split the activites
+>>docker node update --availability active ip-192-168-2-199
+
+26 - what is docker swarm config
+
+>>Docker swarm service configs allow you to store non-sensitive information, such as configuration files, outside a service's image or running containers. 
+This allows you to keep your images as generic as possible, without the need to bind-mount configuration files into the containers or use environment variables
+
+27 - what is docker swarm secrets
+
+>>In terms of Docker Swarm services, a secret is a blob of data, such as a password, SSH private key, SSL certificate, or another piece of data that should not 
+be transmitted over a network or stored unencrypted in a Dockerfile or in your application's source code
+
+28 - what is docker swarm helath checks
+
+>>the Docker swarm health check ensures that the Docker service is running properly. A faulty service can cause a major incident!
+
+29 - what is the differnce between registry and repository 
+
+>>registry inside have an repository, repository inside you can put multiple images
+
+30 - Types of registery
+
+>>Docker hub , AWS ECR, Azure ACR ,google GCR
+
+31 - how many types to run docker in AWS
+install docler in ec2 and run conatiner
+run using AWS Elastic conatiners service(ECS)
+Run using AWS ECS Fargate
+Run Using AWS EKS
+
+32 -what is docker default network and networks
+
+>>default brige network or docker0
+>>docker0 is works as nat-gateway or firewall 
+>>every docker container will go outside to connect the network will go docker0 to ethernet0 to internet
+>>any container will no go directly connect to internet it will go through the docker0 or bridge network
+
+>>docker network create anji           -->it will create the anji network
+>>netstat -a | grep -i 8100             -->it will listen your ports
+
+33 - what is the problems in persistent storage in docker
+
+>>In docker, the persistent storage is dealt with the volume concept. Persistent storage is means when we are stopping or removing the container the data 
+should be persistent.It will not delete automatically once the docker container is not available.
+
+1-Storage:-when application shutdown data gone loose
+2-Container mobility:- Containers are meant to be small and lightweight, quickly spinning up and down and moving around the cluster.
+Your data on the other hand is large and difficult to move around.
+3-Humar errors
+4-Containers aren’t designed to be stateful
+5-Quality of service controls
+
+34-What is the container instance?
+
+>>Azure Container Instances is a solution for any scenario that can operate in isolated containers, without orchestration. Run event-driven applications,
+quickly deploy from your container development pipelines, and run data processing and build jobs.
+
+35-What does Container Insights provide?
+
+>>Container Insights also provides diagnostic information, such as container restart failures, to help you isolate issues and resolve them quickly. You can also 
+set CloudWatch alarms on metrics that Container Insights collects. Container Insights collects data as performance log events using embedded metric format
+
+36-what is continer as a service
+
+>>Containers as a service (CaaS) is a cloud-based service that allows software developers and IT departments to upload, organize, run, scale, and manage containers 
+by using container-based virtualization.
+
+37-what is differnce between CMD and ENRTYPOINT
+
+>>CMD commands are ignored by Daemon when there are parameters stated within the docker run command while ENTRYPOINT instructions are not ignored but instead 
+are appended as command line parameters by treating those as arguments of the command
+
+FROM ubuntu
+ENTRYPOINT  ["yum", "-y", "install"]
+CMD ["git"]
+
+docker build -t anji11 .
+docker run anji11            -->it will install  git
+>>docker run anji httpd telent        -->it will install telnet and httpd not git it will replace git to telnet and httpd
+but when you use only CMD it will not execute this things thats why we using ENTRYPOINT
+
+FROM ubuntu
+ENTRYPOINT  ["yum", "-y", "install", "httpd"]
+
+>>docker run --entrypoint useradd anji11 anji      -->but when you execute this command it wil ignoe the ENTRYPOINT command in dockerfile you 
+can execute this command withot docker file it will add user anji not execute other commands the
+
+38-what is the differnce between CMD and RUN
+
+>>RUN: used to build images and install applictions and packages create a new layer over an existing image by commiting the results
+
+>>CMD: cmd sets default parameters that can be overidden when a container is running
+
+>>ENTRYPOINT: default parameters that cannot be overriden when containers run
+
+39-is there possible to use multiple CMD commads in dockerfile
+
+>>yes you can but the problem when you given two CMD commands it will execute only second or latest the first will not execute it will treat is second 
+>>ENTRYPONT also same
+
+but when you execute this command it wil ignoe the ENTRYPOINT command in dockerfile you canexecute this command withot docker file
+
+40-what is the best practice to wriet a dockerfile
+
+1-use offical image 
+2-Avoid installing unnecessary packages.dependies
+3-Chain all RUN commands
+4-Use multi-stage builds
+5-Using a minimal base image:
+6-Use the best order of statements
+7- Use a .dockerignore file
+8-Use COPY Instead of ADD
+9-use docker cache it will cache previous executed comand it will help to skip that command it impact your time to execute the file it will takes less time it will save time it will cache
+
+41-what is multistage dockerfile
+
+>>when you creating images the size will be grow huge using multi stage dockerfile you can create the different stages into the dockerfile
+and control how you want build the images using this stages
+>>if you multistage the first stage will generate temporary images that image discord into second stage
+
+>>multi stage build allows you to build your docker container in multipl stages allowing you to copy artifacts from one stage to another stage. 
+the major advantage of this is to buoild light weight containers
+
+42-what are network types in docker
+
+>>There are three common Docker network types – bridge networks, used within a single host, 
+overlay networks, for multi-host communication, 
+and macvlan networks which are used to connect Docker containers directly to host network interfaces.
+
+43-docker volumes creation managing
+
+Create a Docker Volume Implicitly.
+Create a Docker Volume Explicitly.
+Declare a Docker Volume from Dockerfile.
+View a Data Volume.
+Mount a Volume to a Container.
+Configure a Volume Using docker-compose.
+Copy Files Between Containers from a Shared Volume.
+
+44-What is Docker volume and its types?
+
+>>Docker volumes are a widely used and useful tool for ensuring data persistence while working in containers. Docker volumes are file systems mounted on Docker 
+containers to preserve data generated by the running container.
+1-host:-in host we dont create a volumes we can create a directory or file system in our system will map  the directory into docker containers
+you need to give permisssion to the directory. we are not creating volumes we are using the local directorys. this is like NFS you can share your directory 
+into the another container also
+2-anonymus:-it stores the data when the container is deleted but the name anonymus.if you used anonymus volumes you dont which conatiner is matched 
+you have n number of containers is there right. if you 10 volume which volume is matched to docker conatiner that is the probleam of anonymus
+3-named:- your giving volume name to conatiners. if you control p q the container will not stop ,by default login using bin bash dont use exist
+if you wany you specify the size also like how much do you wnt gb and mbs also
+
+45-what is docker image
+
+>>docker image act as a set of instructions to build a docker container it can be compared to snapshot in a VM
+
+46-what is the differnce between docker COPY and docker ADD
+
+>>docker ADD can copy your files from URL unlike 
+>>Docker COPY which can only copy files from host system into the container
+
+47-can you explain how to isolate networking between the containers
+
+>>you can create your own bridge networkings so using your own bridge networkings liek assign your own network to a secure container.
+create a new network in docker using docker network create anji something like this 
+
+48-what is distro-less images in docker
+
+>>distroless images contains only your application and runtime dependencies with very minimum operating system libearies they do noyt contain package managers shells
+or any other programs you would expect to find a standard linux distribution .they are very small and lightweight images 
+
+49-Realtime challenges with docker
+
+>>Docker is a single deamon process which can cause a single point of failure if the docker deamon goes down for some reason the application goes down
+
+>>docker deamon runs as a root user which is a security threat any process running as a root can have adverse effects when it is comprised for security reasons 
+it can impact other application or containers
+
+50-what is the differnce between docker and dockerswarm
+
+>>Docker runs containers on a single machine, while docker swarm orchestrates a collection of containers (and the communication between them) across a network, 
+allowing you to join multiple ‘host’ machines together to create a resilient, redundant cluster.
+>>Docker-Swarm is a tool that makes it convenient to quickly deploy many containers on many machines running docker. Without it there’d be potential for an 
+enormous operations headache everytime you deployed your application.
+
+51-I have a scenario,. where I need to run docker daemon inside a container, is it possible if it is how to achieve this?
+
+>>Running a Docker daemon inside a container is also known as "Docker-in-Docker" (DinD). This approach can be useful for certain use cases, such as running 
+CI/CD pipelines or testing Docker-related tools. However, it's generally not recommended for production use due to security and efficiency concerns.
+
+52-I want to write a script to check what all containers are running, and what containers are using images, if images are not tagged and dangling then remove them, also remove any stopped and unused containers as well, how you will schedule the same?
+
+#!/bin/bash
+# List running containers
+echo "Running containers:"
+docker ps
+
+# List containers using images
+echo "Containers using images:"
+docker ps -a --format "{{.Image}}"
+
+# Remove dangling images
+echo "Removing dangling images..."
+docker image prune -f
+
+# Remove stopped and unused containers
+echo "Removing stopped and unused containers..."
+docker container prune -f
+
+53-What are dangling images in docker and why you need to remove them?
+
+>>Dangling images are Docker images that are not associated with any tagged images or containers. They are usually created when you build a new version of an image, 
+but the old, untagged layers are still stored locally. Removing dangling images helps you reclaim disk space and keeps your Docker environment clean.
+
+54-Why it is important to remove dangling images? and how it helps you? how you see this in your environment?
+
+>>During development: As you iterate on your application and build new versions of your container image, you may accumulate several dangling images, 
+consuming unnecessary disk space. Periodically cleaning up these images can help you free up space and maintain a clean environment.
+
+>>In CI/CD pipelines: Continuous Integration and Deployment pipelines often involve building and testing container images. Over time, these pipelines can 
+generate many dangling images on the build server. Regularly pruning these images can prevent the build server from running out of disk space and improve overall 
+pipeline performance.
+
+55-Docker Containers are restarting frequently and how you troubleshoot this issue?, what might be the reasons ?
+
+>>Check container logs: Inspect the logs of the problematic container to identify any error messages or application-specific issues.
+>>docker logs "container-id"
+Check container status: Use the docker ps command to see the status and restart count of the container.
+>>docker ps --filter "name=container_name"
+>>Inspect the container: Use the docker inspect command to gather more information about the container, such as configuration and runtime data.
+>>docker inspect container_id
+>>Out-of-memory issues
+>>Misconfigured restart policy
+>>Health check failures
+>>resource-limits
+>>dependency issues
+
+56-How to find size of any container’s writable layer ? also how can I decrease the size of an image which is already in use.
+
+>>To find the size of a container's writable layer, you can use the docker ps command with the --size or -s flag:
+>>docker ps -s
+
+57-how to copy your container file into local system
+
+docker run -it --name anji ubuntu --bash
+echo "anjiiii" > test.txt
+docker start anji
+docker container ls
+docker cp 12356456:/test.txt ~/desktop/anji/html
+
+58-what is the differece betweeen VM and Container
+
+VMS:-
+1-Vitulizes Hardware
+2-Has Guest OS
+3-Huge in size (GB)
+4-Takes time to create 
+5-Takes time to bootup
+6-Consumes lot of resources
+
+Container:
+1-Virtualizes Os
+2-Shared Host OS
+3-Smaller in Size(MB)
+4-Can be created in Seconds
+5-Can be started in Seconds
+6-Consumes Very Few resources
+
+
+
+
+
+=========================================================================docker login======================================================================
+
+
+>>docke inspect "container id"               -->it will inspect whats happing
+>>docker login  -->docker hub
+>>docker login -u anji1592 azureb02.azurecr.io                -->it will be azure acr
+>>docker build -t engazurebo.azurecr.io/rolling:v1 .          -->it will build for azure ecr to push this
+>>docker push engazurebo.azurecr.io/rolling:v1           -->it will push to azure acr
+>>docker tag anji1592/rolling:v1  engazurebo.azurecr.io/rollingg:v1  -->it will rename the docker image name to push the azure acr 
+
+==================================================multistage-dockerfile========================================
+
+
+
+FROM openjdk:8-jdk-apline as builder
+RUN mkdir -p /app/source
+COPY . /app/source
+WORKDIR /app/source
+RUN ./mvn package
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/ ./urandom", "-jar", "/app/source/target/app.jar"]
+ 
+FROM tomcat:latest
+COPY --from=builder /app/source/target/*.jar /app/app.jar
+EXPOSE 8080
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/ ./urandom", "-jar", "/app/source/target/app.jar"]
+
+----------------------or------------------------------------------------------------
+
+FROM maven AS build
+WORKDIR /app
+COPY . .
+RUN mvn package
+
+FROM tomcat
+COPY --from=build /app/target/file.war /usr/local/tomcat/webapps 
+
+
+=====================================================================attach-volumes===========================================
+
+FROM ubuntu:latest
+RUN mkdir /data
+WORKDIR /data
+RUN echo "Hello from Volume" > test
+VOLUME /data
+RUN apt-get -y update
+RUN groupadd -r user && useradd -r -g user user
+USER user
