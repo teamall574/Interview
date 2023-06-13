@@ -1841,4 +1841,10 @@ we are 4 members mother father and younger brother. young brother is an android 
 >>we deploy the applications and deliver the containers on the platform like kubernetes and end of the day take care of montoring this applications on kubernetes that
 deployed as containers or pods and and we also montior tools like grafana promethus and node exporter
 
+234-what is schedular and event pattern in events in cloudwatch
+
+>>schedular is like you can schedule the certain time
+>>event pattern you can create a pattern and you can do whenever the event trigger it will execute
+
+
 
