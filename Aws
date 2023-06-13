@@ -972,6 +972,7 @@ oracle database, sql server
 
 >>RDS is structred database
 >>RDs is platform as service(paas)
+>>you can create read replcia in another region also us-east-1a to ap-south-1a
 >>if you createing an database automatically it will create two databases in a region but they don't know
 it will connect in primary database ,the primary will sync to secondary database ,if in case primary not availble then secondary will connect 
 >>if the primary available zone damaged not available then it will create onemore database in availble region like us-east-1c
