@@ -711,4 +711,67 @@ stage('get cedentials'){
 >>yes it possible to check OWASP the tool called DEPENDENCY-CHECK . this tool will be used after build the applications it will check the package file or jar/war file in known vulnerabilites 
 the tool name is owasp Dependency-Check in jenkins plugin and install that in jenkins server then use this 
 
+56-how many wats to install jenkins 
 
+1-using war file
+2-Adding the Jenkins Repository
+3-running through docker container
+
+57-what is the advantages and disadvnatges of installing using war file and jenkins service file
+
+>>The Jenkins Web application ARchive (WAR) file bundles Winstone, a Jetty servlet container wrapper, and can be started on any operating system or platform with a version of Java supported by Jenkins.
+warfile:-
+>>if you use war file need to run the war file everytime
+>>if naything restarted you need go cli restart the command everytime
+
+servicefile:-
+>>if your installing using jenkins servicefile if the server restarted ne need to run the command everytime
+>>
+Advantegs:-
+>>You can easily upgrade Jenkins and its dependencies by installing a new version of the package
+>>It will set up Jenkins as a service that will restart automatically if the server reboots
+
+58-what hapens jenkins agent port changed what can i do
+
+>>Port 50000 allows you to use other JNLP-based Jenkins agents on other machines. This functionality is not required for this example, but is good to know about if you are working with a master-slave system.
+Map host volumes to the container. This means that the container can use, store, and create data on the host.
+
+>>What port does Jenkins agent use?
+Agents speak “remoting” from agent to controller. By default they do this over TCP, I believe the default is port 50000 though the default might be random, but you can override that in settings.
+
+59-what is hudson server
+
+>>Hudson is a CI (continuous integration) tool which is written in Java, which runs in a servlet container such as Glassfish or Apache Tomcat application server. 
+It supports SCM tools such as Git, CVS, Perforce, ClearCase and RTC and can execute Apache Maven and Apache Ant-based projects, as well as arbitrary shell scripts and Windows batch commands.
+
+Hudson is open-source and free.
+Ease of installation and use
+You can easily write plugins to support tools/processes in your team. And after you give, they can be used by others as well.
+Distributed build support
+Inter team support
+Extensive control outside Hudson and this is possible because of programmable control interface
+Hudson is used in providing easily readable URLs for most of the pages such as "last successful build" and "promoted build".
+Localization is available in French, English, Germany, Japanese, Russian, Turkish, and Brazilian. Even you can easily create your own localization bundle.
+Hudson builds on general-purpose building blocks.
+
+60-what is the differnce between hudson and jenkins server
+
+jenkins:-
+>>Jenkins is extendable open source continuous integration server.
+>>Jenkins was forked from Hudson.
+>>Jenkins is used by companies Netflix, Facebook, ebay, LinkedIn, Instacart etc.
+>>Jenkins is integrated with Slack, Datadog, BrowserStack, Sauce Labs, JBoss, etc. tools.
+>>Jenkins support a lot of plugins.
+
+Hudson:-
+>>Hudson is Extensible continuous integration server.
+>>Hudson is the CI tool.
+>>Hudson is used by companies Logo Yazilim, TableAir UAB and OptoSweden AB.
+>>Maven is integrated with tools JavaScript, Java, HTML5 and Tuleap.
+>>Hudson support less plugins as compare to Jenkins.
+
+61-How many ways we can connect slaves in Jenkins?
+
+>>There are two ways of authentication for setting up the Linux Jenkins slave agents. Using ssh keys.
+
+62-
