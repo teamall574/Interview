@@ -467,6 +467,8 @@ git tag -delete <tag-name>   -->delete the tag
 
 >>Three things about branching to keep in mind are: 1) streamline workflow, 2) collaboration, and 3) continuous parallel development. 
 Source control branching saves time and effort in an agile environment while promoting productivity.
+>>Branches allow you to develop features, fix bugs, or safely experiment with new ideas in a contained area of your repository. You always create a branch from an existing branch.
+Typically, you might create a new branch from the default branch of your repository.
 
 59-Is this possible to ignore .ignore file in git
 
