@@ -1851,4 +1851,11 @@ deployed as containers or pods and and we also montior tools like grafana promet
 >>Cloud computing is the on-demand delivery of IT resources over the Internet with pay-as-you-go pricing. Instead of buying, owning, and maintaining physical data centers and servers,
 you can access technology services, such as computing power, storage, and databases, on an as-needed basis from a cloud provider like Amazon Web Services (AWS).
 
-236-
+236-what Required to connect the MySQL or RDS or any databse
+
+>>The account that is used to connect to the MySQL database must have at least CONNECT permissions. This enables SSMA to obtain metadata from schemas owned by the connecting user.
+1-connection permission any network or locally
+2-mysql endpoint
+3-port number should be open
+4-username and password
+5-mysql workbench or jdbc connection
