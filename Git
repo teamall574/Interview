@@ -463,9 +463,12 @@ git tag -delete <tag-name>   -->delete the tag
 >>git reflog master@{1.minute.ago}
 >>git reflog show HEAD@{5}
 
-58-
+58-What are the benefits of branching?
 
+>>Three things about branching to keep in mind are: 1) streamline workflow, 2) collaboration, and 3) continuous parallel development. 
+Source control branching saves time and effort in an agile environment while promoting productivity.
 
+59-Is this possible to ignore .ignore file in git
 
 
 
