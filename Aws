@@ -1859,3 +1859,11 @@ you can access technology services, such as computing power, storage, and databa
 3-port number should be open
 4-username and password
 5-mysql workbench or jdbc connection
+
+237-Is node.js will supoort backend and frontend
+
+>>yes node.js will support frontend and backend also
+3 tier arch
+database:- mongodb or postgress or mysql
+frontend-web-application:- nodejs (webapp)
+backend-end-application:-  nodejs (app-servers)
