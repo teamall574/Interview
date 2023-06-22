@@ -166,6 +166,7 @@ pipeline {
         stage('k8s deploy') {
         steps{
             withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'k8s', namespace: '', restrictKubeConfigAccess: false, serverUrl: '') {
+		sh "sed -i '/^\\s*image:/ s|.*|  image: ${image_name}|' ${deployment.yml}"  //it will replace the docker image tag or build number everytime in deployment file
                 sh 'kubectl get pods'
                 sh 'kubectl create -f deployment.yml'
             }
