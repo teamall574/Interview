@@ -813,6 +813,10 @@ identifies unschedulable pods and simulates scheduling for each node group. Know
 
 77-what is configmap in kubernetes
 
+>>In Kubernetes, ConfigMaps and Secrets are used to store configuration data and sensitive information respectively.
+
+>>ConfigMaps store configuration data in key-value pairs and can be used to store data like environment variables, command-line arguments, configuration files, etc.
+ConfigMaps can be used to update an application’s configuration without redeploying the entire application.
 >>A ConfigMap is an API object that lets you store configuration for other objects to use. Unlike most Kubernetes objects that have a spec, a ConfigMap has data 
 and binaryData fields.These fields accept key-value pairs as their values. Both the data field and the binaryData are optional. 
 
