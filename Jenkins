@@ -34,7 +34,6 @@ sh 'apt-get update'
 steps{
     anji() //this shared liberay name what you have to share 
 }
-
 pipeline {
     agent {
         lable "Anji"  ##need to give slave name slave name is Anji
@@ -43,6 +42,13 @@ pipeline {
         registryCredential = "anjitest"
         dockerimagename = "anji1592/kubetest"
         dockerImage = " "
+    } //or use this
+    environment {
+        app_name = "zomato-app"
+        release = "1.0.0"
+        image_name = "${anji1592}" + "/" + "${app_name}"
+        iamge_tag = "${release}-${BUILD_NUMBER}" 
+
     }
     stages {
         stage("clean workspace"){
@@ -136,7 +142,20 @@ pipeline {
                 }
             }
         }
-
+        stage ('docker build'){ 
+            steps {
+                docker_image = docker.build "${image_name}"
+            }
+        }
+        stage ('push docker image') {
+            steps {
+                script {
+                    withDockerRegistry(credentialsId: '2fe19d8a-3d12-4b82-ba20-9d22e6bf1672', toolName: 'docker') {
+                        docker_image.push("${image_tag}")
+                        docker_image.push('latest')
+                }
+            }
+        }
         stage('test docker image') {
             steps {
                 sh "trivy --version"  
@@ -161,6 +180,10 @@ pipeline {
             failure {
               slackSend failOnError:true message:"Build failed  - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
             }
+        }
+        //or else you can send the mail also
+        post {
+            
         }
     }
 }
