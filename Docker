@@ -45,23 +45,24 @@ ENTRYPOINT ["npm","start"]
 
 ##################
 FROM tomcat:8-jre8
-COPY webapp.war /usr/local/tomcat/webapps
+COPY webapp. war /usr/local/tomcat/webapps
 EXPOSE 8080
 
-1-what is differnce between kubernetes and docker
+1-what is the difference between Kubernetes and docker
 
->Docker is container platform where as kubernets is a container orchestation environment that offers capabilites like auto-scaling,auto helaing,clusterng
-and enterprse level support like load balancing
+>Docker is a container platform whereas Kubernetes is a container orchestration environment that offers capabilities like auto-scaling, auto-healing, clustering
+and enterprise-level support like load balancing
 
-1 - what is docker and conatiner how to use in docker containers
+1 - what are docker and container how do use docker containers
 
->>Docker is tool deisgned to create,deploy and run applications easily by using containers
->>docker packages the application and dependies to the required to run the appliation in single bundle and ship to the target environment in docker world we called docker image. when we run this image 
-in any environement this creates an isolated environment for the application to run by installing reuired packages and we called this isolated environment is called container 
->>no matter where you can run this images this will works fine 
->>by taking advantage of Dockers methodologies for shipping  testing and deploying code quickly we can significantly reduce the delay between writting code and running it in production
+>>Docker is a tool designed to create, deploy and run applications easily by using containers
+>> Docker packages the application and dependencies required to run the application in a single bundle and ship to the target environment in the docker world we called docker image. 
+when we run this image in any environment this creates an isolated environment for the application to run by installing required packages and we called this isolated environment is
+called container 
+>> No matter where you can run these images this will work fine 
+>> By taking advantage of Dockers methodologies for shipping  testing and deploying code quickly we can significantly reduce the delay between writing code and running it in production
 
-probleams solves in docker
+problems solve in the docker
 1-time consuming
 2-isolating in different environment(if you want create the 3 server you cant create the 3 server it will cost you can cant create the 3 vms in a system its not goof then create the 3 images its good)
 
