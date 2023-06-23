@@ -738,7 +738,19 @@ docker-compose restart: Restarts containers created by docker-compose.
 docker-compose exec: Runs a command inside a running container.
 docker-compose config: Validates and displays the compose file.
 
+68-how to modify the image and push to the docker hub new image
 
+>>sudo docker pull ubuntu
+>>>>sudo docker images
+>>sudo docker run -it cf0f3ca922e0 bin/bash
+>>apt-get install nmap
+>>nmap --version
+>>exit
+>>docker ps -a
+>>sudo docker commit [CONTAINER_ID] [new_image_name]
+>>sudo docker commit deddd39fa163 ubuntu-nmap
+>>sudo docker images
+>>docker psuh ubuntu-nmap
 
 
 
