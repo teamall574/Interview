@@ -930,7 +930,9 @@ depends_on = {
 aws_vpc.default
 }
 
-36-
+36-when you created vpc and route tables using terrform and the data will be stored .tfstate file some one came and delete the route table it will recreate route table one more time
+
+>>yes it will recreate the route table the data is stored in .tfstate so when some one deleted it will automatically created 
 
 
 
