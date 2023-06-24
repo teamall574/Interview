@@ -641,6 +641,11 @@ to reuse. The breaking of playbook allows you to logically break the playbook in
 >>you can push your code in to github 
 >>vi /etc/httpd/conf/httpd.conf                 -->you can change your port number rhel
 >>vi /etc/apache2/ports.conf
+
+46-Is Ansible mutable or immutable
+
+>>Mutable>>A mutable object can be changed after it's created, and an immutable object can't.
+
 ========================================================Terraform========================================================================================
 
 ==================================================================Terraform and packer=====================================================================================
