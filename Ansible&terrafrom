@@ -648,35 +648,29 @@ to reuse. The breaking of playbook allows you to logically break the playbook in
 1 - what is terraform
 
 >>Terraform version 1.4.0
->>terraform is infrastructure as a tool used to create resource on cloud providers like aws ,azure,gcp so on..
->>for example if you want create an ec2 instance using terraform rather then going to managemnet console to click on service you will write a code 
->>using terraform is easy to manage the infrastucture you can reuse the code to create multipule resources you can also store the code on version control system like
-github code commit bitbucket to keep track your changes of resources 
->>terraform as a code (Iaac)
->>terraform is not easy but effective
->>things are not easy to implement infrastructure in aws or azure
->>when any changes happen tfstate will save the data
+>>Terraform it is open-source terrform is IAAC(Infrastructure as a code) tool used to create resources on cloud providers like AWS, Azure, GCP so on. 
+>> For example if you want to create an ec2 instance using Terraform rather than going to the management console to click on service you will write a code 
+>>using terraform is easy to manage the infrastructure you can reuse the code to create multiple resources you can also store the code on a version control system like
+GitHub code commit bitbucket to keep track of your changes in resources 
+>> Terraform is not easy but effective
+>> When any changes happen .tfstate will save the data
 >>tfstate is very important
 
----Addvantages:-
->>terraform code is easy to understand and easy to use
->>it is open-source
->>it uses hashicorp language
->>it can used with multiple vendors(code will changed)
->>it not platform aganstics(the code will changed when deploying azure and aws code will be changed)
->>config can be split into multiple files (variables)
->>terraform have an idempotant
->>can perform dry-run easily (you can check your code without runing test the code is write or not to run the plan)
->>importing of manual resources
->>terraform is fast compared to others
+Advantages:-
+1-Automated infra CRUD(create read update delete)
+2-Terraform code is easy to understand and easy to use
+3-Version control(we can save the code in git and easy to collaborate the other teammates)
+4-terraform have an idempotant
+5-Consistent Infra(using terraform code you can create similar infra into different environment without duplicate)
+6-Config can be split into multiple files (variables)
+7-Inventory management
+8-Cost optimization
+9-Modular Infra(DRY -->Dont Repeat Yourself)
 
----Disadvantages
->>this is third party tool (there is no support in all time and all the new services not availble)
->>new service might not be availble(when aws developing an service when he relases aws services then he ca
-can develop the terraform )
->>bugs will not fixed (fast)
->>lack of support
-
+Dis-Advantages:-
+1-Bugs will not be fixed (fast)
+2-new service might not be available(when aws developing an service when he relases aws services then he can develop the terraform )
+3-his is a third-party tool (there is no support at all times and all the new services not availble)
 
 #>>terraform is an infrastructure as a tool that allows you to build infrastructure and change versions,safely and efficently
 #>>Terraform is a tool for building, changing and versioning infrastructure safely and efficiently. Terraform can manage existing and popular cloud service providers
