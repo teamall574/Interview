@@ -928,7 +928,9 @@ aws_vpc.default
 
 >>yes it will recreate the route table the data is stored in .tfstate so when some one deleted it will automatically created 
 
+37-if you want applu one one instance or one module only how can you apply in terraform
 
+>>terraform apply --target=module.vpc
 
 
 
