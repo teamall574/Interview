@@ -1909,13 +1909,13 @@ you can access technology services, such as computing power, storage, and databa
 
 >>yes node.js will support frontend and backend also
 3 tier arch
-database:- mongodb or postgress or mysql
+database:- MongoDB or Postgres or MySQL
 frontend-web-application:- nodejs (webapp)
 backend-end-application:-  nodejs (app-servers)
 
 238-what is XML
 
->>XML stands for eXtensible Markup Language .XML is a markup language much like HTML
+>>XML stands for eXtensible Markup Language. XML is a markup language much like HTML
 >>XML was designed to store and transport data. XML was designed to be self-descriptive
 
 ex:-
@@ -1929,5 +1929,9 @@ ex:-
 	</Address>
 </person>
 
-239-
+239-how NAT-Gateway will work
+
+>> When we use to launch the nat-gateway in the public subnet then we can add it to private route tables
+
+240-
 
