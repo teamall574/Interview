@@ -1055,4 +1055,19 @@ It shows you the changes that Terraform will make without actually applying them
 It automatically rearranges and indents the code according to the Terraform style guide.
 7-terraform destroy: Destroys all the resources created by Terraform, effectively tearing down your infrastructure. It prompts for confirmation before removing the resources.
 
+46-What is the Resource..??
+
+>>In Terraform, a resource is a single entity in your infrastructure that you want to manage using Terraform. It could be a virtual machine, a database, a network interface, or any other
+component that you want to provision, configure, or manage. A resource is defined using a Terraform configuration block that specifies the resource type, attributes, and dependencies.
+
+47-What is Desired and Current State..?
+
+>>In the context of infrastructure management tools like Terraform, the desired state refers to the configuration or specification of how the infrastructure should look like. 
+It defines the intended state of resources, such as servers, networks, and databases, in terms of their properties, relationships, and settings.
+
+>>On the other hand, the current state represents the actual state of the infrastructure at a given point in time. It reflects the existing resources, their attributes, and the 
+relationships between them.
+
+48-
+
 
