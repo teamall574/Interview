@@ -1184,8 +1184,26 @@ will lead to an interesting problem, like classes with data and no behavior.
 
 132-what JSON (JavaScript Object Notation)
 
->>It is commonly used for transmitting data in web applications (e.g., sending some data from the server to the client, 
-so it can be displayed on a web page, or vice versa).
+>>JSON stands for JavaScript Object Notation . JSON is a lightweight format for storing and transporting data
+(e.g., sending some data from the server to the client, so it can be displayed on a web page, or vice versa).
+
+{
+"Name": "Anji",
+"Age": "26",
+"DOB": "01-01-1996",
+"Address": [
+    {
+   	"Type": "permenanent",
+	"DoorNo": "1-80/1",
+	"Address-line": "ganesh nagar"
+     },
+     {
+	"Type": "current",
+	"DoorNo": "1/90",
+	"Address-line": "neknampur"
+      }
+   ] 
+}
 
 133- can you explain 3tier architecture or elbrate them
 
@@ -1196,7 +1214,34 @@ through route53 and internal load balancer is between app and web and the app is
 
 134- what is YAML
 
->>YAML is a human-readable data-serialization language. It is commonly used for configuration files and in applications where data is being stored or transmitted
+>> Yaml is yet another markup languge.YAML is a human-readable data-serialization language
+>>xml,json,yaml are DTO  -->data transfer object
+
+first type(key: value or list)
+Name: Anji
+Age: 26
+DOB: 01-07-1996
+Address:
+- present: VDk
+  street: ganesh nagar
+  city: peddapelli
+- current: hyd
+  street: neknampur
+  city: hyd 
+
+==second type(map type)
+Name: Anji
+Age: 26
+DOB: 01-07-1996
+Address:
+  perm-address:
+    present: VDk
+    street: ganesh nagar
+    city: peddapelli
+  current-address:
+    present: VDk
+    street: ganesh nagar
+    city: peddapelli
 
 139- What is SQL Server in simple words?
 
@@ -1867,3 +1912,22 @@ you can access technology services, such as computing power, storage, and databa
 database:- mongodb or postgress or mysql
 frontend-web-application:- nodejs (webapp)
 backend-end-application:-  nodejs (app-servers)
+
+238-what is XML
+
+>>XML stands for eXtensible Markup Language .XML is a markup language much like HTML
+>>XML was designed to store and transport data. XML was designed to be self-descriptive
+
+ex:-
+<person>
+	<Name>anji</Name>
+	<Age>26</Age>
+	<DOB>01-07-1996</DOB>
+	<Address>
+		<H-No>1-80/1</H-No>
+		<City>VDK</VDK>
+	</Address>
+</person>
+
+239-
+
