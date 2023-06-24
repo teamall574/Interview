@@ -358,6 +358,7 @@ this two will not come service
 >>The NodePort service serves as the external entry point for incoming requests for your app. The assigned NodePort is publicly exposed in the 
 kubeproxy settings of each worker node in the cluster. Every worker node starts listening on the assigned NodePort for incoming requests for the service.
 >>>>nodeport is used to connect outside the internet 
+>>It’s important to note that the allocated port range for NodePort services is 30000–32767 by default and can be customized if needed. 
 
 35-what is ClusterIP
 
@@ -1226,8 +1227,67 @@ but the java memory set to 5GB you need to see this two things this will face is
 >>The heap size value is determined by the amount of memory available in the computer. Initial heap size is 1/64th of the computer's physical memory or reasonable minimum based on platform (whichever is larger) 
 by default. The initial heap size can be overridden using -Xms.
   
-109-
+109-How does Kubernetes handle network communication between containers?
 
+1-Pod-to-Pod Networking: Each pod is assigned a unique IP address that is used by the containers within the pod to communicate with each other. Pods can communicate with other pods
+using their IP addresses and ports.
 
+2-Service Networking: Kubernetes provides a virtual IP address for each service, which is used to load balance traffic between pods. Services can be exposed to the outside world using
+a Kubernetes Ingress resource or by creating a NodePort or LoadBalancer service.
 
-110-
+110-How does Kubernetes handle network security and access control?
+
+1-Network Policies: Kubernetes supports Network Policies that allow you to define how pods are allowed to communicate with each other and other network endpoints. 
+With network policies, you can restrict access between pods or namespaces to create a more secure environment.
+2-Service Accounts: Kubernetes provides Service Accounts that enable you to control access to the Kubernetes API server and other resources in the cluster.
+You can assign specific roles and permissions to Service Accounts to restrict or grant access to resources.
+3-Role-Based Access Control (RBAC): Kubernetes supports RBAC, which allows you to define roles and permissions for users and Service Accounts. 
+RBAC allows you to create fine-grained access control policies for different resources in the cluster.
+4-Secrets: Kubernetes provides Secrets, which allow you to store and manage sensitive information like passwords, keys, and tokens securely. 
+You can use Secrets to control access to sensitive data in your applications.
+
+111- Can you give an example of how Kubernetes can be used to deploy a highly available application?
+
+1-First, create a Docker image of your web application and push it to a container registry like Docker Hub.
+2-Create a Kubernetes Deployment object that defines the desired state of your application, including the number of replicas, the container image to use, 
+and any environment variables or other configuration.
+3-Create a Kubernetes Service object that provides a stable, load-balanced IP address for your application. This ensures that traffic is distributed evenly across all 
+replicas of your application.
+4-Set up a Kubernetes Ingress object to expose your application to the internet. This allows external traffic to access your application through a single entry point, 
+while also providing SSL termination, load balancing, and other advanced features.
+5-Configure Kubernetes to automatically scale your application up or down based on resource utilization, using Horizontal Pod Autoscaling (HPA). 
+This ensures that your application can handle sudden spikes in traffic without going down.
+6-Use Kubernetes rolling updates to deploy new versions of your application without any downtime. This ensures that your users always have access to the latest features and bug fixes,
+while also minimizing the risk of service disruption.
+
+112- Difference between create and apply in kubernetes?
+
+>> create will always create a new resource, even if a resource with the same name already exists in the cluster
+>>On the other hand, apply will create a new resource if it does not exist, but will modify an existing resource if it does
+
+113-Can you explain the concept of self-healing in Kubernetes and give examples of how it works?
+
+>>Self-healing is an important concept in Kubernetes, which allows the system to automatically detect and recover from failures in the cluster.This ensures that the applications running 
+in the cluster are always available and responsive to user requests.
+>>One of the ways in which Kubernetes achieves self-healing is through replication. By creating multiple replicas of a pod, Kubernetes can ensure that if one replica fails, 
+the other replicas can continue to serve traffic without interruption. When Kubernetes detects that a pod is no longer running or responding to requests, it will automatically terminate 
+the failed pod and create a new one to take its place.
+>>Another way in which Kubernetes achieves self-healing is through probes. Probes are used to periodically check the health of a pod by sending requests to it and verifying that it responds
+correctly. If a pod fails a probe, Kubernetes can automatically terminate the pod and create a new one to take its place.
+>>In addition, Kubernetes also provides a feature called liveness and readiness probes, which allows you to define custom checks to ensure that your application is running correctly.
+For example, you can define a liveness probe to check if your application is able to connect to a database, and a readiness probe to ensure that your application is ready to receive traffic.
+
+114-What is a multinode cluster and single-node cluster in Kubernetes?
+
+>>A single-node cluster is a Kubernetes cluster that runs on a single machine. It is mostly used for testing and development purposes where a single machine is used to run and manage
+Kubernetes.
+>>For example, you can use Minikube to run a single-node Kubernetes cluster on your local machine for testing and development purposes.
+
+On the other hand, a multinode cluster is a Kubernetes cluster that runs on multiple machines or nodes. It is used in production environments where a large number of containerized 
+applications need to be deployed and managed.
+>>For example, if you want to deploy a web application that receives a large number of requests, you can use a multinode cluster to distribute the load across multiple nodes, 
+ensuring high availability and scalability.
+
+>>In a multinode cluster, the nodes work together as a single entity to manage and run the containerized applications. Each node has its own set of resources, such as CPU, memory, 
+and storage,that can be utilized by the applications running on it. The cluster manager, such as Kubernetes, ensures that the applications are distributed across the nodes in a way
+that maximizes resource utilization and provides high availability and fault tolerance
