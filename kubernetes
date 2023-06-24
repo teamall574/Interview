@@ -1291,3 +1291,8 @@ ensuring high availability and scalability.
 >>In a multinode cluster, the nodes work together as a single entity to manage and run the containerized applications. Each node has its own set of resources, such as CPU, memory, 
 and storage,that can be utilized by the applications running on it. The cluster manager, such as Kubernetes, ensures that the applications are distributed across the nodes in a way
 that maximizes resource utilization and provides high availability and fault tolerance
+
+115-Is Kubernetes mutable or immutable?
+
+immutable
+If you are using containers or container orchestration tools like Kubernetes, you are already following an immutable model for application deployments.
