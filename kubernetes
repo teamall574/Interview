@@ -1296,3 +1296,56 @@ that maximizes resource utilization and provides high availability and fault tol
 
 immutable
 If you are using containers or container orchestration tools like Kubernetes, you are already following an immutable model for application deployments.
+
+116-Can you discuss your experience with using Kubernetes network plugins such as Calico, Flannel, or Weave Net?
+
+>>Kubernetes network plugins, such as Calico, Flannel, and Weave Net, are essential components of a Kubernetes cluster that enable communication between the various components of 
+the cluster, such as pods, nodes, and services.
+
+>>Calico is a popular network plugin that provides network security, network segmentation, and network policy enforcement. It is known for its high performance and ease of use, 
+making it a popular choice for many Kubernetes deployments.
+
+>>Flannel is another popular network plugin that provides network overlay support for Kubernetes. It is known for its simplicity, as it does not require a lot of configurations, 
+and for its support for many different networking backends, such as VXLAN, host-gw, and AWS VPC.
+
+>>Weave Net is a third popular network plugin that provides a fully featured network fabric for Kubernetes. It is known for its support for multiple networking modes, such as VLAN 
+and overlay networking, and for its support for encrypted and unencrypted network traffic.
+
+117-Explain Kubernetes architecture and its components.
+
+>>Kubernetes is a highly scalable and extensible open-source platform for managing containerized applications. The Kubernetes system consists of several components that work together
+to provide a complete solution for deploying, scaling, and managing containerized applications.
+
+Here are some of the key components in a Kubernetes cluster:
+
+>>API server: The API server is the central component in a Kubernetes cluster. It is responsible for managing the state of the cluster and exposing the Kubernetes API.
+The API server is the endpoint for all requests to the Kubernetes cluster.
+>>Etcd: Etcd is a distributed key-value store that is used to store the configuration data for the Kubernetes cluster. This data includes information about nodes, pods, and services.
+>>Controller Manager: The controller manager is responsible for managing the state of the cluster. It watches the API server for changes and takes action to ensure that the 
+desired state is maintained.
+>>Scheduler: The scheduler is responsible for scheduling pods to run on specific nodes in the cluster. It takes into account the resource requirements of each pod, as well as 
+the available resources on each node, to determine the best node for each pod to run on.
+>>Kubelet: The kubelet is the agent that runs on each node in the cluster. It is responsible for ensuring that the containers in a pod are running and healthy.
+>>Kube-proxy: Kube-proxy is the network proxy that runs on each node in the cluster. It is responsible for routing traffic from the network to the correct pods in the cluster.
+>>Container Runtime: The container runtime is responsible for pulling the images and starting containers. Kubernetes supports multiple container runtimes, 
+including Docker, rkt, and CRI-O.
+
+118-
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
