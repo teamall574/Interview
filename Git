@@ -470,6 +470,35 @@ Source control branching saves time and effort in an agile environment while pro
 >>Branches allow you to develop features, fix bugs, or safely experiment with new ideas in a contained area of your repository. You always create a branch from an existing branch.
 Typically, you might create a new branch from the default branch of your repository.
 
+59-What is origin in Git?
+
+>>Origin refers to the remote repository that a project was originally cloned from and is used instead of the original repository’s URL.
+
+60-What is the difference between resetting and reverting?
+
+>>git reset changes the state of the branch to a previous one by removing all of the states after the desired commit,
+
+>>git revert does it through the creation of new reverting commits and keeping the original one intact.
+
+61-What is ‘staging area’ or ‘index’ in Git?
+
+>>That before completing the commits, it can be formatted and reviewed in an intermediate area known as ‘Staging Area’ or ‘Index’. 
+Every change is first verified in the staging area and then that change is committed to the repository.
+
+62-What is Head in Git?
+
+>>Git maintains a variable for referencing, called HEAD to the latest commit in the recent checkout branch. So if we make a new commit 
+in the repo then the pointer or HEAD is going to move or change its position to point to a new commit.
+
+
+
+
+
+
+
+
+
+
 59-Is this possible to ignore .ignore file in git
 
 
