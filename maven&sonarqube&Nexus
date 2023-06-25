@@ -39,7 +39,6 @@ Ant:-
 3-librarays are part of source code(diffcult to maintain)
 4-Ant are follows you you need to tell how to work
 
-
 Maven:-
 1-Maven say what to do not how to do
 2-How to build is defined maven(life cycle)
@@ -306,3 +305,7 @@ server
 	
 	}
 }
+
+47-why we are using the maven tool
+
+>>maven build tool. it is used to build the file into war or jar file it will convert binary file to small size file gb to mb like that
