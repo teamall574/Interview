@@ -372,6 +372,12 @@ After the successful testing phase, Jenkins shares the results with the team usi
 
 20-What is Jenkinsfile? 
 
+>>Jenkinsfile is a groovy file where the syntax is human-understandable
+>>With a Jenkinsfile, you can define a pipeline as code, enabling you to version control and manage your build pipeline along with your source code.
+It provides a way to describe and automate the continuous integration and continuous delivery (CI/CD) process for your software projects.
+>>A Jenkinsfile typically consists of a series of stages, each representing a step in the build pipeline. Within each stage, you define the tasks or operations to be performed, 
+such as compiling the code, running tests, packaging the application, or deploying it to a server. You can also define conditions and triggers to control when each stage should run,
+allowing for parallel or sequential execution of tasks.
 >>Jenkins file is a text file that has a definition of a Jenkins pipeline and is checked into the source control repository.
 It enables code review and iteration on the pipeline. It also permits an audit trail for the pipeline.
 
