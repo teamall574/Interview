@@ -802,7 +802,8 @@ Hudson:-
 
 61-How many ways we can connect slaves in Jenkins?
 
->>There are two ways of authentication for setting up the Linux Jenkins slave agents. Using ssh keys.
+>>There are two ways of authentication for setting up the Linux Jenkins slave agents. 
+Using 1- ssh keys. 2- JNLP 
 
 62-How do you enable the project based authentication to users he can't able to access another project
 
@@ -810,3 +811,25 @@ Hudson:-
 security then add the users and select the permissions that it then after selecting the project-based matrix authorization strategy and then select or add the users then after go to the required 
 project and select the enable project based security then select or add the user anji1 only that user will able to the activities only anji1 if anji2 will see the project won't able to do
 any activites
+
+63-how to create the Jenkins parameter
+
+>>create the New item anji and select the free style project and select the project parameterized in this under 
+1-Boolean parameter
+2-Choice parameter
+3-Credentials parameter
+4-Extended choice parameter(need to install plugin)
+5-File parameter
+6-Multi-line parameter
+7-password Parameter
+8-run parameter
+9-string parameter
+you can create the parameters what you want. for example you 3 branches in github you can add the choice parameter name git-branch then add branches then select where your adding git url 
+then it will select the master branch by default then add this */$(git-branch) click on save. then it will ask while build which you want build branch
+
+
+
+
+
+
+
