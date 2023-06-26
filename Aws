@@ -2112,7 +2112,10 @@ Define inbound and outbound rules in network ACLs to allow or deny traffic based
 Carefully evaluate and configure network ACLs to restrict access to your resources.
 Regularly review and update network ACL rules as per your security requirements.
 
+260-how much time would take while launching installing
 
+linux: minimum 3 minutes maximum 4 minutes
+windows: minimum 4 minutes maximum 5 minutes
 
 
 
