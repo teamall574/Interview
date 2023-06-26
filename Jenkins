@@ -786,8 +786,8 @@ Hudson builds on general-purpose building blocks.
 
 60-what is the differnce between hudson and jenkins server
 
-jenkins:-
->>Jenkins is extendable open source continuous integration server.
+Jenkins:-
+>>Jenkins is an extendable open-source continuous integration server.
 >>Jenkins was forked from Hudson.
 >>Jenkins is used by companies Netflix, Facebook, ebay, LinkedIn, Instacart etc.
 >>Jenkins is integrated with Slack, Datadog, BrowserStack, Sauce Labs, JBoss, etc. tools.
@@ -804,4 +804,9 @@ Hudson:-
 
 >>There are two ways of authentication for setting up the Linux Jenkins slave agents. Using ssh keys.
 
-62-
+62-How do you enable the project based authentication to users he can't able to access another project
+
+>>by using the Matrix authorization stargey this plugin Matrix authorization strategy plugin you need to install and then go to the configure global security then select the matrix based
+security then add the users and select the permissions that it then after selecting the project-based matrix authorization strategy and then select or add the users then after go to the required 
+project and select the enable project based security then select or add the user anji1 only that user will able to the activities only anji1 if anji2 will see the project won't able to do
+any activites
