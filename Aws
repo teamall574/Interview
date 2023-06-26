@@ -2114,8 +2114,13 @@ Regularly review and update network ACL rules as per your security requirements.
 
 260-how much time would take while launching installing
 
-linux: minimum 3 minutes maximum 4 minutes
-windows: minimum 4 minutes maximum 5 minutes
+linux: minimum 3 minutes maximum 4 minutes (its requires minumum 8gb storage)
+windows: minimum 4 minutes maximum 5 minutes (its requires minimum 30 gb storage)
 
+261-what is SLA(service-level agreement)
 
+>>They provide information on all contracted services and on the agreed expected reliability and they clearly set out the parameters, responsibilities and expectations 
+so that in the event of a problem with the service, no party can plead ignorance
+
+262-
 
