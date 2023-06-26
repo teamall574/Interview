@@ -557,10 +557,18 @@ Step 4: Download The New Jenkins Version. ...
 Step 5: Change The Ownership Of New Jenkins Binary. ...
 Step 6: Start The Jenkins Server.
 
-37-what is upstream and downstream in jenkins
+37-what is upstream and downstream in jenkins and how to select the if the job1 is triggered then automatically execute the job2
 
 >>An upstream job is a configured project that triggers a project as part of its execution. A downstream job is a configured project that is triggered 
 as part of a execution of pipeline.
+
+Job1----------->Job2-------------->Job2
+
+DownStream:- Job2 is Downstream Job for Job1 and Job3 is DownStream project for Job2
+UpStream:- Job1 is UpStream Job for Job2
+
+>>clikc on job1 >>configure >> Select the post-build actions then select the build other projects select the project job2 if the job1 is executed successfully then automatically execute the 
+job2
 
 38-how can you send the email notifaction without plugin
 
@@ -595,9 +603,11 @@ A: This can be done in multiple ways, To briefly explain about the different opt
               
   - Build Triggers: Jenkins can be configured to use the Git plugin, which allows you to specify a Git repository and branch to build. 
               The plugin can be configured to automatically build when changes are pushed to the repository.
+	(Minutes, Hour, DOM(date of month), Month, DOW(date of week))
               
   - Webhooks: A webhook can be created in GitHub to notify Jenkins when changes are pushed to the repository. 
               Jenkins can then automatically build the updated code. This can be set up in the "Build Triggers" section of a job and in the GitHub repository settings.
+		>>you can select the custom events like (push, pull , merge like this)
 
 41-How do you store/secure/handle secrets in Jenkins ?
 
@@ -814,6 +824,7 @@ any activites
 
 63-how to create the Jenkins parameter
 
+>>Need to install project parameterized plugin
 >>create the New item anji and select the free style project and select the project parameterized in this under 
 1-Boolean parameter
 2-Choice parameter
@@ -827,9 +838,26 @@ any activites
 you can create the parameters what you want. for example you 3 branches in github you can add the choice parameter name git-branch then add branches then select where your adding git url 
 then it will select the master branch by default then add this */$(git-branch) click on save. then it will ask while build which you want build branch
 
+64-how to build other projects using parameters
 
+>>yes its possible using parameterized plugin and post build actions using build triggred parametrized build projects
 
+65-how to hold the Job or pipeline certain Time
 
+>>create dependency to project1 to project2 like this project2 to project3 this example only
+>>selecct configure for project1 >>general under click on advance >>select quite period >>select the time in seconds 120 seconds means two minutes
 
+66-what is headless mode in jenkins
 
+>> By default when a build with selenium is run in jenkins it uses headless mode. i.e. means GUI or web browser is not displayed. If Gui/web browser 
+is to be displayed then you may need to create Slave node and run the build using it
+
+67-what is throttle builds in jenkins
+
+>>By using throttle build you can restrict the build like perday you can execute 5 build in a day 
+>>you can ratelimit also
+
+68-is it possible to add timestamp when starting the project
+
+>>yes it possible you can select the configure option in project select the add timestamp to the console then it will show when build the project
 
