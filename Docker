@@ -750,8 +750,11 @@ docker-compose config: Validates and displays the compose file.
 >>sudo docker commit [CONTAINER_ID] [new_image_name]
 >>sudo docker commit deddd39fa163 ubuntu-nmap
 >>sudo docker images
->>docker psuh ubuntu-nmap
+>>docker push ubuntu-nmap
 
+69-how to give the docker permission
+
+>>sudo chmod 777 /var/run/docker.sock
 
 
 
