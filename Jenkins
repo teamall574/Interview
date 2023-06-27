@@ -101,7 +101,7 @@ pipeline {
             }
         }
         stage {
-            steps{ ##this using pom.xml configuartion or else you cna use the pipeline syntax to create the syntax 
+            steps{ ##this using pom.xml configuartion in add ip add or else you can use the pipeline syntax to create the syntax and add username and password also 
             sh 'mvn deploy' ##this will copy your artifacts into nexus repository
             }
         }
