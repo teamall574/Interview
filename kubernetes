@@ -665,6 +665,17 @@ fully deploying them to the entire user base.
 2-fast rollout
 3-convenient for error rate and performance monitoring
 
+>>kubectl create -f app-v1.yml   
+it have 5 replicas in 1st version
+>>kubectl scale --replicas=4 deploy my-app-v1 
+it will reduce 5 replicas to 4 replicas in 1st version
+>>kubectl create -f app-v2.yml
+it will create the 2nd version 1 replicas
+>>kubectl scale --replicas=1 deploy my-app-v1
+it will reduce 5 to 1 replicas in 1st version
+>>kubectl scale --replicas=4 deploy my-app-v2
+it will create the 1 replicas to 4 replicas in 2nd version
+
 63-what is differnce between kubernetes and docker
 
 >>comming to docker ex:-if a taken uber example running 100 containers for any service booking or driver or any thing it will run the containers if any issue 
