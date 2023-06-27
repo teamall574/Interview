@@ -868,3 +868,11 @@ is to be displayed then you may need to create Slave node and run the build usin
 70-can the jenkinsfile have different name 
 
 >>yes it can be any name you need to mention that name
+
+71-Is it possible to avoid npm install everytime in Dockerfile
+
+>>yes its possible to avoid until the any update or packages update until it wont be execute everytime it will reduce the time in production to build image
+
+>>npm install -g npm-install-changed
+
+72-
