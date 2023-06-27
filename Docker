@@ -39,7 +39,7 @@ MAINTAINER Anji
 RUN echo "Tryin to build my first application"
 COPY . /var/www
 WORKDIR /var/www
-RUN npm install
+RUN npm install or RUN npm install -g npm-install-changed  #if the any packages update otherwise it will not install everytime
 EXPOSE 3000
 ENTRYPOINT ["npm","start"]
 
