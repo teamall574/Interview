@@ -861,3 +861,10 @@ is to be displayed then you may need to create Slave node and run the build usin
 
 >>yes it possible you can select the configure option in project select the add timestamp to the console then it will show when build the project
 
+69-can the jenkinsfile in any location in github
+
+>>yes the file should be any location in github you need to specify te path
+
+70-can the jenkinsfile have different name 
+
+>>yes it can be any name you need to mention that name
