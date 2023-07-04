@@ -423,6 +423,12 @@ The Google Kubernetes Engine API has three groups: v1 for generally available fe
 
 43 - what is Role, clusterRole, RoleBinding, ClusterRoleBinding
 
+>>Role(permissions):-assigning to some types like pods name space secrets like this
+rolebinding(binding role):- attaching role to user this called rolebinding
+service account(user):- service account to connect to role and rolebinding these three will work togther 
+Clusterrole:-simply your creating role within specific namespace called as role within scope of cluster is called cluster role
+cluster-role-binding:- simillarly cluster-role-binding also
+                        (or)
 >>Role = limited to namespace only
 Role:-A Role always sets permissions within a particular namespace; when you create a Role, you have to specify the namespace it belongs in. ClusterRole,
 by contrast, is a non-namespaced resource. when you create you have to mention the namespace so that rule will work only that namespace only
@@ -940,6 +946,16 @@ but it willrun continously you can use tail command then use what you want like 
 
 91-what is taints and toleration
 
+>>taints and tolerations are used to set restrictions to what pods can be schedule nodes 
+>>if you use Taints and Tolerations for example you have 3 nodes node1, node2 , node3 your tainted node1 reamining nodes not tainted and we have 2 pods to deploy into this nodes
+while deploying the pods node1 is tainted so no one pod is deployed in this if you can tolerate the pod A then the pod A will be move into node1 remaing pod B, C will move to node 
+2 and node 3
+>>this could be used to restrict the pods where 
+>>Tiants are set nodes 
+No-Schedule , Prefer-No-schedule, No-Execute
+>>Tolerations are set pods 
+you can set tolerations in deployment file in suing tolerations from 
+                                                                (or)
 tiants under
 No-Schedule:-pods wont be shared. wont impacted existing pods
 No=Execute:-it will evict/remove pods
@@ -1374,8 +1390,225 @@ including Docker, rkt, and CRI-O.
 
 >>we are using the private repository to store the docker images
 
+124-what are the production isssues in kubernetes
 
+1-Security:- Security is one of Kubernetes’ greatest challenges because of its complexity and vulnerability. If not properly monitored, it can obstruct identifying vulnerabilities.
+When you deploy multiple containers, it’s difficult to detect vulnerabilities. This provides an easy way for hackers to break into your system.
+Enable RABC (role-based access control):- RABC makes authentication mandatory for every user and regulates the data each person can access. Depending on users’ roles, they’re granted
+certain access rights.
+Use separate containers:- The private key is hidden for maximum security when you separate a front-end and a back-end container through regulated interaction.
+2-Networking:- Traditional networking approaches are not very compatible with Kubernetes. As a result, the challenges you face continue to grow with the scale of your deployment. 
+Some problem areas include complexity and multi-tenancy.
+Similar issues arise due to static IP addresses and ports on Kubernetes. Because pods use an infinite number of IPs in a workload, implementing IP-based policies is challenging.
+Multi-tenancy problems come up when multiple workloads share resources. Other workloads in the same environment are affected if resources are improperly allocated.
+3-Storage:- Storage is an issue with Kubernetes for larger organizations, especially organizations with on-premises servers. One of the reasons is that they manage their entire 
+storage infrastructure without relying on cloud resources. This can lead to vulnerabilities and memory crises.
+Ephemeral storage:- Refers to the volatile temporary storage attached to your instances during their lifetime – data like cache, session data, swap volume, buffers, and so on.
+Persistent storage:- Storage volumes can be linked to stateful applications such as databases. They can also be used after the life of the individual container has expired.
+Other:- Storage and scaling problems can be resolved with persistent volume claims, storage, classes, and stateful sets.
+4-Scaling:- Every organization aims to increase the scope of its operations over time. However, if their infrastructure is poorly equipped to scale, it’s a major disadvantage. 
+Since Kubernetes microservices are complex and generate a lot of data to deploy, diagnosing and fixing any type of problem is daunting task.
+Difficulty managing multiple clouds, clusters, designated users, or policies
+Complex installation and configuration
+Differences in user experience depending on the environment
+5-Load-Balancing:- There are many ingree controllers but production grade load-balancers like F5(Big-IP) are not easy to integrate with kubernetes
+6-Observability:- Montoring and logging would are very critical logging into server to took a log files just doesn't work anymore when you're dealing with a large number of replicas 
+and nodes. as soon as you start using kubernetes you should also have a plan to build centralized logging and montoring 
+-prometheus-grafana-splunk-influxdb-graylog
 
+125-What is GitOps
+
+>>GitOps uses Git as a Single sourcce of truth to deliver appliccations and infrastructure
+this text book defination i can simplify
+>>its not about only Git so many version controls like S3, bitbucket
+>>there is no gitops and your trying to deploy application and trying to deploy infrastructure into kubernetes
+for example we are trying to update anything in kubernetes.one person has changed code in kubernetes and one more person came and asked what  you changed
+its hard to rember right and there is no versioning in kubernetes cluster there is no auditing there is dificult to tell whih user has changed.if you take
+this example in source proper tracking is there. its like there is proper mechanismper CI part it self only there is no proper mechanism in CD part. 
+this is the reason GitOps come into picture you can use GitOps git tracking your kubernetes details or Cd part details 
+>>you can use ArgoCD is GitOps tool to manage like you cna push your yaml files and raise pull request then admin will merge then ArgoCd will deploy your application
+>>it is push and pull mechanism
+>>if anyone tries modify the kubernetes cluster will not accept you need to modify through only git version through only
+>>GitOps always takes Git as a single source of truth if any one pushed wrong code then automcatically or blindly deploy by GitOps
+>>it will sync Github and deploy into kubernetes
+
+126-what problem will solve GitOps
+
+>>GitOps solving the problem  of you dont have tracking deployments
+>>GitOps is not about application delivery and also infrastructure delivery 
+
+127-What is ArgoCD
+
+>>Argo CD is an open-source GitOps continuous delivery tool. It monitors your cluster and your declaratively-defined infrastructure stored in a Git repository and resolves differences between the two — effectively automating an application deployment
+
+128-what are the priciples of GitOps
+
+1-Declartive:- A System managed by GitOps must have its described state expressed declaratively
+2-Version and Immutable:- Desired state is stored in a way that enforces immuttablity versioning and retains a complete version history
+3-Pulled Automatically:- Software agents automatically pull the desired state declarations from the source
+4-Continuously Reconclied:- Software agents continuously observe actual system state and attempt to apply the desired state
+
+129-Is GitOps is only for kubernetes only
+
+>>The Answer is Noooooo
+>>most of the GitOps tools like ArgoCD and FLUX they target only kubernetes
+
+130-what is the Advantages of GitOps
+
+1-Security(any unwanted change is removed automatically)
+2-Versioning(track of changes)
+3-Auto upgrades
+4-Auto Healing of any unwanted chnages
+5-Continuous Reconciliation
+
+131-what are some poular GitOps tools
+
+1-FLUX
+2-ArgoCD
+3-JenkinsX
+4-Spinnaker
+
+132-How many ways to do Installation in ArgoCD
+
+1-Yaml manifests
+2-Helm
+3-Operator
+
+>>kubectl create namespace argocd
+>>kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+>>kubectl get pods -n argocd 
+>>kubectl get svc -n argocd
+>>kubecctl edit argocd-server(change clusterip to NodePort) you can access using https and http to outside of the application or browser
+>>kubectl get secret -n argocd
+>>kubectl edit secret argocd-initial-admin-secret -n argocd
+(copy the password it will be base64 convert into plan text)
+>>echo ughdd6456hkjb== | base64 --decode
+
+133-how many ways to deploy applications in ArgoCD
+
+1-using yaml file
+2-using Helm values file
+3-Kustomize
+
+>>you deploy applications using cli method also and also GuI also
+
+134-what are the issues will get in kubernetes in live environment
+
+1-ImagePullBackoff :- 
+Invalid image/Invalid tag/Invalid permissions
+>>kubectl get pod -w      -->it will show the image status
+>>kubectl describe nginx-fbklakjd-jjkf
+>>kubectl logs nginx-fbklakjd-jjkf
+>>kubectl get events --sort-by=.metadata.creationTimestamp -->it will show the error
+
+2-Image pulled but pod is pending
+>>ResourceQuota issues 
+>>Namespace issue
+>>Node or Nodes lacks Resources
+>>Also check kube-schedular component
+
+2-ErrorImagePull
+
+3-Registry Unavailable
+4-Invalid Image Name
+5-Crash LoopBackoff
+your image pulled successfully when the pod runtime the pod went crashloopbackofff
+>>check liveness probe
+image pulled but pod is not ready
+>>check the readniess probe
+
+6-Kill Container Error
+
+135-what is kubectl evnets what is the use
+
+>>while launching pod it is not cretaed you can check the logs and describe if not find any answer then you can check the events it will show the problem
+
+136-what is OOM killed and types of OOM and how to fix
+
+>>OOM is outofmemory
+>>the OOMKilled error (Out Of Memory Killed) is a common issue that can occur when a process in a Linux or Kubernetes system consumes too much memory and causes the system to run out of available memory. This can lead to performance issues and can even cause the system to crash
+two types of OOM
+1-overlimit (you admin has given permission to launch pod is size 1gb only but define 2gb)
+2-container limit reached (your admin given permission to launch 10 pods but you launched one more pod it will not work)
+
+find the pod delete the pod-
+
+>>kill the pod 
+>>kubectl ps -ef   -->it will show the pid of pods
+>>kubectl delete pod nginx
+
+2-increase the resource quota
+
+137-what is kubernetes distribution types
+
+>>this will provide the customer requirments easy way and help you any issues why because this will managed by AWS like EKS
+>>why this distribution will popular because they will provide support 
+
+1-EKS
+2-openshift
+3-ranctier
+4-tanzu
+5-AkS
+6-GKE
+7-Kops-->kubernetes operations (Version 1.26.4)
+
+138-what is keyclock 
+
+>>keycloak is an open-source software solution designed to provide single sign-on access to applications and services. It allows users to authenticate once and access multiple 
+applications without needing to re-enter their credentials.
+<<it will provide tight level identity access management
+
+139-what is CRD(custom resource defination)
+
+>>CRDs allow users to create new types of resources without adding another API server. You do not need to understand API Aggregation to use CRDs. Regardless of how they are installed,
+the new resources are referred to as Custom Resources to distinguish them from built-in Kubernetes resources (like pods).
+
+140-what is CR (Custom Resource)
+
+>>A custom resource is an extension of the Kubernetes API that is not necessarily available in a default Kubernetes installation. It represents a customization of a particular Kubernetes
+installation. However, many core Kubernetes functions are now built using custom resources, making Kubernetes more modular
+
+141-what is Custom controller
+
+>>Custom controller are the extension to the concept of controller in k8s where we define our own logic of control loop or pattern to watch the state of that particular resource in the
+cluster, then make or request changes wherever needed. Simply terms, when a controller is not part or shipped with the default k8s then we can call it as a custom controller.
+
+142-how to write a custom controller
+
+1-golang
+2-client-go
+3-python
+4-java
+
+143-what is Istio
+
+>>Istio is an open source service mesh that helps organizations run distributed, microservices-based apps anywhere. Why use Istio? Istio enables organizations to secure, connect,
+and monitor microservices, so they can modernize their enterprise apps more swiftly and securely.
+
+>>for example you have one web-application in kubernetes in kubernetes you have multiple pods and you edge firewall this will protect the from outside inside pod will be there this 
+will take to each other nad communicate togther and the problem is that it is in plan text only. outside connection secure and internal service not secure afart from the business logic
+you can create communcation controller where pod need to talk which pod. and need security logic and also metric loads to collect and tracing purpose
+and retry logic and this logic need to add business logic if add this logic into images the image size will be increased then what is the solution the solution is service mesh 
+>>this code deploy in control plane and its secure services and it secure communication and it will split the traffic
+>>in contropalne you creating proxys and proxys will talk to each other and the service will not talk to each other
+>>traffic splitting used in canary deployment by using IStio
+
+>>you can see kiali, jaeger 
+>>kiali will give the beautiful dashboard and visulization of graph how the traffic will work port no 20001
+
+Advantages:-
+1-Secure cloud-native apps: where which pods communicate together if you use Istio it will help 
+2-Manage traffic effectively:like segarte the traffic to two pods where to go
+3-Monitor service mesh
+4-Simplify load balancing with advanced feature
+5-Easily deploy with Kubernetes and virtual machines
+
+144-what is Service mesh
+
+>>which is used manage communication between microservices
+>>service mesh is act as a sidecar container
+
+145-
 
 
 
