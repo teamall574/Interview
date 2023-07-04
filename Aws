@@ -2133,3 +2133,90 @@ so that in the event of a problem with the service, no party can plead ignorance
 >>Partial upfront:- you can pay 50% of bill and then you can use remaing amount will pay after the month end bill generation time
 >>No Upfront:- this is on-demand systems
 
+262-how to restore the login into ec2 if pem file lost
+
+>>Use a backup or a copy of the original .pem file:
+
+If you have a backup or a copy of the original .pem file stored securely, you can use it to regain access to the EC2 instance.
+Locate the backup or copy of the .pem file and follow the standard procedure to connect to the EC2 instance using the private key.
+
+>>Launch a new EC2 instance and attach the original volume:
+
+Launch a new EC2 instance and make sure to select the same availability zone and the same or compatible Amazon Machine Image (AMI) as the original instance.
+During the instance launch, you can create a new key pair or choose an existing key pair to associate with the new instance.
+Once the new instance is running, stop it and detach its root volume.
+Detach the root volume from the original EC2 instance (the one for which you lost the .pem file).
+Attach the original volume as a data volume to the new instance.
+Start the new instance and access it using the new key pair. You can then mount the original volume and retrieve any necessary files.
+
+>>Use EC2 Instance Connect or Session Manager:
+
+If you have EC2 Instance Connect or AWS Systems Manager Session Manager set up on the EC2 instance, you may be able to regain access without the need for the .pem file.
+EC2 Instance Connect allows you to connect to your EC2 instance using the AWS Management Console or the AWS CLI without a key pair. Check if EC2 Instance Connect is enabled for your
+instance and follow the instructions provided by AWS. AWS Systems Manager Session Manager allows you to establish a secure shell (SSH) session to your instance through the AWS Management 
+Console or the AWS CLI. If Session Manager is enabled for your instance, you can connect to it without needing the .pem file.
+
+263-what is ASG and launch config
+
+>>ASG:-ASG stands for Auto Scaling Group. It is a feature provided by Amazon Web Services (AWS) that automatically adjusts the number of instances in a group based on the specified 
+scaling policies. ASGs are commonly used to maintain the availability, performance, and cost-efficiency of applications running on EC2 instances.
+Key features of Auto Scaling Groups include:
+1-Automatic Scaling: 
+2-High Availabilty:
+3-Elasticity
+4Integration with load-balancer
+5-Integration with launch configurations
+
+264-how to encrypt the unencrypted AMI
+
+>>A Launch Configuration is a configuration template that specifies the parameters for launching instances in an ASG. It includes details such as the EC2 instance type, AMI ID, 
+security groups, key pairs, block device mappings, and user data scripts. When creating an ASG, you associate it with a Launch Configuration. If the desired capacity of the ASG changes, 
+the ASG automatically creates new instances based on the Launch Configuration settings.
+
+265-what is CFT template/how a resource depends on other resourcce
+
+>>A CFT (CloudFormation Template) is a JSON or YAML file used to describe and provision AWS resources in a repeatable and automated manner. It allows you to define your 
+infrastructure as code, specifying the desired state of your AWS resources and their relationships.In a CloudFormation template, you define a collection of AWS resources, their properties,
+and the relationships between them. This includes specifying dependencies between resources, which ensures that resources are created and configured in the correct order.
+
+Resources:
+  MyS3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: my-bucket
+
+  MyEC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-12345678
+      InstanceType: t2.micro
+      KeyName: my-key-pair
+      DependsOn: MyS3Bucket
+
+266-what are important component of CFT
+
+1-Resources:-
+2-parameters:-
+3-Mappings:-
+4-Outputs:-
+5-Conditions:-
+6-Metadata:-
+7-Mappings:-
+8-Trandforms:-
+
+267-which is faster stoarge EBS or S3
+
+EBS: EBS provides block-level storage volumes that can be attached to EC2 instances. It offers low-latency, high-performance storage optimized for transactional workloads and applications
+that require frequent read/write access to data. EBS volumes are typically used as primary storage for applications running on EC2 instances.
+
+S3: S3, on the other hand, is an object storage service designed for storing and retrieving large amounts of unstructured data. It is highly scalable and durable, offering high availability
+and durability for data. S3 is accessed over the network and is well-suited for use cases such as data backup, data archiving, static website hosting, and content distribution.
+>>The performance of EBS and S3 can vary based on several factors, including the storage class, instance type, network connectivity, workload characteristics, and access patterns. 
+However, in general, EBS is designed for low-latency access and is optimized for performance-sensitive workloads, while S3 is optimized for scalability, durability, and cost-effectiveness
+at the expense of slightly higher latency.
+>>It's important to consider the specific requirements of your application or use case when choosing between EBS and S3. If your application requires low-latency access to storage and
+frequent read/write operations, EBS is usually the more suitable choice. On the other hand, if you have large volumes of unstructured data, require high scalability, or need to 
+store data for long-term archival purposes, S3 is a better fit.
+
+In summary, the "faster" storage option between EBS and S3 depends on your specific workload and requirements. It is recommended to analyze your application's needs and the characteristics of the storage services to make an informed decision.
+
