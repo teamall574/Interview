@@ -1341,7 +1341,40 @@ the available resources on each node, to determine the best node for each pod to
 >>Container Runtime: The container runtime is responsible for pulling the images and starting containers. Kubernetes supports multiple container runtimes, 
 including Docker, rkt, and CRI-O.
 
-118-
+118-what is master-node components
+
+1-API-Server
+2-Controller-manager
+>>node-controller
+>>replication-controller
+>>endponts-controller
+>>service-Account & token-controller
+3-ETCD
+4-kube-schedular
+
+119-what is node components
+
+1-kubelet
+2-kube-proxy
+3-container-runtime
+
+120-how one pod will talks with other pod
+
+>>with the help of services or cluser-ip and selector
+
+121-how the pod health-check
+
+>>using rediness & livesness
+
+122-Is it recommended multi-container pods 
+
+>>yes multi-containers pods are good to have some applications need side-car containers
+
+123-what type registry your using
+
+>>we are using the private repository to store the docker images
+
+
 
 
 
