@@ -2167,6 +2167,9 @@ Key features of Auto Scaling Groups include:
 4Integration with load-balancer
 5-Integration with launch configurations
 
+>>launch-config:-A launch configuration is a template that an EC2 Auto Scaling group uses to launch EC2 instances. When you create a launch configuration, you specify information for the 
+instances such as the ID of the Amazon Machine Image (AMI), the instance type, a key pair, one or more security groups, and a block device mapping.
+
 264-how to encrypt the unencrypted AMI
 
 >>A Launch Configuration is a configuration template that specifies the parameters for launching instances in an ASG. It includes details such as the EC2 instance type, AMI ID, 
@@ -2218,5 +2221,6 @@ at the expense of slightly higher latency.
 frequent read/write operations, EBS is usually the more suitable choice. On the other hand, if you have large volumes of unstructured data, require high scalability, or need to 
 store data for long-term archival purposes, S3 is a better fit.
 
-In summary, the "faster" storage option between EBS and S3 depends on your specific workload and requirements. It is recommended to analyze your application's needs and the characteristics of the storage services to make an informed decision.
+In summary, the "faster" storage option between EBS and S3 depends on your specific workload and requirements. It is recommended to analyze your application's needs and the characteristics
+of the storage services to make an informed decision.
 
