@@ -2376,5 +2376,12 @@ you can then SSH (or RDP) into the instances in the private subnet using their p
 >>APIs acts as the "front-door" for applications to access data business logic or functionality from your backend services
 >>API-Gateway helps us to create a RESTful APIs and Web-Socket APIs that enable real-time two-way communcication
 
-288-
+288-what is this
+
+>>if my project is java i will take maven as build tool
+>>if my project is Android i will take graddle as build tool
+>>weservers are nginx apache which will directly take the traffic which direcly rout to app servers
+>>app servers is an tomcat
+
+289-
 
