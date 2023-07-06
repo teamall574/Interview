@@ -1608,21 +1608,94 @@ Advantages:-
 >>which is used manage communication between microservices
 >>service mesh is act as a sidecar container
 
-145-
+145-How can containers within a pod communicate with each other?
 
+>>Containers within a pod share networking space and can reach other on localhost. For instance, if you have two containers within a pod, a MySQL container running on port 3306,
+and a PHP container running on port 80, the PHP container could access the MySQL one through localhost:3306.
 
+147-What does a Pod do
 
+>>Pods represent the processes running on a cluster. By limiting pods to a single process, Kubernetes can report on the health of each process running in the cluster. Pods have:
 
+a unique IP address (which allows them to communicate with each other)
+persistent storage volumes (as required)
+configuration information that determine how a container should run.
+Although most pods contain a single container, many will have a few containers that work closely together to execute a desired function.
 
+148-Explain what are some Pods usage patterns.
 
+>>Pods that run a single container:- The simplest and most common Pod pattern is a single container per pod, where the single container represents an entire application.
+In this case, you can think of a Pod as a wrapper.
+Pods that run multiple containers that need to work together:-Pods with multiple containers are primarily used to support colocated, co-managed programs that need to share resources. 
+These colocated containers might form a single cohesive unit of service—one container serving files from a shared volume while another container refreshes or updates those files. 
+The Pod wraps these containers and storage resources together as a single manageable entity.
 
+149-Explain when to use Docker vs Docker Compose vs Docker Swarm vs Kubernetes
 
+>>Docker is a container engine, it makes you build and run usually no more than one container at most, locally on your PC for development purposes.
+>>Docker Compose is a Docker utility to run multiple containers and let them share volumes and networking via the docker engine features, runs locally to emulate service composition and 
+remotely on clusters. Docker Compose is mostly used as a helper when you want to start multiple Docker containers and don't want to start each one separately using docker run ....
+>>Docker Swarm is for running and connecting containers on multiple hosts. It does things like scaling, starting a new container when one crashes, networking containers.
+>>Kubernetes is a container orchestration platform, it takes care of running containers and enhancing the engine features so that containers can be composed and scaled to serve complex 
+applications (sort of PaaS, managed by you or cloud provider). Kubernetes' goal is very similar to that for Docker Swarm but it's developer by Google.
 
+150-What does it mean that "pods are ephemeral"?
 
+>>Pods are ephemeral. They are not designed to run forever, and when a Pod is terminated it cannot be brought back. In general, Pods do not disappear until they are deleted by a user 
+or by a controller.
 
+>>Pods do not "heal" or repair themselves. For example, if a Pod is scheduled on a node which later fails, the Pod is deleted. Similarly, if a Pod is evicted from a node for any reason,
+the Pod does not replace itself.
 
+151-What happens when a master fails? What happens when a worker fails?
 
+>>Kubernetes is designed to be resilient to any individual node failure, master or worker. When a master fails the nodes of the cluster will keep operating, but there can be no changes 
+including pod creation or service member changes until the master is available. When a worker fails, the master stops receiving messages from the worker. If the master does not receive 
+status updates from the worker the node will be marked as NotReady. If a node is NotReady for 5 minutes, the master reschedules all pods that were running on the dead node to other 
+available nodes.
 
+152-What is the difference between Kubernetes and Docker?
 
+>>Docker provides an open standard for packaging and distributing containerized applications, while
+>>Kubernetes provides for the orchestration and management of distributed, containerized applications created with Docker
 
+153-Which problems does a Container Orchestration solve?
 
+>>Containers run in an isolated process (usually in it's own namespace). This means that by default the container will not be aware of other containers. Additionally, 
+it will not be aware of the systems files, network interfaces, and processes. While this can greatly help with portability of the software it does not solve several production issues
+such as microservices, container discovery, scalability, disaster recovery, or upgrades.
+
+>>Adding a container orchestrator can greatly reduce the complexity in production as these tools are designed to resolve the issues outlined above. For example, Kubernetes is built to
+allow containers to be linked together, deploy containers across an entire network, scale and load balance the network based on container resource consumption, and allow upgrades of 
+individual containers with no downtime.
+
+154-Why do we need Kubernetes (and other orchestrators) above containers?
+
+>>In the quality assurance (QA) environments, we can get away with running containers on a single host to develop and test applications. However, when we go to production,
+we do not have the same liberty, as we need to ensure that our applications:
+
+Are fault-tolerant
+Can scale, and do this on-demand
+Use resources optimally
+Can discover other applications automatically, and communicate with each other
+Are accessible from the external world
+Can update/rollback without any downtime.
+
+155-How do I build a High Availability (HA) cluster?
+
+>>With stacked control plane nodes, where etcd nodes are colocated with control plane nodes. A stacked HA cluster is a topology where the distributed data storage cluster provided
+by etcd is stacked on top of the cluster formed by the nodes managed by kubeadm that run control plane components.
+
+This topology couples the control planes and etcd members on the same nodes. It is simpler to set up than a cluster with external etcd nodes, and simpler to manage for replication.
+
+However, a stacked cluster runs the risk of failed coupling. If one node goes down, both an etcd member and a control plane instance are lost, and redundancy is compromised. 
+You can mitigate this risk by adding more control plane nodes.
+
+>>With external etcd nodes, where etcd runs on separate nodes from the control plane. An HA cluster with external etcd is a topology where the distributed data storage cluster provided
+by etcd is external to the cluster formed by the nodes that run control plane components.
+
+This topology decouples the control plane and etcd member. It therefore provides an HA setup where losing a control plane instance or an etcd member has less impact and does not 
+affect the cluster redundancy as much as the stacked HA topology.
+
+However, this topology requires twice the number of hosts as the stacked HA topology. A minimum of three hosts for control plane nodes and three hosts for etcd nodes are required 
+for an HA cluster with this topology.
