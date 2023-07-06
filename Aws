@@ -2224,3 +2224,37 @@ store data for long-term archival purposes, S3 is a better fit.
 In summary, the "faster" storage option between EBS and S3 depends on your specific workload and requirements. It is recommended to analyze your application's needs and the characteristics
 of the storage services to make an informed decision.
 
+268-what is latency 
+
+>> Latency is nothing but the time taken by request to reach the application and for the application and the server to send the response back to you
+If there is a delay that is high latency
+if there is no delay that is low latency
+
+269-what are tags in what is the use of tags?
+
+>>A tag is a label that you or AWS assigns to an AWS resource. Each tag consists of a key and a value. For each resource, each tag key must be unique, and each tag key can have only 
+one value. You can use tags to organize your resources, and cost allocation tags to track your AWS costs on a detailed level.
+
+270-what is the full of form WAR file
+
+>>Web Archive File 
+
+271-why AWS block port 25 in outbound ports
+
+>>Amazon Web Services' EC2 instances are throttled on port 25 by default as a spam prevention measure. This can cause connection issues when attempting to use SMTP to relay emails through Postmark in your EC2 instance
+
+272-you can block the certain ip and some countries using AWS WAF 
+
+>>Yes its possible to block certain region
+
+273-How many security groups can be attached to an EC2 instance?
+
+>>five
+
+274-where we can attach security groups
+
+>>EC2
+>>Load-Balancer  (all)
+>>Not for subnets
+
+
