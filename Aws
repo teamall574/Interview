@@ -2383,5 +2383,17 @@ you can then SSH (or RDP) into the instances in the private subnet using their p
 >>weservers are nginx apache which will directly take the traffic which direcly rout to app servers
 >>app servers is an tomcat
 
-289-
+289-S3 buckets offer several advantages, including:
 
+Durability and availability: S3 provides high durability and availability for your data.
+Scalability: You can store and retrieve any amount of data without worrying about capacity constraints.
+Security: S3 offers multiple security features such as encryption, access control, and audit logging.
+Performance: S3 is designed to deliver high performance for data retrieval and storage operations.
+Cost-effective: S3 offers cost-effective storage options and pricing models based on your usage patterns.
+
+290-What is S3 Event Notifications and Triggers
+
+>>S3 event notifications allow you to configure actions when specific events occur in an S3 bucket. For example, you can trigger AWS Lambda functions, send messages to 
+Amazon Simple Queue Service (SQS), or invoke other services using Amazon SNS when an object is created or deleted.
+
+291-
