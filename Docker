@@ -800,9 +800,92 @@ completely functional container enviroment and its docker image is read-only
 >>docker run -itd --restart=always --name anji ubuntu:latest sleep 5
 when ther issue an container it will restart the container
 
+74-Is there a way to identify the status of a Docker container?
 
+>>docker ps –a
 
+75-What are the most common instructions in Dockerfile?
 
+FROM: We use FROM to set the base image for subsequent instructions. In every valid Dockerfile, FROM is the first instruction.
+LABEL: We use LABEL to organize our images as per project, module, licensing etc. We can also use LABEL to help in automation.
+In LABEL we specify a key value pair that can be later used for programmatically handling the Dockerfile.
+RUN: We use RUN command to execute any instructions in a new layer on top of the current image. With each RUN command we add something on top of the image and use it in subsequent
+steps in Dockerfile.
+CMD: We use CMD command to provide default values of an executing container. In a Dockerfile, if we include multiple CMD commands, then only the last instruction is used
+
+76-What are the various states that a Docker container can be in at any given point in time?
+
+>>Running
+Paused
+Restarting
+Exited
+
+77-What type of applications - Stateless or Stateful are more suitable for Docker Container?
+
+>>It is preferable to create Stateless application for Docker Container. We can create a container out of our application and take out the configurable state parameters from application.
+Now we can run same container in Production as well as QA environments with different parameters. This helps in reusing the same Image in different scenarios.
+Also a stateless application is much easier to scale with Docker Containers than a stateful application.
+
+78-How will you monitor Docker in production?
+
+>>Docker stats: When we call docker stats with a container id, we get the CPU, memory usage etc of a container. It is similar to top command in Linux.
+>>Docker events: Docker events are a command to see the stream of activities that are going on in Docker daemon.
+
+79-Can you explain dockerfile ONBUILD instruction?
+
+>>The ONBUILD instruction adds to the image a trigger instruction to be executed at a later time, when the image is used as the base for another build. This is useful if you are 
+building an image which will be used as a base to build other images, for example an application build environment or a daemon which may be customized with user-specific configuration.
+
+80-Can you run Docker containers natively on Windows?
+
+With Windows Server 2016 you can run Docker containers natively on Windows, and with Windows Nano Server you’ll have a lightweight OS to run inside containers, so you can run .NET apps
+on their native platform.
+
+81-Is it good practice to run stateful applications on Docker? What are the scenarios where Docker best fits in?
+
+>>he problem with statefull docker aplications is that they by default store their state (data) in the containers filesystem. Once you update your software version or want to move 
+to another machine its hard to retrieve the data from there.
+
+What you need to do is bind a volume to the container and store any data in the volume.
+>>if you run your container with: docker run -v hostFolder:/containerfolder any changes to /containerfolder will be persisted on the hostfolder. Something similar can be done with a nfs drive.
+Then you can run you application on any host machine and the state will be saved in the nfs drive.
+
+82-What is an orphant volume and how to remove it?
+
+>>An orphant volume is a volume without any containers attached to it. Prior Docker v. 1.9 it was very problematic to remove it.
+
+83-How does Docker run containers in non-Linux systems?
+
+>>The concept of a container is made possible by the namespaces feature added to Linux kernel version 2.6.24. The container adds its ID to every process and adding new access control checks to
+every system call. It is accessed by the clone() system call that allows creating separate instances of previously-global namespaces.
+
+>>If containers are possible because of the features available in the Linux kernel, then the obvious question is that how do non-Linux systems run containers. Both Docker for Mac and 
+Windows use Linux VMs to run the containers. Docker Toolbox used to run containers in Virtual Box VMs. But, the latest Docker uses Hyper-V in Windows and Hypervisor.framework in Mac.
+
+84-How to use Docker with multiple environments?
+
+>>You’ll almost certainly want to make changes to your app configuration that are more appropriate to a live environment. These changes may include:
+
+Removing any volume bindings for application code, so that code stays inside the container and can’t be changed from outside
+Binding to different ports on the host
+Setting environment variables differently (e.g., to decrease the verbosity of logging, or to enable email sending)
+Specifying a restart policy (e.g., restart: always) to avoid downtime
+Adding extra services (e.g., a log aggregator)
+For this reason, you’ll probably want to define an additional Compose file, say production.yml, which specifies production-appropriate configuration. This configuration file only needs to 
+include the changes you’d like to make from the original Compose file.
+>>docker-compose -f docker-com
+
+85-Why Docker compose does not wait for a container to be ready before moving on to start next service in dependency order?
+
+>>Compose always starts and stops containers in dependency order, where dependencies are determined by depends_on, links, volumes_from, and network_mode: "service:...".
+
+However, for startup Compose does not wait until a container is “ready” (whatever that means for your particular application) - only until it’s running. There’s a good reason for this:
+
+The problem of waiting for a database (for example) to be ready is really just a subset of a much larger problem of distributed systems. In production, your database could become unavailable or move hosts at any time. Your application needs to be resilient to these types of failures.
+To handle this, design your application to attempt to re-establish a connection to the database after a failure. If the application retries the connection, it can eventually connect to the database.
+The best solution is to perform this check in your application code, both at startup and whenever a connection is lost for any reason.
+
+86-
 =========================================================================docker login======================================================================
 
 
