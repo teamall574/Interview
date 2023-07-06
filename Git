@@ -465,7 +465,12 @@ git tag -delete <tag-name>   -->delete the tag
 
 58-What are the benefits of branching?
 
->>Three things about branching to keep in mind are: 1) streamline workflow, 2) collaboration, and 3) continuous parallel development. 
+1-Parallel Development
+2-Feature isloation
+3-Versioning and Release Management
+4-Experimentation and Prototyping:
+5-Code Review and Collaboration
+6-Bug Fixing
 Source control branching saves time and effort in an agile environment while promoting productivity.
 >>Branches allow you to develop features, fix bugs, or safely experiment with new ideas in a contained area of your repository. You always create a branch from an existing branch.
 Typically, you might create a new branch from the default branch of your repository.
