@@ -86,7 +86,8 @@ pipeline {
         }
         stage (maven build##need to install maven and configure in jenkins system) {
             steps{
-                sh 'mvn clean package ${BUILD_NUMBER}.war'
+		sh 'mvn versions:set -DnewVersion=1.0.0${BUILD_NUMBER}'
+                sh 'mvn clean package'
             }
         }
         stage (maven build##need to install maven and configure in jenkins system) {
