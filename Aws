@@ -2396,4 +2396,76 @@ Cost-effective: S3 offers cost-effective storage options and pricing models base
 >>S3 event notifications allow you to configure actions when specific events occur in an S3 bucket. For example, you can trigger AWS Lambda functions, send messages to 
 Amazon Simple Queue Service (SQS), or invoke other services using Amazon SNS when an object is created or deleted.
 
-291-
+291-what is CORS and SOP
+
+--sop->same origin policy
+>>The same-origin policy is a browser security mechanism that restricts how a
+document or script loaded by one origin can interact with a resource from another
+origin.
+It helps isolate potentially malicious documents, reducing possible attack vectors
+>>the browser will implement the sop in all browser beacuse of security
+>>this implemnentation happiens we can't see the data of your own subdomain also
+>>it checks the three objects
+>>protocal >https:// (or) http://
+>>site >google (or) facebook
+>>port number >80 (or) 443
+--cors->cros origin resource policy
+>>Cross-Origin Resource Sharing (CORS) is an HTTP-header based mechanism that
+allows a server to indicate any origins (domain, scheme, or port)
+other than its own from which a browser should permit loading resources.
+Acess-control-allow-origin==>true,get,post,put,delete
+>>the sop implmented in browser policy we cant read the data in your subdomain of
+the same domian.
+if we can use the cors we can read write the data from main domain to subdomain
+>http://www.google.com
+>http://admin.google.com
+
+292-where security comes in 
+
+>>when we build the application then it go the qa team and test then it any changes happen then it will take the build then go the security testing and then deployment
+
+what precautions would take the security of your application
+
+>>we can build the feature development then security testing then sends to qa testing and then security testing then releasing the production
+>>detecting issues early shortens development time
+
+why security issues comes into production what bases it will come
+
+1-time restrictions:- need to relase the relases within a week without checking the secuity issues deploy application into production
+2-hard to get answers:- where the problems hard to find out the issues need to clarify with the developers to take understand the issues
+3-unfamiliar with pipelines 
+
+293-what is SAST
+
+>>SAST stands for Static application security testing and its one of the easier types of security testing to implement in an existing or a new DevOps or DevSecOps pipeline
+>>SAST tools run somewhere between the code and build stage, may be it'll be included in the test satge, but typically it's run pretty close to the code 
+>>SAST we're thinking of statically testing the application. SAST is also known as Source Code Analysis 
+>>it is white-box testing it cheks all the packages in your code it has 
+>>it may false reports also some time
+>>less expensive to fix the vulnerabilites 
+>>it check differnet authentication patterns and scan config files potential security issues 
+Tools like:-
+1-sonarqube
+2-Fortify.
+3-Horusec
+4-Snyk
+5-Insider
+6-HuskyCI
+
+294-what is DAST
+
+>>DAST stands for Dynamic application security testing. we check the application while running application for an issues . we are not loooking code directly
+>>DAST is block box testing the tester dont know anything try to break the code or application logics 
+>>more expensive to fix the vulnerabilites
+>>we can discover run-time environment related issues
+Tools:-
+1-PortSwigger Burp-Suite
+2-OWASP-ZAP
+3-Veracode
+4-Nuclei
+5-HCL AppScan
+
+295-what is Fortify security tool
+
+>>Fortify offers the most comprehensive static and dynamic application security testing technologies, along with runtime application monitoring and protection, backed by indus try-leading security research. Solutions can be deployed in-house or as a managed service to build a scalable, nimble Software Security Assurance program that meets the evolving needs of today’s IT organization.
+
