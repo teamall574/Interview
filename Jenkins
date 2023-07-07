@@ -891,4 +891,8 @@ is to be displayed then you may need to create Slave node and run the build usin
 4-Kubernetes Agent
 5-Cloud-based Agent
 
-73-
+73-To change the version in the pom.xml file automatically using the Maven Versions Plugin, 
+
+>>use this command in your pipeline it will help you to change build number in 
+>>mvn versions:set -DnewVersion=1.0.0${BUILD_NUMBER}
+>>mvn clean install
