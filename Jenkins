@@ -881,4 +881,13 @@ is to be displayed then you may need to create Slave node and run the build usin
 
 >>npm install -g npm-install-changed
 
-72-
+72-what is the agent type used in the jenkins in your project ? 
+
+>>Jenkins supports various agent types for distributing and executing build and deployment tasks. Here are some commonly used agent types in Jenkins:
+1-Jenkins Agent
+2-Docker Agent
+3-SSH Agent
+4-Kubernetes Agent
+5-Cloud-based Agent
+
+73-
