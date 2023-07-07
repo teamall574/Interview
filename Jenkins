@@ -86,7 +86,7 @@ pipeline {
         }
         stage (maven build##need to install maven and configure in jenkins system) {
             steps{
-                sh 'mvn clean package'
+                sh 'mvn clean package ${BUILD_NUMBER}.war'
             }
         }
         stage (maven build##need to install maven and configure in jenkins system) {
@@ -94,6 +94,12 @@ pipeline {
                 sh 'mvn test'
             }
         }
+	stage('push code into s3'){
+	   steps {
+	    sh 'aws s3 cp $WORKSPACE/target/anji/*.war s3://anji1592'
+	    sh 'aws s3 cp $WORKSPACE/pom.xml s3://anji1592/pom'   -->you need to create the folder pom in s3 bucket it will copy pom.xml in s3 bucket
+	  }
+	}
 
         stage('OWASP-CHECK'){  ##it will check owasp top 10 issues in jar file or package application
             steps {
