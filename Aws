@@ -2469,3 +2469,35 @@ Tools:-
 
 >>Fortify offers the most comprehensive static and dynamic application security testing technologies, along with runtime application monitoring and protection, backed by indus try-leading security research. Solutions can be deployed in-house or as a managed service to build a scalable, nimble Software Security Assurance program that meets the evolving needs of today’s IT organization.
 
+296-how to add ssl certificate into apache server
+
+>>need to create the .crt file and private.key then add into conf folder and add it 
+>>then open .conf file 
+add this details
+<VirtualHost *:443>
+    ServerName your_domain.com
+    DocumentRoot /var/www/html
+    
+    # SSL Configuration
+    SSLEngine on
+    SSLCertificateFile /path/to/your_domain.crt
+    SSLCertificateKeyFile /path/to/your_domain.key
+    SSLCertificateChainFile /path/to/intermediate_certs.crt
+</VirtualHost>
+>>and replace your domain 
+
+297-what is library
+
+>>without library application will not work. library is nothig but its 3rd party application we will use the librarys to make up or development the application is more easy
+
+298-how would you know which library is using in code
+
+>>we run before packing the application we can run unit testing and compile the code using maven tool
+>>we dont know which librarys using so that why we combine source code + librarys create into war or jar file
+>>we can check the pom.xml all the librays and it contains information about the project and configuration details plugins goals and versions we can check only pom.xml
+the build toolis 
+java: maven
+Dotnet: MSBuild
+node js: NPM
+python: no need to use build tool in python it is not inter-preted language. it will automaticaly install required packages using pip module
+
