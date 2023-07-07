@@ -886,7 +886,12 @@ The problem of waiting for a database (for example) to be ready is really just a
 To handle this, design your application to attempt to re-establish a connection to the database after a failure. If the application retries the connection, it can eventually connect to the database.
 The best solution is to perform this check in your application code, both at startup and whenever a connection is lost for any reason.
 
-86-
+86-how to debug the container
+
+>>docker logs --tail 100 [container ID]
+>>docker logs [container ID]
+>>docker top[container ID]
+
 =========================================================================docker login======================================================================
 
 
