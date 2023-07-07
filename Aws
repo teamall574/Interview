@@ -162,11 +162,13 @@ gateawy is hardware device that gives you entry and exit point in your network
 
 1 - stateless
 >>it is not two-way handshake
->>Stateless firewalls make use of a data packet's source, destination, and other parameters to figure out whether the data presents a threat. These parameters have to be entered by either an administrator or the manufacturer via rules they set beforehand
+>>Stateless firewalls make use of a data packet's source, destination, and other parameters to figure out whether the data presents a threat. These parameters have to be entered by either
+an administrator or the manufacturer via rules they set beforehand
 
 2 - stateful firewall
 >>it is two-way handshake  process
->>A stateful firewall inspects everything inside data packets, the characteristics of the data, and its channels of communication. Stateful firewalls examine the behavior of data packets, and if anything seems off, they can filter out the suspicious data. Also, a stateful firewall can track how the data behaves, cataloging patterns of behavior. 
+>>A stateful firewall inspects everything inside data packets, the characteristics of the data, and its channels of communication. Stateful firewalls examine the behavior of data packets,
+and if anything seems off, they can filter out the suspicious data. Also, a stateful firewall can track how the data behaves, cataloging patterns of behavior. 
 
 >>it is used to allow the one side no need to allow other side it will remeber and send the packets
 >>stateful firewall remebers the connection details it will give replay
