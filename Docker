@@ -150,6 +150,7 @@ Run container
 Pause container
 Unpause container
 Start container
+Container Monitoring and Management
 Stop container
 Restart container
 Kill container
