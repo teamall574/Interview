@@ -640,8 +640,14 @@ it will go secondary directly without checking the pings
 2-weighted :- if we create weighted route policy route 53 it is like failover but the thing is you can mention the traffic which load balancer need to 
 accessing the apllication over internet if we give 0 menas you can't access the application on that load balancer if we give 255 then we can access the 
 loab balancer. the use case is we want maintaines on particular region you can diver the traffic into sepearte the specific load balancer
+			(or)
+Weightedd round-robin:-two regions servers are the then we can divide the traffic based on priority based we can divide the traffic 
+>>Weighted routing allows you to associate multiple resources with a single domain name (example.com) or subdomain (acme.example.com) and choose the amount of traffic routed for each resource.
+This can be useful for a variety of purposes, including load balancing and testing new versions of software.
 
-3-latency:- latency is used same is the previous failover or weighted routing policy the differnt is you can mention to the particular in region if any one 
+3-geo-DNS:-Geolocation routing can be used ti send traffic to resources based on the geographcal locations
+
+4-latency:- latency is used same is the previous failover or weighted routing policy the differnt is you can mention to the particular in region if any one 
 near by india that user will connect to the india based load balancer and if any us then that user will connect the us load balancer its region based. 
 it is used to decrease the latency in your application to the users
 
