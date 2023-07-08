@@ -1289,9 +1289,12 @@ this will help you
 >>go to aws certificate manager create your domain name anji.com it will ask the email or domain validation then go to domain it will give name and cname
 and create the record set in your route53 and create a record set the giev name and select the cname and it will give you certificate then go to your load balancer 
 and add listener select the port and certficate then you good to go then delete the 80 port number that it . it take 10 to 15 minutes and to avoid the security instrucations
-
+								(or)
 >>you can create the certifictaes using third-party also using csr generator it will ask your domain name and give you public and private key then go to comodsslstore then 
 you can create the certificate
+								(or)
+>>digcert, entrust provide ssl certficate
+>>you need to create private.key and .csr file in your system and give that keys into authority digcert entrust they will give 3 files certification.crt and private.key and ca_bundle.crt then you configure this certifictaes to webserver
 
 144-what is process management
 
