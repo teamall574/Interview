@@ -2391,7 +2391,9 @@ you can then SSH (or RDP) into the instances in the private subnet using their p
 
 >>if my project is java i will take maven as build tool
 >>if my project is Android i will take graddle as build tool
->> Weservers are nginx, apache,Caddy,monkey http server which will directly take the traffic which direcly rout to app servers
+>> Weservers are nginx, apache2,Caddy,monkey http server which will directly take the traffic which direcly rout to app servers
+apache2 -->in ubuntu
+httpd    -->in RHEL
 >>app servers is an tomcat,JBoss,WildFly,Oracle weblogic
 
 289-S3 buckets offer several advantages, including:
