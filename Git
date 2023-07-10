@@ -220,7 +220,7 @@ then you can git merge then it will meege into local code there is disadvantage 
  
 >>git revert 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
 then push
->>git push origin feature1
+>>git push -u origin master
 
 30-how to see the differnce between commits
 
@@ -507,7 +507,9 @@ in the repo then the pointer or HEAD is going to move or change its position to 
 >>red colour  -->untracked
 >>blue colour  -->tracked or staged area       
 
-64-
+64-what is git bisect
+
+>>the git bisect command helps you to perform a binary search to identify which commit introduced a bug or regression in the codebase
 
 
 
