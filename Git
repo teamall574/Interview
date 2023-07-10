@@ -497,7 +497,17 @@ commit to the staging area by git add command. this process can be also called i
 >>Git maintains a variable for referencing, called HEAD to the latest commit in the recent checkout branch. So if we make a new commit 
 in the repo then the pointer or HEAD is going to move or change its position to point to a new commit.
 
+63-how to restore the file your already modifed it will show the file how to remove the file or how to remove from untracked-area
 
+>>git restore anji.txt   -->your modified the file only it will remove the file from untracked area
+>>git add anji.txt   ->your send the file into tracking stage and its then something wrong need to restore from tracked area then use this command below
+>>git restore --staged anji.txt
+>>git restore anji.txt
+
+>>red colour  -->untracked
+>>blue colour  -->tracked or staged area       
+
+64-
 
 
 
