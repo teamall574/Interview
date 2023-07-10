@@ -582,8 +582,8 @@ changing existing backup workflows. Tape Gateway supports all leading backup app
 
 57 -  what is AWS Backup
 
->>AWS Backup is like snapshots. in every organzation need to take backup some of the particular resources with using of aws backup take some of major 
-resources in aws backup automatically or daily backup
+>> AWS Backup features .AWS Backup is like snapshots. in every organzation need to take a backup some of the particular resources with using of aws backup take some of major 
+resources in aws backup automatically or daily backup no need to write script you can do automated backup on time bases like you can schedule and store the backup in s3 directly
 >>your specify the some of the resource in aws to take backup on AWS Backup service. on which time you need . you can take partcular time take backup between
 partcular  resource to take the backup. its nothing but snapshots
 
