@@ -1083,6 +1083,10 @@ relationships between them.
 
 >>terraform is mutable >>A mutable object can be changed after it's created, and an immutable object can't.
 
+50-what is HCL(Hashicorp Conffiguration Language)
 
+>>Hashicorp Configuration Language
+
+51-
 
 
