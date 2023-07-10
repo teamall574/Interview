@@ -16,6 +16,8 @@ git config:-
 >>git config --global user.name "VmTutes"
 >>git config --global user.email "vmtutes@gmail.com
 >>git config --list   -->it will show the details
+>>git remote add origin https://github.com/testing5413/test.git
+>>git push -u origin master    -->then it will ask username and password in password place paste a token
 >>git config --global core.sshCommand "ssh -i ~/.ssh/id_rsa"   -->it will add ssh keys into your private repository 
 
 3-What is GitHub?
