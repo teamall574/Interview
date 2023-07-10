@@ -2576,12 +2576,14 @@ specific module within the Apache HTTP Server that enables reverse proxy functio
 >>A front-end developer builds the front-end portion of websites and web applications—the part users see and interact with. A front-end developer creates websites and applications using web languages such as HTML, CSS, and JavaScript that allow users to access and interact with the site or app
 HTML,CSS, javascript, angular, react-js, Boot-strap, vue-js, Django, Swift, nodejs
 port number 80 or 443
+>>you will see the visual of application
 
 307-what is backend
 
 >>Back-end development means working on server-side software, which focuses on everything you can't see on a website. Back-end developers ensure the website performs correctly, focusing on databases, back-end logic, application programming interface (APIs), architecture, and servers.
 java, python, .net, PHP, Nodejs,Go, C#
 port number is 8080 or anything
+>>java .net python  working on server-side software, which focuses on everything you can't see on a website
 
 308-what is database
 
@@ -2604,5 +2606,12 @@ load-balancer then add server-2 or target group and add 50% of traffic to server
 >>yes its possible you can 3 folders like anji.com sampi.com vinod.com under deploy your code each domain code route the traffic based on DNS 
 then you will access one-webserver using access 3 differnet domains in one ec2 system
 
-312-
+312-what is 1-tier application
+
+>>In 1-tier architecture, the data is directly provided to the user and that user can directly use the database through the computer. Any changes or updates that are done will reflect directly to the database
+
+313-what is 2-tier application
+
+>>Two-tier architecture. In a two-tier architecture, the client is on the first tier. The database server and web application server reside on the same server machine, which is the second tier. This second tier serves the data and executes the business logic for the web application.
+
 
