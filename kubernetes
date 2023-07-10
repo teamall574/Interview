@@ -254,6 +254,11 @@ Kubernetes offers integrated support for using these labels to query objects and
 
 24 - what is replication-controller
 
+apiVersion:
+kind:
+metadata:
+spec:                 --->this is the kubernets syntax nned to write everytime it will there any manifest file
+
 >>>>replication-controller is used to increase or decrease the pods.
 >>A ReplicationController ensures that a specified number of pod replicas are running at any one time. In other words, a ReplicationController makes sure that 
 a pod or a homogeneous set of pods is always up and available
@@ -302,12 +307,18 @@ but after week we come what command we used we don't remeber and there is no ver
 
 31 - what is deployments what is the use of deployments
 
->>A Kubernetes deployment is a resource object in Kubernetes that provides declarative updates to applications. A deployment allows you to describe an 
+>>A Kubernetes deployment is a resource object in Kubernetes that provides declarative updates to applications.A deployment allows you to describe an 
 application’s life cycle, such as which images to use for the app, the number of pods there should be, and the way in which they should be updated
 >>Deployment is used to create the multiple pods and distribute the pods to multiple hosts
->>Deployment used to create or modify instances of the pods that hold a containerized application. Deployments can help to efficiently 
-scale the number of replica pods, enable the rollout of updated code in a controlled manner, or roll back to an earlier deployment version if necessary.
->>it is for only stateless applications like scaleup adn down pods and containers 
+>>Deployment have inbuild replicasets and roll-in and roll-out availble it will maintain self-helaing in deployment if any replica goes down automatically create one more replicas
+and we can use rolling updates using Deployment. and it will maintian the correcct number of replicas we can use liveness and readyness we can pasue and resume the deployment by using
+canary deployment also
+>>Deployment is stateless only if the pod deleted it will add pod but not same specification
+
+>>kubectl rollut history deploymnet/nginx-deployment   -->to see the records what changes happines 
+>>kubectl set image deployment/nginx-deployent anji=anji1592/test1  --record=true  -->it will maintain record what command you used
+>>kubectl rollout undo deployment/nginx-deployment --to-revision=2   -->it will set your changed second time image right that image will bring back to deployment
+>>kubectl rollout status deploymnet/nginx-deployment   -->to see the status
 
 Advantages:-
 1 - it uses replicasets and replicasets automatically performs the rollingupdates.
@@ -1895,8 +1906,19 @@ The StatefulSet ensures that each instance is upgraded in a controlled manner, m
 
 >>you can use an empty dir in Kubernetes if the pod is deleted the data will also go
 
-170-
+170-how to see the how much cpu and memory using the pod 
 
+>>kubectl top pods   -->it will show the pods details only
+>>kubecctl top nodes    -->it will show nodes cpu and memory also
+
+171-can you give an example of how kubernetes can be used to deploy a high available application
+
+>>when you deploying highly available application in kubernetes is use to a combination of replica-sets, load-balancers and network policies.
+>>A replica-sets can be used to manage a set of replicas of the application ensure that the desired number of replicas is awlays running
+>>Load-Balancer can be used to distribute incoming traffic across multiple replicas to provide highly availability.
+>>Network Policies can be used to define the allowed incoming traffic
+
+172-
 
 
 
