@@ -307,7 +307,7 @@ but after week we come what command we used we don't remeber and there is no ver
 
 31 - what is deployments what is the use of deployments
 
->>A Kubernetes deployment is a resource object in Kubernetes that provides declarative updates to applications.A deployment allows you to describe an 
+>>A Kubernetes deployment is a higher-level resource that provides a declarative way to manage adn update set of replicas of an application .A deployment allows you to describe an 
 application’s life cycle, such as which images to use for the app, the number of pods there should be, and the way in which they should be updated
 >>Deployment is used to create the multiple pods and distribute the pods to multiple hosts
 >>Deployment have inbuild replicasets and roll-in and roll-out availble it will maintain self-helaing in deployment if any replica goes down automatically create one more replicas
@@ -1911,12 +1911,8 @@ The StatefulSet ensures that each instance is upgraded in a controlled manner, m
 >>kubectl top pods   -->it will show the pods details only
 >>kubecctl top nodes    -->it will show nodes cpu and memory also
 
-171-can you give an example of how kubernetes can be used to deploy a high available application
+171-
 
->>when you deploying highly available application in kubernetes is use to a combination of replica-sets, load-balancers and network policies.
->>A replica-sets can be used to manage a set of replicas of the application ensure that the desired number of replicas is awlays running
->>Load-Balancer can be used to distribute incoming traffic across multiple replicas to provide highly availability.
->>Network Policies can be used to define the allowed incoming traffic
 
 172-
 
