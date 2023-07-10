@@ -487,8 +487,8 @@ Typically, you might create a new branch from the default branch of your reposit
 
 61-What is ‘staging area’ or ‘index’ in Git?
 
->>That before completing the commits, it can be formatted and reviewed in an intermediate area known as ‘Staging Area’ or ‘Index’. 
-Every change is first verified in the staging area and then that change is committed to the repository.
+>>Now that our sourcce code files data files configuration files are being tracked by Git we will add the files that we want to 
+commit to the staging area by git add command. this process can be also called indexing we can also that index constitues of files added to the staging area
 
 62-What is Head in Git?
 
