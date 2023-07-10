@@ -2521,3 +2521,88 @@ Dotnet: MSBuild
 node js: NPM
 python: no need to use build tool in python it is not inter-preted language. it will automaticaly install required packages using pip module
 
+299-what is Cloud-Native
+
+>>Cloud native is the software approach of building, deploying, and managing modern applications in cloud computing environments. Modern companies want to build highly scalable, flexible,
+and resilient applications that they can update quickly to meet customer demands
+
+Benifites
+>>Increase efficiency
+>>Reduce Cost
+>>Ensure Availability
+>>Faster development
+>>Platform independence
+>>Cost-effective operations
+
+EX:-Docker kubernetes
+
+300-how to make rds highly availble
+
+>>you can create the one RDS-Database then created the read replicas in 2 more availbilty zones then and also your servers are in different availbility zones like 
+az1->RDS(read-write) az2->RDS(read only), az3->RDS(read only) if the any traffic will go az2 then it will take data from az2->RDS only if any want write then it will az1->RDS
+why because it will have only read and write permisssion this will make your RDS highly availble and fast your database
+
+301-what is Subnet
+
+>>A subnet is a range of IP addresses in your VPC. You launch AWS resources, such as Amazon EC2 instances, into your subnets. You can connect a subnet to the internet, other VPCs, and your own data centers, and route traffic to and from your subnets using route tables.
+
+302-While we start the tomcat server its not starting
+
+>>check first java installed and set the home path or not
+>>chek any system or server running in same port 8080
+>>check the you hav sufficent permissions is there are not user permissions
+>>check file permissions
+>>check the system resources like memory and cpu and disk-space availble
+>>Review configuration files: Double-check the configuration files, such as server.xml, web.xml, and any application-specific configuration files, for any errors or misconfigurations
+
+303-what is mod_proxy 
+
+>>mod_proxy and related modules implement a proxy/gateway for Apache HTTP Server, supporting a number of popular protocols as well as several different load balancing algorithms. 
+Third-party modules can add support for additional protocols and load balancing algorithms.
+
+304-what is reverse proxy
+
+>>A reverse proxy is a server or service that sits between client devices and backend servers. When a client makes a request, it is forwarded to the reverse proxy, which then acts as 
+an intermediary and routes the request to the appropriate backend server. The response from the server is then returned to the client through the reverse proxy. The client is unaware of
+the backend server and communicates only with the reverse proxy.
+
+305-what is the differnce between reverse proxy and mod_proxy
+
+>>In summary, a reverse proxy is a general concept referring to a server or service that acts as an intermediary between clients and backend servers. On the other hand, mod_proxy is a 
+specific module within the Apache HTTP Server that enables reverse proxy functionality and provides additional features and configurations for proxying requests.
+
+306-what is Front-end 
+
+>>A front-end developer builds the front-end portion of websites and web applications—the part users see and interact with. A front-end developer creates websites and applications using web languages such as HTML, CSS, and JavaScript that allow users to access and interact with the site or app
+HTML,CSS, javascript, angular, react-js, Boot-strap, vue-js, Django, Swift, nodejs
+port number 80 or 443
+
+307-what is backend
+
+>>Back-end development means working on server-side software, which focuses on everything you can't see on a website. Back-end developers ensure the website performs correctly, focusing on databases, back-end logic, application programming interface (APIs), architecture, and servers.
+java, python, .net, PHP, Nodejs,Go, C#
+port number is 8080 or anything
+
+308-what is database
+
+>>Databases often store information about people, such as customers or users. For example, social media platforms use databases to store user information, such as names, email addresses and user behavior. The data is used to recommend content to users and improve the user experience
+mysql, RDS, Nosql, mongoDB, Oracle, PostgresSQl 
+port number is 3306 or any other port 
+
+309-while installing any package its not installing what will be the problem
+
+>>you have privellges or not
+
+310-can I add multiple target groups in a load balancer
+
+>>yes you can add multiple target groups. for example your created two servers server-1, server-2 your created server-1 in tg-1 target group and then created tg-2 target add server-2 then
+create the application load balancer and the listeners tg-1 target group it will add 100% traffic to server-1. you can goto the load-balancer in listeners go to add rules edit 
+load-balancer then add server-2 or target group and add 50% of traffic to server-1 and server-2 this will highly available
+
+311-Is it possible to create one webserver under we can create 3 domains
+
+>>yes its possible you can 3 folders like anji.com sampi.com vinod.com under deploy your code each domain code route the traffic based on DNS 
+then you will access one-webserver using access 3 differnet domains in one ec2 system
+
+312-
+
