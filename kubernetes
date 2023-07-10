@@ -820,6 +820,13 @@ This adjustment can improve cluster resource utilization and free up CPU and mem
 >>The Horizontal Pod Autoscaler changes the shape of your Kubernetes workload by automatically increasing or decreasing the number of Pods in response to the 
 workload's CPU or memory consumption, or in response to custom metrics reported from within Kubernetes or external metrics from sources outside of your cluster
 
+d = ceil[a * (c/t)] 
+
+d is the desired number of replicas
+a is the current or actual number of replicas
+c is the current value of metric
+t is the target value
+
 3-Cluster Autoscaler:- this for cluster level if any time nodes need to increase using this automatically increase
 
 >>it will delete unwanted resources
