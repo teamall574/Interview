@@ -1,3 +1,9 @@
+                    |-->C Development          --->Git+Maven (npm),(MsBuild--Dotnet)
+                    |-->C Integration          --->Jenkins (teamcity, cloudbees,gitlab)
+DEVOPS--------------|
+		    |-->C Delivery/deployment  --->Docker/K8S (openshift)
+		    |-->C Montoring            --->Grafana/Newrelic,promethus
+
 1-what is DevOps 
 
 >>DevOps is a methodology in the software development and IT industry.
