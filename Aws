@@ -644,11 +644,13 @@ it will go secondary directly without checking the pings
 accessing the apllication over internet if we give 0 menas you can't access the application on that load balancer if we give 255 then we can access the 
 loab balancer. the use case is we want maintaines on particular region you can diver the traffic into sepearte the specific load balancer
 			(or)
-Weightedd round-robin:-two regions servers are the then we can divide the traffic based on priority based we can divide the traffic 
+Weighted round-robin:-two regions servers are the then we can divide the traffic based on priority based we can divide the traffic 
 >>Weighted routing allows you to associate multiple resources with a single domain name (example.com) or subdomain (acme.example.com) and choose the amount of traffic routed for each resource.
 This can be useful for a variety of purposes, including load balancing and testing new versions of software.
 
-3-geo-DNS:-Geolocation routing can be used ti send traffic to resources based on the geographcal locations
+3-geo-DNS:-Geolocation routing can be used to send traffic to resources based on the geographical locations for example you may have presence in europe and Asia now you want user in the
+Asia to be served in the Asia and rhose europe to be served by servers in europe
+ex:-you can localize yourcontent present some or all of your website in the language of your user
 
 4-latency:- latency is used same is the previous failover or weighted routing policy the differnt is you can mention to the particular in region if any one 
 near by india that user will connect to the india based load balancer and if any us then that user will connect the us load balancer its region based. 
@@ -1633,13 +1635,14 @@ route traffic to a single resource, for example, to a web server for your websit
 188-what is cname records in aws
 
 >>cname is also called canincal name or alias 
->>first you created A record created using ip www.anji.com then you can select the cname give that www.anji.com to sampi.anji.com then using create that 
->>Route 53 responds to the first DNS query with the name of the record that you want to redirect to. Then the DNS resolver must submit another query for 
-the record in the first response to get information about where to direct traffic, for example, the IP address of a web server.
+>>CNAME records are Directs one name to another name or Points domain to Another Domain www.anji.com to sampi.anji.com
+>>so when you move your servers you only have to change one set of records
 
 189-what is A name record in aws
 
->>A is Host record it will take ip set the the domain
+>>A known as Host records it converts host to ip address 
+>>A Records are IPv4
+>>AAAA Records are IPv6
 >>Amazon Route 53 offers a special type of record called an 'Alias' record that lets you map your zone apex (example.com) DNS name to the DNS name for your
 ELB load balancer (such as my-loadbalancer-1234567890.us-west-2.elb.amazonaws.com).
 
@@ -1650,6 +1653,9 @@ point to a valid IP address. Since the AWS Route53 allows you to do use a subdom
 
 191-what is NS record
 
+>>>>it is name server records when you creating or hosting website it will create the name server reocrds that will be fault tolerance purpose if any one goes down your
+will not impact why 
+because reaminig will run right
 >>The NS records and A records are both used to provide DNS services. The difference between them is that the former define the servers that provide
 DNS services for a domain name while the A records translate hostnames (such as www, FTP, mail) into IP addresses.
 
