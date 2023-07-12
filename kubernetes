@@ -1911,7 +1911,46 @@ The StatefulSet ensures that each instance is upgraded in a controlled manner, m
 >>kubectl top pods   -->it will show the pods details only
 >>kubecctl top nodes    -->it will show nodes cpu and memory also
 
-171-
+171-kustomization is just like helm but its works differnet you can create the kustomization.yml add your all the yaml files deatils like this below and you can add overlay and patches and you can create the resources to update the files  
+resources:
+- anji/deployment.yml
+- anji/service.yml
+- anji/ingrees.yml
+- anji/namespace.yml  -->this will execute in a sinle command like this 
+kubectl create(or)apply -k /anji/
+you can use overlays to create the differnet environments like
+mkdir anji
+cd anji
+mkdir prod
+mkdir test
+cd prod
+vi kustomization.yml
+bases:
+  - ../../anji
+:wq
+>>kubectl create(or)apply -k /anji/prod  -->it will execute this prod environment like this you can execute same in test also but for change we pod size 2 to 4
+cd test
+vi replia.yml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: example-deploy
+spec:
+  replicas: 4
+vi kustomization.yml
+bases:
+  - ../../anji
+patches:
+  - replicas.yml   -->it will create the 4 pods but in early it add 2 pods only
+:wq
+Advantages:-Kustomize is a Kubernetes configuration transformation tool that enables you to customize untemplated YAML files, leaving the original files untouched. Kustomize can also 
+generate resources such as ConfigMaps and Secrets from other representations.
+Disadvantages:-Depending on the organization, the benefits of templating can also be a deterrent. Kustomize does not ship with a lot of convention out of the box, staying tighter to a
+templating engine design. 
+>>Potentially, the end-user can change anything in a base manifest without explicit templating code. By matching by a file, label, or annotation, the end-user has to have more detailed
+knowledge of what and where the change is going to take place
+
+ 
 
 
 172-
