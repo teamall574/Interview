@@ -1,20 +1,52 @@
+1- tell me user types in linux
+
 $  -->normal user
 #  -->root user
-pwd  -->present working directory
-uname   -->it will show operating system using
-uname -a  -->it will show linux details
-uname -r  -->it will show releases
-uname --all  -->it will show linux details
-uname --help  -->it will show details how to use
-man uname  -->it will show details how to use or manually how to use
-CRUD  -->Create, Read, Update, Delete
-ls  -->it will show list the files and folders
-ls -l  -->it will show length format and permissions and size
-ls  -lr  -->reverse length format
-ls -ltr   -->time reverse, old to new
-ls -la   -->it will show hidden and list files
-touch anji.txt  -->it will create the anji.txt
-mkdir anji   -->it will create the anji folder or directory
+
+2-how to linux details and linux release 
+
+>>cat /etc/os-release   -->it will show the relases of your server
+>>uname   -->it will show operating system using
+>>uname -a  -->it will show linux details
+>>uname -r  -->it will show releases
+>>uname --all  -->it will show linux details
+>>uname --help  -->it will show details how to use
+>>man uname  -->it will show details how to use or manually how to use
+
+3-how to see present directory
+
+>>pwd  -->this command is used to see the present working directory where you are
+
+4-what is CRUD
+
+>>n computer programming, create, read, update, and delete are the four basic operations of persistent storage. CRUD is also sometimes used to describe user interface conventions that facilitate viewing, searching, and changing information using computer-based forms and reports.
+
+C    -->Create
+R    -->Read
+U    -->Update
+D    -->Delete
+
+5-how to list the files in linux and hidden folders also
+
+>>ls  -->it will show list the files and folders
+>>ls -l  -->it will show length format and permissions and size
+>>ls  -lr  -->reverse length format
+>>ls -ltr   -->time reverse, old to new
+>>ls -la   -->it will show hidden and list files
+>>ls -ld   -->it will show the directorys only
+
+6-where is shell located 
+
+>>/bin
+
+7-how to check if server virtual or physical.
+
+>>dmidecode | grep Product
+
+8-how to create a file in linux
+
+>>touch anji.txt    -->it will create the file
+>>vim anji.txt      -->it will also create the file and open the editor
 cat > anjii.txt  -->if you enter this will give cursor to enter the data
 hi anji  then exist use control+d
 cat anjii.txt   -->it will show the data of anjii.txt
@@ -22,34 +54,30 @@ clear  -->it will clear the scrren
 >   -->if you use this remove old data and add new data
 >>   -->if you use this this will add nwe data old data also will be there 
 cat anji.txt anjii.txt > anjitest.txt   -->it will copy the data anjitest.txt
-cp annji.txt anji -->it will copy the anji.txt into anji folder
-mv anji.txt anji  -->it will move the file into anji folder
-you can move folders also
-cp anji anji1 -r  -->you can copy folders also but you need to  use -r recursvly
-rm anji.txt  -->it will delete file
-rm -r anji  -->it will delete the folder
-grep anji anji.txt  -->it will grep the anji name in the file
-grep -i anji anji.txt -->it will show captial anji and small letters anji also
-head anji.txt   -->it will show only first 10 lines only
-head -n 2 anji.txt -->it will show the first 2 lines only
-tail anji.txt  -->it will show last 10 lines only
-tail -n 2 anji.txt  -->it will show the only last 2 lines
-echo hai anji   -->it will print hii anji 
-echo $?   -->it will show the previous command is successful or not 
-if you get 0 means successful otherthan 0 everything is failure
-history  -->it will show history of commands what your running
-wget https://anji.com  -->it will download the file wget helps to download
-curl -->to view the source at the console 
-chmod  -->chmod used to chnage the permission of file or user 
-cat /etc/os-release  -->it will show os version and details
-apt list installed | wc -l  -->it will list the installed packages
-yum list installed | wc -l 
-yum list all   -->it will show availble list 
-date +"%Y-%m-%d"   -->it will print year month date
 
+9-how to create a folder in linux
 
-----vim--
-vim anji.txt   -->you can edit the file or if the file exist it will open if not it will create
+>>mkdir anji  -->it will create the anji folder
+
+10-how to copy the files in linux
+
+>>cp annji.txt anji -->it will copy the anji.txt into anji folder
+>>cp /anji/test/*  /home/anji/the/   --->it will copy the files
+>>cp anji anji1 -r  -->you can copy folders also but you need to  use -r recursvly
+
+11-how to move files in one folder to another folder
+
+>>mv anji.txt anji  -->it will move the file into anji folder
+
+12-how to remove files or folders in linux
+
+>>rm anji.txt  -->it will delete file
+>>rm -r anji  -->it will delete the folder
+>>rm -rf .*files*;   -->it will remove .files 
+
+13-how to use vim command
+
+>>vim anji.txt   -->you can edit the file or if the file exist it will open if not it will create
 vim  -->visually improved full form
 :set nu   -->display numberswise
 :set nonu  -->remove numbers form the file
@@ -69,9 +97,16 @@ vim  -->visually improved full form
 :%s/anji/sampi/g  -->it will replace anji where it is replace with sampi
 :%d   -->it will delete entire content
 
------------
+14-what is usermod command in linux
 
-Ownership-->
+>>usermod command or modify user is a command in Linux that is used to change the properties of a user in Linux through the command line. After creating a user we have to sometimes change their attributes like password or login directory etc.
+
+>>usermod -G john anji          -->anji added into john group
+
+15-what is chmod command in linux
+
+>>The chmod (short for change mode) command is used to manage file system access permissions on Unix and Unix-like systems. There are three basic file system permissions, or modes, to files and directories: read (r) write (w) execute (x)
+
 1-symbolic method
 
 >>user   -->the one who created
@@ -84,25 +119,6 @@ Ownership-->
 r   -->read access
 w   -->write acess
 x   -->execute
-
->>useradd  john              -->it will add john user
->>passwd john              -->it will create the password
-john
-john
->>useradd  anji             -->it will add john user
->>passwd anji              -->it will create the password
-anji
-anji
->>groupadd anji     -->it will create the anji group
-
->>cat /etc/groups              -->it will show group
-
->>usermod -G john anji          -->anji added into john group
->>vi /etc/ssh/sshd_config
-
-password authentication yes
-
-:wq          -->it will give login permission to user anji
 
 >>chmod u+x  anji.tf  -->it will give executable access
 >>chmod g-w  anji.tf  -->it will remove the executable access
@@ -140,9 +156,42 @@ first 7 user/owner second 6 group last 4 others
 
 >>chown john:john anji.txt         -->this file Owner of john user transfering ownership 
 
-------------------process management-------------------
+16-what is chown command in linux
 
-1-what is process management
+>>The chown command changes the owner of the file or directory specified by the File or Directory parameter to the user specified by the Owner parameter. 
+
+>>chown john:john anji.txt         -->this file Owner of john user transfering ownership 
+
+17-how to create a user and create a password and also group and add that group into user
+
+>>useradd  john              -->it will add john user
+>>passwd john              -->it will create the password
+john
+john
+>>useradd  anji             -->it will add john user
+>>passwd anji              -->it will create the password
+anji
+anji
+>>usermod anji  -->it will modify the anji name
+>>userdel anji   -->it will delete the anji
+>>groupadd anji     -->it will create the anji group
+>>groupdel test  -->it will delete the group
+>>groupmod -n test1 test  -->it will modify the group name test to test1
+>>gpasswd -d anji test    -->it will remove the anji in test group
+>>useradd -g test1 anji
+>>passwd -d anji    -->it will remove the anji password 
+
+ 
+>>cat /etc/groups              -->it will show group
+
+>>usermod -G john anji          -->anji added into john group
+>>vi /etc/ssh/sshd_config
+
+password authentication yes
+
+:wq          -->it will give login permission to user anji
+
+18-what is process management
 
 >>when you start a program running an application in linux it actually run as a process
 >>whatever you do linux create a PID. in linux everything is a process
@@ -152,10 +201,19 @@ first 7 user/owner second 6 group last 4 others
 how can you list out the procee in linux server
 ps -ef
 >>ps -ef        -->it is like task manager in linux
+>>free -m | awk '/^Mem:/{print $3/$2 * 100}'   -->it will show the how much memory free in the linux
 >>top          -->it will show the cpu utilization ram and memory and it will show how many service runing in background
+>>top -bn1 | grep 'Cpu(s)' | awk '{print $2 + $4}'   -->it will show how much cpu utilization
+>>df -h |grep -vE "tmpfs|/dev/sda2|/dev/sr0" | awk '{print $5}'   -->it will see the files in drives how much stoarge used in drive
+>>df -h -->The df command displays information about total space and available space on a file system.
+>>df -hT    -->it will show the type of harddisk
+>>cd /bin
+>>du -sh *  -->it will show the how much memory used in folders 
 >>foreground   -->which runsin the terminal stick to terminal we cant do anything
 sleep 300 &  -->it will run backgound
 >>background  -->it will runs in background
+>>View disk space: df -h
+>>Identify large directories: du -sh * | sort -hr | head
 
 >>ps -ef | grep sleep  -->it will search sleep in 
 
@@ -164,9 +222,30 @@ sleep 300 &  -->it will run backgound
 >>kill 1665           -->it will the jenkins service or request stop
 >>kill -9 1665  -->it is forcefully delete the service
 
-------user-management------------------------
+19-how to see the history in linux
 
->>userada anji  -->it will add anji user and automatically create the group also
+>>history
+
+20-how to delete all the process in linux
+
+>>kill PID 
+>>kill process_name
+>>pkill process_name
+>>kill -9 "pid"
+>>kill commands 60+ is there 9 is used to kill the service
+>>killall
+
+21-how to stop all services in linux command
+
+>>sytemctl stop -all
+
+22-how to clear history in linux
+
+history -c
+
+23-what is user-management
+
+>>useradd anji  -->it will add anji user and automatically create the group also
 >>passwd anji  -->it will ask to create the password for anji
 >>id       -->it will present user details
 >>root user id is 0 
@@ -177,7 +256,7 @@ sleep 300 &  -->it will run backgound
 >>gpasswd  -d anji sampi   -->delete the anji user in sampi group
 >>groupdel sampi  -->deleting the sampi group
 
---user not able to acess using password based authentication need o enable
+--user not able to acess using password based authentication need enable
 
 >>vi /etc/ssh/sshd_config
 
@@ -219,12 +298,40 @@ first remove him from primary and secondary group
 >>userdel <user-name>
 >>groupdel <group-name>
 
--------package-management--------------------
+24-how to see the file size in linux
+
+>>du -h anji.txt
+
+25-how to see the folder size in linux
+
+>>du -h -->it will list the folder size in linux
+
+26-how you can see if the port is opened or not in linux
+
+>>netstat -a | grep -i 8000     -->to check the port opening and listening
+>>telnet "ip" port
+>>yum install net-tools -y  -->it will install net-tools netstat
+>>netstat -anp | grep 80   -->it will check the port is open or run
+>>List listening ports: netstat -tuln
+>>Check specific port: netstat -tuln | grep <port_number>
+
+27-how to check the public ip in linux
+
+>>curl ifconfig.co  -->it will show the public ip of your system
+
+28-how to which user is loged in linux
+
+>>who am i  -->if you type this you will get your ip which usertho login ayyva telistundi
+
+29-what is package management
 
 >>yum   -->yellow dog utility manager
 >>rpm   -->redhat package manager
+>>yum or dnf install httpd -y   -->install package
 
-----------------service-management-------------------
+30-what is service managment in linux
+
+>>Services are programs or processes that run on your server at all times, usually from the time a server boots up. They are used to provide persistent support for requests and monitoring, from other processes or external clients.
 
 >>systemctl start nginx   -->this will start the service
 >>systemctl status nginx  -->this can check the status
@@ -232,47 +339,359 @@ first remove him from primary and secondary group
 >>systemctl restart nginx  -->this will restart the service
 >>systemctl enable nginx   -->if you given this whenever service reatart automatically start the service
 
-how to see the os distribution or details of 
+31-without password how can access linux machines
 
->>cat /etc/release
-or 
->>ls /etc/release
+>>you need to create the sshkey it is uses in rsa alogirthum it will create 2 files public key file named . ssh/id_rsa. pub and a private key file named . ssh/id_rsa.
+you can add that public key into the remote server you must enable the password less authentication in remote servers
+>>vi /etc/ssh/sshd_config  
+passwordauthentication yes
+permitrootlogin yes
+#passwordauthentication no  -->you need comment this 
+>>scp -r /home/anji.tx  2.54.25.2:/root/anji    -->it will send the file  
+two ways to send the file password less like add your ssh keys in destination server or password authentication need to give password
 
-how to see cpu info in linux
+>>ssh-keygen
+>>press enter
+>>press enter
+>>ls -a
+>>cd .ssh
+>>ls
+>>ssh-copy-id anji@172.31.38.167   -->it will ask passwd give next time it will not ask do same in remaing systems
+
+32-how to see cpu info in linux
 
 >>cat /proc/cpuinfo
 
-how to see memory info linux
+33-how to see memory info linux
 
+>>free -m 
 >>cat /proc/meminfo
 
-how to see free memory 
+34-how to check the hardware information in linux
+
+>>cat /proc/meminfo | grep MemTotal
+>>cat /proc/cpuinfo
+>>dmidecode -s system-serial-number
+
+35-how to see free memory 
 
 >>free 
+>>View memory usage: free -h
+>>Identify high memory processes: ps -eo pid,ppid,%cpu,%mem,cmd --sort=-%mem | head
 
-how to see the free memory of volume or harddisk
-
->>df -h -->The df command displays information about total space and available space on a file system.
->>df -hT    -->it will show the type of harddisk
->>cd /bin
->>du -sh *  -->it will show the how much memory used in folders 
-
-how to find the files in linux
+36-how to find the files in linux
 
 >>find /etc -name "passwd"  -->it will find the passwd files 
 >>find . -type f -size +100M  ##find the large in 100mb
 >>find / -name testfile.txt          ##it will find the file  in linux
 >>find / -name anji.txt         -->it will locate the anji.txt where exactly availble
+>>sudo find / -xdev -type f -size +100M
+>>find / -name testfile.txt          ##it will find the file  in linux
+>>find /path/to/logs -name "*.log" -type f -mtime +7   -->find the last 7 days old file
 
->>find / -maxdepth 2 --name "passwd"
->>find / -maxdepth 3 --name "passwd"
+37-how can i lock the user accounts
 
-what is cut commad in linux
+>>usermod -s /sbin/nologin anji  -->your putting anji user into nologin section anji not able to login
+>>usermod -s /bin/bash   -->it will give login permission   
+>>passwd --lock anji   -->it is used to lock the anji user
+or 
+>>usermod -L anji
+>>passwd --unlock anji  -->it is used to unlock the anji user
+or 
+>>usermod -U anji
+>>Using the passwd Command:
 
->>using cut commans
->>cat anji.txt | cut -d "/" -f2
+Open a terminal and execute the following command as the root user or with sudo privileges:
 
-what is awk command in linux
+>>sudo passwd --lock username
+
+Replace username with the name of the user account you want to lock.
+
+This command locks the user account by placing an asterisk (*) or an exclamation mark (!) in the password field of the /etc/shadow file, depending on the system configuration.
+Modifying the /etc/shadow File:
+
+Open the /etc/shadow file in a text editor using root privileges, such as:
+
+>>sudo nano /etc/shadow
+
+Locate the line corresponding to the user account you want to lock. The line will contain the username and an encrypted password.
+
+Replace the encrypted password field with an asterisk (*) or an exclamation mark (!).
+
+Save the file and exit the text editor.
+
+>>By using either method, you effectively lock the user account, preventing the user from logging in. The user will receive an error message if they attempt to log in with their password.
+
+>>It's important to note that locking a user account is different from deleting it. The locked user account's settings and files will still exist on the system, and you can unlock the account later if needed by reversing the steps above.
+
+38-how to see the ssh port number is opened folder or you want change the port number
+
+>>cat /usr/lib/firewalld/services/dns.xml
+
+39-where we can see the logs in lnux 
+
+>>cd /var/log
+>>cat /var/log/auth.log  -->by using this you can see which user logged
+or 
+>>cat /var/log/last
+
+40-where the packages or installed softwares stored
+
+>>/usr/local/bin or /usr/bin or /usr/local/sbin or /usr/sbin
+
+41-how to see the processor list in linux
+
+>>nproc -->it will show how many processor list
+
+42-how to configure your dns servers in linux achine
+
+>>yum install bind bind-utils
+>>vi /etc/named.conf
+127.0.0.1 then chaage your dns servers
+
+43-what is operating system
+
+>>os is an interface between user and the computer and hardware
+
+>>operating system only understand binary language
+
+ex:- windows, os x, solaris
+linux(redhat, ubuntu, fedora, suse, debian, centos)
+
+>>linux operating system is open-source and it is comapred to secure than windows you can modify the kernal also
+
+44-how to add environment variables into java
+
+vi .bash_profile
+>>M2_HOME=/opt/maven
+>>M2=/opt/maven/bin
+>>JAVA_HOME=/usr/lib/jvm/java-11-openjdk-11.0.12.0.7-0.amzn2.0.2.x86_64
+>>PATH=$PATH:$HOME/bin:$JAVA_HOME:$M2_HOME:$M2
+:wq
+
+>>echo $PATH
+>>source .bash_profile
+
+45-how to delete old files in Linux
+
+>>find /path_to_file/* -mtime +90 exec rm -rf {} \;
+
+46-what is Daemons 
+
+>>Daemons play a crucial role in the background operation and management of computer systems, servers, and networks. They help provide essential services, maintain system stability, and automate tasks without requiring direct user involvement.
+>>Daemons are designed to perform specific tasks or provide services on a computer or server.Background Process: Daemons run in the background, often starting automatically when the computer or operating system boots up.
+1-No User Interaction
+2-System Services
+3-Independent and Autonomus 
+4-Log Output
+
+47-what is soft and hard link in cmd or symbolic link
+
+>>Symbolic links (also called "soft" links) are files that point to a file or directory in your system, but don't mirror the other file's data.
+>>soft link is an actual link to the original file, whereas a hard link is a mirror copy of the original file. 
+>>ln -s /opt/tomcat/bin/startup.sh /usr/local/bin/tomcatup    -->it will create short-cut to start and down the server
+>>ln -s /opt/tomcat/bin/shutdown.sh /usr/local/bin/tomcatdown         -->this soft link or symbalic link
+>>ln /opt/tomcat/bin/shutdown.sh /usr/local/bin/tomcatdown   -->this hard link
+>>tomcatup    -->it will start the server
+>> If you delete the original file, the soft link has no value, because it points to a non-existent file. But in the case of hard link, it is entirely opposite.
+
+48-what is the advantage of hardlinks over softlink 
+
+>>A hardlink allows you to chnage the permission on underlying file
+
+49-how to attach ebs volume
+
+
+>>launch ec2 instance
+>>creat new volume and attach to ec2 instance  4gb
+>>sudo su -
+>>lsblk            -->to see the list of drives
+>>df -h            -->to see the list of drives
+>>fdisk /dev/xvdf                        
+>>mkfs.ext4 /dev/xvdf1
+>>mkdir /anji          -->createing drive name anji
+>>mount /dev/xvdf1  /anji/
+>>nano /etc/fstab
+
+/dev/xvdf1   /anji/  ext4 defaults,noatime  1  1
+
+:wq
+>>restart the system you can check the drive attached or not
+>>sudo su -
+>>lsblk
+you will see the drive and files
+
+50-how to add extra storage 4gb to 6gb adding 2gb
+
+>>adding extra 2gb in aws console then go the linux
+>>sudo su -
+>>growpart /dev/xvdf1  
+>>resize2fs /dev/xvdf1
+
+51-how to unmount and detach ec2-volume
+
+>>sudo su -
+>>umount /anji
+>>then go to aws console deattach to volume to instance
+
+52-how to see whether another server is accepting the request like port no 22 or not
+
+>>you can telnet 31.33.78.52 80   -->it will help you to show whether is accept or not
+
+53-how many ports there in network
+
+>>0-65535 ports
+
+54-what is tee command
+
+>>tee command is used to display the output and also to store that output into a file (it does both the taks simultaneously)
+>>ls -let | tee anji.txt
+
+55-what is echo command
+
+>>Echo is a Unix/Linux command tool used for displaying lines of text or string which are passed as arguments on the command line
+>>\n cut the line it will come in next line
+
+56-what is man command in linux
+
+>>It provides a detailed view of the command which includes NAME, SYNOPSIS, DESCRIPTION, OPTIONS, EXIT STATUS, RETURN VALUES, ERRORS, 
+FILES, VERSIONS, EXAMPLES, AUTHORS and SEE ALSO.
+>>man echo
+>>man whoami
+>>man bash
+>>man test
+
+57-what commands to read files
+
+>>cat anji.txt  ##it will display the content
+>>cat -n anji.txt   -->it will show the numbers of the file
+>>less anji.txt
+>>more anji.txt  ##it will also show the content
+>>more 4 anji.txt
+>>Tail is a command which prints the last few number of lines (10 lines by default) of a certain file, then terminates.
+>>head -2 anji.txt  ## it will show only two lines of your file
+>>head anji.txt ##it will show only 10 lines of your file
+>>head -20 anji.txt  ## it will show only 20 lines of your file
+>>sed -n '6,12' anji.txt #3it will print 6 to 12 line middle data
+>>awk 'NR>=6 && NR<=12 {print}' anji.txt   -->it will show only 6 to 12 line only
+
+58-is ist possible to change file date and time
+
+>>touch -d "Mon 1 Mar 2020 12:30:00" marchfile   -->it will create the file in mar 1 2022 file name using this command the file craete onthat date like mar 1 2020
+>>touch anji   -->it will create anji file 12 clock it created
+>>touch -am anji  -->it willupdate write now time
+>>touch -r sampi anji   -->it will sampi file refernce and that time will updated to anji if sampi 12 2022 then anji file also 12 2022
+>>stat anji         -->it will show modification dates
+>>stat -x anji      -->it will show the modification details
+
+59-is it possible to add the secondary ip in linux
+
+>>Open /etc/network/interfaces. An example of the file is below: (Screen 1)
+>>Below the line: auto eth0. Add the following line: ...
+>>Below the first interface description iface eth0 add the description of the second interface: iface eth0:1 inet static. address 207.210.118.58
+>>You can add an additional IP address permanently to your system by editing the file /etc/netplan/50-cloud-init. yaml. In the above output, 
+you should see that the IP address 192.168. 0.101 is assigned to the interface.
+
+60-what is cut command
+
+>>the cut command is a powerful tool to extract parts of each line from a file
+its base on
+>>byte position
+>>character position
+>>fields based on delimiter
+>>cut -c 4 /etc/paswd  ##it will show only 4 th line your file 
+>>cut -c 1,6 /etc/passwd   ##it will show only 1-6 lines only in the file
+>>cut -c 10 /etc/passwd    ##it will show only first 10 lines
+>>cut -c 4- /etc/passwd  ##it will show the after 4 to remaing files
+>>cat test.txt   ##cut command will work on tab command other wise it will consider the fild separtor or same
+anji   okok   okty
+yjjk   ooll   uujj
+hghh   iioo   kkkk
+exit
+>>cut -f 2 test.txt
+okok
+ooll
+iloo  ##it wil show this things
+>>cut -f 1.3 test.txt
+anji      okty
+yjjk      uujj     ##it will show only 1 and 3 words in a line
+hghh      kkkk
+>>cut -d ':' -f -4 /etc/passwd
+
+61-what is grep command in linux
+
+>>grep is a filter command it is used to search a string in a given filter
+>>grep "anji is" anji.txt  ##use qupotation other wise it will give some error found first letter second letlet will not conclude
+grep -i  
+-i Ignore case for matching/searching  ##this is important
+-w to match a whole word     ##this is important
+-v to display the lines which are not having green strings or text ##this is important
+-o to print/display only matched parts from matched lines
+-n to display the matched line numbers
+-c to display matched count of lines
+-A to display N lines after match  ##this is important
+-B to display N lines before match  ##this is important
+-c to display N lines around match  ##this is important
+-r to search under current directory or sub-directory
+-l to dispaly file names
+-h it will hide files
+
+>>grep -e "line" -e "test" -e "ok" anji.txt ##it will look all this strings
+>>grep -E "line|above|bash|shell|python" anji.txt ##this also look the al the mentioned strings
+>>grep -E "[[:digit:]]" anji.txt   ##it will print the numbers
+>>grep -E "[[:upper:]]" anji.txt   ##it will print the upper case
+>>grep -E "[[:lower:]]" anji.txt   ##it will print the lower
+>>cat anji.txt | grep -E "[0-9]{1,3}\.[0-9]{1,3}\.[0-90{1,3}"  -->it will list of numbers in a file
+>>cat anji.txt | grep -E "[0-9]{1,3}\.[0-9]{1,3}\.[0-90{1,3}\.[0-9]{1,3}\b"  -->it will show only list of ips only
+
+62-what is diff command
+
+>>it used to see the differnce between two files in linux
+
+63-what is compare command
+
+>>cmp: This command is used to compare two files character by character.
+$ cmp file1 file2
+
+64-What is sed command in Linux with example?
+
+>>The Linux sed command is most commonly used for substituting text. It searches for the specified pattern in a file and replaces it with the wanted string. 
+To replace text using sed , use the substitute command s and delimiters (in most cases, slashes - / ) for separating text fields
+>>sed 's/foo/bar/g' hello.txt
+>>sed -e '4s/foo/bar/' hello.txt
+>>sed 's/foo/bar/g'  anji.txt    -->it will replace only second letter
+foo anji. bar anji
+foo sampi. bar test
+>>sed 's/unix/linux/3g' geekfile.txt  -->it will replace only thirdd letter of the line 
+>>sed '3 s/unix/linux/' geekfile.txt   -->it will replace only third line 
+>>sed '1,3 s/unix/linux/' geekfile.txt  -->you can speccify specfic number of lines particularly
+
+65-What is awk used for?
+
+>>The awk command is a Linux tool and programming language that allows users to process and manipulate data and produce formatted reports.
+
+>>docker -v
+xxx xxxx test, xxx xxxx  it will give the all the lines using below command you can get 3rd line
+>>docker -v | cut -d " " -f 3
+test,  you will get , also if you want delete that , use this
+>>docker -v | cut -d " " -f 3 | tr "," " "
+test
+
+>>nginx -v  same but it will not show clearly that we using second command
+>>nginx -v 2>&1 | cut -d " " -f 3
+nginx/1.14.0
+>>nginx -v 2>&1 | cut -d " " -f 3 | cut -d "/" -f 2
+>>httpd -v | grep -E "version" | cut -d '/' -f 2 | cut -d ' ' -f 1
+>>httpd -v | awk -F '[/]' ' /version/ {print $4}'
+2.4.41
+>>httpd -v | awk -F '[/]' ' NR==1 {print $4}'
+2.4.41
+NR==1   -->first line of file
+>>vi anji.text
+ck jk akk
+dj kk like
+exit
+>>awk '{ print $1 $3 }' anji.text
 
 iam giving varibale in linux
 TRAFILE=https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.75/bin/apache-tomcat-9.0.75.tar.gz
@@ -307,73 +726,854 @@ echo "install java"
 yum install java-11-openjdk-dlevel -y
 cd $DIRECTORY/bin
 sh startup.sh
+:wq
+
+vi test.txt
+100 anji test IT 55000
+200 sampi test sales 65000
+300 gampa yellow IT 65000
+
+>>awk '/sampi/' test.txt 
+200 sampi test IT 65000   -->it will display only this 
+>>awk '/IT/' test.txt 
+100 anji test IT 55000
+300 gampa yellow IT 65000
+>>awk '{print $2 $4}' test.txt
+anji 55000
+sampi 65000
+gampa 65000
+>>awk '{print $2 $NF}' test.txt
+anji 55000
+sampi 65000
+gampa 65000
+>>awk '$4 ~/sales/' test.txt
+200 sampi test sales 65000
+>>awk -F: '{print $1,$2}' /etc/passwd 
+anji X
+sampi X   -->it will show like this 
+>>awk -F: /sampi/'{print $1,$2}' /etc/passwd 
+sampi X   -->only show the sampi only
+>>awk 'BEGIN {OFF=":"} {print $2 $NF}' test.txt
+anji:55000
+sampi:65000
+gampa:65000
+anji,55000
+>>awk 'BEGIN {OFS=","} {print $2 $NF}' test.txt  -->OFS -->output file separtor
+sampi,65000
+gampa,65000
+>>awk 'END {print NR}' test.txt  -->it will show the records
+3 -->anji
+     sampi 
+     gampa -->like this horizontal line will caluclate 
+
+66-how would you see the last command of shell script
+
+>>echo $?   -->if it gives 0 means the command is executed succesfully
+
+67-what is Runlevel commands in linux
+
+>>The default runlevel is specified in /etc/inittab
+>>A runlevel is an operating state on a Unix and Unix-based operating system that is preset on the Linux-based system. Runlevels are numbered from zero to six. 
+Runlevels determine which programs can execute after the OS boots up. The runlevel defines the state of the machine after boot.
+init 0 – System halt i.e the system can be safely powered off with no activity.
+init 1 – Single user mode.
+init 2 – Multiple user mode with no NFS(network file system).
+init 3 – Multiple user mode under the command line interface and not under the graphical user interface.
+init 4 – User-definable.
+init 5 – Multiple user mode under GUI (graphical user interface) and this is the standard runlevel for most of the LINUX based systems.
+init 6 – Reboot which is used to restart the system.  
+
+68-how much time to boot up Linux in an AWS
+
+>> Minimum 3 minutes and maximum 5 minutes
+
+69-what is sort command in linux
+
+>>SORT command is used to sort a file, arranging the records in a particular order. By default, the sort command sorts file assuming the contents are ASCII. Using options in the sort command can also be used to sort numerically. 
+
+>>sort file.txt   -->it will list the alphabetcal order
+
+70-what is crontab
+
+>>In any operating system it is possible to create jobs that you want to recoccur. this process know as job-scheduling
+for nay linux this process is handled by the cron service or daemon called crond
+
+>>crontab -e
+
+#execute a job 8:30 on everyday moening
+
+30 8 * * * echo "1" >> /tmp/file1
+
+#execute a job at 2:00pm on every saturday
+
+00 14 * * 6 echo "2" >> /tmp/file2
+
+#execute a job at 12:00AM on 1st july
+
+00 00 01 06 * echo "3" >> /tmp/file3
+
+#execute a job at 3:30PM on every month 25th
+ 
+30 15 25 * * echo  "4" >> /tmp/file4
+
+* * * * *             #it indicates the everyday and every second
 
 :wq
 
-what is sed 
+71-what is commadn line arguments
 
->>echo $FILENAME | sed -e 's/.tar.gz//'  -->it will remove the tar.gz of your file
+>>command line arguments are the arguments/values specified at the command prompt while running commands/shell scripts
+>>these parametersvstart from $1 to $9
+>>the fisrt argument is assigned as $1 and second argument is $2 and so on...
 
----------------------network-management----------------------------
+$0 -> the name of the script the path is included
+$1 -> the first argument or parameter
+$2 -> the second argument or parameter
+$9 -> ninth parameter
+${10}-${n}  - Represent positional parameters for arguments after nine
+$#  -->represent total numbe of arguments
+>>vi anji.sh
+echo $1
+echo $2
+echo $3
+exit
+>>bash anji.sh 34 34 45
+34 
+34 
+45
 
-how many ports there in network
+72-what is comments
 
->>0-65535 ports
+>>A comment is a human-readble explanation that is written in the shell-script
+>>ading comments to your bash or shell will save you lot of time and effort when you look at your code in future
 
-how to see the runnig ports in linux
+there are two types of comments
+1-single line comments 
+##this is comment
+2-multi line comments
+<< anji
+crretdkk
+kjgsl
+anji  -->this multi line comments under anji no word can execute
+>>note: comments wont execute while running or executing your code
 
->>netstat
->>netstat -l
->>netstat -ltn   -->it will show port numbers what we used 
->>netstat -ltnp  -->
+73-what is variables in linux or shell-script
 
-how to see whether another server is accepting the request like port no 22 or not
+>>variables are useful to store data in shell script andd later we can use them if they required
+two types of variables
+1-system variables:-
+>>created maintained by operating systems itself
+>>this type of variables are define in CAPITAL LETERS
+>>set   -->it will show the variables
+>>set | grep BASH
+ex: HOME,USER
+2-user-define variables:-
+>>created and maintained by the user
+>>this type of variables are defined combination lower and upper case dont use upper case
+>>dont provide space on either sides of equal symbol
+ex: x=4 or x =4 or x = 4 or x= 4
 
->>you can telnet 31.33.78.52 80   -->it will help you to show whether is accept or not
+74-what is tr command
 
-what is 1-tier application
+>>tr: short for translate
+>>tr is useful to translate or delete given set of characters from the input
+vi anji.txt
+line 1
+line 2
+line 3
+line 4
+exit
+>>tr 'i' 'I' < anji.txt  -->it will replace i to I 
+>>tr 'i' '_' < anji.txt  -->it will replace i to _
+>>docker -v | cut -d " " -f 3 | tr -d ","
 
->>In 1-tier architecture, the data is directly provided to the user and that user can directly use the database through the computer. Any changes or updates that are done will reflect directly to the database
+75-how to list the files or packages
 
-what is 2-tier application
+>>yum list   -->it will show the packages
+>>apt list   -->it will show the packages
+>>yum list | grep httpd     -->it will list htpd package is there or not
+>>apt list installed | wc -l  -->it will list the installed packages
+>>yum list installed | wc -l 
+>>yum list all   -->it will show availble list 
 
->>Two-tier architecture. In a two-tier architecture, the client is on the first tier. The database server and web application server reside on the same server machine, which is the second tier. 
-This second tier serves the data and executes the business logic for the web application.
+76-how to print date in linux
 
-what is 3-tier application
+>>date +"%Y-%m-%d"   -->it will print year month date
 
->>first we have extranal load balancer and internal load balancer then the extranal load balancer is open to the internet
-through route53 and internal load balancer is between app and web and the app is connected to database
+77-what is File-System and explain the File-system Architecture
 
-web technologies:
-1-HTML
-2-css
-3-javascript
+>>Filesystem Hierarchy Standard (FHS), which is a standard for organizing the files and directories
+/ -->means it is top-level directory
+  -->it is parent directory and it is root directory
 
-Web-Servers
-1-nginx
-2-apache
-3-tomcat
+/root       -->it is home directory for root user or super user
+            -->it provides working environment for root user
 
-Application servers
-1-java
-2-.Net
-3-python
-4-node js
-5-gp lang
+/home       -->it is home directory for other users
+            -->its provides working environment for other user
 
-DB-Servers
-1-Mysql
-2-MSSql
-3-Postgress
-4-Oracle
+/etc        -->Contains system-wide configuration files for various applications and services.
 
-how to rename file name
+/usr        -->by default software are installed in /usr directory
 
->>mv anji.txt sampi.txt
+/bin        -->it contains commands used by all users
 
-how to attach ebs volume
+/boot       --> Contains files related to the boot process, including the Linux kernel, initial ramdisk (initrd), and bootloader configuration.
 
+/lib and /lib64:  --> These directories contain shared libraries needed by the system and applications. The "lib64" directory is present on 64-bit systems.
+
+/sbin       -->it contains commands used by only super user (root)
+                    (superuser binary files)
+/opt:       -->Contains optional software packages installed on the system. Applications installed here are often self-contained in their own directories.
+
+/var        -->it containing variable data like mails and logfiles
+
+78-what is booting process in linux
+
+>>there are 6 stages in booting process 
+>>Booting a Linux installation involves multiple stages and software components, including firmware initialization, execution of a boot loader, loading and startup of a Linux kernel image, and execution of various startup scripts and daemons.
+>>BIOS-->basic input output second
+>>MBR-->Master boot record
+>>GRUB-->Grand Unfied bootloader
+>>Kernel
+>>Init
+>>Runlevel
+
+79-what is chroot command in linux
+
+>>chroot command in Linux/Unix system is used to change the root directory. Every process/command in Linux/Unix like systems has a current working directory called root directory. It changes the root directory for currently running processes as well as its child processes.
+
+80-what is inode in linux how to increase it
+
+>>inode (index node) is a data structure that stores metadata about a file or directory. It is a fundamental concept in the file system that helps in organizing and managing files.
+
+>>File Type: The inode specifies whether it represents a regular file, directory, symbolic link, device file, or other file types.
+>>File Permissions: Inodes store permission bits that define the access rights for the file, indicating which users or groups can read, write, or execute the file.
+>>Ownership Information: Inodes store the user ID (UID) and group ID (GID) of the file's owner and group.
+>>File Size: The inode stores the size of the file in bytes.
+>>Timestamps: Inodes keep track of various timestamps associated with the file, including the last access time, modification time, and status change time.
+>>Pointers to Data Blocks: Inodes contain pointers or references to the actual data blocks where the file's content is stored on the disk.
+
+>>Inodes provide a way for the file system to efficiently locate and manage files. They serve as an index or reference to the actual file data and metadata stored in data blocks. By using inodes, the file system can quickly access and retrieve information about files and directories.
+
+>>The total number of inodes that a file system can hold is determined during the file system creation. The inode table, which stores all the inodes, has a fixed size, and each inode consumes a certain amount of space. Therefore, the number of available inodes affects the total number of files that can be created in a file system.
+
+>>Understanding inodes is particularly important when managing file system resources, such as monitoring disk usage, determining file system limitations, or diagnosing issues related to file metadata or storage allocation.
+
+Checking the Inode Usage:-
+>>df -i
+Increasing the Disk Inode Number
+>>sudo mkfs -t ext4 -N 10000000 /dev/sdb1
+Creating a New File System
+>>sudo mkfs -t ext4 -N 10000000 /dev/sdb1
+Mounting the New File System
+>>sudo mount /dev/sdb1 /mnt/data
+Moving the Existing Files
+>>sudo rsync -a /data/ /mnt/data/
+Updating the File System Table
+>>/dev/sdb1   /mnt/data   ext4   defaults   0   2
+
+81-what is logical volumes in linux and how to create it
+
+>>In Linux, Logical Volumes (also known as LVM, Logical Volume Manager) is a storage management technology that provides a flexible and dynamic way to manage disk space. It allows you to create, resize, and manage logical volumes independently of the underlying physical storage devices (hard drives or partitions).
+>>Logical Volumes sit on top of physical volumes (disks or disk partitions) and provide an abstraction layer that makes it easier to manage storage resources. This abstraction allows you to combine multiple physical volumes into volume groups and then create logical volumes within those volume groups. Logical volumes can be dynamically resized and moved without the need to repartition the disks or disrupt the system.
+
+1-Check Available Disks/Partitions: First, ensure that you have the required disks or partitions available for creating the logical volumes. You can use commands like fdisk -l, lsblk, or parted -l to list the available disks and their partitions.
+
+2-Create Physical Volumes (PVs): If you have unused partitions, you can initialize them as physical volumes using the pvcreate command. For example:
+>>sudo pvcreate /dev/sdb1
+3-Create Volume Group (VG): Once you have physical volumes, you can create a volume group that spans one or more physical volumes using the vgcreate command. For example:
+>>sudo vgcreate my_vg /dev/sdb1 /dev/sdc1
+4-Create Logical Volume (LV): With the volume group created, you can now allocate space for logical volumes within it using the lvcreate command. For example:
+>>sudo lvcreate -L 10G -n my_lv my_vg
+5-Format and Mount the Logical Volume: Once the logical volume is created, you can format it with a file system (e.g., ext4) using the mkfs command and mount it to a directory using the mount command. For example:
+>>sudo mkfs.ext4 /dev/my_vg/my_lv
+>>sudo mount /dev/my_vg/my_lv /mnt/my_mount_point
+6-Updating /etc/fstab: To ensure the logical volume is mounted automatically during system boot, you need to add an entry to the /etc/fstab file. For example:
+>>/dev/my_vg/my_lv    /mnt/my_mount_point    ext4    defaults    0    2
+
+82-how will you reduce the LVM size explain the procedure
+
+>>comments fstab entry safer side
+>>unmount the file system
+umount /anji
+>>run e2fsck to resolve any file system errors
+e2fsck -f /dev/VG0/lv
+>>Resize the file-system
+resize2fs /dev/VG0/1v 400
+>>reduce LVM size
+lvreduce -L 400M /dev/VG0/lv
+>>uncomment fstab entry by editing fstab file
+mount -a
+>>check the file df -h 
+
+83-how to check the process port and name(netstat -tulnp)
+
+three ways to check
+>>netstat -ltnp | grep -w ':80' 
+>>lsof -i :80
+>>fuser 80/tcp
+
+84-what is ACL in linux
+
+>> Access Control Lists (ACLs) were intended to resolve. ACLs allow us to apply a more specific set of permissions to a file or directory without (necessarily) changing the base ownership and permissions. They let us "tack on" access for other users or groups.
+
+85-what are the ACLS and firewall and selinux
+
+>>A network access control list (ACL) is made up of rules that either allow access to a computer environment or deny it. In a way, an ACL is like a guest list at an exclusive club. Only those on the list are allowed in the doors.
+
+86-what is SElinux
+
+>>Selinux stands for security enhanced linux which is an access control system that is built into the linux kernel. it is used to enforce the resouce policies that
+define what level of access users, programs and service have on a system
+
+SELINUX=enforcing|permissive|disabled
+
+>>sestatus   -->it will show the selinuxstatus
+>>vi /etc/selinux/config
+disable to enable
+>>sudo reboot
+>>sudo setenforce 0
+
+87-what are the file systems in linux
+
+>>ext1
+>>ext2
+
+88-how to do the networking using nmcli
+
+what is nmcli:-nmcli (networkmanager command line interface)or packet manager command-line utility is used for controlling network manager ip address and dns for the system and reporting network status
+
+>>systemctl enable networkmanager
+>>nmcli connecction show --active
+>>nmcli device status 
+>>nmcli device show ens33   -->its show the details
+>>nmcli connection add type ethernet ifname enpos8  -->ethernet type will create and its create unique id
+>>nmcli connection show  -->it will show the list of ethernet
+>>nmcli connetcion up ethernet-enp0s8   -->it will enable the ethernet
+>>nmcli connection show --active  -->it will show the up device in that my ethernet is there
+>>nmcli connecction modify ethernet-enp0s8 ipv4.address 192.168.4.26/24   -->to change the linux system ip address
+>>nmcli connecction modify ethernet-enp0s8 ipv4.method manual
+>>nmcli device show enp0s8
+
+>>nmcli general status  -->Overall status of NetworkManager
+>>nmcli general hostname geeklab.example.com  -->Changing the hostname
+>>nmcli general permissions  -->View permissions a caller has for various operations
+>>nmcli general logging  -->Change NetworkManager logging level
+>>nmcli general logging level DEBUG domains IP4
+>>nmcli general logging level INFO domains ALL
+
+>>nmcli networking  -->Check networking status and enable/disable it
+>>nmcli networking off
+>>nmcli networking connectivity check  -->Check the network connectivity state
+
+>>nmcli radio  -->Check Radion Switch status
+>>nmcli radio wifi off  -->Disable Wi-Fi in NetworkManager
+
+89-how you can change the ip address of linux system
+
+>>ip address for a linux system will be changed by using the nmcli 
+>>need to install nmcli
+>>nmcli connecction modify ethernet-enp0s8 ipv4.address 192.168.4.26/24   -->to change the linux system ip address
+>>nmcli connecction modify ethernet-enp0s8 ipv4.method manual
+>>nmcli device show enp0s8
+
+90-types of logins in linux
+
+1-shell login
+2-cron login
+3-no-shell login
+
+91-how to resetting a root password in linux
+
+step1:-Boot Recovery Mode:-for resetting the root password we need to roboot our computer when system restarts press the "ESC" key immediately to interrupt the boot process and select the kernel from the GRUB/boot menu you wnat boot into by processing the arrow keys
+step2:-Pressing 'e' from your keyboard will open the editing menu
+step3:-in the editing menu, locate the "ro" kernal parameter and replace it with "re", and add an additional parameter "init=/sysroot/bin/sh"
+step4:-press CTRL+X to enter into the single-user mode once you are done with the previous step
+step5:-Now you can run the "chroot/sysroot" command to convert the root file system in read and write mode
+step6:-set a nwe password for root input the command (changing the password for user root)
+step7:-set a new password for root input the command
+step8:-Selabelling(to set the permissions for files or folders)
+step9:-exit from termianl
+step10:-hit reboot
+
+92-how to create a tar backup
+
+>>tar -cvf anji.tar /home/test/anji/.   -->it will create the tar file only
+c -->create the archive
+f -->name the archive
+v -->show the process verbosely
+z -->compressed gzip archive files
+>>tar -cvzf anji.tar.gz /home/test/anji/.  -->it will create the tar.gz file
+>>tar --exclude file.txt --exclude test.sh -cvfz annji.tar.gz /home/test/anji/.  -->it will exclude this two files
+
+93-what is tuning of linux systems
+
+>>the profiles provided with tuned are divided into two categories: power-saving profiles and performance-boosting profiles
+1-low latency for stoarge and network
+2-high throughput for storage and network
+3-virtual machine performance
+4-virtualization host performance
+
+>>apt install tuned
+>>systemctl enable --now tuned
+>>tuned-adm list  -->it will list the service what you need to use
+>>apt install tuned-profiles-realtime
+>>tuned-adm active
+>>tuned-adm verfiy
+>>tuned-adm profile selected-profile
+>>tuned-adm profile virtual-guest powersave
+
+94-how to improve your linux system with performance issues
+
+>>by using tunned application with the help for perform better performance
+>>by powersave and better performance and battery performance
+
+95-How many groups can a user join in Linux?
+
+>>Linux system users can have a maximum of 15 secondary groups. A Linux system's groups are stored in the /etc/group file.
+
+96-how to manage the diskspace, RAM, and memory
+
+1-Disk Space:
+
+Monitor Disk Usage: Use tools like df and du to monitor disk usage and identify any directories or files consuming excessive space. Regularly check disk usage to prevent reaching full capacity.
+
+Clean Up Unnecessary Files: Remove unnecessary or temporary files using tools like rm or find command. Pay attention to log files, cached files, and old backups that may consume disk space.
+
+Manage Log Files: Ensure log rotation is configured to prevent log files from growing indefinitely. Logrotate is a useful tool for managing log files and compressing or deleting older logs.
+
+Delete Unused Packages: Remove unnecessary software packages and libraries using package management tools like apt or yum. Unused packages can occupy disk space over time.
+
+2-RAM (Random Access Memory):
+
+Monitor RAM Usage: Use tools like top, htop, or free to monitor the RAM usage on your system. Identify processes consuming excessive memory.
+
+Optimize Process Memory Usage: Analyze memory usage of applications and processes and optimize them if possible. This may involve tuning application settings, reducing memory allocations, or optimizing database queries.
+
+Use Caching and Swapping: Linux uses disk-based caching and swap space to optimize memory usage. Configure swap space appropriately to allow the system to swap idle processes or pages to disk when memory becomes limited.
+
+Adjust Swappiness: Swappiness determines how aggressively the system swaps memory pages to disk. Adjust the swappiness value to balance between swapping and keeping more data in RAM. The default value is usually suitable for most systems, but it can be tuned if necessary.
+
+3-Memory (Virtual Memory or Page File):
+
+Monitor Memory Usage: Use tools like top, htop, or free to monitor the memory usage, including the virtual memory (page file) usage.
+
+Adjust Virtual Memory: Ensure the virtual memory (page file) is appropriately configured. It acts as an extension to physical RAM and allows the system to store data that doesn't fit into RAM. The virtual memory configuration is typically managed by the system automatically, but you can adjust it if necessary.
+
+Add Physical Memory: If your system frequently suffers from memory shortages, consider adding more physical memory (RAM) to increase the overall capacity and performance.
+
+Identify Memory Leaks: Monitor for memory leaks in applications or services. Memory leaks can cause memory usage to increase over time and lead to performance issues. Troubleshoot and fix any identified memory leaks.
+
+97-what is TOP command and how to fetch the data
+
+>>top displays a continuously updating screen showing system summary information and a list of processes sorted by CPU usage.
+
+Use the following keys to interact with the top command:
+
+q: Quit top and exit.
+k: Kill a selected process.
+f: Choose which fields to display or sort by.
+r: Renice (change priority) of a selected process.
+u: Display processes for a specific user.
+
+>>View CPU usage: top or htop
+>>Identify high CPU processes: ps -eo pid,ppid,%cpu,%mem,cmd --sort=-%cpu | head
+>>top -b -n 1 > top_output.txt
+this command is used to fetch the data
+
+98-what is nohup and &
+
+>>if you use nohup it will help you to run the background your commands in the foreground
+1-nohup
+>>The nohup command stands for "no hang-up." When you run a command with nohup, it allows the command to keep running even if the terminal session is closed or disconnected. It prevents the process from receiving the HUP (hang-up) signal, which is normally sent to processes when the controlling terminal is closed.
+
+>>nohup python myscript.py &
+
+2-& (ampersand):
+>>The & symbol is used to run a command in the background. When you append & at the end of a command, it starts the command in the background, allowing you to continue using the terminal without waiting for the command to finish.
+
+>>python myscript.py &
+
+99-how to block ip address the ip address in linux
+
+>>ip tables and firewalls
+>>sudo iptables -A INPUT -s <IP_address> -j DROP
+>>sudo iptables -A INPUT -s 192.168.0.100 -j DROP
+>>sudo apt-get install iptables-persistent
+>>sudo iptables -D INPUT -s <IP_address> -j DROP
+
+100-what is user management, file management, log management
+
+>>User Management:
+User management involves the administration and control of user accounts on a system. It includes tasks such as creating and deleting user accounts, assigning user privileges and permissions, managing user passwords, and enforcing security policies. User management ensures that users have appropriate access to resources while maintaining system security.
+
+>>File Management:
+File management refers to the organization, storage, and manipulation of files on a computer system. It involves tasks such as creating, modifying, deleting, and moving files and directories. File management also includes setting file permissions, managing file attributes and metadata, and ensuring proper backup and recovery procedures are in place. Effective file management ensures efficient storage and retrieval of data and helps maintain data integrity and security.
+
+>>Log Management:
+Log management involves the collection, analysis, and storage of log data generated by various system components, applications, and services. Logs record events, errors, and activities occurring within a system, which are valuable for troubleshooting, auditing, and security purposes. Log management includes tasks such as configuring logging parameters, centralizing log data, performing log analysis and correlation, setting log retention policies, and monitoring log files for anomalies or security incidents. It helps administrators gain insights into system behavior, identify issues, and ensure compliance with security policies and regulations.
+
+101-how to assign the process the required amount of resource allocation
+
+>>n Linux, you can assign the required amount of resource allocation to a process using various methods and tools. Here are a few common techniques:
+
+1-Nice Value (CPU Priority):The nice command allows you to adjust the CPU scheduling priority (niceness) of a process.
+2-CPU Affinity:CPU affinity controls which CPU cores a process is allowed to run on.
+3-Control Groups (cgroups):Control Groups (cgroups) is a feature in the Linux kernel that enables resource allocation and management for groups of processes.
+4-Process Priorities:Linux assigns dynamic priorities to processes that determine their access to the CPU.
+5-Resource Limiting:The ulimit command sets resource limits for specific processes or the entire system.
+
+102-what is load average in the linux systems and what does three components of load average defines
+
+>>In Linux systems, the load average refers to the average number of processes in the system's run queue over a specific time period. It provides an indication of the system's workload and can help determine if the system resources are being adequately utilized. The load average is displayed as three numbers, often seen as three values separated by commas, representing different time intervals.
+1-1-minute Load Average:
+2-5-minute Load Average:
+3-15-minute Load Average:
+
+103-Your linux server is running slower than usual.what steps can you take to identify and resolve the issue
+
+>>Start by examining CPU usage with a tool like top,htop, or atop. check I/O opeartions and memory usgae look for wapping which could significantly reduce performance check system logs in /var/log/ to identify any software or hardware errors
+
+104-An application is unable to write to afile on a linux server how would you diagnose the problem
+
+>>Check the permissions on the file to ensure te application has write access. you might also need to check if the file is locked by another process or if the filesystem is read-only due to disk issues
+
+105-you have been tasked with automating a application checking task that needs to be run at a specific time every day how would you achieve this on a linux server
+
+>>this can be done using the cron daemon linux by editing the crontab file you can specify the exact time for script to be executed 
+
+* * * * *
+minutes, hours, day-of-month, month, day-of-week
+
+106-what is GUID
+
+>>The GUID is short for Group User ID, which means this permission allows the file or directory to set the same permissions as the group in which that file or directory is present.
+
+107-what is SUID
+
+>>SUID or Set Owner User ID is a permission bit flag that applies to executables. SUID allows an alternate user to run an executable with the same permissions as the owner of the file instead of the permissions of the alternate user.
+
+108-What is fsck in Linux?
+
+>>fsck stands for "file system check" and it is used to check and optionally repair one or more Linux file systems
+
+109-how to disable fsck check in during boot
+To do that:
+
+1. Begin tapping any key when your PC loads.
+2. When GRUB menu opens, navigate to your main kernel (usually first in the list), and hit e to open up boot arguments.
+3. Navigate to kernel /vmlinuz line
+4. Append fastboot to the end of the line
+After that, you can hit Ctrl-X, F10, or either of the two depending on your Linux distribution, to boot. fsck check will not run this time.
+
+Block fsck check on a disk partition
+To permanently disable fsck check on a hard disk partition, you need to edit the /etc/fstab file. There are two values you are looking for: dump and pass. Dump is used to determine whether the partition needs to be dumped, and Pass is used to determine the order in which the partitions need to be checked. Setting both to 0 will tell fsck to skip checking the partitions.
+
+So, open /etc/fstab:
+
+nano /etc/fstab
+Find the line with the partition that is being checked:
+# UUID=9059c3d1-86a8-43b1-8e2b-0231ef4af6cc / ext4 defaults 1 1
+Change the dump and pass values to 0 and 0:
+# UUID=9059c3d1-86a8-43b1-8e2b-0231ef4af6cc / ext4 defaults 0 0
+
+Finally, hit Ctrl-O and Ctrl-X to save and exit. FSCK will not run on the partition in question during subsequent boots.
+
+110-what is the entry of fstab
+
+>>In Linux, an entry of the “fstab” file comprises six different columns, that are, “file system”, “mount point”, “type”, “options”, “dump”,
+ and “pass”. Each entry performs a specific task and has its own value in the “fstab” file structure.
+
+111-how to add shell user during user creation
+
+>>By default, the new user's login shell is set to the one specified in the /etc/default/useradd file. In some distributions the default shell is set to /bin/sh while in others it is set to /bin/bash .
+ The -s ( --shell ) option allows you to specify the new user's login shell.
+
+112-what is fencing in linux
+
+>>Fencing is the disconnection of a node from the cluster's shared storage. Fencing cuts off I/O from shared storage, thus ensuring data integrity.
+
+113-cron is not working even though everything fine
+
+1-Verify Cron Daemon Status: Ensure that the cron daemon is running on your system. Use the following command to check the status of the cron service:
+>>systemctl status cron
+>>systemctl start cron
+2-Check Cron Job Syntax: Review the syntax of your cron job entries. Make sure they follow the correct format and are located in the appropriate cron configuration files (/etc/crontab, /etc/cron.d/, or the user's crontab). Consider using the crontab -e command to edit the user's crontab and ensure that the entries are correct.
+3-Check User and Environment: Confirm that the cron job is running under the correct user context and has the necessary permissions to execute the specified command or script. Remember that the cron environment may differ from the interactive shell environment, so ensure that any required environment variables and paths are set correctly in the cron job itself.
+4-Logging and Error Reporting: Enable logging for cron jobs to capture any error messages or output. In the cron job entry, redirect the output to a log file or use the MAILTO option to receive error notifications via email. For example:
+>>* * * * * /path/to/command >> /path/to/logfile 2>&1
+check the system log files (/var/log/syslog, /var/log/cron, or /var/log/messages) for any related error messages.
+5-System Time and Timezone: Ensure that the system time and timezone are correctly configured. Cron relies on the system clock for scheduling. If the time or timezone is incorrect, it can lead to cron jobs not executing at the expected times.
+6-Check Security Restrictions: Some systems have security measures in place that restrict cron job execution. Verify if there are any security policies, such as SELinux or AppArmor, that may be blocking the execution of cron jobs. Review the relevant configuration and adjust the settings if necessary.
+
+114-what is difference between su - and su 
+
+>>the difference between `su` and `su -` is that `su` switches to the specified user without running a login shell, while `su -` switches to the specified user and runs a login shell.
+
+115-how to see which user is logged in 
+
+1-who Command: The who command displays information about currently logged-in users, including their usernames, terminal or session, login time, and originating IP address. 
+>>who
+2-w Command: The w command provides a summary of currently logged-in users, along with additional details such as the load average and uptime. Open a terminal and run the 
+>>who
+3-users Command: The users command lists the usernames of currently logged-in users.
+>>users
+4-last Command: The last command displays a list of recently logged-in users and their login history. By default, it shows the last entries from the /var/log/wtmp file
+>>last
+5-/var/run/utmp File: The /var/run/utmp file contains information about current user sessions. You can parse the file to extract details about logged-in users
+>>who -a /var/run/utmp
+
+116-how will get to know user have a root access
+
+>>To determine if a user has root access or administrative privileges on a Linux system, you can check their group membership, the sudo configuration, or examine the system logs. 
+1-Group Membership:
+>>grep -E '^sudo:|^wheel:' /etc/group
+2-Sudo Configuration:
+>>sudo visudo
+3-System Logs:
+>>sudo grep username /var/log/auth.log
+
+117-how to check which user is using more process.
+
+>>ps -e -o user= | sort | uniq -c | sort -nr   -->flag can list all processes on the system, including the user associated with each process.
+>>pgrep -u username   --> command can be used to find processes based on various criteria, such as the user who owns them
+>>pgrep -u username | uniq -c | wc -l   -->This will display the number of processes owned by the user.
+
+118-what is lun scan in linux
+
+>>While Working on the Linux boxes, sometimes the Linux admin has to scan new storage or LUNs assign to the server from the Storage team. In Redhat Linux and CentOS we can scan the LUNs either using the script 'rescan-scsi-bus.sh' or using the '/sys/class' files without rebooting the server.
+
+119-what is difference between software raid and hardware raid
+
+>>The key difference between software RAID and hardware RAID is that software in the OS manages the former, while controllers independent from the OS manage the latter. They are also different in cost, performance and access speeds.
+
+120-how to find users have root access
+
+>>sudo cat /etc/sudoers    -->file contains the configuration for users and groups that have sudo (superuser do) privileges
+>>getent group sudo    -->Check the sudo group: On some systems, a group named sudo or admin is created during installation
+>>getent group wheel    -->Check the wheel group: On some Linux distributions, the wheel group is used to grant administrative privileges. 
+>>cat /etc/passwd    -->Look for user entries with shells associated with administrative accounts.
+
+121-when user creates how it works
+
+>>When a user is created in a Linux system, several steps are involved to set up the user account and provide access to the system. Here's a high-level overview of the process:
+1-User Creation Command: A user account is typically created using the useradd or adduser 
+>>sudo useradd username
+2-User Account Configuration: When the user account is created, various configuration files and directories are created or modified to set up the user's environment. This includes:
+
+User Home Directory: A home directory is created for the user, typically located at /home/username. This directory serves as the user's default working directory and contains user-specific files and configurations.
+
+User ID (UID) and Group ID (GID): A unique user ID (UID) and primary group ID (GID) are assigned to the user. These IDs are used for permissions and access control.
+
+User Configuration Files: Configuration files such as .bashrc, .profile, or .bash_profile are created in the user's home directory to customize the user's shell environment and set up default behavior.
+
+User Password: The user's password is set using the passwd command. The user is prompted to enter a password, which is then encrypted and stored in the system's password database (e.g., /etc/shadow).
+
+3-User Privileges and Permissions: The user account is assigned appropriate privileges and permissions based on system policies and user requirements. This includes group membership, access to files and directories, and rights to execute certain commands with administrative privileges using sudo.
+4-System Resources: Depending on the system's configuration, system resources such as disk space, CPU usage limits, and memory quotas may be allocated for the user account.
+5-Login and Access: Once the user account is set up, the user can log in to the system using their username and password. The user gains access to their home directory and any other permissions granted by system administrators.
+
+122-what happens  we log into shell getty
+
+>>When you log into a shell getty, it triggers a series of actions that allow you to interact with the operating system through a command-line interface. Here's what happens when you log into a shell getty:
+1-User Authentication: When you enter your username and password at the getty prompt, it authenticates your credentials against the system's user database (such as /etc/passwd or a centralized authentication system like LDAP or Active Directory). If the authentication is successful, you proceed to the next step.
+2-Initialization: Once authenticated, the getty program sets up the initial environment for the user session. It initializes the user's shell environment variables, sets the current working directory to the user's home directory, and sets up the terminal or console settings.
+3-Execution of Shell: getty spawns a new shell process for the logged-in user. The shell process is usually determined by the user's default shell specified in the user's account configuration. Common shells include Bash, Zsh, Fish, and others.
+4-Interaction with the Shell: After the shell process is started, you can interact with it through the terminal. The shell displays a command-line prompt where you can enter commands and interact with the operating system. The shell interprets your commands, executes them, and provides output accordingly.
+5-User Session Management: The shell session manages the user's interactions with the operating system. You can execute commands, run programs, navigate directories, modify files, and perform various administrative or user-specific tasks based on the permissions and privileges associated with your user account.
+6-Termination: When you're finished with your session, you can terminate the shell by entering the exit command or pressing Ctrl+D. The shell process exits, and control returns to the getty program, which is ready to accept new login requests.
+
+>>Overall, the getty process is responsible for authenticating users and starting the user's shell session, allowing them to interact with the operating system through a command-line interface.
+
+123-how to check zombie process
+
+>>ps -aux | grep -z
+
+124-what is Zombie process
+
+>>a zombie process refers to any process that is essentially removed from the system as 'defunct', but still somehow resides in the processor's memory as a 'zombie'
+
+125-if password not created what will be in shadow
+
+>>If a password is not created for a user, the corresponding entry in the /etc/shadow file will typically contain a placeholder value indicating that the password is locked or disabled. The exact format and representation may vary depending on the Linux distribution and configuration.
+
+In most cases, the password field in the /etc/shadow file will be set to an encrypted string that indicates the account is locked or the password is disabled. Some common representations include:
+
+! or *: These characters are often used to indicate that the account is locked or the password is disabled. It prevents the user from logging in using password-based authentication.
+
+!!: This is another common representation to signify a locked account or a disabled password.
+
+These placeholder values indicate that the user cannot log in using a password. Instead, alternative authentication methods such as public key authentication or single sign-on may be required.
+
+It's important to note that even if the password field in the /etc/shadow file is set to a placeholder value, other user attributes and settings may still be present and functional, such as the user's home directory, UID/GID, and shell configuration. The user account can potentially be enabled and password-based authentication re-enabled by updating the /etc/shadow file or using user management tools.
+
+126-Log File Monitoring: Description:Monitor log files in real-time for troubleshooting. 
+
+>>Tail and follow a log file: tail -f /path/to/logfile
+>>Key Log Locations: Description: Locate important log files for troubleshooting. 
+
+127-Key Log Locations: Description: Locate important log files for troubleshooting. 
+
+Commands:
+• System log: /var/log/syslog
+• Apache access log: /var/log/apache2/access.log
+• MySQL error log: /var/log/mysql/error.log
+
+128-Firewall Testing: Description: Verify if firewall rules are allowing/denying traffic correctly. 
+
+Commands:
+• Check firewall status: sudo ufw status
+• Test connectivity to a specific port: telnet <host> <port>
+
+129-Archive Management (tar): Description: Create and extract tar archives. 
+
+Commands:
+• Create a tar archive: tar -czvf archive.tar.gz /path/to/directory
+• Extract a tar archive: tar -xzvf archive.tar.gz
+
+130-Mounting Volumes: Description: Mount external volumes to the Linux filesystem. 
+
+Commands:
+• List available volumes: lsblk
+• Mount a volume: sudo mount /dev/sdX /mnt/mountpoint
+
+131-Network Interface Configuration: Description: Manage network interfaces and configurations.
+
+Commands:
+• View network interfaces: ifconfig or ip addr show
+• Restart network service: sudo systemctl restart networking
+
+132-Network Connectivity Testing: Description: Test network connectivity to a specific host. 
+
+Commands:
+• Ping a host: ping <host>
+• Check if a port is open: nc -zv <host> <port>
+
+133-Kernel Parameter Modification: Description: Modify kernel parameters for performance tuning. 
+
+Commands:
+• View current kernel parameters: sysctl -a
+• Modify a kernel parameter: sudo sysctl -w <parameter>=<value>
+
+134-Disk I/O Monitoring: Description: Monitor disk I/O performance. 
+
+Commands:
+• View disk I/O statistics: iostat -d
+Monitor real-time disk I/O: iostat -d 1
+
+135-Network Bandwidth Monitoring: Description: Monitor network bandwidth usage. 
+
+Commands:
+• View network interface statistics: ifstat
+• Monitor real-time bandwidth: ifstat -i <interface_name>
+
+136-Disk Check and Repair: Description: Check and repair file system errors on disks. 
+
+Commands:
+• Check disk for errors: sudo fsck /dev/sdX
+• Repair disk errors interactively: sudo fsck -y /dev/sdX
+
+137-System Reboot: Description: Reboot the Linux system. 
+
+Commands:
+• Reboot immediately: sudo reboot
+• Schedule a reboot: sudo shutdown -r <time>
+
+138-Apache Configuration Test: Description: Test the Apache configuration for syntax errors. 
+
+Commands:
+• Test Apache configuration: sudo apachectl configtest
+
+139-Firewall Configuration: Description: Configure firewall rules. 
+
+Commands:
+• Add a firewall rule: sudo ufw allow <port>/<protocol>
+• Remove a firewall rule: sudo ufw delete allow <port>/<protocol>
+
+140-System Service Logs: Description: View system service logs. 
+
+Commands:
+• View service logs: journalctl -u <service_name>
+
+141-System File Integrity Check: Description: Verify the integrity of system files. 
+
+Commands:
+• Check file integrity: sudo debsums -c
+
+142-Network Route Configuration: Description: Configure network routes. 
+
+Commands:
+• Add a network route: sudo ip route add <network> via <gateway>
+• Remove a network route: sudo ip route del <network>
+
+143-SSH Key Configuration: Description: Configure SSH key-based authentication. 
+
+Commands:
+• Generate an SSH key pair: ssh-keygen
+• Copy SSH key to a remote server: ssh-copy-id <user>@<host>
+
+144-NTP Server Configuration: Description: Configure a Linux server as an NTP server. 
+
+Commands:
+Install NTP server: sudo apt install ntp
+• Configure NTP server: sudo vi /etc/ntp.conf
+
+145-DNS Resolution Issues: Description: Troubleshoot DNS resolution problems. 
+
+Commands:
+• Check DNS server configuration: cat /etc/resolv.conf
+• Test DNS resolution: nslookup <domain>
+
+146-SELinux Configuration: Description: Manage SELinux settings. 
+
+Commands:
+• Check SELinux status: sestatus
+• Change SELinux mode: sudo setenforce 0 (permissive mode)
+
+147-what is SWAP and how to clear it
+
+>>Swap is a space on a computer's hard drive that is used as virtual memory by the operating system. When the system's physical RAM (Random Access Memory) becomes full, the operating system can temporarily move less frequently used data from RAM to the swap space. This frees up RAM for more immediate and active processes.
+
+1-Disable Swap: First, you need to disable the swap space to prevent new data from being written to it
+>>sudo swapoff -a
+2-Clear Swap Space: Once the swap is disabled, you can clear the swap space by overwriting it with zeros
+>>sudo dd if=/dev/zero of=/swapfile bs=1G count=<N>
+3-Recreate and Enable Swap: After clearing the swap space, you can recreate and enable it.
+>>sudo mkswap /swapfile
+>>sudo swapon /swapfile
+4-Update /etc/fstab for Persistence: To ensure that the swap space is enabled automatically during system boot, update the /etc/fstab file. Open the file in a text edito
+>>/swapfile   none   swap   sw   0   0
+
+148-how to create a swaping a disk
+
+>>fdisk /dev/sdc
+>>press enter n
+>>press enter p
+>>enter >>p
+>>+2G
+>>p 
+>>t 
+>>82 is code 
+:wq
+>>partprobe  /dev/sdc
+>>fdisk -l /dev/sdc   -->it will swap memory 2GB
+
+149-how to extend swap file system.
+
+>>swapon --show  -->check current swap
+>>sudo fallocate -l 2G /newswapfile   -->create new swap
+>>sudo mkswap /newswapfile   -->Format the Swap File
+>>sudo swapon /newswapfile   -->Enbale the new Swap file
+>>swapon --show   -->Verify the New Swap Space
+>>/newswapfile   none   swap   sw   0   0   -->Update /etc/fstab for Persistence
+>>sudo swapon --priority 10 /newswapfile   -->Adjust Swap Priority (Optional):
+
+150-what is swapinness
+
+>>Swappiness determines how quickly processes are moved from RAM to hard disk to free memory. It can assume the value 0 - 100. A low value means that your Linux® system swaps out processes rarely while a high value means that processes are written to disk immediately.
+
+151-how to attach volume
 
 >>launch ec2 instance
 >>creat new volume and attach to ec2 instance  4gb
@@ -389,90 +1589,451 @@ how to attach ebs volume
 /dev/xvdf1   /anji/  ext4 defaults,noatime  1  1
 
 :wq
+
 >>restart the system you can check the drive attached or not
 >>sudo su -
 >>lsblk
 you will see the drive and files
 
-how to add extra storage 4gb to 6gb adding 2gb
+===if your not added in fstab the system is restarted the file is here but it will not show how to do that
+
+>>sudo su -
+>>mount /dev/xvdf1    /anji
+>>nano /etc/fstab
+
+/dev/xvdf1   /anji/  ext4 defaults,noatime  1  1
+
+:wq
+
+>>then it is done if the restart or done anything
+
+===how to add extra storage 4gb to 6gb adding 2gb
 
 >>adding extra 2gb in aws console then go the linux
 >>sudo su -
 >>growpart /dev/xvdf1  
 >>resize2fs /dev/xvdf1
 
-how to unmount and detach ec2-volume
+===how to unmount and detach ec2-volume
 
 >>sudo su -
 >>umount /anji
 >>then go to aws console deattach to volume to instance
 
-what is soft and hard link in cmd or symbolic link
+152-what type of files are typically in the /etc directory
 
->>Symbolic links (also called "soft" links) are files that point to a file or directory in your system, but don't mirror the other file's data.
->>soft link is an actual link to the original file, whereas a hard link is a mirror copy of the original file. 
->>ln -s /opt/tomcat/bin/startup.sh /usr/local/bin/tomcatup    -->it will create short-cut to start and down the server
->>ln -s /opt/tomcat/bin/shutdown.sh /usr/local/bin/tomcatdown         -->this soft link or symbalic link
->>ln /opt/tomcat/bin/shutdown.sh /usr/local/bin/tomcatdown   -->this hard link
->>tomcatup    -->it will start the server
->> If you delete the original file, the soft link has no value, because it points to a non-existent file. But in the case of hard link, it is entirely opposite.
+>>/ect directory contains configuration files 
 
-how to delete all the services in linux
+153-what will do thic command ls -l one >two
 
->>killall 
+>>take a long listing of a file called one saving the output into the file called two
 
-how to stop all services in linux command
+154-what would you include on the command line to start a program running in the background
 
->>sytemctl stop -all
+>> &
 
-how to clear history in linux
+155-how to shutdown a linux system from the commad line
 
-history -c
+>>poweroff   -->this command to shuddown the linux system
 
-how can i lock the user accounts
+156-in the following shell script how many times will the time command run
 
->>passwd --lock anji   -->it is used to lock the anji user
-or 
->>usermod -L anji
->>passwd --unlock anji  -->it is used to unlock the anji user
-or 
->>usermod -U anji
+>> 2 times it will run
 
-What is in chown?
+157-what is the default file system in the linux
 
->>The command chown  an abbreviation of change owner, is used on Unix and Unix-like operating systems to change the owner of file system files, directories.
->>chown   -->change owner
->>chown john:john anji.txt         -->this file Owner of john user transfering ownership 
+>>ext4 is the default file system
 
-what is Repository
+158-how many types of users exist in linux by default
 
->>repository refers to a place where all the package files are stored. These files can either be stored on the local repository or on the remote repository.
+>>3 types root-user, local-users, system-users
 
-what is Daemons 
+159-how to solve the user-login issues in linux
 
->>Daemons play a crucial role in the background operation and management of computer systems, servers, and networks. They help provide essential services, maintain system stability, and automate tasks
-without requiring direct user involvement.
->>Daemons are designed to perform specific tasks or provide services on a computer or server.Background Process: Daemons run in the background, often starting automatically when the computer or operating
-system boots up.
-1-No User Interaction
-2-System Services
-3-Independent and Autonomus 
-4-Log Output
-5-
+>>useradd anji 
+>>passwd anji
+password   -->password is created 
+1-first verfiy user have privilages to login permissions in password or ssh key based this command will help you to see the permission
+cat /etc/passwd | grep anji
+>>/home/test:/sbin/nologin  -->nologin usernot able to login to the account
+2-check password policys
+3-check login failues or clear login failures
+>>if you type 3 to 5times wrong password then need to unlock the user
+>>pam_tally2 -u anji -->it will show the user login details count 
+>>pam_tally2 -u anji reset    -->it will delete the clear the login details 
+4-if login name longer it will name display the full username because of the username shows only 8 lines 
+5-sshd issues 
+6-
 
-how to see the ssh port number is opened folder or you want change the port number
+160-how to clear the last login details in a linux
 
->>cat /usr/lib/firewalld/services/dns.xml
+>>cp /dev/null /var/log/lastlog   -->this clear the last login details 
 
-where we can see the logs in lnux 
+161-how to delete the user password 
 
+>>passwd -d anji  -->it will delete the anji user password 
+
+162-how to see the user password details like when he want change the password and complexity & password expiry date
+
+>>chage -l anji    -->it will show the details 
+
+163-how to mount AWS s3 bucket in linux is it possible
+
+>>its not good idea its not recommended way but you can do this 
+>>yum install gcc gcc-c++ openssl-devel libstdc++-devel curl-dvel libxml2-devel mailcap s3fs-fuse fuse fuse-devel fuse-libstdc
+>>need to create the s3 bucket
+>>need to create the access_key and secret_key paste in your local machine vi .passed-3fs
+>>then run this command below
+>>chmod .passwd-3fs
+>>mkdir s3bucket   -->create folder in linux
+>>s3fs anji159258 /s3bucket -o passwd_file=/root/anji/.passwd-3fs
+>>df -h you will see the mount s3 bucket    -->anji159258 is bucket name
+
+164-how to run system load history in linux
+
+vi test.sh
+HOSTNAME=$(hostname)
+DATE=$(date "+%d-%m-%Y %H:%M:%S")
+SYSTEMLOAD=$(uptime | awk '{print $9,$10,$11}')
+CPULOAD=$(top -b -n 2 -d1 | grep "CPU(s)" | tail -n1 | awk '{print $2}')
+MEMORYUSAGE=$(free -m | grep Mem: | tail -n1 | awk '{print $2,$3}')
+DISKUSAGE=$(df -p | colum -t | awk '{print $5}' | tail -n 1 | sed 's/%//g')
+:wq
+>>you can use this crontab or use this ansible using all servers you will get notifications
+
+165-everyday one directory created by name date month year delete the directory in last 2 days before 
+
+>>mkdir anji
+>>mkdir 2018-12-24 2018-12-25 2018-12-26 2018-12-27 2018-12-28 2018-12-29 2018-12-30 2018-12-31 2019-01-01
+>>ls-ltr
+vi test.sh
+
+
+166-how to do port-forwarding in linux
+
+>>systemctl start firewalld 
+>>systemctl enable firewalld
+>>firewall -cmd --permanent --add-rich-rule 'rule family=ipv4 source address=192.168.2.44/24 forward-port=153 protocal=tcp to-poet=132'
+>>firewall-cmd --reload
+>>firewall-cmd --list-all   -->153 port forward into 132 port 
+
+167-Is it possible to change file date and time
+
+touch -d "Mon 1 Mar 2020 12:30:00" marchfile   -->it will create the file in mar 1 2022 file name using this command the file craete onthat date like mar 1 2020
+touch anji   -->it will create anji file 12 clock it created
+touch -am anji  -->it willupdate write now time
+touch -r sampi anji   -->it will sampi file refernce and that time will updated to anji if sampi 12 2022 then anji file also 12 2022
+stat anji         -->it will show modification dates
+stat -x anji      -->it will show the modification details
+
+168-what is Logrotate
+
+>>logrotate is designed to ease administration of systems that generate large number of log files, to rotate log file based on file size, time and date .it allows rotation that is automatic compression, removal and mailing of log files. each log file may be handled hourly daily weekly monthly or when its grow large
+
+169-what is ssh
+>>the ssh protocal (also referred to as secure shell) is a method for secure remote login from one computer to another computer.
+it provides the secure connection to network. it provides several alternative options for strong authntication, and it protects the 
+communications security and integrity with strong encryption
+>>port number is 22
+>>configuration file path is /etc/ssh/sshd_config
+>>to change port number is possible /etc/ssh/sshd_config then restart the service sshd restart
+>>if your firewall  SELinux is enabled then write the rule if firewall for new port number otherwise dont allow this 
+
+170-how does port forwarding works in SSH
+
+>>client is going  to connect using differnet port number (in this case 2048)other than default, but server ssh service will respond on default port. we have to use ssh -p 2048 from client machine
+>>ssh port forwarding
+>>ssh server port forwarding using firewall redirection
+
+171-what are differnet data manipulations techniques support by SSH
+
+>>symmetric 
+>>Asymmetric encryption method
+
+172-how to disable root login for ssh server
+
+>>disabling the root login for ssh is very secure way. we can do that by editing ssh configuration file /etc/ssh/sshd_config then change permitrootlogin no
+
+>>permitrootlogin no
+
+173-how to enable on key based authentication
+
+>>this feature provides more /high security because any user can't login without SSH key
+
+>>RSAuthentication yes
+>>PublicAuthentication yes
+
+174-what is the differnet between Telnet & SSH
+
+Telnet:-
+1-data goes on network as plan text
+2-default port 23
+3-Bandwidth usage is less compare to SSH
+
+SSH:-
+1-data will be encrypted using key pair like (public and private)
+2-default port 22
+3-bandwidth is high compared to telnet To SSH
+
+175-how to limit SSH access to specific subnet
+
+>>limiting SSH access to specifc subnet will gives more secure environment other than gives subnet network can't access SSH server.
+Edit sshd_config file and add subnet as mentioned 20 ssh
+
+Ex:-192.168.4.0/24
+
+176-what do you mean by SSH cipher. tell me different types of ciphers
+
+>>cipher is an algorithum to perform encryption and encryption 
+>>what ever the data will be send the data wil be SSH it will encrypted in client side and decrypted the server-side 
+Types of ciphers
+1-3des
+2-Blowfish
+3-des
+
+177-how to check the ssh version
+
+>>ssh -V
+
+178-where SSH will store its trusted ssh client keys
+
+>>By default when ever your trying to connect to remote SSH host for the first time it will ask you to confirm YES/No as soon as we say yes it will copy public key pair to ./ssh/known_hosts
+
+179-SSH session idle timeout -auto logout
+
+>>ClinetAliveInterval 15m
+>>ClinetAliveCountMax 5
+
+180-What is syslog server Linux?
+
+>>Syslog is a protocol and utility for capturing and logging system information. This system information can be stored locally, remotely, or both. syslog allows a server to forward log messages over the network to SL1. SL1 then uses these messages to monitor the health of the server and trigger events (if necessary).
+>>you can create the one main server like syslog-server like central and have client-servers also like grafana
 >>cd /var/log
->>cat /var/log/auth.log  -->by using this you can see which user logged
-or 
->>cat /var/log/last
+>>vi /etc/syslog.conf  -->it will show what type of logs where stored like boot.log and lastlog and maillog and cron logs details also 
+>>apt install syslog
+>>systemctl status syslog
 
-where the packages or installed softwares stored
+181-what is seq command
 
->>/usr/local/bin or /usr/bin or /usr/local/sbin or /usr/sbin
->>
+>>seq command in Linux is used to generate numbers from FIRST to LAST in steps of INCREMENT. It is a very useful command where we had to generate list of numbers in while, for, until loop. 
+
+>>seq 10   -->it will print 1 to 10 numbers
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+>>seq -s , 10
+1,2,3,4,5,6,7,8,9,10
+>>seq -s :  10
+1:2:3:4:5:6:7:8:9:10
+>>seq 2 2 20
+2
+4
+6
+8
+10
+12
+14
+16
+18
+20
+>>seq 2 3 20
+2
+5
+8
+11
+14
+17
+20
+>>seq 5 9   -->it will print 5 6 7 8 9 only this numbers 
+>>seq -f "%02g" 5 9
+05
+06
+07
+08
+09
+
+182-there are three types of users in linux A1 needs permission ftp telnet and ssh, B1 user needs ssh only,C1 needs telnet only how would you provide
+
+>>Edit sudoers file vi /etc/sudoers
+A1 ALL=NOPASSWD:/bin/ftp,/bin/telnet,/bin/ssh
+B1 ALL=NOPASSWD:/bin/telnet
+C1 ALL=NOPASSWD:/bin/telnet
+:wq  -->login as user and check 
+
+183-
+
+
+
+
+
+
+
+
+
+
+
+
+---
+- hosts: localhost
+  become: true
+  tasks:
+  - name: Copy file to S3 bucket
+    s3: 
+      aws_access_key=<AccessKey> 
+      aws_secret_key=<Secret Key> 
+      bucket=example 
+      object=/niru.txt 
+      src=/home/ansible/example.txt 
+      mode=put
+
+      ---
+- hosts: all
+  tasks:
+    - name: find all files that are older than 10 days
+      find:
+        paths: /data/log
+        age: 10d
+        recurse: yes
+      register: filesOlderThan10
+    - name: remove older than 10
+      file:
+        path: "{{ item.path }}" 
+        state: absent
+      with_items: "{{ filesOlderThan10.files }}"
+
+
+how to write playbook to allow te firewall ports in ansible playbook
+
+vi test.yml 
+---
+- name: Firewall rules
+  hosts: localhost
+  remote_user: anji
+  become: yes
+
+  tasks:
+  - name: web Access Firewall rule
+    firewalld:
+      zone: public
+      service: https
+      port: 8081/tcp
+      permanent: yes
+      state: enabled
+  - name: reload firewalld service
+    service:
+      name: firewalld
+      state: restarted
+:wq
+
+>>ansible-playbook test.yml  --syntax-Check
+>>ansible-playbook test.yml 
+
+---
+- name: Monitor disk space, memory, and CPU usage and send Slack notification
+  hosts: localhost
+  gather_facts: true
+
+  tasks:
+    - name: Check disk space
+      shell: df -h
+      register: disk_space_output
+
+    - name: Check memory usage
+      shell: free -h
+      register: memory_output
+
+    - name: Check CPU usage
+      shell: top -bn1 | grep "Cpu(s)" | sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | awk '{print 100 - $1"%"}'
+      register: cpu_output
+
+    - name: Send Slack notification
+      uri:
+        url: "https://hooks.slack.com/services/YOUR_SLACK_WEBHOOK_URL"
+        method: POST
+        body_format: json
+        body: >
+          {
+            "text": "System Monitoring Report:\n\nDisk Space Usage:\n{{ disk_space_output.stdout }}\n\nMemory Usage:\n{{ memory_output.stdout }}\n\nCPU Usage:\n{{ cpu_output.stdout }}"
+          }
+
+vi script.sh 
+HOSTNAME=$(hostname)
+DATE=$(date "+%d-%m-%Y %H:%M:%S")
+SYSTEMLOAD=$(uptime | awk '{print $9,$10,$11}')
+CPULOAD=$(top -b -n 2 -d1 | grep "CPU(s)" | tail -n1 | awk '{print $2}')
+MEMORYUSAGE=$(free -m | grep Mem: | tail -n1 | awk '{print $2,$3}')
+DISKUSAGE=$(df -p | colum -t | awk '{print $5}' | tail -n 1 | sed 's/%//g')
+:wq
+
+---
+- name: Execute script file on all servers
+  hosts: your_target_hosts
+  become: true  # If you need root/sudo privileges to execute the script
+
+  tasks:
+    - name: Execute script
+      script: /path/to/script.sh
+
+---
+- name: creating users and groups and ssh connection
+  hosts: "*" #all is possible
+  become: yes
+  tasks:
+   - user:
+      name: "{{ item }}"
+      state: present
+     loop:
+      - name1
+      - name2
+      - name3
+      - name4     
+   - group:
+      name: "{{ item }}"
+      state: present
+     loop:
+      - group1
+      - group2
+
+   - ansible.builtin.user:
+      name: name1
+      shell: /bin/bash
+      groups: group1,group2
+      append: yes
+      
+   - ansible.builtin.user:
+      name: name2
+      shell: /bin/bash
+      groups: group2
+      append: yes
+
+   - authorized_key:
+       user: name1
+       state: present
+       key: "{{ lookup('file', './user_id_rsa.pub') }}"
+
+   - authorized_key:
+       user: name2
+       state: present
+       key: "{{ lookup('file', './user_id_rsa.pub') }}"
+
+---
+
+
+
+
+
+
+
+
+
+
+
+
 
