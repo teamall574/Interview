@@ -19,7 +19,8 @@ $  -->normal user
 
 4-what is CRUD
 
->>n computer programming, create, read, update, and delete are the four basic operations of persistent storage. CRUD is also sometimes used to describe user interface conventions that facilitate viewing, searching, and changing information using computer-based forms and reports.
+>>In computer programming, create, read, update, and delete are the four basic operations of persistent storage. CRUD is also sometimes used to describe user interface conventions that
+facilitate viewing, searching, and changing information using computer-based forms and reports.
 
 C    -->Create
 R    -->Read
@@ -99,13 +100,15 @@ vim  -->visually improved full form
 
 14-what is usermod command in linux
 
->>usermod command or modify user is a command in Linux that is used to change the properties of a user in Linux through the command line. After creating a user we have to sometimes change their attributes like password or login directory etc.
+>>usermod command or modify user is a command in Linux that is used to change the properties of a user in Linux through the command line. After creating a user we have to sometimes change
+their attributes like password or login directory etc.
 
 >>usermod -G john anji          -->anji added into john group
 
 15-what is chmod command in linux
 
->>The chmod (short for change mode) command is used to manage file system access permissions on Unix and Unix-like systems. There are three basic file system permissions, or modes, to files and directories: read (r) write (w) execute (x)
+>>The chmod (short for change mode) command is used to manage file system access permissions on Unix and Unix-like systems. There are three basic file system permissions, or modes, 
+to files and directories: read (r) write (w) execute (x)
 
 1-symbolic method
 
@@ -331,7 +334,8 @@ first remove him from primary and secondary group
 
 30-what is service managment in linux
 
->>Services are programs or processes that run on your server at all times, usually from the time a server boots up. They are used to provide persistent support for requests and monitoring, from other processes or external clients.
+>>Services are programs or processes that run on your server at all times, usually from the time a server boots up. They are used to provide persistent support for requests and monitoring,
+from other processes or external clients.
 
 >>systemctl start nginx   -->this will start the service
 >>systemctl status nginx  -->this can check the status
@@ -422,7 +426,8 @@ Save the file and exit the text editor.
 
 >>By using either method, you effectively lock the user account, preventing the user from logging in. The user will receive an error message if they attempt to log in with their password.
 
->>It's important to note that locking a user account is different from deleting it. The locked user account's settings and files will still exist on the system, and you can unlock the account later if needed by reversing the steps above.
+>>It's important to note that locking a user account is different from deleting it. The locked user account's settings and files will still exist on the system, and you can unlock the 
+account later if needed by reversing the steps above.
 
 38-how to see the ssh port number is opened folder or you want change the port number
 
@@ -478,8 +483,10 @@ vi .bash_profile
 
 46-what is Daemons 
 
->>Daemons play a crucial role in the background operation and management of computer systems, servers, and networks. They help provide essential services, maintain system stability, and automate tasks without requiring direct user involvement.
->>Daemons are designed to perform specific tasks or provide services on a computer or server.Background Process: Daemons run in the background, often starting automatically when the computer or operating system boots up.
+>>Daemons play a crucial role in the background operation and management of computer systems, servers, and networks. They help provide essential services, maintain system stability, and 
+automate tasks without requiring direct user involvement.
+>>Daemons are designed to perform specific tasks or provide services on a computer or server.Background Process: Daemons run in the background, often starting automatically when the 
+computer or operating system boots up.
 1-No User Interaction
 2-System Services
 3-Independent and Autonomus 
@@ -789,7 +796,8 @@ init 6 – Reboot which is used to restart the system.
 
 69-what is sort command in linux
 
->>SORT command is used to sort a file, arranging the records in a particular order. By default, the sort command sorts file assuming the contents are ASCII. Using options in the sort command can also be used to sort numerically. 
+>>SORT command is used to sort a file, arranging the records in a particular order. By default, the sort command sorts file assuming the contents are ASCII. Using options in the sort
+command can also be used to sort numerically. 
 
 >>sort file.txt   -->it will list the alphabetcal order
 
@@ -931,7 +939,8 @@ exit
 78-what is booting process in linux
 
 >>there are 6 stages in booting process 
->>Booting a Linux installation involves multiple stages and software components, including firmware initialization, execution of a boot loader, loading and startup of a Linux kernel image, and execution of various startup scripts and daemons.
+>>Booting a Linux installation involves multiple stages and software components, including firmware initialization, execution of a boot loader, loading and startup of a Linux kernel image,
+and execution of various startup scripts and daemons.
 >>BIOS-->basic input output second
 >>MBR-->Master boot record
 >>GRUB-->Grand Unfied bootloader
@@ -941,7 +950,8 @@ exit
 
 79-what is chroot command in linux
 
->>chroot command in Linux/Unix system is used to change the root directory. Every process/command in Linux/Unix like systems has a current working directory called root directory. It changes the root directory for currently running processes as well as its child processes.
+>>chroot command in Linux/Unix system is used to change the root directory. Every process/command in Linux/Unix like systems has a current working directory called root directory. 
+It changes the root directory for currently running processes as well as its child processes.
 
 80-what is inode in linux how to increase it
 
@@ -954,11 +964,14 @@ exit
 >>Timestamps: Inodes keep track of various timestamps associated with the file, including the last access time, modification time, and status change time.
 >>Pointers to Data Blocks: Inodes contain pointers or references to the actual data blocks where the file's content is stored on the disk.
 
->>Inodes provide a way for the file system to efficiently locate and manage files. They serve as an index or reference to the actual file data and metadata stored in data blocks. By using inodes, the file system can quickly access and retrieve information about files and directories.
+>>Inodes provide a way for the file system to efficiently locate and manage files. They serve as an index or reference to the actual file data and metadata stored in data blocks. 
+By using inodes, the file system can quickly access and retrieve information about files and directories.
 
->>The total number of inodes that a file system can hold is determined during the file system creation. The inode table, which stores all the inodes, has a fixed size, and each inode consumes a certain amount of space. Therefore, the number of available inodes affects the total number of files that can be created in a file system.
+>>The total number of inodes that a file system can hold is determined during the file system creation. The inode table, which stores all the inodes, has a fixed size, and each inode
+consumes a certain amount of space. Therefore, the number of available inodes affects the total number of files that can be created in a file system.
 
->>Understanding inodes is particularly important when managing file system resources, such as monitoring disk usage, determining file system limitations, or diagnosing issues related to file metadata or storage allocation.
+>>Understanding inodes is particularly important when managing file system resources, such as monitoring disk usage, determining file system limitations, or diagnosing issues related 
+to file metadata or storage allocation.
 
 Checking the Inode Usage:-
 >>df -i
@@ -975,10 +988,14 @@ Updating the File System Table
 
 81-what is logical volumes in linux and how to create it
 
->>In Linux, Logical Volumes (also known as LVM, Logical Volume Manager) is a storage management technology that provides a flexible and dynamic way to manage disk space. It allows you to create, resize, and manage logical volumes independently of the underlying physical storage devices (hard drives or partitions).
->>Logical Volumes sit on top of physical volumes (disks or disk partitions) and provide an abstraction layer that makes it easier to manage storage resources. This abstraction allows you to combine multiple physical volumes into volume groups and then create logical volumes within those volume groups. Logical volumes can be dynamically resized and moved without the need to repartition the disks or disrupt the system.
+>>In Linux, Logical Volumes (also known as LVM, Logical Volume Manager) is a storage management technology that provides a flexible and dynamic way to manage disk space. It allows you to 
+create, resize, and manage logical volumes independently of the underlying physical storage devices (hard drives or partitions).
+>>Logical Volumes sit on top of physical volumes (disks or disk partitions) and provide an abstraction layer that makes it easier to manage storage resources. This abstraction allows you
+to combine multiple physical volumes into volume groups and then create logical volumes within those volume groups. Logical volumes can be dynamically resized and moved without the need 
+to repartition the disks or disrupt the system.
 
-1-Check Available Disks/Partitions: First, ensure that you have the required disks or partitions available for creating the logical volumes. You can use commands like fdisk -l, lsblk, or parted -l to list the available disks and their partitions.
+1-Check Available Disks/Partitions: First, ensure that you have the required disks or partitions available for creating the logical volumes. You can use commands like fdisk -l, lsblk, or
+parted -l to list the available disks and their partitions.
 
 2-Create Physical Volumes (PVs): If you have unused partitions, you can initialize them as physical volumes using the pvcreate command. For example:
 >>sudo pvcreate /dev/sdb1
@@ -986,7 +1003,8 @@ Updating the File System Table
 >>sudo vgcreate my_vg /dev/sdb1 /dev/sdc1
 4-Create Logical Volume (LV): With the volume group created, you can now allocate space for logical volumes within it using the lvcreate command. For example:
 >>sudo lvcreate -L 10G -n my_lv my_vg
-5-Format and Mount the Logical Volume: Once the logical volume is created, you can format it with a file system (e.g., ext4) using the mkfs command and mount it to a directory using the mount command. For example:
+5-Format and Mount the Logical Volume: Once the logical volume is created, you can format it with a file system (e.g., ext4) using the mkfs command and mount it to a directory using 
+the mount command. For example:
 >>sudo mkfs.ext4 /dev/my_vg/my_lv
 >>sudo mount /dev/my_vg/my_lv /mnt/my_mount_point
 6-Updating /etc/fstab: To ensure the logical volume is mounted automatically during system boot, you need to add an entry to the /etc/fstab file. For example:
@@ -1016,11 +1034,13 @@ three ways to check
 
 84-what is ACL in linux
 
->> Access Control Lists (ACLs) were intended to resolve. ACLs allow us to apply a more specific set of permissions to a file or directory without (necessarily) changing the base ownership and permissions. They let us "tack on" access for other users or groups.
+>> Access Control Lists (ACLs) were intended to resolve. ACLs allow us to apply a more specific set of permissions to a file or directory without (necessarily) changing the base 
+ownership and permissions. They let us "tack on" access for other users or groups.
 
 85-what are the ACLS and firewall and selinux
 
->>A network access control list (ACL) is made up of rules that either allow access to a computer environment or deny it. In a way, an ACL is like a guest list at an exclusive club. Only those on the list are allowed in the doors.
+>>A network access control list (ACL) is made up of rules that either allow access to a computer environment or deny it. In a way, an ACL is like a guest list at an exclusive club. 
+Only those on the list are allowed in the doors.
 
 86-what is SElinux
 
@@ -1042,7 +1062,8 @@ disable to enable
 
 88-how to do the networking using nmcli
 
-what is nmcli:-nmcli (networkmanager command line interface)or packet manager command-line utility is used for controlling network manager ip address and dns for the system and reporting network status
+what is nmcli:-nmcli (networkmanager command line interface)or packet manager command-line utility is used for controlling network manager ip address and dns for the system and 
+reporting network status
 
 >>systemctl enable networkmanager
 >>nmcli connecction show --active
@@ -1086,7 +1107,8 @@ what is nmcli:-nmcli (networkmanager command line interface)or packet manager co
 
 91-how to resetting a root password in linux
 
-step1:-Boot Recovery Mode:-for resetting the root password we need to roboot our computer when system restarts press the "ESC" key immediately to interrupt the boot process and select the kernel from the GRUB/boot menu you wnat boot into by processing the arrow keys
+step1:-Boot Recovery Mode:-for resetting the root password we need to roboot our computer when system restarts press the "ESC" key immediately to interrupt the boot process and select
+the kernel from the GRUB/boot menu you wnat boot into by processing the arrow keys
 step2:-Pressing 'e' from your keyboard will open the editing menu
 step3:-in the editing menu, locate the "ro" kernal parameter and replace it with "re", and add an additional parameter "init=/sysroot/bin/sh"
 step4:-press CTRL+X to enter into the single-user mode once you are done with the previous step
@@ -1137,7 +1159,8 @@ z -->compressed gzip archive files
 
 1-Disk Space:
 
-Monitor Disk Usage: Use tools like df and du to monitor disk usage and identify any directories or files consuming excessive space. Regularly check disk usage to prevent reaching full capacity.
+Monitor Disk Usage: Use tools like df and du to monitor disk usage and identify any directories or files consuming excessive space. Regularly check disk usage to prevent reaching full 
+capacity.
 
 Clean Up Unnecessary Files: Remove unnecessary or temporary files using tools like rm or find command. Pay attention to log files, cached files, and old backups that may consume disk space.
 
@@ -1149,21 +1172,26 @@ Delete Unused Packages: Remove unnecessary software packages and libraries using
 
 Monitor RAM Usage: Use tools like top, htop, or free to monitor the RAM usage on your system. Identify processes consuming excessive memory.
 
-Optimize Process Memory Usage: Analyze memory usage of applications and processes and optimize them if possible. This may involve tuning application settings, reducing memory allocations, or optimizing database queries.
+Optimize Process Memory Usage: Analyze memory usage of applications and processes and optimize them if possible. This may involve tuning application settings, reducing memory allocations,
+or optimizing database queries.
 
-Use Caching and Swapping: Linux uses disk-based caching and swap space to optimize memory usage. Configure swap space appropriately to allow the system to swap idle processes or pages to disk when memory becomes limited.
+Use Caching and Swapping: Linux uses disk-based caching and swap space to optimize memory usage. Configure swap space appropriately to allow the system to swap idle processes or pages
+to disk when memory becomes limited.
 
-Adjust Swappiness: Swappiness determines how aggressively the system swaps memory pages to disk. Adjust the swappiness value to balance between swapping and keeping more data in RAM. The default value is usually suitable for most systems, but it can be tuned if necessary.
+Adjust Swappiness: Swappiness determines how aggressively the system swaps memory pages to disk. Adjust the swappiness value to balance between swapping and keeping more data in RAM.
+The default value is usually suitable for most systems, but it can be tuned if necessary.
 
 3-Memory (Virtual Memory or Page File):
 
 Monitor Memory Usage: Use tools like top, htop, or free to monitor the memory usage, including the virtual memory (page file) usage.
 
-Adjust Virtual Memory: Ensure the virtual memory (page file) is appropriately configured. It acts as an extension to physical RAM and allows the system to store data that doesn't fit into RAM. The virtual memory configuration is typically managed by the system automatically, but you can adjust it if necessary.
+Adjust Virtual Memory: Ensure the virtual memory (page file) is appropriately configured. It acts as an extension to physical RAM and allows the system to store data that 
+doesn't fit into RAM. The virtual memory configuration is typically managed by the system automatically, but you can adjust it if necessary.
 
 Add Physical Memory: If your system frequently suffers from memory shortages, consider adding more physical memory (RAM) to increase the overall capacity and performance.
 
-Identify Memory Leaks: Monitor for memory leaks in applications or services. Memory leaks can cause memory usage to increase over time and lead to performance issues. Troubleshoot and fix any identified memory leaks.
+Identify Memory Leaks: Monitor for memory leaks in applications or services. Memory leaks can cause memory usage to increase over time and lead to performance issues. 
+Troubleshoot and fix any identified memory leaks.
 
 97-what is TOP command and how to fetch the data
 
@@ -1186,12 +1214,14 @@ this command is used to fetch the data
 
 >>if you use nohup it will help you to run the background your commands in the foreground
 1-nohup
->>The nohup command stands for "no hang-up." When you run a command with nohup, it allows the command to keep running even if the terminal session is closed or disconnected. It prevents the process from receiving the HUP (hang-up) signal, which is normally sent to processes when the controlling terminal is closed.
+>>The nohup command stands for "no hang-up." When you run a command with nohup, it allows the command to keep running even if the terminal session is closed or disconnected. 
+It prevents the process from receiving the HUP (hang-up) signal, which is normally sent to processes when the controlling terminal is closed.
 
 >>nohup python myscript.py &
 
 2-& (ampersand):
->>The & symbol is used to run a command in the background. When you append & at the end of a command, it starts the command in the background, allowing you to continue using the terminal without waiting for the command to finish.
+>>The & symbol is used to run a command in the background. When you append & at the end of a command, it starts the command in the background, allowing you to continue using 
+the terminal without waiting for the command to finish.
 
 >>python myscript.py &
 
@@ -1206,13 +1236,19 @@ this command is used to fetch the data
 100-what is user management, file management, log management
 
 >>User Management:
-User management involves the administration and control of user accounts on a system. It includes tasks such as creating and deleting user accounts, assigning user privileges and permissions, managing user passwords, and enforcing security policies. User management ensures that users have appropriate access to resources while maintaining system security.
+User management involves the administration and control of user accounts on a system. It includes tasks such as creating and deleting user accounts, assigning user privileges 
+and permissions, managing user passwords, and enforcing security policies. User management ensures that users have appropriate access to resources while maintaining system security.
 
 >>File Management:
-File management refers to the organization, storage, and manipulation of files on a computer system. It involves tasks such as creating, modifying, deleting, and moving files and directories. File management also includes setting file permissions, managing file attributes and metadata, and ensuring proper backup and recovery procedures are in place. Effective file management ensures efficient storage and retrieval of data and helps maintain data integrity and security.
+File management refers to the organization, storage, and manipulation of files on a computer system. It involves tasks such as creating, modifying, deleting, and moving files and 
+directories.File management also includes setting file permissions, managing file attributes and metadata, and ensuring proper backup and recovery procedures are in place. 
+Effective file management ensures efficient storage and retrieval of data and helps maintain data integrity and security.
 
 >>Log Management:
-Log management involves the collection, analysis, and storage of log data generated by various system components, applications, and services. Logs record events, errors, and activities occurring within a system, which are valuable for troubleshooting, auditing, and security purposes. Log management includes tasks such as configuring logging parameters, centralizing log data, performing log analysis and correlation, setting log retention policies, and monitoring log files for anomalies or security incidents. It helps administrators gain insights into system behavior, identify issues, and ensure compliance with security policies and regulations.
+Log management involves the collection, analysis, and storage of log data generated by various system components, applications, and services. Logs record events, errors, and activities 
+occurring within a system, which are valuable for troubleshooting, auditing, and security purposes. Log management includes tasks such as configuring logging parameters,
+centralizing log data, performing log analysis and correlation, setting log retention policies, and monitoring log files for anomalies or security incidents. It helps administrators 
+gain insights into system behavior, identify issues, and ensure compliance with security policies and regulations.
 
 101-how to assign the process the required amount of resource allocation
 
@@ -1226,18 +1262,22 @@ Log management involves the collection, analysis, and storage of log data genera
 
 102-what is load average in the linux systems and what does three components of load average defines
 
->>In Linux systems, the load average refers to the average number of processes in the system's run queue over a specific time period. It provides an indication of the system's workload and can help determine if the system resources are being adequately utilized. The load average is displayed as three numbers, often seen as three values separated by commas, representing different time intervals.
+>>In Linux systems, the load average refers to the average number of processes in the system's run queue over a specific time period. It provides an indication of the system's workload
+and can help determine if the system resources are being adequately utilized. The load average is displayed as three numbers, often seen as three values separated by commas, representing
+different time intervals.
 1-1-minute Load Average:
 2-5-minute Load Average:
 3-15-minute Load Average:
 
 103-Your linux server is running slower than usual.what steps can you take to identify and resolve the issue
 
->>Start by examining CPU usage with a tool like top,htop, or atop. check I/O opeartions and memory usgae look for wapping which could significantly reduce performance check system logs in /var/log/ to identify any software or hardware errors
+>>Start by examining CPU usage with a tool like top,htop, or atop. check I/O opeartions and memory usgae look for wapping which could significantly reduce performance check system logs
+in /var/log/ to identify any software or hardware errors
 
 104-An application is unable to write to afile on a linux server how would you diagnose the problem
 
->>Check the permissions on the file to ensure te application has write access. you might also need to check if the file is locked by another process or if the filesystem is read-only due to disk issues
+>>Check the permissions on the file to ensure te application has write access. you might also need to check if the file is locked by another process or if the filesystem is read-only due
+to disk issues
 
 105-you have been tasked with automating a application checking task that needs to be run at a specific time every day how would you achieve this on a linux server
 
@@ -1252,7 +1292,8 @@ minutes, hours, day-of-month, month, day-of-week
 
 107-what is SUID
 
->>SUID or Set Owner User ID is a permission bit flag that applies to executables. SUID allows an alternate user to run an executable with the same permissions as the owner of the file instead of the permissions of the alternate user.
+>>SUID or Set Owner User ID is a permission bit flag that applies to executables. SUID allows an alternate user to run an executable with the same permissions as the owner of the 
+file instead of the permissions of the alternate user.
 
 108-What is fsck in Linux?
 
@@ -1268,7 +1309,8 @@ To do that:
 After that, you can hit Ctrl-X, F10, or either of the two depending on your Linux distribution, to boot. fsck check will not run this time.
 
 Block fsck check on a disk partition
-To permanently disable fsck check on a hard disk partition, you need to edit the /etc/fstab file. There are two values you are looking for: dump and pass. Dump is used to determine whether the partition needs to be dumped, and Pass is used to determine the order in which the partitions need to be checked. Setting both to 0 will tell fsck to skip checking the partitions.
+To permanently disable fsck check on a hard disk partition, you need to edit the /etc/fstab file. There are two values you are looking for: dump and pass. Dump is used to determine whether
+the partition needs to be dumped, and Pass is used to determine the order in which the partitions need to be checked. Setting both to 0 will tell fsck to skip checking the partitions.
 
 So, open /etc/fstab:
 
@@ -1287,7 +1329,8 @@ Finally, hit Ctrl-O and Ctrl-X to save and exit. FSCK will not run on the partit
 
 111-how to add shell user during user creation
 
->>By default, the new user's login shell is set to the one specified in the /etc/default/useradd file. In some distributions the default shell is set to /bin/sh while in others it is set to /bin/bash .
+>>By default, the new user's login shell is set to the one specified in the /etc/default/useradd file. In some distributions the default shell is set to /bin/sh while in others it is set
+to /bin/bash .
  The -s ( --shell ) option allows you to specify the new user's login shell.
 
 112-what is fencing in linux
@@ -1299,13 +1342,18 @@ Finally, hit Ctrl-O and Ctrl-X to save and exit. FSCK will not run on the partit
 1-Verify Cron Daemon Status: Ensure that the cron daemon is running on your system. Use the following command to check the status of the cron service:
 >>systemctl status cron
 >>systemctl start cron
-2-Check Cron Job Syntax: Review the syntax of your cron job entries. Make sure they follow the correct format and are located in the appropriate cron configuration files (/etc/crontab, /etc/cron.d/, or the user's crontab). Consider using the crontab -e command to edit the user's crontab and ensure that the entries are correct.
-3-Check User and Environment: Confirm that the cron job is running under the correct user context and has the necessary permissions to execute the specified command or script. Remember that the cron environment may differ from the interactive shell environment, so ensure that any required environment variables and paths are set correctly in the cron job itself.
-4-Logging and Error Reporting: Enable logging for cron jobs to capture any error messages or output. In the cron job entry, redirect the output to a log file or use the MAILTO option to receive error notifications via email. For example:
+2-Check Cron Job Syntax: Review the syntax of your cron job entries. Make sure they follow the correct format and are located in the appropriate cron configuration files
+(/etc/crontab, /etc/cron.d/, or the user's crontab). Consider using the crontab -e command to edit the user's crontab and ensure that the entries are correct.
+3-Check User and Environment: Confirm that the cron job is running under the correct user context and has the necessary permissions to execute the specified command or script. 
+Remember that the cron environment may differ from the interactive shell environment, so ensure that any required environment variables and paths are set correctly in the cron job itself.
+4-Logging and Error Reporting: Enable logging for cron jobs to capture any error messages or output. In the cron job entry, redirect the output to a log file or use the MAILTO option to 
+receive error notifications via email. For example:
 >>* * * * * /path/to/command >> /path/to/logfile 2>&1
 check the system log files (/var/log/syslog, /var/log/cron, or /var/log/messages) for any related error messages.
-5-System Time and Timezone: Ensure that the system time and timezone are correctly configured. Cron relies on the system clock for scheduling. If the time or timezone is incorrect, it can lead to cron jobs not executing at the expected times.
-6-Check Security Restrictions: Some systems have security measures in place that restrict cron job execution. Verify if there are any security policies, such as SELinux or AppArmor, that may be blocking the execution of cron jobs. Review the relevant configuration and adjust the settings if necessary.
+5-System Time and Timezone: Ensure that the system time and timezone are correctly configured. Cron relies on the system clock for scheduling. If the time or timezone is incorrect, 
+it can lead to cron jobs not executing at the expected times.
+6-Check Security Restrictions: Some systems have security measures in place that restrict cron job execution. Verify if there are any security policies, such as SELinux or AppArmor, 
+that may be blocking the execution of cron jobs. Review the relevant configuration and adjust the settings if necessary.
 
 114-what is difference between su - and su 
 
@@ -1342,11 +1390,13 @@ check the system log files (/var/log/syslog, /var/log/cron, or /var/log/messages
 
 118-what is lun scan in linux
 
->>While Working on the Linux boxes, sometimes the Linux admin has to scan new storage or LUNs assign to the server from the Storage team. In Redhat Linux and CentOS we can scan the LUNs either using the script 'rescan-scsi-bus.sh' or using the '/sys/class' files without rebooting the server.
+>>While Working on the Linux boxes, sometimes the Linux admin has to scan new storage or LUNs assign to the server from the Storage team. In Redhat Linux and CentOS we can scan the 
+LUNs either using the script 'rescan-scsi-bus.sh' or using the '/sys/class' files without rebooting the server.
 
 119-what is difference between software raid and hardware raid
 
->>The key difference between software RAID and hardware RAID is that software in the OS manages the former, while controllers independent from the OS manage the latter. They are also different in cost, performance and access speeds.
+>>The key difference between software RAID and hardware RAID is that software in the OS manages the former, while controllers independent from the OS manage the latter. 
+They are also different in cost, performance and access speeds.
 
 120-how to find users have root access
 
@@ -1362,29 +1412,42 @@ check the system log files (/var/log/syslog, /var/log/cron, or /var/log/messages
 >>sudo useradd username
 2-User Account Configuration: When the user account is created, various configuration files and directories are created or modified to set up the user's environment. This includes:
 
-User Home Directory: A home directory is created for the user, typically located at /home/username. This directory serves as the user's default working directory and contains user-specific files and configurations.
+User Home Directory: A home directory is created for the user, typically located at /home/username. This directory serves as the user's default working directory and contains user-specific
+files and configurations.
 
 User ID (UID) and Group ID (GID): A unique user ID (UID) and primary group ID (GID) are assigned to the user. These IDs are used for permissions and access control.
 
-User Configuration Files: Configuration files such as .bashrc, .profile, or .bash_profile are created in the user's home directory to customize the user's shell environment and set up default behavior.
+User Configuration Files: Configuration files such as .bashrc, .profile, or .bash_profile are created in the user's home directory to customize the user's shell environment and set
+up default behavior.
 
-User Password: The user's password is set using the passwd command. The user is prompted to enter a password, which is then encrypted and stored in the system's password database (e.g., /etc/shadow).
+User Password: The user's password is set using the passwd command. The user is prompted to enter a password, which is then encrypted and stored in the system's password database 
+(e.g., /etc/shadow).
 
-3-User Privileges and Permissions: The user account is assigned appropriate privileges and permissions based on system policies and user requirements. This includes group membership, access to files and directories, and rights to execute certain commands with administrative privileges using sudo.
+3-User Privileges and Permissions: The user account is assigned appropriate privileges and permissions based on system policies and user requirements. This includes group membership, 
+access to files and directories, and rights to execute certain commands with administrative privileges using sudo.
 4-System Resources: Depending on the system's configuration, system resources such as disk space, CPU usage limits, and memory quotas may be allocated for the user account.
-5-Login and Access: Once the user account is set up, the user can log in to the system using their username and password. The user gains access to their home directory and any other permissions granted by system administrators.
+5-Login and Access: Once the user account is set up, the user can log in to the system using their username and password. The user gains access to their home directory and any other 
+permissions granted by system administrators.
 
 122-what happens  we log into shell getty
 
->>When you log into a shell getty, it triggers a series of actions that allow you to interact with the operating system through a command-line interface. Here's what happens when you log into a shell getty:
-1-User Authentication: When you enter your username and password at the getty prompt, it authenticates your credentials against the system's user database (such as /etc/passwd or a centralized authentication system like LDAP or Active Directory). If the authentication is successful, you proceed to the next step.
-2-Initialization: Once authenticated, the getty program sets up the initial environment for the user session. It initializes the user's shell environment variables, sets the current working directory to the user's home directory, and sets up the terminal or console settings.
-3-Execution of Shell: getty spawns a new shell process for the logged-in user. The shell process is usually determined by the user's default shell specified in the user's account configuration. Common shells include Bash, Zsh, Fish, and others.
-4-Interaction with the Shell: After the shell process is started, you can interact with it through the terminal. The shell displays a command-line prompt where you can enter commands and interact with the operating system. The shell interprets your commands, executes them, and provides output accordingly.
-5-User Session Management: The shell session manages the user's interactions with the operating system. You can execute commands, run programs, navigate directories, modify files, and perform various administrative or user-specific tasks based on the permissions and privileges associated with your user account.
-6-Termination: When you're finished with your session, you can terminate the shell by entering the exit command or pressing Ctrl+D. The shell process exits, and control returns to the getty program, which is ready to accept new login requests.
+>>When you log into a shell getty, it triggers a series of actions that allow you to interact with the operating system through a command-line interface. Here's what happens when you 
+log into a shell getty:
+1-User Authentication: When you enter your username and password at the getty prompt, it authenticates your credentials against the system's user database (such as /etc/passwd or a 
+centralized authentication system like LDAP or Active Directory). If the authentication is successful, you proceed to the next step.
+2-Initialization: Once authenticated, the getty program sets up the initial environment for the user session. It initializes the user's shell environment variables, sets the current
+working directory to the user's home directory, and sets up the terminal or console settings.
+3-Execution of Shell: getty spawns a new shell process for the logged-in user. The shell process is usually determined by the user's default shell specified in the user's account 
+configuration. Common shells include Bash, Zsh, Fish, and others.
+4-Interaction with the Shell: After the shell process is started, you can interact with it through the terminal. The shell displays a command-line prompt where you can enter commands 
+and interact with the operating system. The shell interprets your commands, executes them, and provides output accordingly.
+5-User Session Management: The shell session manages the user's interactions with the operating system. You can execute commands, run programs, navigate directories, modify files, 
+and perform various administrative or user-specific tasks based on the permissions and privileges associated with your user account.
+6-Termination: When you're finished with your session, you can terminate the shell by entering the exit command or pressing Ctrl+D. The shell process exits, and control returns to 
+the getty program, which is ready to accept new login requests.
 
->>Overall, the getty process is responsible for authenticating users and starting the user's shell session, allowing them to interact with the operating system through a command-line interface.
+>>Overall, the getty process is responsible for authenticating users and starting the user's shell session, allowing them to interact with the operating system through a command-line 
+interface.
 
 123-how to check zombie process
 
@@ -1396,17 +1459,22 @@ User Password: The user's password is set using the passwd command. The user is 
 
 125-if password not created what will be in shadow
 
->>If a password is not created for a user, the corresponding entry in the /etc/shadow file will typically contain a placeholder value indicating that the password is locked or disabled. The exact format and representation may vary depending on the Linux distribution and configuration.
+>>If a password is not created for a user, the corresponding entry in the /etc/shadow file will typically contain a placeholder value indicating that the password is locked or disabled. 
+The exact format and representation may vary depending on the Linux distribution and configuration.
 
-In most cases, the password field in the /etc/shadow file will be set to an encrypted string that indicates the account is locked or the password is disabled. Some common representations include:
+In most cases, the password field in the /etc/shadow file will be set to an encrypted string that indicates the account is locked or the password is disabled. Some common representations
+include:
 
 ! or *: These characters are often used to indicate that the account is locked or the password is disabled. It prevents the user from logging in using password-based authentication.
 
 !!: This is another common representation to signify a locked account or a disabled password.
 
-These placeholder values indicate that the user cannot log in using a password. Instead, alternative authentication methods such as public key authentication or single sign-on may be required.
+These placeholder values indicate that the user cannot log in using a password. Instead, alternative authentication methods such as public key authentication or single sign-on may be
+required.
 
-It's important to note that even if the password field in the /etc/shadow file is set to a placeholder value, other user attributes and settings may still be present and functional, such as the user's home directory, UID/GID, and shell configuration. The user account can potentially be enabled and password-based authentication re-enabled by updating the /etc/shadow file or using user management tools.
+It's important to note that even if the password field in the /etc/shadow file is set to a placeholder value, other user attributes and settings may still be present and functional, 
+such as the user's home directory, UID/GID, and shell configuration. The user account can potentially be enabled and password-based authentication re-enabled by updating the /etc/shadow 
+file or using user management tools.
 
 126-Log File Monitoring: Description:Monitor log files in real-time for troubleshooting. 
 
@@ -1533,7 +1601,8 @@ Commands:
 
 147-what is SWAP and how to clear it
 
->>Swap is a space on a computer's hard drive that is used as virtual memory by the operating system. When the system's physical RAM (Random Access Memory) becomes full, the operating system can temporarily move less frequently used data from RAM to the swap space. This frees up RAM for more immediate and active processes.
+>>Swap is a space on a computer's hard drive that is used as virtual memory by the operating system. When the system's physical RAM (Random Access Memory) becomes full, the operating system
+can temporarily move less frequently used data from RAM to the swap space. This frees up RAM for more immediate and active processes.
 
 1-Disable Swap: First, you need to disable the swap space to prevent new data from being written to it
 >>sudo swapoff -a
@@ -1571,7 +1640,8 @@ Commands:
 
 150-what is swapinness
 
->>Swappiness determines how quickly processes are moved from RAM to hard disk to free memory. It can assume the value 0 - 100. A low value means that your Linux® system swaps out processes rarely while a high value means that processes are written to disk immediately.
+>>Swappiness determines how quickly processes are moved from RAM to hard disk to free memory. It can assume the value 0 - 100. A low value means that your Linux® system swaps out processes
+rarely while a high value means that processes are written to disk immediately.
 
 151-how to attach volume
 
@@ -1728,7 +1798,8 @@ stat -x anji      -->it will show the modification details
 
 168-what is Logrotate
 
->>logrotate is designed to ease administration of systems that generate large number of log files, to rotate log file based on file size, time and date .it allows rotation that is automatic compression, removal and mailing of log files. each log file may be handled hourly daily weekly monthly or when its grow large
+>>logrotate is designed to ease administration of systems that generate large number of log files, to rotate log file based on file size, time and date .it allows rotation that is 
+automatic compression, removal and mailing of log files. each log file may be handled hourly daily weekly monthly or when its grow large
 
 169-what is ssh
 >>the ssh protocal (also referred to as secure shell) is a method for secure remote login from one computer to another computer.
@@ -1741,7 +1812,8 @@ communications security and integrity with strong encryption
 
 170-how does port forwarding works in SSH
 
->>client is going  to connect using differnet port number (in this case 2048)other than default, but server ssh service will respond on default port. we have to use ssh -p 2048 from client machine
+>>client is going  to connect using differnet port number (in this case 2048)other than default, but server ssh service will respond on default port. we have to use ssh -p 2048 from
+client machine
 >>ssh port forwarding
 >>ssh server port forwarding using firewall redirection
 
@@ -1806,7 +1878,8 @@ Types of ciphers
 
 180-What is syslog server Linux?
 
->>Syslog is a protocol and utility for capturing and logging system information. This system information can be stored locally, remotely, or both. syslog allows a server to forward log messages over the network to SL1. SL1 then uses these messages to monitor the health of the server and trigger events (if necessary).
+>>Syslog is a protocol and utility for capturing and logging system information. This system information can be stored locally, remotely, or both. syslog allows a server to forward 
+log messages over the network to SL1. SL1 then uses these messages to monitor the health of the server and trigger events (if necessary).
 >>you can create the one main server like syslog-server like central and have client-servers also like grafana
 >>cd /var/log
 >>vi /etc/syslog.conf  -->it will show what type of logs where stored like boot.log and lastlog and maillog and cron logs details also 
