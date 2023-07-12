@@ -145,6 +145,7 @@ NAT-Instance
 address to communicate the aws resources
 >>S3
 >>DynmoDB
+>>Also create Interfaces like EkS,Auto-Scaling,Cloud-Trail,Cloud-formation
 
 15 - what is gateway 
 
