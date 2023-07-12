@@ -870,7 +870,19 @@ terraform we can use this in local-exec command and write some details to see wi
 10- what is for_each and count how to use in terraform and how many types of variables and what is variables 
 
 >>count is using create multiple resources instances according to the count
+>>The count argument is used to determine the amount of instances to create for a particular resource. The count argument can be used in both a module as well as every resource type
 >>count is good if there is not change in the list index and changes are sequentical/leanier. any changes in the existing index will for the resource to recreate
+
+resource "aws_subnet" "public-subnets" {
+    count = "${var.environment == "prod" ? 3 : 2}"
+    vpc_id = "$element{aws_vpc.default.id}"
+    cidr_block = "${element(var.public-cidrs, count.index)}"
+    availability_zone = "${element(var.azs, count.index)}"
+
+    tags = {
+        Name = "$element{aws_vpc.default.tags.name}-public-subnet-${count.index + 1}"
+    }
+}
 
 this can be solved by for_each bcoz it uses key rather than
 
@@ -972,9 +984,8 @@ Chef Provisioner
 
 19 - What is terraform taint and untaint?
 
-the commands comes under terrafomr forcing recreation of resources
->>terraform taint command manually marks a terraform-managed reosuce as tainted forcing it to be destroyed
-and recreated on the next apply
+>>the commands comes under terrafomr forcing recreation of resources
+>>terraform taint command manually marks a terraform-managed reosuce as tainted forcing it to be destroyed and recreated on the next apply
 >>terraform untaint command manually umarks a terraform managed resource as tainted restoring it as the primary instance in the state
 
 >>terraform state list
@@ -984,6 +995,7 @@ and recreated on the next apply
 >>terraform apply --auto-approve
 >>terraform untaint aws_instance.my-ec2-vm-new
 >>terraform plan
+>>terraform state mv anji.sh sampi.sh
 
 20 - what is the use of provisoners in packer and terraform
 
@@ -1225,6 +1237,13 @@ relationships between them.
 
 >>Hashicorp Configuration Language
 
-51-
+51-what is terraform state mv ommand in 
+
+>>>>terraform state mv command is used to rename existing resources and move a resource into a module and move a module into a module
+>>if you were to just rename a resourcce or move it to another module and run terraform terraform apply will destroy and recraete the resource.
+state mv allows you to just change the reference so you ccan avoid a create and destroy action
+
+>>terraform state mv packet_device.worker packet_device.helper
+
 
 
