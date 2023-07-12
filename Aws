@@ -1281,8 +1281,11 @@ load balancer and cost utilization and if the coudtrail enable or not you can se
 
 142- what is control tower
 
->>control tower is used to create setup accounts like create the sub accounts and organizations and creating who are going to create aws environment newly then 
-this will help you
+>>control tower is used to create setup Set up and govern your multi-account AWS environment and  accounts like create the sub accounts and organizations and creating who are going to 
+create aws environment newly then this will help you
+>>you can Enable security and compilance  using establishing guardrails which prevent resources from being deployed  that dont conform policies plus you can detect and remediate 
+non-compliant accounts and resources as your team provisions them 
+>>montior compilance you'll get visual summaries of your AWS environment through dashboard taht lets see your accounts guardrails and compliance status all in one place  
 
 143- how to create ssl-certifictae in aws
 
