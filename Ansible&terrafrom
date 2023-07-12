@@ -180,6 +180,144 @@ user: test
       dest: /opt/ansadmin/test-vault
 :wq
 
+---
+- hosts: localhost
+  become: true
+  tasks:
+  - name: Copy file to S3 bucket
+    s3: 
+      aws_access_key=<AccessKey> 
+      aws_secret_key=<Secret Key> 
+      bucket=example 
+      object=/niru.txt 
+      src=/home/ansible/example.txt 
+      mode=put
+
+      ---
+- hosts: all
+  tasks:
+    - name: find all files that are older than 10 days
+      find:
+        paths: /data/log
+        age: 10d
+        recurse: yes
+      register: filesOlderThan10
+    - name: remove older than 10
+      file:
+        path: "{{ item.path }}" 
+        state: absent
+      with_items: "{{ filesOlderThan10.files }}"
+
+how to write playbook to allow te firewall ports in ansible playbook
+
+vi test.yml 
+---
+- name: Firewall rules
+  hosts: localhost
+  remote_user: anji
+  become: yes
+  tasks:
+  - name: web Access Firewall rule
+    firewalld:
+      zone: public
+      service: https
+      port: 8081/tcp
+      permanent: yes
+      state: enabled
+  - name: reload firewalld service
+    service:
+      name: firewalld
+      state: restarted
+:wq
+
+>>ansible-playbook test.yml  --syntax-Check
+>>ansible-playbook test.yml 
+
+---
+- name: Monitor disk space, memory, and CPU usage and send Slack notification
+  hosts: localhost
+  gather_facts: true
+
+  tasks:
+    - name: Check disk space
+      shell: df -h
+      register: disk_space_output
+
+    - name: Check memory usage
+      shell: free -h
+      register: memory_output
+
+    - name: Check CPU usage
+      shell: top -bn1 | grep "Cpu(s)" | sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | awk '{print 100 - $1"%"}'
+      register: cpu_output
+
+    - name: Send Slack notification
+      uri:
+        url: "https://hooks.slack.com/services/YOUR_SLACK_WEBHOOK_URL"
+        method: POST
+        body_format: json
+        body: >
+          {
+            "text": "System Monitoring Report:\n\nDisk Space Usage:\n{{ disk_space_output.stdout }}\n\nMemory Usage:\n{{ memory_output.stdout }}\n\nCPU Usage:\n{{ cpu_output.stdout }}"
+          }
+
+vi script.sh 
+HOSTNAME=$(hostname)
+DATE=$(date "+%d-%m-%Y %H:%M:%S")
+SYSTEMLOAD=$(uptime | awk '{print $9,$10,$11}')
+CPULOAD=$(top -b -n 2 -d1 | grep "CPU(s)" | tail -n1 | awk '{print $2}')
+MEMORYUSAGE=$(free -m | grep Mem: | tail -n1 | awk '{print $2,$3}')
+DISKUSAGE=$(df -p | colum -t | awk '{print $5}' | tail -n 1 | sed 's/%//g')
+:wq
+---
+- name: Execute script file on all servers
+  hosts: your_target_hosts
+  become: true  # If you need root/sudo privileges to execute the script
+  tasks:
+    - name: Execute script
+      script: /path/to/script.sh
+---
+- name: creating users and groups and ssh connection
+  hosts: "*" #all is possible
+  become: yes
+  tasks:
+   - user:
+      name: "{{ item }}"
+      state: present
+     loop:
+      - name1
+      - name2
+      - name3
+      - name4     
+   - group:
+      name: "{{ item }}"
+      state: present
+     loop:
+      - group1
+      - group2
+
+   - ansible.builtin.user:
+      name: name1
+      shell: /bin/bash
+      groups: group1,group2
+      append: yes
+      
+   - ansible.builtin.user:
+      name: name2
+      shell: /bin/bash
+      groups: group2
+      append: yes
+
+   - authorized_key:
+       user: name1
+       state: present
+       key: "{{ lookup('file', './user_id_rsa.pub') }}"
+
+   - authorized_key:
+       user: name2
+       state: present
+       key: "{{ lookup('file', './user_id_rsa.pub') }}"
+
 >>ansible-playbook cl.yml 
 
 ===Ad-hoc commands
