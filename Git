@@ -145,7 +145,8 @@ folder if you should not be delete that file if you delete that file
 18-what is git merge and what is the use
 
 >>merge will help you to combine two branches
->>Git merge is a command used to combine the changes from one branch into another. It integrates the commit history and changes from one branch (source branch) into another branch (target branch).
+>>Git merge is a command used to combine the changes from one branch into another. It integrates the commit history and changes from one branch (source branch) into another branch
+(target branch).
 uses:-
 1-combining branches
 2-automatic merging
@@ -169,7 +170,8 @@ uses:-
 
 20-what is git init
 
->>The git init command is used to initialize a new Git repository in a directory. It sets up the necessary data structures and files that Git uses to manage version control for your project. Here are the key aspects of the git init command:
+>>The git init command is used to initialize a new Git repository in a directory. It sets up the necessary data structures and files that Git uses to manage version control for your project.
+Here are the key aspects of the git init command:
 
 21-what is git status
 
@@ -177,7 +179,8 @@ uses:-
 
 22-what is git add 
 
->>The git add command is used to stage changes in your working directory and prepare them for a commit. It allows you to select specific files or parts of files to be included in the next commit. Here's how the git add command works:
+>>The git add command is used to stage changes in your working directory and prepare them for a commit. It allows you to select specific files or parts of files to be included in the next
+commit. Here's how the git add command works:
 
 23-what is git commit
 
@@ -349,7 +352,8 @@ when the deleoper B pushes the code we can cause the Merge conflicts problem
 
 40-what is git merge and rebase
 
->>Git merge is a command used to combine the changes from one branch into another. It integrates the commit history and changes from one branch (source branch) into another branch (target branch).
+>>Git merge is a command used to combine the changes from one branch into another. It integrates the commit history and changes from one branch (source branch) into another branch
+(target branch).
 >>Rebasing is the process of moving or combining a sequence of commits to a new base commit. Rebasing is most useful and easily visualized in the context of a feature branching workflow.
 
 41-what is the differnce between git merge and rebase
@@ -359,7 +363,8 @@ you want to bring from branch x to branch y you can do either git merge or git r
 projectig the history
 >>if you have x branch and y branch then your merging y to x branch the history and every commit will be there
 >>if you have x branch and y branch then your rebaseing y to x branch the y data and commits will be deleted only x branch commits and data will be shown i recomended to use git merge 
->>Merge is best used when the target branch is supposed to be shared. Rebase is best not used in public branches and used when the target branch is private. Merge preserves history. Rebase rewrites history.
+>>Merge is best used when the target branch is supposed to be shared. Rebase is best not used in public branches and used when the target branch is private. Merge preserves history. 
+Rebase rewrites history.
 
 42-what is git cherry-pick command
 
