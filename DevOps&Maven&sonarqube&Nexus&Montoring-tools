@@ -218,7 +218,7 @@ It may consist of the project source code, dependencies, binaries or resources, 
 28-what is tomcat
 
 >>>>tomcat is open-source
->>it is a web-server and developed by apache software foundation
+>>it is a App-server and developed by apache software foundation
 >>apche tomcat is purely java based application and serve java servlets, jsp pages 
 >>you can deploy the war files in tomcat
 >>the default port number is 8080
