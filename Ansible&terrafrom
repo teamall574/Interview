@@ -656,12 +656,12 @@ it will ask the password anji    -->you can edit the data
 >>ansible-vault encrypt foo.yml bar.yml baz.yml
 >>ansible-vault decrypt foo.yml bar.yml baz.yml
 
-38-Do you think Ansible is better than other configutration managemnet tool ? if yes why
+38-Do you think Ansible is better than other configuration management tools? if yes why
 
->>basically there is lot of configuration managemnet tools avilable in market so justify ansible is better ansible is differnet from other 
-configuartion managemnet tools and it is better in acheving a specific use case Ansible is agentless 
+>>basically there is lot of configuration management tools available in the market so justify ansible is better ansible is differnet from other 
+configuration management tools and it is better in acheving a specific use case Ansible is agentless 
 
-39-I would like to run a specific et of tasks only on windows VMS and not linux VMS is it possible
+39-I would like to run a specific set of tasks only on windows VMS and not linux VMS is it possible
 
 >>yes using tags or conditional basis scripts
 
@@ -669,18 +669,18 @@ configuartion managemnet tools and it is better in acheving a specific use case 
 
 >>if assigning 10 tasks in 5 server it will 1 task then run in 5 servers then it will execute the second task 
 
-41--what is the protocal that Ansible uses to connect the Windows VMs
+41--what is the protocol that Ansible uses to connect the Windows VMs
 
->>Ansible uses Winrm to connect windows and ssh to connect the linux
+>>Ansible uses Winrm to connect Windows and ssh to connect the Linux
 
 42-how do you handle secrets in Ansible
 
->>Ansible vault store all your secrets in encrypted way
+>>Ansible vault store all your secrets in an encrypted way
 
 43-can we Ansible is IAC > Infrastructure as a code? If yes can you compare with any other IAC tools like Terraform
 
->>Ansible also supports IAC I will not say Infrastructure as a code tool because predominantly ansible is a configuartion mangemnet tool there is a 
-cross pf paths ansible also achieve some of the tasks that terrfform can do but i would say ansible is configuartion management tool
+>>Ansible also supports IAC I will not say Infrastructure as a code tool because predominantly Ansible is a configuration management tool there is a 
+cross pf paths ansible also achieve some of the tasks that Terrfform can do but I would say Ansible is configuartion management tool
 
 44-what do you think that Ansible can improve
 
@@ -695,7 +695,7 @@ can be need to improve
 >>Python
 >>Ansible is a tool written in Python, and it uses the declarative markup language YAML to describe the desired state of devices and configuration
 
-46-38-what is Roles
+46-what is Roles
 
 >>In Ansible, the role is the primary mechanism for breaking a playbook into multiple files. This simplifies writing complex playbooks, and it makes them easier
 to reuse. The breaking of playbook allows you to logically break the playbook into reusable components.
@@ -711,7 +711,6 @@ to reuse. The breaking of playbook allows you to logically break the playbook in
 -files:- contains files which can be deployed via this role
 -templates:- contains templates which can be deployed in this role
 -meta:-defines some meta data for this role
-
 
 >>vi roles.yml
 ---
@@ -838,6 +837,8 @@ default.
 
 >>yes you can use workspace usinng you can deploy the devand prod environmet by chnaging code in dev.tfvars and prod.tfvars by chnaging workspace context
 there is chance to overwrite the environmet in case if you do mistake so need to be carefully. either you can seprate folders is good in production environment
+>>terraform apply --var-file prod.tfvars --auto-approve       -->it will execute the prod.tfvars in prod workspace
+>>terraform apply --var-file dev.tfvars --auto-approve        -->it will execute the dev.tfvars in dev workspace
 
 6 - what is splat syntax in terraform and element ,functions,
 
