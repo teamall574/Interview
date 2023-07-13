@@ -622,7 +622,7 @@ A: This can be done in multiple ways, To briefly explain about the different opt
 SSH username with the private key, AWS Credentials,Jenkins Build Token, Secret File/Text, X509 & other certificates, Vault related credentials securely 
 with proper encryption & decryption as and when required. 
 >>secrest exist throuhout the delivery lifecycle as application secret credentials and other sensitive information should be secured obfuscated and governed 
-Tools:- Ansible vault and aws system manager
+Tools:- Ansible vault and aws system manager or hshicorp  vault
   
 42-What is shared modules in Jenkins ?
 
@@ -746,6 +746,7 @@ that node becomes available to execute the triggered build request.
 
 54-how to integrate jenkins to vault
 
+>>need to install or run hashicorp vault
 >>need to install vault plugin then provide the url of the vault and then username and pasword
 
 stage('get cedentials'){
