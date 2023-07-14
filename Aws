@@ -73,21 +73,10 @@ Since its creation in 2001 it has become the de facto standard in the open sourc
 
 >>it is an user interface between user and hardware is called operating system
 
-
-29 - You are trying to provide a service in a particular region, but you do not see the service in that region. Why is this happening, and how do you fix it?
-
->>Not all Amazon AWS services are available in all regions. When Amazon initially launches a new service, it doesn’t get immediately published in all the regions. 
-They start small and then slowly expand to other regions. So, if you don’t see a specific service in your region, chances are the service hasn’t been published in 
-your region yet. However, if you want to get the service that is not available, you can switch to the nearest region that provides the services
-
 30 - what is authentication and authriozation
 
 >>authentication your accessing or login into the applicatio or portal entry only
 >>authrozation is nothing but you should be assign some roles are features
-
-
-
-
 
 34 - What are the tools and techniques that you can use in AWS to identify if you are paying more than you should be, and how to correct it?
 
@@ -100,7 +89,6 @@ This allows you to plan a budget for the services. Also, it will enable you to c
 use the services.Cost Allocation Tags
 This helps in identifying the resource that has cost more in a particular month. It lets you organize your resources and cost allocation tags to keep 
 track of your AWS costs.
-
 
 36 -Define Snapshots in Amazon Lightsail?
 
@@ -131,169 +119,25 @@ use to complete the task?
 >>It can be accomplished by setting up an autoscaling group to deploy additional instances, when an EC2 instance's CPU use surpasses 80% and by
 allocating traffic across instances via the creation of an application load balancer and the designation of EC2 instances as target instances.
 
-45 - what EBS Volumes
-
->>Amazon Elastic Block Store (Amazon EBS) provides block level storage volumes for use with EC2 instances. 
-EBS volumes behave like raw, unformatted block devices. You can mount these volumes as devices on your instances
->>it is permanent storage/persistance
->>it can be increased to max of 16TB you can't decreased the ebs
->>it is availble in SSD and HDD
-
-disadvantages:-
->>ebs volume you can apply only one ec2 system
->>ebs volume you can apply only one ec2 system and it should be same availbility zone
->>it is only for linux
-
-advantages:-
->>you can diretly mount to the system 
->>it can shared between multiple servers and multiple availbility zones
-
-46 - Types of EBS-Volumes
-
-===general purpose ssd gp2
->>it is cheaper compared to provisioned iops
->>it is high speed gp2  performance
->>minimum 1GB to you can extend volume upto 16TB
->>Minimum IOPS 100
->>Maximum IOPS 16000
->>if you taken 1GB you will get 3IOPS          -->input/output operations per second
->>you can't change iops you should use aws given iops
-
-===gp3
->>it is also costly to gp2
->>minimum 1GB to you can extend volume upto 16TB
->>Minimum IOPS 3000
->>Maximum IOPS 16000
-
-====IO1 Provisioned IOPS
->>it is costly compared to gp2 
->>it is also high spped performance
->>minimum 4GB to you can extend volume upto 16TB
->>Minimum IOPS 100
->>Maximum IOPS 64000
->>if you taken 1GB you will get 50IOPS
->>you change iops what you want you can modify the iops details
-
-====IO2 Provisioned IOPS
->>it is costly compared to gp2 and IO1
->>it is also high spped performance
->>minimum 4GB to you can extend volume upto 64TB
->>Minimum IOPS 100
->>Maximum IOPS 256000
->>if you taken 1GB you will get 1000IOPS
->>you change iops what you want you can modify the iops details
-
-47 -===example for iops gp2&IO1
-
-DB requirment given by client 10TB he needs 100000 IOPs using do storage
-
-gp2:
-2 x 5120 = 10TB  30720 iops you will get
-2 x 5120 = 10TB  30720 iops you will get
-2 x 5120 = 10TB  30720 iops you will get
-1 x 2500 = 2.5TB 7000 iops you will get 
->>estimate cost of your monthly bill ($3650.90)
->>con: max 250mb/sec
-
-===if you need 100000iops you need to increase gp2 instance but IO1 you can get easily
-
-IO1
-2 x 5120 = 100000 iops with each volume 50000iops
-requirment is fullfield  but it is costly compared to gp2
-
-eatimate cost of monthly bill ($8558)
-con:max throughput 781mb/sec
-
-===cold HDD and optimized HDD and Magnetic (standard)
-
->>remaining all drives is slow and it is cheaper 
->>it is used for storage purpose or testing servers purpose
->>when you cant use data regularly then you can use this
-
-where we can sql databese we can use ebs volumes explaining beloow
-
->>windows or linux we can gp2 volume
->>system databases we can gp2 volume
->>user database we can use IO1 volume
->>database transaction logs we can use IO1 volume 
->>tempDB we can use we can use instance store or standard
->>page file i virtual memory we can use instance store or standard
->>backups  we can use magnetic or standard
-
-48 - what is Instance store
-
->>instance store is temporary storage data will be deleted if serevr reset
->>it cannot be increased or decreased
->>only ssd type is available
->>when you use instance storage while launching ec2 if the server restart or reset the data will be loose
-
-49 - what is Glacier
-
->>s3 glacier cheap storage
->>for longterm backup we can use this
->>if you stored data in glacier if retriving it  will charge it's not for regular purpose 
-its for longterm
->>you can take glacier backup using third-party tools fast glacier, altro, vertias,netbackup,networker,Aavamar,Tivoli
->>glacier is called vault
-
-50 - what is EFS and what is the use case of it
-
->>Amazon Elastic File System is a cloud storage service provided by Amazon Web Services designed to provide scalable, 
-elastic, concurrent with some restrictions, and encrypted file storage for use with both AWS cloud services and on-premises resources.
->>After you create an existing file system (EFS), you can't change its encryption setting. This means you can't modify an unencrypted 
-file system to make it encrypted. Instead, you must: Create a new Amazon EFS file system with encryption turned on
-
-uses cases:-
->>you can directly mount the system to ec2 instances
->>it is a share folder for network in a region
->>it is network file system  
->>it is unix or linux supported
->>it can shared between multiple servers and multiple regions
->>the storage limit 8PB
-
-51 - What is Amazon S3? 
-
-S3 is short for Simple Storage Service, and Amazon S3 is the most supported storage platform available. S3 is object storage that can store and retrieve any amount
-of data from anywhere.Despite that versatility, it is practically unlimited as well as cost-effective because it is storage available on demand. In addition to 
-these benefits, it offers unprecedented levels of durability and availability. Amazon S3 helps to manage data for cost optimization, access control, and compliance. 
-
->>we can store log files 
->>maximum uploading one file size upto 5TB
->>it is objeted level stoarge
->>it is global unique name
->>you can upload files 3types 1 - cli and 2 - aws console 3 - application through api or jenkins
->>mostly upload through api or applcation through
->>s3 bucket is not global why meanswhen you creating a buckrt its ask region but it will show all the regions
->>s3 availbilty is 99.9 uptime
->>s3 durability is 99.999999 it will not gone delete 
->>when you uploading a file it will save in 3 az but it will not show that saving
->>it will charge when you uploading and storage and when you accessing through internet will cost 
->>you can enable version control
-
----storage types
->>if frequently using data means use this (standard)
->>if we can't access frequently that's a old data we can use this (standar, glacier)
->>temporary log files you can use this (One Zone-IA)
-
-53-S3 life-cycle
-
->>you can create the bucket using create the lifecycle then that will save in first 30 days standardd if not frequently accessing that you can move that data into
-standard-IA then this data also not frequently using then you can move into One-Zone-IA then move to S3-glacier it is permenanent data storage for lon-term
-if you want delete you can specify also after 1 or 2 or 10 years afters also
 
 
-52 - what is S3 Replication
 
->>transfer the data one bucket to another bucket
->>craete bucket anji256 on that time you should enable the replication
->>it is use gor mostly log-purpose of saving
 
-===how to add replication
->>click on add rule >>enable version
->>select bucket anji159
->>select the storage type glacier or anything
->>click on next done
->>if you upload data in the bucket of anji256 the data will save in the bucket of anji159
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 53 - Can S3 Be Used with EC2 Instances, and If Yes, How?
 
@@ -303,9 +147,6 @@ developers load Amazon Machine Images (AMIs) into Amazon S3 and then move them b
 
 Amazon EC2 and Amazon S3 are two of the best-known web services that make up AWS
 
-54 - How many S3 buckets can be created?
-
-Up to 100 buckets can be created by default
 
 55 - What is the maximum limit of elastic IPs anyone can produce?
 
@@ -721,7 +562,7 @@ whereas a policy defines the permissions of the IAM identity.
 >>A Role with no Policy attached to it won’t have to access any AWS resources.
 >>A Policy that is not attached to an IAM role is effectively unused. Permissions listed in an IAM policy are only enforced when that policy is attached to an IAM identity.
 
-102-what is Assue role
+102-what is Assume role
 
 >>Assume role is nothing your giving temporary or prmenaent access another aws account user or group level access to another account.the user can access what permission your
 giving that will be accessbile that user anytime briefly in below see
@@ -870,7 +711,7 @@ an instance of it to process the event when the function code finishes running i
 >>Boto3 is python libray for aws to make simplefiy your work 
 >>Boto3 makes it easy to integrate your Python application, library, or script with AWS services including Amazon S3, Amazon EC2, Amazon DynamoDB, and more.
 
-117 - What is Elastic Beanstaclk
+117 - What is Elastic Beanstalk
 
 >>AWS Elastic Beanstalk is an orchestration service offered by Amazon Web Servicesand it is used deploying and scaleup the AWS services, 
 including EC2, S3, Simple Notification Service, CloudWatch, autoscaling, and Elastic Load Balancers, health monitoring
@@ -994,13 +835,6 @@ will lead to an interesting problem, like classes with data and no behavior.
       }
    ] 
 }
-
-133- can you explain 3tier architecture or elbrate them
-
->>first we have extranal load balancer and internal load balancer then the extranal load balancer is open to the internet
-through route53 and internal load balancer is between app and web and the app is connected to database
-
->>using public and private subnets
 
 134- what is YAML
 
@@ -1127,27 +961,11 @@ two types:-
 1-memcahed 
 2-redis
 
-153-can I store my EBS volume in s3 bucket
-
->>When you create an EBS snapshot, it's automatically stored in an Amazon S3 bucket that's managed by Amazon Web Services (AWS). You can copy snapshots
-within the same AWS Region, or from one Region to another. However, you can't copy snapshots to S3 buckets that you manage.
-
 154-What is DocumentDB used for?
 
 >>it like mongo database
 >>A document database is a type of nonrelational database that is designed to store and query data as JSON-like documents. Document databases make 
 it easier for developers to store and query data in a database by using the same document-model format they use in their application code.
-
-155-what is Route tables in AWS
-
->>A Route table defines how the communication should happen with in the subnet and outside of subnet
->>we can create custom route tables per each subnet design the network traffic
->>route table play key role when you want route traffic to 
--other vnets
--virtual network gateways
--virtual appliances
--internet
->>it is also subnet level
 
 156-what is ARN
 
@@ -1190,19 +1008,6 @@ require their own content hierarchy, such as online stores, blogs or support pla
 >>you need to create first option group and select the version and type of your database and then create your option group. then go to s3 create bucket and role
 for s3 and then go that group attach the role and bucket and select the backup and restore it will 
 
-163-How can I grant a user access to a specific folder in my Amazon S3 bucket?
-
->>If your IAM user and s3 bucket are present in the AWS account then you can grant user access to a specific bucket folder using IAM policy
-
-You can add the IAM policy to individual IAM users or you can attach yje IAM policy to an IAM role that multiple users can switch to.
-If the IAM identity (user or role) and the s3 bucket belonging to differnet AWS accounts, then you 
-must grnat access on both IAM policy and the bucket policy
-
-164-What does bucket policy mean?
-
->>With Amazon S3 bucket policies, you can secure access to objects in your buckets, so that only users with the appropriate permissions can access them. 
-You can even prevent authenticated users without the appropriate permissions from accessing your Amazon S3 resources.
-
 165-What is whitelisting an IP address?
 
 >>IP whitelisting is when you grant network access only to specific IP addresses. Each employee (or approved user) shares their home IP address with the 
@@ -1218,9 +1023,7 @@ network administrator, who then enters their IP address on a “whitelist” tha
 >>tomcatup    -->it will start the server
 >> If you delete the original file, the soft link has no value, because it points to a non-existent file. But in the case of hard link, it is entirely opposite.
 
-167-can i copy my AMI into s3 bucket
 
->>You can store an Amazon Machine Image (AMI) in an Amazon S3 bucket, copy the AMI to another S3 bucket, and then restore it from the S3 bucket.
 
 168-What are the two types of AMI?
 
@@ -1255,17 +1058,6 @@ whereas a relative path points to a specific location in a file system relative 
 172-what is describe menas vpc
 
 >>it will show the entire vpc details of vpcs
-
-173-what are the types of encryption in s3
-
->>using AWS KMS policy using create the key assign to users then it will use encrypt the data 
-two types of encryptipon there AWS KMS policys
-
-1-symatric key : same key is used encrypt and decrypt 
-2-asymatric ky : differnt keys used to encrypt and decrypt
-
-Server-side encryption – Amazon S3 encrypts your objects before saving them on disks in AWS data centers and then decrypts the objects when you download them. ...
-Client-side encryption – You encrypt your data client-side and upload the encrypted data to Amazon S3.
 
 174-how to make rds highly available
 
@@ -1303,14 +1095,6 @@ tail -f /var/log/mail.log
 
 >>shebang is nothing but which shell are using to run your script that is shebang line
 
-178-s3 bucket stoarge types
-
-1-standard
-2-standard I-A
-3-onezone I-A
-4-S3 Intelligent-Tiering,
-5-S3 glacier
-
 179-what Interface endpoint
 
 >>An interface VPC endpoint allows you to privately connect your Amazon VPC to supported AWS services. 
@@ -1337,26 +1121,6 @@ approximately 15 minutes after you create a new Flow Log. You can access them vi
 
 >>The AZ Affinity architectural pattern reduces the number of times an AZ boundary is crossed. In the example system we looked at in Figure 1, 
 AZ Affinity can be implemented with two changes. First, the ALB is replaced with a Network Load Balancer (NLB).
-
-183-what is security group is stateful or stateless in aws
-
->>Security groups are stateful—if you send a request from your instance, the response traffic for that request is allowed to flow in regardless of 
-inbound security group rules. For VPC security groups, this also means that responses to allowed inbound traffic are allowed to flow out, regardless of 
-outbound rules.
-
-184-What is the difference between security group and NACL?
-
->>Security Group is applied to an instance only when you specify a security group while launching an instance.NACL has applied automatically to all
-the instances which are associated with an instance. is the second layer of defense.
->>by default in security group there no deny option it will allow the traffic how you will deny the ip . in that place you can allow specific ip only
->>security-group is stateful
->>if you use security group it will be only server level only. security group only have allow the ips only
-
->>NACL It is the first layer of defense.
->>NACL only for subnets by default automatically creates a VPC when we create a VPC and NCL is Stateless you need to enable inbound and outbound also if you are enable inbound not 
-enabled outboind it will not work and it will sit infornt of security group 
->>if you add one port in the inbound rule you need to add an ephemeral port in the outbound otherwise it won't work
->>it will applied by subnet any server is there in subnet this will apply to that server or subnet level  using NACL.NACL have allow and deny option
 
 185-what is gateway load balancer
 
@@ -1678,17 +1442,9 @@ two ways to send the file password less like add your ssh keys in destination se
 >>history -c  //it will delete all history
 >>history -d //it will delete the one line particular you can mention
 
-232-what is the secret_key and access_key
+233-day to day activities
 
->>Access keys consist of an access key ID and secret access key, which are used to sign programmatic requests that you make to AWS. 
-If you don't have access keys, you can create them by using the IAM console
-
->>AWS access key ID is a form of unique user/account identifier. AWS secret key is like private key. When AWS CLI sends a API request, 
-the payload is signed by generating an HMAC with the secret key as the key
-
-233-day to day activites
-
->>my self K Anjaneyulu Iam from karimnagar iam done by b-tech in mother theressa college in the stream of ece comming to my family background
+>>my self K Anjaneyulu Iam from Karimnagar iam done by b-tech in mother theressa college in the stream of ece comming to my family background
 we are 4 members mother father and younger brother. young brother is an android developer mother and father formers
 >>iam doing devops engineer in keeno technologies 
 >>currently we using agile methodology we manage the configuration management multiple machines and infrstructure as an on-premises cloud using tools like terraform
@@ -1700,11 +1456,6 @@ deployed as containers or pods and and we also montior tools like grafana promet
 >>schedular is like you can schedule the certain time
 >>event pattern you can create a pattern and you can do whenever the event trigger it will execute
 
-235-what is cloud-computing
-
->>Cloud computing is the on-demand delivery of IT resources over the Internet with pay-as-you-go pricing. Instead of buying, owning, and maintaining physical data centers and servers,
-you can access technology services, such as computing power, storage, and databases, on an as-needed basis from a cloud provider like Amazon Web Services (AWS).
-
 236-what Required to connect the MySQL or RDS or any databse
 
 >>The account that is used to connect to the MySQL database must have at least CONNECT permissions. This enables SSMA to obtain metadata from schemas owned by the connecting user.
@@ -1713,14 +1464,6 @@ you can access technology services, such as computing power, storage, and databa
 3-port number should be open
 4-username and password
 5-mysql workbench or jdbc connection
-
-237-Is node.js will supoort backend and frontend
-
->>yes node.js will support frontend and backend also
-3 tier arch
-database:- MongoDB or Postgres or MySQL
-frontend-web-application:- nodejs (webapp)
-backend-end-application:-  nodejs (app-servers) or java
 
 238-what is XML
 
@@ -1750,16 +1493,6 @@ ex:-
 4-Fluentd
 5-Logstash
 
-241-How to upgrade or downgrade a system with zero downtime?
-
->>To upgrade or downgrade a system with zero downtime, you can use the following steps:
-1-Set up a load balancer in front of your system.
-2-Deploy the new version of your system to a new set of servers.
-3-Add the new servers to the load balancer and verify that they are healthy.
-4-Remove the old servers from the load balancer.
-5-Monitor the system to ensure that everything is running smoothly.
-By following this process, you can ensure that your system remains available throughout the upgrade or downgrade process.
-
 242-What is a load balancer? Give scenarios of each kind of balancer based on your experience.
 
 >>A load balancer is a device or service that distributes network traffic across multiple servers to prevent any one server from becoming overwhelmed. 
@@ -1774,12 +1507,6 @@ There are three main types of load balancers:
 >>The kinds of security attacks that can occur on the cloud include DDoS attacks, phishing attacks, data breaches, and insider attacks. To minimize them, it is important to use
 strong authentication methods, implement proper access control and monitoring, encrypt data, keep systems up to date with security patches, and regularly conduct security audits and 
 training for employees.
-
-244-an we recover the EC2 instance when we have lost the key?
-
->>Yes, it is possible to recover an EC2 instance when you have lost the key. You can create a new key pair and then use it to connect to the instance.
-Alternatively, you can also use other authentication methods such as user name and password, or even IAM roles to access the instance.
-However, if you have encrypted the root volume of the instance using the lost key pair, you will not be able to recover the data on that volume.
 
 245-What is the difference between the Amazon Rds, Dynamodb, and Redshift?
 
@@ -1917,44 +1644,11 @@ Define inbound and outbound rules in network ACLs to allow or deny traffic based
 Carefully evaluate and configure network ACLs to restrict access to your resources.
 Regularly review and update network ACL rules as per your security requirements.
 
-260-how much time would take while launching installing
-
-linux: minimum 3 minutes maximum 4 minutes (its requires minumum 8gb storage)
-windows: minimum 4 minutes maximum 5 minutes (its requires minimum 30 gb storage)
-
 261-what is SLA(service-level agreement)
 
 >>They provide information on all contracted services and on the agreed expected reliability and they clearly set out the parameters, responsibilities and expectations 
 so that in the event of a problem with the service, no party can plead ignorance
 
-262-what is Total upfront,Partial upfront
-
->>Upfront:-your paying bill first then he will give some discount 
->>Partial upfront:- you can pay 50% of bill and then you can use remaing amount will pay after the month end bill generation time
->>No Upfront:- this is on-demand systems
-
-262-how to restore the login into ec2 if pem file lost
-
->>Use a backup or a copy of the original .pem file:
-
-If you have a backup or a copy of the original .pem file stored securely, you can use it to regain access to the EC2 instance.
-Locate the backup or copy of the .pem file and follow the standard procedure to connect to the EC2 instance using the private key.
-
->>Launch a new EC2 instance and attach the original volume:
-
-Launch a new EC2 instance and make sure to select the same availability zone and the same or compatible Amazon Machine Image (AMI) as the original instance.
-During the instance launch, you can create a new key pair or choose an existing key pair to associate with the new instance.
-Once the new instance is running, stop it and detach its root volume.
-Detach the root volume from the original EC2 instance (the one for which you lost the .pem file).
-Attach the original volume as a data volume to the new instance.
-Start the new instance and access it using the new key pair. You can then mount the original volume and retrieve any necessary files.
-
->>Use EC2 Instance Connect or Session Manager:
-
-If you have EC2 Instance Connect or AWS Systems Manager Session Manager set up on the EC2 instance, you may be able to regain access without the need for the .pem file.
-EC2 Instance Connect allows you to connect to your EC2 instance using the AWS Management Console or the AWS CLI without a key pair. Check if EC2 Instance Connect is enabled for your
-instance and follow the instructions provided by AWS. AWS Systems Manager Session Manager allows you to establish a secure shell (SSH) session to your instance through the AWS Management 
-Console or the AWS CLI. If Session Manager is enabled for your instance, you can connect to it without needing the .pem file.
 
 263-what is ASG and launch config
 
@@ -2007,22 +1701,6 @@ Resources:
 7-Mappings:-
 8-Trandforms:-
 
-267-which is faster stoarge EBS or S3
-
-EBS: EBS provides block-level storage volumes that can be attached to EC2 instances. It offers low-latency, high-performance storage optimized for transactional workloads and applications
-that require frequent read/write access to data. EBS volumes are typically used as primary storage for applications running on EC2 instances.
-
-S3: S3, on the other hand, is an object storage service designed for storing and retrieving large amounts of unstructured data. It is highly scalable and durable, offering high availability
-and durability for data. S3 is accessed over the network and is well-suited for use cases such as data backup, data archiving, static website hosting, and content distribution.
->>The performance of EBS and S3 can vary based on several factors, including the storage class, instance type, network connectivity, workload characteristics, and access patterns. 
-However, in general, EBS is designed for low-latency access and is optimized for performance-sensitive workloads, while S3 is optimized for scalability, durability, and cost-effectiveness
-at the expense of slightly higher latency.
->>It's important to consider the specific requirements of your application or use case when choosing between EBS and S3. If your application requires low-latency access to storage and
-frequent read/write operations, EBS is usually the more suitable choice. On the other hand, if you have large volumes of unstructured data, require high scalability, or need to 
-store data for long-term archival purposes, S3 is a better fit.
-
-In summary, the "faster" storage option between EBS and S3 depends on your specific workload and requirements. It is recommended to analyze your application's needs and the characteristics
-of the storage services to make an informed decision.
 
 268-what is latency 
 
@@ -2057,7 +1735,7 @@ I would distribute the subnets across multiple Avaliability Zones for high avail
 276-your organization has a VPC with multiple subnets you want to restrict outbound internet access for resources in one subnet but allow outbound internet access for resources in 
 another subnet how would achive this ?
 
->>To restrict outbound internet access for resources in on e subnet we can modify the route table associated with that subnet in the route table we can remove the default route (0.0.0.0/0)
+>>To restrict outbound internet access for resources in one subnet we can modify the route table associated with that subnet in the route table we can remove the default route (0.0.0.0/0)
 that points to an internet gateway
 >>This would prevent resources in that subnet from accessing the internet for the subnet where outbound internet access is required we can keep the default route pointing to the 
 internet gateway
@@ -2091,13 +1769,6 @@ inbound and outbound internet traffic.
 >>However, if these workloads require outbound internet access, we can set up a NAT Gateway or NAT instance in a different subnet and configure the isolated subnet's route table to
 send outbound traffic through the NAT Gateway/instance.
 
-281-Your application needs to access AWS services, such as S3 securely within your VPC. How would you achieve this?
-
->>To securely access AWS services within the VPC, we can use VPC endpoints. VPC endpoints allow instances in the VPC to communicate with AWS services privately, without requiring
-internet gateways or NAT gateways. 
-We can create VPC endpoints for specific AWS services, such as S3 and DynamoDB, and associate them with the VPC. 
-This enables secure and efficient communication between the instances in the VPC and the AWS services.
-
 283-What is the difference between IAM users, groups, roles and policies ?
 
 >>IAM User: An IAM user is an identity within AWS that represents an individual or application needing access to AWS resources. IAM users have permanent long-term credentials, such as
@@ -2127,19 +1798,6 @@ you can then SSH (or RDP) into the instances in the private subnet using their p
 >>Amazon API-Gateway is a fully-managed service that makes it easy for developers to create, publish, maintain, montiro, and secure APIs at any Scale
 >>APIs acts as the "front-door" for applications to access data business logic or functionality from your backend services
 >>API-Gateway helps us to create a RESTful APIs and Web-Socket APIs that enable real-time two-way communcication
-
-289-S3 buckets offer several advantages, including:
-
-Durability and availability: S3 provides high durability and availability for your data.
-Scalability: You can store and retrieve any amount of data without worrying about capacity constraints.
-Security: S3 offers multiple security features such as encryption, access control, and audit logging.
-Performance: S3 is designed to deliver high performance for data retrieval and storage operations.
-Cost-effective: S3 offers cost-effective storage options and pricing models based on your usage patterns.
-
-290-What is S3 Event Notifications and Triggers
-
->>S3 event notifications allow you to configure actions when specific events occur in an S3 bucket. For example, you can trigger AWS Lambda functions, send messages to 
-Amazon Simple Queue Service (SQS), or invoke other services using Amazon SNS when an object is created or deleted.
 
 291-what is CORS and SOP
 
