@@ -1911,7 +1911,8 @@ The StatefulSet ensures that each instance is upgraded in a controlled manner, m
 >>kubectl top pods   -->it will show the pods details only
 >>kubecctl top nodes    -->it will show nodes cpu and memory also
 
-171-kustomization is just like helm but its works differnet you can create the kustomization.yml add your all the yaml files deatils like this below and you can add overlay and patches and you can create the resources to update the files  
+171-kustomization is just like helm but its works differnet you can create the kustomization.yml add your all the yaml files deatils like this below and you can add overlay and patches 
+and you can create the resources to update the files  
 resources:
 - anji/deployment.yml
 - anji/service.yml
@@ -1950,10 +1951,10 @@ templating engine design.
 >>Potentially, the end-user can change anything in a base manifest without explicit templating code. By matching by a file, label, or annotation, the end-user has to have more detailed
 knowledge of what and where the change is going to take place
 
- 
+172-What is Alpine Images 
 
-
-172-
+>>The “alpine” image is the light-weighted image that provides a complete package of the index, and the size is around about “5Mbs” only. It is widely used to build and containerize 
+lightweight applications. It is more secure and reliable. It takes less disk space relative to other images.
 
 
 
