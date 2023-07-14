@@ -113,25 +113,6 @@ amazon cloud watch
 >>You can use Amazon Elastic Transcoder to convert video and audio files into supported output formats optimized for playback on desktops, mobile devices,
 tablets, and televisions
 
-40 - On an EC2 instance, an application of yours is active. Once the CPU usage on your instance hits 80%, you must reduce the load on it.What strategy do you 
-use to complete the task?
-
->>It can be accomplished by setting up an autoscaling group to deploy additional instances, when an EC2 instance's CPU use surpasses 80% and by
-allocating traffic across instances via the creation of an application load balancer and the designation of EC2 instances as target instances.
-
-56 - what is storage gateway and types
-
->>AWS Storage Gateway is a set of hybrid cloud storage services that provide on-premises access to virtually connect the cloud storage.
-
->>volume-gateway:- A Volume Gateway provides cloud-backed storage volumes that you can mount as Internet Small Computer System Interface (iSCSI)
-devices from your on-premises application servers.
-
->>File-gateway:- File Gateway allows your existing file-based applications or devices to use secure and durable cloud storage without needing to be modified. 
-With S3 File Gateway, your configured S3 buckets will be available as Network File System (NFS) mount points or Server Message Block (SMB) file shares.
-
->>Tape-gateway:-Tape Gateway enables you to replace using physical tapes on premises with virtual tapes in AWS without 
-changing existing backup workflows. Tape Gateway supports all leading backup applications and caches virtual tapes on premises for low-latency data access
-
 57 -  what is AWS Backup
 
 >> AWS Backup features .AWS Backup is like snapshots. in every organzation need to take a backup some of the particular resources with using of aws backup take some of major 
@@ -175,57 +156,6 @@ same DBinstance are incremenetl
 
 >>minimum 35 days
 
-60 - what is Route53 and what is the uses
-
->>Amazon Route 53 is a highly available and scalable Domain Name System (DNS) web servic. Rout53 using we can host the domians.Route53 is global. 
-route53 using you can do one region to another region load balancing.route53 using you can do multiple region load-balancing.  
->>Route53 provides DNS as a Service DNS->stands for Domain name service
->>DNS servie is the one that maps the your domain name with ip address or maps dns is that resolves your domain to the ip address if you assign the domain to the load-balancer
-its resove the domian name to the load-balancer
->>DNS keep lot of records
->>we use mostly routing policys simple, latency, falover, weighted
-
-1-failover :- if we create two load balancer in differnt regions and create the helath checks in route 53 if we selectd the failover routing policy then we can 
-create the same name of the website like www.anji.com is primary in mumbai region and www.anji.com is secondary in us-east-1 .whenever primary fails 
-it will go secondary directly without checking the pings
-
-2-weighted :- if we create weighted route policy route 53 it is like failover but the thing is you can mention the traffic which load balancer need to 
-accessing the apllication over internet if we give 0 menas you can't access the application on that load balancer if we give 255 then we can access the 
-loab balancer. the use case is we want maintaines on particular region you can diver the traffic into sepearte the specific load balancer
-			(or)
-Weighted round-robin:-two regions servers are the then we can divide the traffic based on priority based we can divide the traffic 
->>Weighted routing allows you to associate multiple resources with a single domain name (example.com) or subdomain (acme.example.com) and choose the amount of traffic routed for each resource.
-This can be useful for a variety of purposes, including load balancing and testing new versions of software.
-
-3-geo-DNS:-Geolocation routing can be used to send traffic to resources based on the geographical locations for example you may have presence in europe and Asia now you want user in the
-Asia to be served in the Asia and rhose europe to be served by servers in europe
-ex:-you can localize yourcontent present some or all of your website in the language of your user
-
-4-latency:- latency is used same is the previous failover or weighted routing policy the differnt is you can mention to the particular in region if any one 
-near by india that user will connect to the india based load balancer and if any us then that user will connect the us load balancer its region based. 
-it is used to decrease the latency in your application to the users
-
-what is traffic policies in route53
->>it will give the graphical representaion of dns records
-
-61-What is the difference between AWS latency-based routing and geo DNS
-
-Amazon maps-out typical latency between IP addresses and AWS regions. Choose Latency-based Routing to have the fastest response. Geolocation maps the IP addresses to geographic locations. 
-This permits rules like "send all users from Côte d'Ivoire to the website in France", so they see a language-specific version
-
-62-What is dns how it works
-
->DNS used to identify computers, services, and other resources reachable through the Internet or other Internet Protocol
->>dns transfers human readble domain names for (example www.amazon.com)to machine  readble to ip address for example (192.168.0.24)
->>in your real time your isp will give dns address
->>most orgnazation disable ping to stop the ddos attacks by hackers
->>rembering name is easy but number are diffcult that we using dns names
-
-63- what is hostname resolution 
-
->>HostName resolution is the process of associating names and IP addresses, and it's one of the most essential services on a network. 
-People understand descriptive names, but network communications require difficult-to-remember addresses
-
 64--what is cloudwatch
 
 >>Amazon CloudWatch is a monitoring and management service that provides data and actionable insights for AWS, hybrid, 
@@ -247,11 +177,6 @@ and on-premises applications and infrastructure resources and also analyze the l
 >>you need enable 
 >>and its not free of cost
 >>every one minute logs will updated 
-
-65-where we can use cloudwatch mostly in AWS
-
-1-Auto-scaling --scaling policies
-2-
 
 66-What is an AWS CloudWatch Alarm?
 
@@ -388,101 +313,6 @@ to access the particular only one cloud-formation template you can specify that 
 >>service manager is  configuration management tool. we can use deployment and like ansible. we need ssm agnet then we can do deployment without ssm agent
 we can't do anything. ssm agent is like role add to ec2-instance then we can patches and updates over the deployment and configure the resoures
 
-87- What is load balancer and how it works? and types of load balancer
-
->>A load balancer acts as the “traffic cop” sitting in front of your servers and routing client requests across all servers capable of fulfilling those requests 
-in a manner that maximizes speed and capacity utilization and ensures that no one server is overworked, which could degrade performance. 
->>load balancer is region dependent
->>you can add multiple target groups into load balancer
-
-1- Network load balancer
->>A load balancer serves as the single point of contact for clients. The load balancer whenever the first system not availble then distributes incoming traffic across
-multiple targets, such as Amazon EC2 instances.This increases the availability of your application. You add one or more listeners to your load balancer.
->>it is an layer 4 in transpot layer 
->>it is use TCP and UDP protocals
->>direct traffic based on ip address
->>you can add multiple target groups into load balancer
->>Network, or Layer 4, load balancers can provide faster responses,
->>the deregistation delay is 300 seconds
->>it will check every 30 seconds for health checks if you cant reach the server then decalre as not reachable then forward the request to another server
->>if you use one port or listner like 80 you can't use that port onemore time
->>you can save your load balancer logs in s3 
->>it will support path based routing but you need to every time differnt ports or different listners everytime
->>it is region dependent
->>by default cross-zone load balancer is not-enabled you should enable if the required happens
->>it is suitable for single application or easy application
-
----What is an internal load balancer?
->>An internal (or private) load balancer is used where private IPs are needed at the frontend only. Internal load balancers are used to load balance traffic inside
-a virtual network.A load balancer frontend can be accessed from an on-premises network in a hybrid scenario
-
----what is external load balancer
->>The external load balancer is used to route external HTTP traffic into the cluster
-
-2- Application load balancer
->>A load balancer serves as the single point of contact for clients. The load balancer whenever the first system not availble then distributes incoming traffic across
-multiple targets, such as Amazon EC2 instances.This increases the availability of your application. You add one or more listeners to your load balancer
-
->>it is layer 7 in application layer
->>it uses https and http
->>it is only for web-applications
->>the deregistation delay is 300 seconds
->>you can save your load balancer logs in s3 
->>you can use one listner or port number of times
->>it is region dependent
->>by default cross-zone load balancer is enabled
->>it will check every 30 seconds for health checks if you cant reach the server then decalre as not reachable then forward the request to another server
->>it will support path based routing or url based routing
->>you can transfer the traffic using paths based in application load balancer or  you can use path based routing
->>you can create the multiple target group like home , movies, shows then use the path based routing or url based routing
->>it is used or suitable for complex applications 
-
-88- if any one asking the my load balancer is in public my subnets is private can use this subnets to connect through internet 
-
->>yes you can connect through internet by using the load-balancer must be public .like when you create the load-balancer it will create in only public not private
-you must put app and db servers in private only. you can connect or download patches using nat gateway
-
->>you can enable in load balancer to connect the particular ip only if your client asked to connect the your website through ip you can give this ip and 
-and add that client ip in your load balancer only that client will connect
-
-89- what is cross-zone load-balancer
-
->>The nodes for your load balancer distribute requests from clients to registered targets. When cross-zone load balancing is enabled, each load balancer 
-node distributes traffic across the registered targets in all enabled Availability Zones
-
->>you have load balancer and 1a availbility zone 4 servers and 1b availbilty zone have 2 servers if the traffic will then it will distribute 50 persent to 1a
-and 50 persent 1b then it will get over trafficed by 1b so on that time you can use the cross-zone load balancer then it will distribute same amount of
-traffic to every servers in availbilty zones
-
-90- what is ssl-off loading or termination
->>SSL termination refers to the process of decrypting encrypted traffic before passing it along to a web server.
-            or
->>An SSL connection sends encrypted data between an end-user's computer and web server by using a certificate for authentication. 
-SSL termination helps speed the decryption process and reduces the processing burden on backend servers
-
-91- what is round-robin load balancer              -->video 17 40mins
-
->>Round-robin DNS is a technique of load distribution, load balancing, or fault-tolerance provisioning multiple, redundant Internet Protocol service hosts, 
-e.g., Web server, FTP servers, by managing the Domain Name System's (DNS) responses to address requests from client computers according to an appropriate 
-statistical model        (or)
->>Round robin load balancing is a simple way to distribute client requests across a group of servers. A client request is forwarded to each server in turn.
-
-How does it works:
->>What Is Round-Robin Load Balancing? Round‑robin load balancing is one of the simplest methods for distributing client requests across a group of servers. 
-Going down the list of servers in the group, the round‑robin load balancer forwards a client request to each server in turn.
-
-92- what is target group in load balancer
-
->>collections of machines and also specified protocols and ports to specified instances
-         or
->>A target group tells a load balancer where to direct traffic to : EC2 instances, fixed IP addresses; or AWS Lambda functions, amongst others. When creating a 
-load balancer, you create one or more listeners and configure listener rules to direct the traffic to one target group
-
-93- what is the use of health checks in aws
-
->>Health checks are a way of asking a service on a particular server whether or not it is capable of performing work successfully. 
-Load balancers ask each server this question periodically to determine which servers it is safe to direct traffic to.
-
 94- Your business prefers to use its email address and domain to send and receive compliance emails. What service do you recommend to implement it easily 
 and budget-friendly?
 
@@ -586,10 +416,10 @@ it will connect in primary database ,the primary will sync to secondary database
 1-master(primary)
 2-read(secondary)replica       -->you can create read replica
 
->>some tester has come and asked we have test the rds your not giving the primary you dont
+>>some tester has come and asked we test the rds you're not giving the primary you dont
 know how to access the secondary that time you can use the read replica
 >>read replica just copy a primary you can put another region also
->>in read replica you can't do write on database its only read option
+>>in read replica you can't write on the database its only read option
 
 107- Will your standby RDS be launched in the same availability zone as your primary?
 
@@ -621,14 +451,6 @@ resource capacity in relation to the demand.Cloud Architect Master's
 
 >>Amazon Simple Notification Service (Amazon SNS) is a managed service that provides message delivery from publishers to subscribers (also known as producers and 
 consumers). Publishers communicate asynchronously with subscribers by sending messages to a topic, which is a logical access point and communication channel
-
-111- what is deregistration delay
-
->>Elastic Load Balancing stops sending requests to targets that are deregistering. By default, Elastic Load Balancing waits 300 seconds before completing the 
-deregistration process,which can help in-flight requests to the target to complete
-         or
->>Connection draining allows you to specify a maximum time (between 1 and 3,600 seconds and default 300 seconds) to keep the connections alive before reporting the
-instance as de-registered. The maximum timeout limit does not apply to connections to unhealthy instances.
 
 112- What is Inspector in AWS
 
@@ -857,17 +679,6 @@ create aws environment newly then this will help you
 non-compliant accounts and resources as your team provisions them 
 >>montior compilance you'll get visual summaries of your AWS environment through dashboard taht lets see your accounts guardrails and compliance status all in one place  
 
-143- how to create ssl-certifictae in aws
-
->>go to aws certificate manager create your domain name anji.com it will ask the email or domain validation then go to domain it will give name and cname
-and create the record set in your route53 and create a record set the giev name and select the cname and it will give you certificate then go to your load balancer 
-and add listener select the port and certficate then you good to go then delete the 80 port number that it . it take 10 to 15 minutes and to avoid the security instrucations
-								(or)
->>you can create the certifictaes using third-party also using csr generator it will ask your domain name and give you public and private key then go to comodsslstore then 
-you can create the certificate
-								(or)
->>digcert, entrust provide ssl certficate
->>you need to create private.key and .csr file in your system and give that keys into authority digcert entrust they will give 3 files certification.crt and private.key and ca_bundle.crt then you configure this certifictaes to webserver
 
 144-what is process management
 
@@ -881,10 +692,6 @@ this controls the starting and stopping of services
 
 >>this controls which services are set to start on boot
 
-147-what is ssh
-
->>the ssh protocal (also referred to as secure shell) is a method for secure remote login from one computer to another computer.it provides the secure connection
-to network. it provides several alternative options for strong authntication, and it protects the communications security and integrity with strong encryption
 
 148-what is crontab
 
@@ -965,11 +772,6 @@ AWS Fargate is compatible with both Amazon Elastic Container Service (ECS) and A
 >>Amazon EC2 manages or deploys your own EC2 instances to effectively run applications. Fargate AWS allows you to run containers without the need for EC2 instances.
 Both are excellent methods for managing or scaling your containers in a dependable manner, but deciding which service to use is always a difficult task.
 
-161-what is Subdomain
-
->>A subdomain is a prefix added to a domain name to separate a section of your website. Site owners primarily use subdomains to manage extensive sections that
-require their own content hierarchy, such as online stores, blogs or support platforms. Subdomains function as a separate website from its domain
-
 162-how do you backup rds server
 
 >>you need to create first option group and select the version and type of your database and then create your option group. then go to s3 create bucket and role
@@ -1020,10 +822,6 @@ and improve backup compliance.
 >>In simple words, an absolute path refers to the same location in a file system relative to the root directory, 
 whereas a relative path points to a specific location in a file system relative to the current directory you are working on.
 
-172-what is describe menas vpc
-
->>it will show the entire vpc details of vpcs
-
 174-how to make rds highly available
 
 >>multi AZ deployment high availbilty & fail over for disaster recovery
@@ -1060,11 +858,6 @@ tail -f /var/log/mail.log
 
 >> Shebang is nothing but which shell are using to run your script that is shebang line
 
-179-what Interface endpoint
-
->>An interface VPC endpoint allows you to privately connect your Amazon VPC to supported AWS services. 
-Interface VPC endpoints also connect to endpoint services hosted by other AWS customers and partners and AWS Marketplace partner services.
-
 180-what is AWS KMS Policys
 
 >>AWS Key Management Service (AWS KMS) is a managed service that makes it easy for you to create and control the cryptographic keys that are used to protect your data
@@ -1081,53 +874,6 @@ message authentication codes (MACs).
 
 >>New Flow Logs will appear in the Flow Logs tab of the VPC dashboard. The Flow Logs are saved into log groups in CloudWatch Logs. The log group will be created
 approximately 15 minutes after you create a new Flow Log. You can access them via the CloudWatch Logs dashboard.
-
-182-What is AZ affinity?
-
->>The AZ Affinity architectural pattern reduces the number of times an AZ boundary is crossed. In the example system we looked at in Figure 1, 
-AZ Affinity can be implemented with two changes. First, the ALB is replaced with a Network Load Balancer (NLB).
-
-185-what is gateway load balancer
-
->>Gateway Load Balancer helps you easily deploy, scale, and manage your third-party virtual appliances. It gives you one gateway for distributing traffic
-across multiple virtual appliances while scaling them up or down, based on demand.
-
-186-what is mx record 
-
->>An MX record specifies the names of your mail servers and, if you have two or more mail servers, the priority order. Each value for an MX record contains
-two values, priority and domain name. An integer that represents the priority for an email server.
-
-187-what is simple record in aws
-
->>Simple routing lets you configure standard DNS records, with no special Route 53 routing such as weighted or latency. With simple routing, you typically 
-route traffic to a single resource, for example, to a web server for your website. You can use simple routing policy for records in a private hosted zone.
-
-188-what is cname records in aws
-
->>cname is also called canincal name or alias 
->>CNAME records are Directs one name to another name or Points domain to Another Domain www.anji.com to sampi.anji.com
->>so when you move your servers you only have to change one set of records
-
-189-what is A name record in aws
-
->>A known as Host records it converts host to ip address 
->>A Records are IPv4
->>AAAA Records are IPv6
->>Amazon Route 53 offers a special type of record called an 'Alias' record that lets you map your zone apex (example.com) DNS name to the DNS name for your
-ELB load balancer (such as my-loadbalancer-1234567890.us-west-2.elb.amazonaws.com).
-
-190-what is the differnce between A and CNAME record
-
->> the difference between CNAME and A record in a traditional NameServer is that only CNAME can be used to point to a different subdomain and A record must 
-point to a valid IP address. Since the AWS Route53 allows you to do use a subdomain with either A Rec or CNAME
-
-191-what is NS record
-
->>>>it is name server records when you creating or hosting website it will create the name server reocrds that will be fault tolerance purpose if any one goes down your
-will not impact why 
-because reaminig will run right
->>The NS records and A records are both used to provide DNS services. The difference between them is that the former define the servers that provide
-DNS services for a domain name while the A records translate hostnames (such as www, FTP, mail) into IP addresses.
 
 192-how to port forwarding in linux or ec2
 
@@ -1454,14 +1200,6 @@ ex:-
 4-Fluentd
 5-Logstash
 
-242-What is a load balancer? Give scenarios of each kind of balancer based on your experience.
-
->>A load balancer is a device or service that distributes network traffic across multiple servers to prevent any one server from becoming overwhelmed. 
-There are three main types of load balancers:
-
-1-Application Load Balancers (ALBs) distribute traffic based on content at the application layer (HTTP/HTTPS).
-2-Network Load Balancers (NLBs) distribute traffic at the transport layer (TCP/UDP).
-3-Classic Load Balancers (CLBs) distribute traffic across multiple EC2 instances and can be used with both HTTP and HTTPS protocols.
 
 243-What are the kinds of security attacks that can occur on the cloud? And how can we minimize them?
 
@@ -1528,15 +1266,7 @@ track resource activity, and diagnose issues.
 and meet compliance requirements. The centralized logging and analysis provided by these services helps organizations to ensure the security and availability of their AWS resources, 
 giving them greater control and visibility into their cloud infrastructure.
 
-251-Can you explain a time when you had to troubleshoot an issue with an AWS application?
 
->>In my previous role, we had an issue with an EC2 instance not responding to incoming traffic. After reviewing the logs, we discovered that the security group rules were misconfigured,
-causing the instance to reject incoming traffic. We adjusted the security group rules to allow the incoming traffic, and the issue was resolved.
-
-252-How have you ensured high availability and fault tolerance for an AWS application?
-
->>In a previous project, we implemented AWS Elastic Load Balancers and Auto Scaling Groups to ensure that our application could handle sudden spikes in traffic and maintain high availability.
-We also set up Amazon CloudWatch to monitor the performance of the application and alert us in case of any failures, allowing us to quickly respond and ensure fault tolerance.
 
 253-Can you explain a time when you implemented security measures for an AWS application?
 
@@ -1602,21 +1332,6 @@ Regularly review and update network ACL rules as per your security requirements.
 
 >>They provide information on all contracted services and on the agreed expected reliability and they clearly set out the parameters, responsibilities and expectations 
 so that in the event of a problem with the service, no party can plead ignorance
-
-
-263-what is ASG and launch config
-
->>ASG:-ASG stands for Auto Scaling Group. It is a feature provided by Amazon Web Services (AWS) that automatically adjusts the number of instances in a group based on the specified 
-scaling policies. ASGs are commonly used to maintain the availability, performance, and cost-efficiency of applications running on EC2 instances.
-Key features of Auto Scaling Groups include:
-1-Automatic Scaling: 
-2-High Availabilty:
-3-Elasticity
-4Integration with load-balancer
-5-Integration with launch configurations
-
->>launch-config:-A launch configuration is a template that an EC2 Auto Scaling group uses to launch EC2 instances. When you create a launch configuration, you specify information for the 
-instances such as the ID of the Amazon Machine Image (AMI), the instance type, a key pair, one or more security groups, and a block device mapping.
 
 265-what is CFT template/how a resource depends on other resourcce
 
@@ -1840,11 +1555,6 @@ specific module within the Apache HTTP Server that enables reverse proxy functio
 
 >>you have privellges or not
 
-310-can I add multiple target groups in a load balancer
-
->>yes you can add multiple target groups. for example your created two servers server-1, server-2 your created server-1 in tg-1 target group and then created tg-2 target add server-2 then
-create the application load balancer and the listeners tg-1 target group it will add 100% traffic to server-1. you can goto the load-balancer in listeners go to add rules edit 
-load-balancer then add server-2 or target group and add 50% of traffic to server-1 and server-2 this will highly available
 
 311-Is it possible to create one webserver under we can create 3 domains
 
