@@ -558,12 +558,12 @@ where we can sql databese we can use ebs volumes explaining beloow
 >>page file i virtual memory we can use instance store or standard
 >>backups  we can use magnetic or standard
 
-58 - what is Instance store
+58 - what is an Instance store
 
->>instance store is temporary storage data will be deleted if serevr reset
->>it cannot be increased or decreased
+>>instance store is temporary storage data will be deleted if server reset
+>> It cannot be increased or decreased
 >>only ssd type is available
->>when you use instance storage while launching ec2 if the server restart or reset the data will be loose
+>> When you use instance storage while launching ec2 if the server restart or reset the data will be loose
 
 59-what is EFS and what is the use case of it
 
@@ -573,61 +573,61 @@ elastic, concurrent with some restrictions, and encrypted file storage for use w
 file system to make it encrypted. Instead, you must: Create a new Amazon EFS file system with encryption turned on
 
 uses cases:-
->>you can directly mount the system to ec2 instances
->>it is a share folder for network in a region
->>it is network file system  
->>it is unix or linux supported
->>it can shared between multiple servers and multiple regions
->>the storage limit 8PB
+>> You can directly mount the system to ec2 instances
+>> It is a shared folder for the network in a region
+>>it is a network file system  
+>> It is Unix or Linux supported
+>>it can be shared between multiple servers and multiple regions
+>> The storage limit 8PB
 
 60-What is Amazon S3? 
 
 S3 is short for Simple Storage Service, and Amazon S3 is the most supported storage platform available. S3 is object storage that can store and retrieve any amount
-of data from anywhere.Despite that versatility, it is practically unlimited as well as cost-effective because it is storage available on demand. In addition to 
+of data from anywhere. Despite that versatility, it is practically unlimited as well as cost-effective because it is storage available on demand. In addition to 
 these benefits, it offers unprecedented levels of durability and availability. Amazon S3 helps to manage data for cost optimization, access control, and compliance. 
 
->>we can store log files 
->>maximum uploading one file size upto 5TB
+>> We can store log files 
+>> Maximum uploading one file size upto 5TB
 >>it is objeted level stoarge
->>it is global unique name
->>you can upload files 3types 1 - cli and 2 - aws console 3 - application through api or jenkins
->>mostly upload through api or applcation through
->>s3 bucket is not global why meanswhen you creating a buckrt its ask region but it will show all the regions
->>s3 availbilty is 99.9 uptime
->>s3 durability is 99.999999 it will not gone delete 
->>when you uploading a file it will save in 3 az but it will not show that saving
->>it will charge when you uploading and storage and when you accessing through internet will cost 
->>you can enable version control
+>> It is the global unique name
+>> You can upload files 3types 1 - cli and 2 - aws console 3 - application through API or Jenkins
+>> Mostly upload through API or application through
+>>s3 bucket is not global why means when you create a bucket it asks for the region but it will show all the regions
+>>s3 availability is 99.9 uptime
+>>s3 durability is 99.999999 it will not go delete 
+>> When you upload a file it will save in 3 az but it will not show that saving
+>> It will charge when you upload and storage and when you access through the internet will cost 
+>> You can enable version control
 
 ---storage types
->>if frequently using data means use this (standard)
->>if we can't access frequently that's a old data we can use this (standar, glacier)
+>> If frequently using data means use this (standard)
+>> If we can't access frequently that old data we can use this (standard, glacier)
 >>temporary log files you can use this (One Zone-IA)
 
 61-S3 life-cycle
 
->>you can create the bucket using create the lifecycle then that will save in first 30 days standardd if not frequently accessing that you can move that data into
-standard-IA then this data also not frequently using then you can move into One-Zone-IA then move to S3-glacier it is permenanent data storage for lon-term
-if you want delete you can specify also after 1 or 2 or 10 years afters also
+>> You can create the bucket using create the lifecycle then which will save in the first 30 days standard if not frequently accessed that you can move that data into
+standard-IA then this data also not frequently using then you can move into One-Zone-IA then move to S3-glacier it is permanent data storage for long-term
+if you want to delete you can specify also after 1 or 2 or 10 years after also
 
 62-what is S3 Replication
 
->>transfer the data one bucket to another bucket
+>> Transfer the data from one bucket to another bucket
 >>craete bucket anji256 on that time you should enable the replication
->>it is use gor mostly log-purpose of saving
+>> It is use for mostly log-purpose of saving
 
-===how to add replication
+=== How to add replication
 >>click on add rule >>enable version
 >>select bucket anji159
->>select the storage type glacier or anything
->>click on next done
+>> Select the storage type glacier or anything
+>> Click on next done
 >>if you upload data in the bucket of anji256 the data will save in the bucket of anji159
 
 63-How many S3 buckets can be created?
 
 Up to 100 buckets can be created by default
 
-64-s3 bucket stoarge types
+64-s3 bucket storage types
 
 1-standard
 2-standard I-A
@@ -638,41 +638,40 @@ Up to 100 buckets can be created by default
 65-what is Glacier
 
 >>s3 glacier cheap storage
->>for longterm backup we can use this
->>if you stored data in glacier if retriving it  will charge it's not for regular purpose 
-its for longterm
->>you can take glacier backup using third-party tools fast glacier, altro, vertias,netbackup,networker,Aavamar,Tivoli
->>glacier is called vault
+>> For long-term backup, we can use this
+>> If you stored data in Glacier if retrieving it  will charge it's not for regular purposes it's for longterm
+>> You can take glacier backup using third-party tools fast glacier, altro, veritas, Netbackup,networker, Aavamar, Tivoli
+>> Glacier is called the vault
 
-66-can I store my EBS volume in s3 bucket
+66-can I store my EBS volume in an s3 bucket
 
 >>When you create an EBS snapshot, it's automatically stored in an Amazon S3 bucket that's managed by Amazon Web Services (AWS). You can copy snapshots
-within the same AWS Region, or from one Region to another. However, you can't copy snapshots to S3 buckets that you manage.
+within the same AWS Region, or from one Region to another. However, you can't copy snapshots to the S3 buckets that you manage.
 
 67-How can I grant a user access to a specific folder in my Amazon S3 bucket?
 
->>If your IAM user and s3 bucket are present in the AWS account then you can grant user access to a specific bucket folder using IAM policy
+>>If your IAM user and s3 bucket are present in the AWS account then you can grant the user access to a specific bucket folder using the IAM policy
 
-You can add the IAM policy to individual IAM users or you can attach yje IAM policy to an IAM role that multiple users can switch to.
-If the IAM identity (user or role) and the s3 bucket belonging to differnet AWS accounts, then you 
-must grnat access on both IAM policy and the bucket policy
+You can add the IAM policy to individual IAM users or you can attach the IAM policy to an IAM role that multiple users can switch to.
+If the IAM identity (user or role) and the s3 bucket belong to different AWS accounts, then you 
+must grant access to both the IAM policy and the bucket policy
 
 68-What does bucket policy mean?
 
 >>With Amazon S3 bucket policies, you can secure access to objects in your buckets, so that only users with the appropriate permissions can access them. 
 You can even prevent authenticated users without the appropriate permissions from accessing your Amazon S3 resources.
 
-69-can i copy my AMI into s3 bucket
+69-can I copy my AMI into the s3 bucket?
 
 >>You can store an Amazon Machine Image (AMI) in an Amazon S3 bucket, copy the AMI to another S3 bucket, and then restore it from the S3 bucket.
 
 70-what are the types of encryption in s3
 
->>using AWS KMS policy using create the key assign to users then it will use encrypt the data 
-two types of encryptipon there AWS KMS policys
+>> Using AWS KMS policy using create the key assign to users then it will use encrypt the data 
+two types of encryption there AWS KMS policies
 
-1-symatric key : same key is used encrypt and decrypt 
-2-asymatric ky : differnt keys used to encrypt and decrypt
+1-symmetric key: the same key is used to encrypt and decrypt 
+2-asymmetric key: different keys used to encrypt and decrypt
 
 Server-side encryption – Amazon S3 encrypts your objects before saving them on disks in AWS data centers and then decrypts the objects when you download them. ...
 Client-side encryption – You encrypt your data client-side and upload the encrypted data to Amazon S3.
@@ -681,10 +680,10 @@ Client-side encryption – You encrypt your data client-side and upload the encr
 
 >>Yes, it can be a good option to host a website on S3. Hosting a website on S3 is a cost-effective solution for static websites that don’t require server-side processing.
 S3 is a reliable and scalable storage service that offers high availability and durability.
->>However, hosting a dynamic website with server-side processing on S3 is not recommended as it lacks the necessary compute resources and scalability to handle such websites.
+>>However, hosting a dynamic website with server-side processing on S3 is not recommended as it lacks the necessary computing resources and scalability to handle such websites.
 In such cases, it’s better to use other AWS services like EC2 or Elastic Beanstalk.
 
-72-which is faster stoarge EBS or S3
+72-which is faster storage EBS or S3
 
 EBS: EBS provides block-level storage volumes that can be attached to EC2 instances. It offers low-latency, high-performance storage optimized for transactional workloads and applications
 that require frequent read/write access to data. EBS volumes are typically used as primary storage for applications running on EC2 instances.
@@ -819,7 +818,316 @@ With S3 File Gateway, your configured S3 buckets will be available as Network Fi
 >>Tape-gateway:-Tape Gateway enables you to replace using physical tapes on premises with virtual tapes in AWS without 
 changing existing backup workflows. Tape Gateway supports all leading backup applications and caches virtual tapes on premises for low-latency data access
 
-90-
+90-What is auto-scaling?
+
+>>Auto scaling groups must not be used for database
+>> Auto scaling groups are used mostly used web and app servers because of static content
+>>Auto-scaling is a function that allows you to provision and launch new instances whenever there is a demand. It allows you to automatically increase or decrease 
+resource capacity in relation to the demand.Cloud Architect Master's
+-----types
+1-Vertical Scaling:-
+>>t2.micro to t4.medium 
+>>its needs machine shutdown or downtime to increase the size of the specification
+
+2-Horizontal Scaling:-
+>>t2.micro to t2.micro 
+>> If you want to increase the system means you need to use horizontal scaling
+
+91-where we can use cloudwatch mostly in AWS
+
+1-Auto-scaling --scaling policies
+2-
+
+92-How do you set up a system to monitor website metrics in real-time in AWS?
+
+>>Amazon CloudWatch helps you to monitor the application status of various AWS services and custom events. It helps you to monitor:
+
+State changes in Amazon EC2
+Auto-scaling lifecycle events
+Scheduled events
+AWS API calls
+Console sign-in events
+amazon cloud watch
+
+93-On an EC2 instance, an application of yours is active. Once the CPU usage on your instance hits 80%, you must reduce the load on it.What strategy do you 
+use to complete the task?
+
+>>It can be accomplished by setting up an autoscaling group to deploy additional instances, when an EC2 instance's CPU use surpasses 80% and by
+allocating traffic across instances via the creation of an application load balancer and the designation of EC2 instances as target instances.
+
+94-what is describe menas vpc
+
+>>it will show the entire vpc details of vpcs
+
+95-what Interface endpoint
+
+>>An interface VPC endpoint allows you to privately connect your Amazon VPC to supported AWS services. 
+Interface VPC endpoints also connect to endpoint services hosted by other AWS customers and partners and AWS Marketplace partner services.
+
+96-What is load balancer and how it works? and types of load balancer
+
+>>A load balancer acts as the “traffic cop” sitting in front of your servers and routing client requests across all servers capable of fulfilling those requests 
+in a manner that maximizes speed and capacity utilization and ensures that no one server is overworked, which could degrade performance. 
+>>load balancer is region dependent
+>>you can add multiple target groups into load balancer
+
+1- Network load balancer
+>>A load balancer serves as the single point of contact for clients. The load balancer whenever the first system not availble then distributes incoming traffic across
+multiple targets, such as Amazon EC2 instances.This increases the availability of your application. You add one or more listeners to your load balancer.
+>>it is an layer 4 in transpot layer 
+>>it is use TCP and UDP protocals
+>>direct traffic based on ip address
+>>you can add multiple target groups into load balancer
+>>Network, or Layer 4, load balancers can provide faster responses,
+>>the deregistation delay is 300 seconds
+>>it will check every 30 seconds for health checks if you cant reach the server then decalre as not reachable then forward the request to another server
+>>if you use one port or listner like 80 you can't use that port onemore time
+>>you can save your load balancer logs in s3 
+>>it will support path based routing but you need to every time differnt ports or different listners everytime
+>>it is region dependent
+>>by default cross-zone load balancer is not-enabled you should enable if the required happens
+>>it is suitable for single application or easy application
+
+---What is an internal load balancer?
+>>An internal (or private) load balancer is used where private IPs are needed at the frontend only. Internal load balancers are used to load balance traffic inside
+a virtual network.A load balancer frontend can be accessed from an on-premises network in a hybrid scenario
+
+---what is external load balancer
+>>The external load balancer is used to route external HTTP traffic into the cluster
+
+2- Application load balancer
+>>A load balancer serves as the single point of contact for clients. The load balancer whenever the first system not availble then distributes incoming traffic across
+multiple targets, such as Amazon EC2 instances.This increases the availability of your application. You add one or more listeners to your load balancer
+
+>>it is layer 7 in application layer
+>>it uses https and http
+>>it is only for web-applications
+>>the deregistation delay is 300 seconds
+>>you can save your load balancer logs in s3 
+>>you can use one listner or port number of times
+>>it is region dependent
+>>by default cross-zone load balancer is enabled
+>>it will check every 30 seconds for health checks if you cant reach the server then decalre as not reachable then forward the request to another server
+>>it will support path based routing or url based routing
+>>you can transfer the traffic using paths based in application load balancer or  you can use path based routing
+>>you can create the multiple target group like home , movies, shows then use the path based routing or url based routing
+>>it is used or suitable for complex applications 
+
+97-If any one asking the my load balancer is in public my subnets is private can use this subnets to connect through internet 
+
+>>yes you can connect through internet by using the load-balancer must be public .like when you create the load-balancer it will create in only public not private
+you must put app and db servers in private only. you can connect or download patches using nat gateway
+
+>>you can enable in load balancer to connect the particular ip only if your client asked to connect the your website through ip you can give this ip and 
+and add that client ip in your load balancer only that client will connect
+
+98-what is cross-zone load-balancer
+
+>>The nodes for your load balancer distribute requests from clients to registered targets. When cross-zone load balancing is enabled, each load balancer 
+node distributes traffic across the registered targets in all enabled Availability Zones
+
+>>you have load balancer and 1a availbility zone 4 servers and 1b availbilty zone have 2 servers if the traffic will then it will distribute 50 persent to 1a
+and 50 persent 1b then it will get over trafficed by 1b so on that time you can use the cross-zone load balancer then it will distribute same amount of
+traffic to every servers in availbilty zones
+
+99-what is ssl-off loading or termination
+>>SSL termination refers to the process of decrypting encrypted traffic before passing it along to a web server.
+            or
+>>An SSL connection sends encrypted data between an end-user's computer and web server by using a certificate for authentication. 
+SSL termination helps speed the decryption process and reduces the processing burden on backend servers
+
+100- what is round-robin load balancer              -->video 17 40mins
+
+>>Round-robin DNS is a technique of load distribution, load balancing, or fault-tolerance provisioning multiple, redundant Internet Protocol service hosts, 
+e.g., Web server, FTP servers, by managing the Domain Name System's (DNS) responses to address requests from client computers according to an appropriate 
+statistical model        (or)
+>>Round robin load balancing is a simple way to distribute client requests across a group of servers. A client request is forwarded to each server in turn.
+How does it works:
+>>What Is Round-Robin Load Balancing? Round‑robin load balancing is one of the simplest methods for distributing client requests across a group of servers. 
+Going down the list of servers in the group, the round‑robin load balancer forwards a client request to each server in turn.
+
+101-what is target group in load balancer
+
+>>collections of machines and also specified protocols and ports to specified instances
+         or
+>>A target group tells a load balancer where to direct traffic to : EC2 instances, fixed IP addresses; or AWS Lambda functions, amongst others. When creating a 
+load balancer, you create one or more listeners and configure listener rules to direct the traffic to one target group
+
+102-what is the use of health checks in aws
+
+>>Health checks are a way of asking a service on a particular server whether or not it is capable of performing work successfully. 
+Load balancers ask each server this question periodically to determine which servers it is safe to direct traffic to.
+
+103-what is deregistration delay
+
+>>Elastic Load Balancing stops sending requests to targets that are deregistering. By default, Elastic Load Balancing waits 300 seconds before completing the 
+deregistration process,which can help in-flight requests to the target to complete
+         or
+>>Connection draining allows you to specify a maximum time (between 1 and 3,600 seconds and default 300 seconds) to keep the connections alive before reporting the
+instance as de-registered. The maximum timeout limit does not apply to connections to unhealthy instances.
+
+104-What is AZ affinity?
+
+>>The AZ Affinity architectural pattern reduces the number of times an AZ boundary is crossed. In the example system we looked at in Figure 1, 
+AZ Affinity can be implemented with two changes. First, the ALB is replaced with a Network Load Balancer (NLB).
+
+105-what is gateway load balancer
+
+>>Gateway Load Balancer helps you easily deploy, scale, and manage your third-party virtual appliances. It gives you one gateway for distributing traffic
+across multiple virtual appliances while scaling them up or down, based on demand.
+
+106-What is a load balancer? Give scenarios of each kind of balancer based on your experience.
+
+>>A load balancer is a device or service that distributes network traffic across multiple servers to prevent any one server from becoming overwhelmed. 
+There are three main types of load balancers:
+
+1-Application Load Balancers (ALBs) distribute traffic based on content at the application layer (HTTP/HTTPS).
+2-Network Load Balancers (NLBs) distribute traffic at the transport layer (TCP/UDP).
+3-Classic Load Balancers (CLBs) distribute traffic across multiple EC2 instances and can be used with both HTTP and HTTPS protocols.
+
+107-How have you ensured high availability and fault tolerance for an AWS application?
+
+>>In a previous project, we implemented AWS Elastic Load Balancers and Auto Scaling Groups to ensure that our application could handle sudden spikes in traffic and maintain high availability.
+We also set up Amazon CloudWatch to monitor the performance of the application and alert us in case of any failures, allowing us to quickly respond and ensure fault tolerance.
+
+108-what is ASG and launch config
+
+>>ASG:-ASG stands for Auto Scaling Group. It is a feature provided by Amazon Web Services (AWS) that automatically adjusts the number of instances in a group based on the specified 
+scaling policies. ASGs are commonly used to maintain the availability, performance, and cost-efficiency of applications running on EC2 instances.
+Key features of Auto Scaling Groups include:
+1-Automatic Scaling: 
+2-High Availabilty:
+3-Elasticity
+4Integration with load-balancer
+5-Integration with launch configurations
+
+>> launch-config launch configuration is a template that an EC2 Auto Scaling group uses to launch EC2 instances. When you create a launch configuration, you specify information for the 
+instances such as the ID of the Amazon Machine Image (AMI), the instance type, a key pair, one or more security groups, and a block device mapping.
+
+109-can I add multiple target groups in a load balancer
+
+>>yes you can add multiple target groups. for example your created two servers server-1, server-2 your created server-1 in tg-1 target group and then created tg-2 target add server-2 then
+create the application load balancer and the listeners tg-1 target group it will add 100% traffic to server-1. you can goto the load-balancer in listeners go to add rules edit 
+load-balancer then add server-2 or target group and add 50% of traffic to server-1 and server-2 this will highly available
+
+110-what is Route53 and what is the uses
+
+>>Amazon Route 53 is a highly available and scalable Domain Name System (DNS) web servic. Rout53 using we can host the domians.Route53 is global. 
+route53 using you can do one region to another region load balancing.route53 using you can do multiple region load-balancing.  
+>>Route53 provides DNS as a Service DNS->stands for Domain name service
+>>DNS service is the one that maps your domain name with ip address or maps dns is that resolves your domain to the ip address if you assign the domain to the load-balancer
+its resolve the domian name to the load-balancer
+>>DNS keeps a lot of records
+>>we use mostly routing policys simple, latency, falover, weighted
+
+1-failover :- if we create two load balancer in differnt regions and create the helath checks in route 53 if we selectd the failover routing policy then we can 
+create the same name of the website like www.anji.com is primary in mumbai region and www.anji.com is secondary in us-east-1 .whenever primary fails 
+it will go secondary directly without checking the pings
+
+2-weighted :- if we create weighted route policy route 53 it is like failover but the thing is you can mention the traffic which load balancer need to 
+accessing the apllication over internet if we give 0 menas you can't access the application on that load balancer if we give 255 then we can access the 
+loab balancer. the use case is we want maintaines on particular region you can diver the traffic into sepearte the specific load balancer
+			(or)
+Weighted round-robin:-two regions servers are the then we can divide the traffic based on priority based we can divide the traffic 
+>>Weighted routing allows you to associate multiple resources with a single domain name (example.com) or subdomain (acme.example.com) and choose the amount of traffic routed for each resource.
+This can be useful for a variety of purposes, including load balancing and testing new versions of software.
+
+3-geo-DNS:-Geolocation routing can be used to send traffic to resources based on the geographical locations for example you may have presence in europe and Asia now you want user in the
+Asia to be served in the Asia and rhose europe to be served by servers in europe
+ex:-you can localize yourcontent present some or all of your website in the language of your user
+
+4-latency:- latency is used same is the previous failover or weighted routing policy the differnt is you can mention to the particular in region if any one 
+near by india that user will connect to the india based load balancer and if any us then that user will connect the us load balancer its region based. 
+it is used to decrease the latency in your application to the users
+
+what is traffic policies in route53
+>>it will give the graphical representaion of dns records
+
+111-What is the difference between AWS latency-based routing and geo DNS
+
+Amazon maps-out typical latency between IP addresses and AWS regions. Choose Latency-based Routing to have the fastest response. Geolocation maps the IP addresses to geographic locations. 
+This permits rules like "send all users from Côte d'Ivoire to the website in France", so they see a language-specific version
+
+112-What is dns how it works
+
+>DNS used to identify computers, services, and other resources reachable through the Internet or other Internet Protocol
+>>dns transfers human readble domain names for (example www.amazon.com)to machine  readble to ip address for example (192.168.0.24)
+>>in your real time your isp will give dns address
+>>most orgnazation disable ping to stop the ddos attacks by hackers
+>>rembering name is easy but number are diffcult that we using dns names
+
+113- what is hostname resolution 
+
+>>HostName resolution is the process of associating names and IP addresses, and it's one of the most essential services on a network. 
+People understand descriptive names, but network communications require difficult-to-remember addresses
+
+114-how to create ssl-certifictae in aws
+
+>>go to aws certificate manager create your domain name anji.com it will ask the email or domain validation then go to domain it will give name and cname
+and create the record set in your route53 and create a record set the giev name and select the cname and it will give you certificate then go to your load balancer 
+and add listener select the port and certficate then you good to go then delete the 80 port number that it . it take 10 to 15 minutes and to avoid the security instrucations
+								(or)
+>>you can create the certifictaes using third-party also using csr generator it will ask your domain name and give you public and private key then go to comodsslstore then 
+you can create the certificate
+								(or)
+>>digcert, entrust provide ssl certficate
+>>you need to create private.key and .csr file in your system and give that keys into authority digcert entrust they will give 3 files certification.crt and private.key and ca_bundle.crt
+then you configure this certifictaes to webserver
+
+115-what is ssh
+
+>>the ssh protocal (also referred to as secure shell) is a method for secure remote login from one computer to another computer.it provides the secure connection
+to network. it provides several alternative options for strong authntication, and it protects the communications security and integrity with strong encryption
+
+116-what is Subdomain
+
+>>A subdomain is a prefix added to a domain name to separate a section of your website. Site owners primarily use subdomains to manage extensive sections that
+require their own content hierarchy, such as online stores, blogs or support platforms. Subdomains function as a separate website from its domain
+
+117-what is mx record 
+
+>>An MX record specifies the names of your mail servers and, if you have two or more mail servers, the priority order. Each value for an MX record contains
+two values, priority and domain name. An integer that represents the priority for an email server.
+
+118-what is simple record in aws
+
+>>Simple routing lets you configure standard DNS records, with no special Route 53 routing such as weighted or latency. With simple routing, you typically 
+route traffic to a single resource, for example, to a web server for your website. You can use simple routing policy for records in a private hosted zone.
+
+119-what is cname records in aws
+
+>>cname is also called canincal name or alias 
+>>CNAME records are Directs one name to another name or Points domain to Another Domain www.anji.com to sampi.anji.com
+>>so when you move your servers you only have to change one set of records
+
+120-what is A name record in aws
+
+>>A known as Host records it converts host to ip address 
+>>A Records are IPv4
+>>AAAA Records are IPv6
+>>Amazon Route 53 offers a special type of record called an 'Alias' record that lets you map your zone apex (example.com) DNS name to the DNS name for your
+ELB load balancer (such as my-loadbalancer-1234567890.us-west-2.elb.amazonaws.com).
+
+121-what is the differnce between A and CNAME record
+
+>> the difference between CNAME and A record in a traditional NameServer is that only CNAME can be used to point to a different subdomain and A record must 
+point to a valid IP address. Since the AWS Route53 allows you to do use a subdomain with either A Rec or CNAME
+
+122-what is NS record
+
+>>>>it is name server records when you creating or hosting website it will create the name server reocrds that will be fault tolerance purpose if any one goes down your
+will not impact why 
+because reaminig will run right
+>>The NS records and A records are both used to provide DNS services. The difference between them is that the former define the servers that provide
+DNS services for a domain name while the A records translate hostnames (such as www, FTP, mail) into IP addresses.
+
+
+
+
+
+
+
+
 
 
 
