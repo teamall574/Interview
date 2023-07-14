@@ -1,43 +1,4 @@
 
- 
-18 - waht is virtual private gateway
-
->>A virtual private gateway is a tool establishig a safe connection or tonnel to connect over the Internet . it will create secure connection over the
-Internet and it reliable. virtual network gateway is to connect your on-premises network with VPC
->>A virtual private gateway is a tool for establishing a safe tunnel to connect and transport encrypted data between devices, the cloud, and enterprise servers
-across the internet. Use a virtual private gateway to create a VPN connection that is both secure and reliable.
- 
-19- What is site-to-site-vpn
-
->>A site-to-site virtual private network (VPN) is a connection between two or more networks, such as a corporate network and a branch office network. 
-the site-to-site-vpn create a tonnel to connecting the secure way over the ineternet
-Many organizations use site-to-site VPNs to leverage an internet connection for private traffic as an alternative to using private MPLS circuits
->>it will give two ips you can create the two tonnles if first one fails then you can use or set second one 
->>tonnel is nothing but connecting the secure way in the ineternet
-
-20-What is point-to-site VPN?
-
->>A Point-to-Site (P2S) VPN gateway connection lets you create a secure connection to your virtual network from an individual client computer.
-A P2S connection is established by starting it from the client computer.
->>you launch public and private certificates in your system and connect to the aws VPCS
-
-21- what is client vpn-endpoint
-
->>AWS Client VPN is a fully-managed remote access VPN solution used by your remote workforce to securely access resources within both AWS and your on-premises network. 
-Fully elastic, it automatically scales up, or down, based on demand
-
-22-what is direct connect in aws
-
->>direct connect is like vpn but it like leased line or dedicted line to internet . you can create your virtual private network then you can connect your
-aws to your on-premises. AWS Direct Connect does not involve the Internet; instead, it uses dedicated, private network connections between your internet 
-and Amazon VPC. it is compared to vpn it is costly
->>AWS Direct Connect is a networking service that provides an alternative to using the internet to connect to AWS.
-
-23 - What is OpenVPN used for?
-
->>Open source OpenVPN uses VPN technologies to secure and encrypt data sent over the internet. Its custom VPN protocol uses SSL/TLS for key exchange. 
-Since its creation in 2001 it has become the de facto standard in the open source networking space with over 60 million downloads 
- 
 30 - what is authentication and authriozation
 
 >>authentication your accessing or login into the applicatio or portal entry only
@@ -60,11 +21,6 @@ track of your AWS costs.
 >>You can use Amazon Elastic Transcoder to convert video and audio files into supported output formats optimized for playback on desktops, mobile devices,
 tablets, and televisions
 
-84- What is CDN and how it works?
-
->>A CDN or cloud-front is same. content deliver network is decrese the latency in your website and it provide the cache server in all edge locations 
-on your website.it is used to speedup your website over the internet
-
 85- what is AWS Service Catalog
 
 >>AWS Service Catalog is like menu what you want give the resources to your users you give that images or cloud-formation templates or anything specfiy the 
@@ -85,74 +41,6 @@ and budget-friendly?
 
 >>Amazon offers the Simple Email Service (SES) service, which allows you to send bulk emails to customers swiftly at a minimal cost.
 >>it will everyday 50000 emails every day like 24 hours. 14 emails per second 
- 
-96- what is IAM
-
->>AWS Identity and Access Management (IAM) is a web service that helps you securely control access to AWS resources. You use IAM to control who is authenticated 
-(signed in) and authorized (has permissions) to use resources.
-
-97- what are the types IAM policies    -->see in iam.txt read inline policy
-
->>AWS managed policies:- aws managed by this policies, you can reuse the policies
->>customer managed policies:- you can create and attach the policies to user and groups like giving permssiones and denying users or groups. you can reuse the polices
->>Inline policies:- its like same customer maneged policies but its one to one like one user or role you cant reuse the poliices it is not visible for everyone 
-it is visible for only user and it is embed directly into a single user, group, or role.
-
-98- what is IAM policy simulator?
-
->>Iam policy simulator is used to see the policy briefly what you attached to the users for permisiions what you given
-
-99- what is the differnce between customer managed policy and inline policy
-
->>A customer managed policy is a standalone policy that you administer in your own AWS account. 
-An inline policy is a policy that's embedded in an IAM identity (a user, group, or role).
-
-100- where we can use roles
-
->>role is used manage the Accounts
->>AWS Identity and Access Management (IAM) roles are entities you create and assign specific permissions to that allow trusted identities such as workforce identities and applications
-to perform actions in AWS. When your trusted identities assume IAM roles, they are granted only the permissions scoped by those IAM roles.role is not a user
->>roles is also use access-key and secret-key but will not show its automatically create that and also create the token in your system but it will be expiry in 6-8 hours then 
-it will create the one more token. if you want use that credentials in without token it will not work
-
-101-what is the difference between IAM and roles
-
->>The difference between IAM roles and policies in AWS is that a role is a type of IAM identity that can be authenticated and authorized to utilize an AWS resource, 
-whereas a policy defines the permissions of the IAM identity.
->>A Role with no Policy attached to it won’t have to access any AWS resources.
->>A Policy that is not attached to an IAM role is effectively unused. Permissions listed in an IAM policy are only enforced when that policy is attached to an IAM identity.
-
-102-what is Assume role
-
->>Assume role is nothing your giving temporary or prmenaent access another aws account user or group level access to another account.the user can access what permission your
-giving that will be accessbile that user anytime briefly in below see
-
->>your in Anji account createing role in as anji1 role using another AWS account enter sampi AWS account number 11256 and add persmission like ec2 or s3 click on create.copy your ARN 
-go to sampi account have vinod user go to policies create STS policy in that paste anji1 role ARN and create that policy. attach that policy into vinod user and login with vinod user
-you can see option in support that see switch to role paste the Account number and role number you will be able to access anji1 role what the permission you have
-
-101- what is role-switching
-
->>When you switch to a role, you temporarily give up your user permissions and work with the permissions that are assigned to the role. 
-When you exit the role, your user permissions are automatically restored
-
->>your createing one role giving this access to another accounts then that account can access the your given resources this called role-switching
-
-104-what is Service control policys
-
->>Service control policies (SCPs) are a type of organization policy that you can use to manage permissions in your organization. SCPs offer central control over the maximum available 
-permissions for all accounts in your organization.
-
-102- ho you can manage the 20 accounts as acccounts
-
->>we can use orgnzation create the some group to add and divide specific groups to aws accounts
-                              (or)
->>if we have 20 accounts we use master and sub-account architecture we use. master is there we use organzations, properly use organzation units we kept as internal
-external and third party we are properly segrgated. then we can apply security control policy ,we can restrict users using permisiion boundary
-
-103- how to secure your system or aws accounts how to see logs 
-
->>using cloud trail feature enable it send the logs into s3 bucket
 
 110- what is SNS
 
@@ -215,7 +103,6 @@ including EC2, S3, Simple Notification Service, CloudWatch, autoscaling, and Ela
 >>Elastic beanstaclk is used  if the developer is developing java application he is checking and deploying in 3 days in a week so we can use elastic beanstaclk
 using create servers and required configuration easily
 
-
 120-what is cognito
 
 >>Amazon Cognito lets you easily add user sign-up and authentication to your mobile and web apps. Amazon Cognito also enables you to authenticate users through an 
@@ -266,7 +153,7 @@ cloud-formation means first system will delete but next time add system not gone
 >>roll-back failure is must be enable. when your deploying code using cloud-formation if gets an error then automatically delete the everything what is deployed 
 in cloud-formation 
 
-126- what is designer in cloud-formation
+126- what is a designer in cloud-formation
 
 >>AWS CloudFormation Designer (Designer) is a graphic tool for creating, viewing, and modifying AWS CloudFormation templates. With Designer, you can diagram your 
 template  resources using a drag-and-drop interface, and then edit their details using the integrated JSON and YAML editor
@@ -370,7 +257,6 @@ create aws environment newly then this will help you
 non-compliant accounts and resources as your team provisions them 
 >>montior compilance you'll get visual summaries of your AWS environment through dashboard taht lets see your accounts guardrails and compliance status all in one place  
 
-
 144-what is process management
 
 >>when you start a program running an application in linux it actually run as a process
@@ -390,29 +276,6 @@ for any linux this process is handled by the cron service or daemon called crond
 
 * * * *  *
 minutes hour day month week
-
-149- what is session manager
-
->>Session Manager is a fully managed AWS Systems Manager capability that lets you manage your Amazon EC2 instances through an interactive 
-one-click browser-based shell or through the AWS CLI. You can use Session Manager to start a session with an instance in your account.
-
-150-what is aws migration
-
->>Cloud migration is the process of moving a company's digital assets, services, databases, IT resources, and applications either partially, 
-or wholly, into the cloud. Cloud migration is also about moving from one cloud to another.
-
-types of migration
-1-rehosting.
-2-re-platforming.
-3-repurchasing.
-4-refactoring.
-5-retaining.
-6-retiring.
-
-156-what is ARN
-
->>Amazon Resource Names (ARNs) uniquely identify AWS resources. We require an ARN when you need to specify a resource unambiguously across all of AWS, 
-such as in IAM policies, Amazon Relational Database Service (Amazon RDS) tags, and API calls.
 
 157-what is ECS
 
@@ -501,34 +364,6 @@ tail -f /var/log/mail.log
 177-what is the shebang line
 
 >> Shebang is nothing but which shell are using to run your script that is shebang line
-
-180-what is AWS KMS Policys
-
->>AWS Key Management Service (AWS KMS) is a managed service that makes it easy for you to create and control the cryptographic keys that are used to protect your data
-two types of keys 
-1-symatric key : same key is used encrypt and decrypt 
-2-asymatric ky : differnt keys used to encrypt and decrypt
->>you can assign the key is and attach that key to one user and then create the s3 bucket then attach the kms policy to one user then the user will get read or write 
-permission no can get the write the permission to that bucket
-
->>Use AWS KMS to encrypt data across your AWS workloads, digitally sign data, encrypt within your applications using AWS Encryption SDK, and generate and verify
-message authentication codes (MACs).
-
-181-what is flow logs
-
->>New Flow Logs will appear in the Flow Logs tab of the VPC dashboard. The Flow Logs are saved into log groups in CloudWatch Logs. The log group will be created
-approximately 15 minutes after you create a new Flow Log. You can access them via the CloudWatch Logs dashboard.
-
-192-how to port forwarding in linux or ec2
-
->>public ec2 and private ec2 you can login one public ec2 instnace using ssh then go to the vi /etc/multifortforwarding/multiforwad.config 
-then add the private ec2 instance private ip then reboot using sudo reboot the you can login using ssh -i -/ssh/anji.pem anji@12.24.45.25 -p 2222
-
-193-what ssh key types
-
-1-RSA
-2-DSA 
-3-ECDSA.
 
 194-What is the default root folder nginx?
 
@@ -793,11 +628,6 @@ ex:-
 3-AWS Lambda
 4-Fluentd
 5-Logstash
-
-256-what is Flow-logs
-
->>Flow logs — VPC Flow Logs is a feature that enables you to capture information about the IP traffic going to and from network interfaces in the VPC and can help in monitoring the 
-traffic or troubleshooting any connectivity issues
 
 257-What is the relation between AMI and Instance?
 
