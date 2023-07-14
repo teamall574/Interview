@@ -85,33 +85,9 @@ your region yet. However, if you want to get the service that is not available, 
 >>authentication your accessing or login into the applicatio or portal entry only
 >>authrozation is nothing but you should be assign some roles are features
 
-31 - Mention the different types of instances in  Amazon EC2 and explain its features.
 
->>General Purpose Instances: They are used to compute a range of workloads and aid in the allocation of processing, memory, and networking resources.
->>Compute Optimized Instances: These are ideal for compute-intensive applications. They can handle  batch processing workloads, high-performance web servers, 
-machine learning inference, and various other tasks
->>Memory Optimized: They process workloads that handle massive datasets in memory and deliver them quickly.
->>Accelerated Computing: It aids in the execution of floating-point number calculations, data pattern matching, and graphics processing. These functions are 
-carried out using hardware accelerators.
->>Storage Optimised: They handle tasks that require sequential read and write access to big data sets on local storage
 
-32 - What do you understand by 'changing' in Amazon EC2?
 
->>To make limit administration easier for customers, Amazon EC2 now offers the option to switch from the current 'instance count-based limitations' to the new 
-'vCPU Based restrictions.' As a result, when launching a combination of instance types based on demand, utilization is measured in terms of the number of vCPUs.
-
-33 - How do you upgrade or downgrade a system with near-zero downtime?
-
->>You can upgrade or downgrade a system with near-zero downtime using the following steps of migration:
-
-Open EC2 console
-Choose Operating System AMI
-Launch an instance with the new instance type
-Install all the updates
-Install applications
-Test the instance to see if it’s working
-If working, deploy the new instance and replace the older instance
-Once it’s deployed, you can upgrade or downgrade the system with near-zero downtime.
 
 34 - What are the tools and techniques that you can use in AWS to identify if you are paying more than you should be, and how to correct it?
 
@@ -125,12 +101,6 @@ use the services.Cost Allocation Tags
 This helps in identifying the resource that has cost more in a particular month. It lets you organize your resources and cost allocation tags to keep 
 track of your AWS costs.
 
-35 -  What is the difference between a Spot Instance, an On-demand Instance, and a Reserved Instance?
-
->>Spot instances are unused EC2 instances that users can use at a reduced cost.
->>When you use on-demand instances, you must pay for computing resources without making long-term obligations.
->>Reserved instances, on the other hand, allow you to specify attributes such as instance type, platform, tenancy, region, and availability zone. 
-Reserved instances offer significant reductions and capacity reservations when instances in certain availability zones are used.
 
 36 -Define Snapshots in Amazon Lightsail?
 
@@ -149,9 +119,6 @@ AWS API calls
 Console sign-in events
 amazon cloud watch
 
-38 - With specified private IP addresses, can an Amazon Elastic Compute Cloud (EC2) instance be launched? If so, which Amazon service makes it possible?
-
->>Yes. Utilizing VPC makes it possible (Virtual Private Cloud).
 
 39 - What is an Elastic Transcoder?
 
@@ -163,35 +130,6 @@ use to complete the task?
 
 >>It can be accomplished by setting up an autoscaling group to deploy additional instances, when an EC2 instance's CPU use surpasses 80% and by
 allocating traffic across instances via the creation of an application load balancer and the designation of EC2 instances as target instances.
-
-41 - What are the different types of EC2 instances based on their costs?
-The three types of EC2 instances are:
-
-On-demand Instance
-It is cheap for a short time but not when taken for the long term
-Spot Instance
-It is less expensive than the on-demand instance and can be bought through bidding. 
-Reserved Instance
-If you are planning to use an instance for a year or more, then this is the right one for you
-
-42 - What Are Some of the Security Best Practices for Amazon EC2?
-
->>Security best practices for Amazon EC2 include using Identity and Access Management (IAM) to control access to AWS resources; restricting access by only allowing 
-trusted hosts or networks to access ports on an instance; only opening up those permissions you require, and disabling password-based logins for instances 
-launched from your AMI.
-
-43 - What are the common types of AMI designs?
-There are many types of AMIs, but some of the common AMIs are:
-
-Fully Baked AMI
-Just Enough Baked AMI (JeOS AMI)
-Hybrid AMI
-
-44 - What are Key-Pairs in AWS?
-
->>A key pair is a combination of a public key that is used to encrypt data and a private key that is used to decrypt data
-The Key-Pairs are password-protected login credentials for the Virtual Machines that are used to prove our identity while connecting the Amazon EC2 instances.
-The Key-Pairs are made up of a Private Key and a Public Key which lets us connect to the instances.
 
 45 - what EBS Volumes
 
@@ -2109,16 +2047,6 @@ one value. You can use tags to organize your resources, and cost allocation tags
 
 >>Yes its possible to block certain region
 
-273-How many security groups can be attached to an EC2 instance?
-
->>five
-
-274-where we can attach security groups
-
->>EC2
->>Load-Balancer  (all)
->>Not for subnets
-
 275-you have been assigned to design a VPC architeccture for a 2-tier application. the application needs to be highly availble and scalable how would you design the vpc architecture
 
 >>in this scenario, i would design a VPC architecture in the follwing way.
@@ -2170,14 +2098,6 @@ internet gateways or NAT gateways.
 We can create VPC endpoints for specific AWS services, such as S3 and DynamoDB, and associate them with the VPC. 
 This enables secure and efficient communication between the instances in the VPC and the AWS services.
 
-282-What is the difference between NACL and Subnet ? Explain with a use case ?
-
->>For example, I want to design a security architecture, I would use a combination of NACLs and security groups. At the subnet level, I would configure NACLs to enforce inbound and
-outbound traffic restrictions based on source and destination IP addresses, ports, and protocols. NACLs are stateless and can provide an additional layer of defense by filtering traffic 
-at the subnet boundary.At the instance level, I would leverage security groups to control inbound and outbound traffic. Security groups are stateful and operate at the instance level. 
-By carefully defining security group rules, I can allow or deny specific traffic to and from the instances based on the application's security requirements.By combining NACLs and 
-security groups, I can achieve granular security controls at both the network and instance level, providing defense-in-depth for the sensitive application.
-
 283-What is the difference between IAM users, groups, roles and policies ?
 
 >>IAM User: An IAM user is an identity within AWS that represents an individual or application needing access to AWS resources. IAM users have permanent long-term credentials, such as
@@ -2202,44 +2122,11 @@ IP address or a restricted range of trusted IP addresses. This limits access to 
 their security groups to allow inbound SSH (or RDP) traffic from the bastion host security group.SSH (or RDP) into the bastion host using your private key or password. From the bastion host,
 you can then SSH (or RDP) into the instances in the private subnet using their private IP addresses.
 
-285-your unable to SSH into a linux server what steps would you take to troubleshooot this
-
->>check if the server is running and network accessible 
->>you can use the oing command to see if the serevr is reachable
->>check if the SSH port is open or not
->>check the firewall rules
->>check ssh configuration
-
-286-How many ways to Access the AWS
-
->>By using management console
->>access_kay and secret_key
->>AWS SDKs(software development Kits): using python boto3
->>AWS SSO(single sign-on) using anji@wipro.com
->>AWS Federation like SAML or Okta
->>AWS STS(Security token Service)
-
 287-what is AWS API-Gateway
 
 >>Amazon API-Gateway is a fully-managed service that makes it easy for developers to create, publish, maintain, montiro, and secure APIs at any Scale
 >>APIs acts as the "front-door" for applications to access data business logic or functionality from your backend services
 >>API-Gateway helps us to create a RESTful APIs and Web-Socket APIs that enable real-time two-way communcication
-
-288-what is this
-
->>if my project is java i will take maven as build tool
->>if my project is Android i will take graddle as build tool
->> Weservers are nginx, apache2,Caddy,monkey http server which will directly take the traffic which direcly rout to app servers
-apache2 -->in ubuntu 80 port
-httpd    -->in RHEL 80 port
-nginx  -->80 port
->>app servers is an tomcat,JBoss,WildFly,Oracle weblogic
-tomcat  -->8080 port 
-
-jenkins   -->8080
-sonarqube   -->9000
-jfrog    -->8081
-Nexus    -->8081
 
 289-S3 buckets offer several advantages, including:
 
@@ -2344,21 +2231,6 @@ add this details
 </VirtualHost>
 >>and replace your domain 
 
-297-what is library
-
->>without library application will not work. library is nothig but its 3rd party application we will use the librarys to make up or development the application is more easy
-
-298-how would you know which library is using in code
-
->>we run before packing the application we can run unit testing and compile the code using maven tool
->>we dont know which librarys using so that why we combine source code + librarys create into war or jar file
->>we can check the pom.xml all the librays and it contains information about the project and configuration details plugins goals and versions we can check only pom.xml
-the build toolis 
-java: maven
-Dotnet: MSBuild
-node js: NPM
-python: no need to use build tool in python it is not inter-preted language. it will automaticaly install required packages using pip module
-
 299-what is Cloud-Native
 
 >>Cloud native is the software approach of building, deploying, and managing modern applications in cloud computing environments. Modern companies want to build highly scalable, flexible,
@@ -2379,10 +2251,6 @@ EX:-Docker kubernetes
 >>you can create the one RDS-Database then created the read replicas in 2 more availbilty zones then and also your servers are in different availbility zones like 
 az1->RDS(read-write) az2->RDS(read only), az3->RDS(read only) if the any traffic will go az2 then it will take data from az2->RDS only if any want write then it will az1->RDS
 why because it will have only read and write permisssion this will make your RDS highly availble and fast your database
-
-301-what is Subnet
-
->>A subnet is a range of IP addresses in your VPC. You launch AWS resources, such as Amazon EC2 instances, into your subnets. You can connect a subnet to the internet, other VPCs, and your own data centers, and route traffic to and from your subnets using route tables.
 
 302-While we start the tomcat server its not starting
 
@@ -2409,29 +2277,6 @@ the backend server and communicates only with the reverse proxy.
 >>In summary, a reverse proxy is a general concept referring to a server or service that acts as an intermediary between clients and backend servers. On the other hand, mod_proxy is a 
 specific module within the Apache HTTP Server that enables reverse proxy functionality and provides additional features and configurations for proxying requests.
 
-306-what is Front-end 
-
->>A front-end developer builds the front-end portion of websites and web applications—the part users see and interact with. A front-end developer creates websites and applications 
-using web languages such as HTML, CSS, and JavaScript that allow users to access and interact with the site or app
-HTML,CSS, javascript, angular, react-js, Boot-strap, vue-js, Django, Swift, nodejs
-port number 80 or 443
->>you will see the visual of application
-
-307-what is backend
-
->>Back-end development means working on server-side software, which focuses on everything you can't see on a website. Back-end developers ensure the website performs correctly, focusing
-on databases, back-end logic, application programming interface (APIs), architecture, and servers.
-java, python, .net, PHP, Nodejs,Go, C#
-port number is 8080 or anything
->>java .net python  working on server-side software, which focuses on everything you can't see on a website
-
-308-what is database
-
->>Databases often store information about people, such as customers or users. For example, social media platforms use databases to store user information, such as names, email addresses 
-and user behavior. The data is used to recommend content to users and improve the user experience
-mysql, RDS, Nosql, mongoDB, Oracle, PostgresSQl 
-port number is 3306 or any other port 
-
 309-while installing any package its not installing what will be the problem
 
 >>you have privellges or not
@@ -2446,15 +2291,4 @@ load-balancer then add server-2 or target group and add 50% of traffic to server
 
 >>yes its possible you can 3 folders like anji.com sampi.com vinod.com under deploy your code each domain code route the traffic based on DNS 
 then you will access one-webserver using access 3 differnet domains in one ec2 system
-
-312-what is 1-tier application
-
->>In 1-tier architecture, the data is directly provided to the user and that user can directly use the database through the computer. Any changes or updates that are done will reflect 
-directly to the database
-
-313-what is 2-tier application
-
->>Two-tier architecture. In a two-tier architecture, the client is on the first tier. The database server and web application server reside on the same server machine, which is the second 
-tier. This second tier serves the data and executes the business logic for the web application.
-
 
