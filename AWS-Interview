@@ -1506,12 +1506,168 @@ same DBinstance are incremenetl
 
 >>minimum 35 days
 
+170--what is cloudwatch
 
+>>Amazon CloudWatch is a monitoring and management service that provides data and actionable insights for AWS, hybrid, 
+and on-premises applications and infrastructure resources and also analyze the logs by using iam role
+ 
+1-cpu Utilzation
+2-Memory utilization
+3-harddisk
+4-application montoring
 
+2-types of montoring in AWS-Cloudwatch
 
+1-Basic Montoring
+>>it comes by default
+>>it is free of cost
+>>every five minutes logs will be updated 
 
+2-Detailed monitoring
+>>you need enable 
+>>and its not free of cost
+>>every one minute logs will updated 
 
+171--What is an AWS CloudWatch Alarm?
 
+>>An AWS CloudWatch Alarm is a monitoring and management solution for AWS resources. It enables the configuration of alarms based on individual indicators or as part of a larger monitoring plan.
+>>you can set the alarm you set sns then it whenever it will trigger you will get an notification
+>>you can also billing to the alarm like if we bill some amount then it will trigger 
+
+172-types of alarm in cloudwatch 
+
+1-Ok -The metric is below the threshold
+2-Insuffiecnt data -Not enough data available for the metric to determine the alarm state.
+3-ALARM — When the metric crosses the threshold.
+
+173-What are Cloudwatch Logs?
+
+>>CloudWatch Logs is a tool that helps us monitor and troubleshoot our systems and applications. It uses our already-established systems, applications, and custom log files. 
+In addition, it allows us to monitor our logs in real-time for particular phrases, values, or patterns.
+
+174-How Long Do Cloudwatch Logs Store My Data?
+
+>>Your information will be kept in Cloudwatch Logs for up to 7 days. After that point, only the most current logs will be kept, with older ones automatically deleted to save space.
+
+175-what is the AWS CloudWatch Agent?
+
+>>The AWS CloudWatch Agent is software that can be deployed to any server, whether hosted on Amazon EC2, Amazon ECS, or on-premises. Using the AWS CloudWatch Agent, you can quickly gather 
+and send system-level performance information from specific AWS resources.
+
+176-What are three things you can do in CloudWatch?
+
+>>Real-time monitoring is available for AWS resources and apps.
+>>Create alerts that will respond automatically to changes in your AWS resources.
+>>AWS CloudWatch Logs allows you to see and search log data.
+
+177-What Types Of Cloudwatch Alarms Can Be Created?
+
+>>Any CloudWatch measure can be displayed via an alarm you set up. You can also set off an alert based on metrics specific to your application or system.
+
+178-What Actions Can We Take From a Cloudwatch Alarm?
+
+Share an email with the team.
+Schedule a Cron task to run.
+Share on Slack or HipChat.
+Run a script on this machine, such as one that imports data into a spreadsheet.
+
+179-What Types Of Cloudwatch Alarms Can Be Created?
+
+A warning about a specific resource (e.g., a virtual machine).
+A regular notification for a specific metric (e.g., CPU usage).
+A user-defined alarm (for example, if your application runs slowly, the alarm will trigger when the CPU reaches 80% and notify you immediately).
+A personalized alarm based on user-defined rules.
+
+180-What Statistics Can I View And Graph In Cloudwatch?
+
+>>Disk I/O Activity
+>>Memory Share 
+>>CPU Usage
+>>Memory Usage
+>>Network Interface Usage.
+
+181-What is the data retention period in CloudWatch?
+
+>>You can change the log data retention setting for CloudWatch logs. By default, logs are kept indefinitely and never expire. You can adjust the retention policy for each log group, 
+keeping the indefinite retention, or choosing a retention period between 10 years and one day.
+
+182-What is the difference between CloudWatch and CloudTrail?
+
+>>CloudWatch is a tool provided by Amazon Web Services that monitors and reports on the performance of various AWS resources and services.
+>>CloudTrail, on the other hand, is a log of all actions in your AWS environment since it was first launched.
+
+183-What is CloudWatch events used for?
+
+>>Amazon CloudWatch Events delivers a near real-time stream of system events that describe changes in Amazon Web Services (AWS) resources. 
+Using simple rules that you can quickly set up, you can match events and route them to one or more target functions or streams.
+
+184-What services can be used to create a centralized logging solution?
+
+>>The essential services that you can use are Amazon CloudWatch Logs, store them in Amazon S3, and then use Amazon Elastic Search to visualize them.
+You can use Amazon Kinesis Firehose to move the data from Amazon S3 to Amazon ElasticSearch.
+>>if your service is stopped are anything happen you can create a rule to trigger your script and send the notifications
+(like if your lamabda function to stop the start and specific time then youy can use the rules it will be changed)
+
+185-How do you set up a system to monitor website metrics in real-time in AWS?
+
+>>Amazon CloudWatch helps you to monitor the application status of various AWS services and custom events. It helps you to monitor:
+
+State changes in Amazon EC2
+Auto-scaling lifecycle events
+Scheduled events
+AWS API calls
+Console sign-in events
+amazon cloud watch
+
+186-What are the native AWS Security logging capabilities?
+
+>>Most of the AWS services have their logging options. Also, some of them have an account level logging, like in AWS CloudTrail, AWS Config, and others.
+Let’s take a look at two services in specific:
+
+1-AWS CloudTrail:
+>>cloudtrail is used to see th login logut details and activitesits not give detailed information
+>>cloudtrail is data will save only 90 days, so we can import that into aws s3 or any centrailzied locations
+
+2-AWS Config:
+>>first enable select the resource what you need the resource type and enable recording on 
+>>AWS config is used to track the details of what you changed on your instances or modfied your instances.  if you chnaged something in your ec2-instances 
+it will automatically shows what you updated in your system it will and it will save in until 7 years
+
+>>AWS Config is a fully managed service that provides you with an AWS resource inventory, configuration history, and configuration 
+change notifications to enable security and governance.
+
+187-How would you use AWS CloudTrail and CloudWatch to monitor and log AWS resource activity and events?
+
+>>AWS CloudTrail and CloudWatch are two services that can be used to monitor and log AWS resource activity and events. CloudTrail records API calls made to AWS services and stores 
+information about the caller, time of call, source IP address, request parameters, and response elements. This information can be used to track changes to AWS resources and identify 
+security threats. CloudTrail trails can be created to specify the AWS resources for which API calls should be recorded and logs can be sent to CloudWatch Logs for central storage and analysis.
+
+>>CloudWatch Alarms can be set up to trigger when specific conditions are met, such as when an API call is made to a sensitive AWS resource. Alarms can be configured to send notifications 
+to specified Amazon SNS topics or to stop or terminate an Amazon EC2 instance. The logs collected by CloudTrail and stored in CloudWatch Logs can be analyzed to identify trends, 
+track resource activity, and diagnose issues.
+
+>>By using CloudTrail and CloudWatch, organizations can have a comprehensive view of AWS resource activity and events, enabling them to identify security threats, troubleshoot issues,
+and meet compliance requirements. The centralized logging and analysis provided by these services helps organizations to ensure the security and availability of their AWS resources, 
+giving them greater control and visibility into their cloud infrastructure.
+
+188-What is CDN and how it works?
+
+>>A CDN or cloud-front is same. content deliver network is decrese the latency in your website and it provide the cache server in all edge locations 
+on your website.it is used to speedup your website over the internet
+
+189-what is global acclerator
+
+>>it is like cloud-front or CDN. CDN provides cache server but global-acclerator gives to allow ports and give you can configure fixed entry-points to ip address  
+>> AWS Global accelerator is a networking service that helps you to improve the availability zones and performance of the applications that offer you to your 
+golbal users. aws global acclerator easy to setup and manage and configure. it provides static ip address and fixed entry point your application. 
+global acclerator is basically global load balancer which load balancing the regions as well .it is costly compared to dns load balancer
+
+190-what is WAF in AWS
+
+>>it can provide the additional security of your web application. it will hide your servers on the internet
+it will prevent cyber attacks like sql injection and xss and ddos attacks 
+
+191-
 
 
 
