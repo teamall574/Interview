@@ -1824,8 +1824,208 @@ external and third party we are properly segrgated. then we can apply security c
 
 >>using cloud trail feature enable it send the logs into s3 bucket
 
-215-
+215-an you explain the steps to secure an AWS environment using IAM, VPC security groups, and network ACLs
 
+>>Certainly! Securing an AWS environment involves multiple layers of security controls, including Identity and Access Management (IAM), Virtual Private Cloud (VPC) security groups, 
+and network ACLs. Here are the steps to secure an AWS environment using these components:
+
+IAM (Identity and Access Management):
+
+Create individual IAM user accounts for each person or system that requires access to your AWS resources.
+Assign appropriate IAM policies to each IAM user, granting them the least privilege necessary to perform their tasks.
+Implement multi-factor authentication (MFA) for IAM users to provide an extra layer of security.
+Regularly review and audit IAM policies to ensure they align with the principle of least privilege and remove unnecessary access.
+VPC (Virtual Private Cloud) Security Groups:
+
+Define security groups within your VPC to control inbound and outbound traffic at the instance level.
+Create separate security groups for different types of resources based on their security requirements.
+Specify the inbound and outbound rules for each security group, allowing only necessary protocols, ports, and IP ranges.
+Regularly review and update security group rules to ensure they align with your organization's security policies.
+Avoid overly permissive rules and follow the principle of least privilege.
+Network ACLs (Access Control Lists):
+
+Network ACLs act as a firewall for controlling traffic at the subnet level within your VPC.
+Define inbound and outbound rules in network ACLs to allow or deny traffic based on IP addresses, protocols, and ports.
+Carefully evaluate and configure network ACLs to restrict access to your resources.
+Regularly review and update network ACL rules as per your security requirements.
+
+216-What is the difference between IAM users, groups, roles and policies ?
+
+>>IAM User: An IAM user is an identity within AWS that represents an individual or application needing access to AWS resources. IAM users have permanent long-term credentials, such as
+a username and password, or access keys (Access Key ID and Secret Access Key). IAM users can be assigned directly to IAM policies or added to IAM groups for easier management of permissions.
+>>IAM Role: An IAM role is similar to an IAM user but is not associated with a specific individual. Instead, it is assumed by entities such as IAM users, applications, or services to 
+obtain temporary security credentials. IAM roles are useful when you want to grant permissions to entities that are external to your AWS account or when you want to delegate access to 
+AWS resources across accounts. IAM roles have policies attached to them that define the permissions granted when the role is assumed.
+>>IAM Group: An IAM group is a collection of IAM users. By organizing IAM users into groups, you can manage permissions collectively. IAM groups make it easier to assign permissions 
+to multiple users simultaneously. Users within an IAM group inherit the permissions assigned to that group. For example, you can create a "Developers" group and assign appropriate 
+policies to grant permissions required for developers across your organization.
+>>IAM Policy: An IAM policy is a document that defines permissions and access controls in AWS. IAM policies can be attached to IAM users, IAM roles, and IAM groups to define what actions 
+can be performed on which AWS resources. IAM policies use JSON (JavaScript Object Notation) syntax to specify the permissions and can be created and managed independently of the users, 
+roles, or groups. IAM policies consist of statements that include the actions allowed or denied, the resources on which the actions can be performed, and any additionalconditions.
+
+217-What is the relation between AMI and Instance?
+
+>>Instances can be launched by AMIs. One AMI can launch as many instances as required. An instance type defines the hardware of the host computer including information about computers and
+its memory abilities. After launching an instance, it works as a traditional host and could be interacted with as with any other computer.
+
+218-What are the tools used to send logs to the cloud environment?
+
+1-AWS CloudWatch Logs
+2-AWS Elastic Beanstalk
+3-AWS Lambda
+4-Fluentd
+5-Logstash
+
+219-what is schedular and event pattern in events in cloudwatch
+
+>>schedular is like you can schedule the certain time
+>>event pattern you can create a pattern and you can do whenever the event trigger it will execute
+
+220-what are the main reason to server went down
+
+>>ddos attacks
+software issues
+developer are human errors
+check the memory and cpu utilization
+check the network issues like pinging or not
+
+>>prevention
+>>implment firewalls and cybersecurity 
+>>montior the requests 
+>>check the cpu utilization and network and memoty 
+>>add load balancer and auto-scaling groups on-demand
+
+221-what is control tower
+
+>>control tower is used to create setup Set up and govern your multi-account AWS environment and  accounts like create the sub accounts and organizations and creating who are going to 
+create aws environment newly then this will help you
+>>you can Enable security and compilance  using establishing guardrails which prevent resources from being deployed  that dont conform policies plus you can detect and remediate 
+non-compliant accounts and resources as your team provisions them 
+>>montior compilance you'll get visual summaries of your AWS environment through dashboard taht lets see your accounts guardrails and compliance status all in one place  
+
+222-what is cloud-formation (it is infrastructure as a code)(IAAS) what is CFT template
+
+>>A CFT (CloudFormation Template) is a JSON or YAML file used to describe and provision AWS resources in a repeatable and automated manner. It allows you to define your 
+infrastructure as code, specifying the desired state of your AWS resources and their relationships.In a CloudFormation template, you define a collection of AWS resources, their properties,
+and the relationships between them. This includes specifying dependencies between resources, which ensures that resources are created and configured in the correct order.
+
+Resources:
+  MyS3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: my-bucket
+
+  MyEC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-12345678
+      InstanceType: t2.micro
+      KeyName: my-key-pair
+      DependsOn: MyS3Bucket
+
+---Advantages
+>>CloudFormation allows you to use programming languages or a simple text file to model and provision, in an automated and secure manner, 
+all the resources needed for your applications across all regions and accounts. This gives you a single source of truth for your AWS and third-party resources.
+
+---Disadvantages
+>>CloudFormation uses either JSON or YAML. This makes CloudFormation easy to read and manage. But there is a constraint that doesn't allow AWS developers to 
+create CloudFormation templates greater than 51MB in size. In case the template exceeds this size limit, developers need to create a nested stack for the templates.
+
+>we can use this template to create the services we can use this code to version control and if we can modify the code we can easily undesrstand
+>>aws cloud-formation uses YAML and JSON lanugauge
+>>Save the code in an S3 bucket, which serves as a repository for the code.
+>>Use AWS CloudFormation to call the bucket and create a stack on your template
+
+223-what are important component of CFT
+
+1-Resources:-
+2-parameters:-
+3-Mappings:-
+4-Outputs:-
+5-Conditions:-
+6-Metadata:-
+7-Mappings:-
+8-Trandforms:-
+
+224-if the replacement is true in cloud-formation
+
+>>in cloud formation when your are deployed one server and then changed key pair or something nything in your cloud-formation and importing in resource 
+through updating when its come true means it will destroy the server or ec2-system and install fresh system or ec2 or resource. 
+if it comes false then it update the system or resources
+
+225-what is import-resource in cloud-formation
+
+>>in cloud formation import-resource using. when you acccidentaly created ec2-instance manualy by mistake without deleeting that
+you can import that resource using the Import-resource option but you must mention "deletionpolicy": "retain" is mandatory and if you want destory that system using
+cloud-formation means first system will delete but next time add system not gone delete because it will using retain policy
+
+226-what is roolback failure in cloud-formation
+
+>>roll-back failure is must be enable. when your deploying code using cloud-formation if gets an error then automatically delete the everything what is deployed 
+in cloud-formation 
+
+227-what is a designer in cloud-formation
+
+>>AWS CloudFormation Designer (Designer) is a graphic tool for creating, viewing, and modifying AWS CloudFormation templates. With Designer, you can diagram your 
+template  resources using a drag-and-drop interface, and then edit their details using the integrated JSON and YAML editor
+
+228-what is stack policy in cloud-formation
+
+>>stack-policy is used to restrict the updates of your cloud-formation templates of any user anyone
+
+229-what is nested template in cloud-formation
+
+>>nested stack using you can create multiple resource like 3 differnet vpc inside the 3 servers using centrailized url or your cloud formation stored or saved 
+in somewhere s3 any where 
+
+230-what is stackset in cloud-formation
+
+>>stacksets using can deploy cloud-formation using the resources in different accounts . this accounts added in your orgnaztion , first need to create the stackset 
+role and then create the stack-set execcution rule and give master account id and do same in sub-accounts and give master account id and then copy the ou id 
+and then deploy your resources in other accounts if you added two more accounts that accounts also deployed that resources
+
+231- what is detect drift in cloud-formation
+
+>>detect drift is used to identify what is changes done when you deployed in cloud-formation configuration it detect and show you either you can add or delete further
+                          (or)
+>>Drift is the difference between the expected configuration values of stack resources defined in CloudFormation templates and the actual configuration values of these 
+resources in the corresponding CloudFormation stacks.
+
+232-what is lambda and what is use of lambda
+
+>>AWS Lambda is a server-less computing platform that allows engineers to create a small function, configure the function in the AWS console and have the
+code executed without the need to provision servers-paying only for the resources used during the execution
+>>lambda runs your code high-availbilty compute infrastructure and performs all the administration of your compute resources
+>>simply its like an editor(vim,pycharm,sublime text,atom)with some extra features
+>>it supports to run differnet languages like python,go,nodejs,java,..etc
+>>it is installed or running on amazon linux server and we can access /tmp using lambda function
+>>aws lambda needs server it is installed and running amazon linux but your not maintaing thats it
+>>lambda execution maximum time is 15mins. maximum file size in lambda is 75gb in a region. maximum thousnd instance in a region
+
+Requirements for AWS Lambda function:-
+1-the handler is the entry point for the lambda. the lambda function accepts json formated input and will usaully return the same
+2-we usually correlate directly with the language selected to write your function
+3-manual trigger or rnby us you can configure a lambda invocation to an event such as upload to s3,dynamodb,API Gateway,AWS Cloudwatch
+
+>>you can stop and start ec2-instance using python boto3 and lambda, Alerting mails if ec2 stop or start and creating EBS snapshots,copy of EBS snapshots
+
+233-differnce between ec2 and lambda
+
+ec2:-
+1-ec2 instance how much used you should pay the bill
+2-on-demand price. for example your launch one ec2 not using but you should pay the bill
+3-install required software
+4-user can host the complete application
+5-need to update and patches user should maintain
+
+lambda:-
+1-when we runing functions on that time you should pay the bill into lambda service
+2-AWS Lambad you pay only what you used . your charges based on the number of requests on your functions and duration
+3-selecting only required software or runtime
+4-it is just peace of code to host the code
+5-no need to update the updates and maintian by aws
+
+234-
 
 
 
