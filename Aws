@@ -1,160 +1,6 @@
-APPLICATION-----------------------------------------------|this two is SAAS
-DATA------------------------------------------------------|
-RUNTIME                              |
-MIDDEL-WARE                          |
-OPERATING SYSTEM ----                |------>This all are PAAS like mysql,Azure app service
-VIRTUALIZATION      |                |
-SERVER              |----------------|------------->This all are IAAS ex:-AWS
-STORAGE             |                |
-NETWORK-------------------------------
 
-1 - what is IAAS
-
->>Infrastructure as a service (IaaS) is also known as Hardware as a service. the cloud provider provides the Infrastructure to the developers
-like network, storage, virtualization,servers can managed by cloud provider
->>this not physical things.it will provide only infrastructure. like vms,compute,memory,OS,network,storage,firewall. things you have full control on virtual machines
-ex:- Virtual machines 
-
->>users are managed by operating system and middle ware, runtime data application all are managed by developers
->>by using IAAS to develop the application is very hard by compared to PAAS
-Advantages:-
-1-controling is high because you controlled
-2-cost saving
-3-scalibility. 
-4-faster time to market
-5-expand as you grow
-6-tight security
-7-anytime any where access
-Disadvantages:-
-1-no internet no work
-2-privacy is limited
-3-virtualization depend
-
-2 - what PAAS
  
->>this not physical things.the PAAS will give platform for your application. for example you have an appliation or java or dot net application
-there is no database person in your team you can ask the cloud service provide he will give the database and mantainance. things you dont have full control 
-on virtual machines
->>Platform as a Service (PaaS) is a complete cloud environment that includes everything developers need to build, run, and manage applications—from servers and 
-operating systems to all the networking, storage, middleware, tools, and more.
 
->>the disadvantage you can't customize the things in you can't troubleshoot and changes you can trade-off or compromise. you can customize but limited things only
-ex:- Azure sql and App-service it is managed by the Azure you can't control anything
-  
-3 - what is SAAS
-
->>this not physical things. it is readmade product. like office 365 or google apps or salesforce .it will give full software service. its controling on you 
-it is very limited 
->>SAAS is pre-existed application that applications are accessible through internet connection and web-browsers 
-like google chrome, gmail, mozila browser, salesforce
- 
-4 - Define and explain the three basic types of cloud services and the AWS products that are built based on them?
-
---The three basic types of cloud services are:
-
->>Computing: - These include EC2, Elastic Beanstalk, Lambda, Auto-Scaling, and Lightsail.
->>Storage - These include S3-simple service storage, Glacier, Elastic Block Storage, Elastic File System.
->>Networking - These include VPC, Amazon CloudFront, Route53
-
-5 - what is virtualization
-
->>Virtualization uses software to create an abstraction layer over computer hardware that allows the hardware elements of a single computer—processors, memory, 
-storage and more—to be divided into multiple virtual computers, commonly called virtual machines (VMs)
-
-6 - What are the different types of virtualization in AWS, and what are the differences between them?
-
->>Hardware Virtual Machine (HVM)
-It is a fully virtualized hardware, where all the virtual machines act separate from each other. These virtual machines boot by executing a master boot record 
-in the root block device of your image.
->>Paravirtualization (PV)
-Paravirtualization-GRUB is the bootloader that boots the PV AMIs. The PV-GRUB chain loads the kernel specified in the menu.
->>Paravirtualization on HVM
-PV on HVM helps operating systems take advantage of storage and network I/O available through the host.
-
-7 - Name some of the AWS services that are not region-specific
-
->>AWS services that are not region-specific are:
-
-IAM
-Route 53
-Web Application Firewall 
-CloudFront
-
-8 - what is VPC
-
->>Amazon Virtual Private Cloud (Amazon VPC) gives you full control over your virtual networking environment, including resource placement, connectivity, and security. 
-
->>it is a region dependent
->>Vpc is logical boundary
->>vpc id is globally uniqe
->>you can stop the particular ip one ec2 to another ip through routing table in peering
- 
-9 - What is the relation between the Availability Zone and Region?
-
->>AWS regions are separate geographical areas, like the US-West 1 (North California) and Asia South (Mumbai). On the other hand, availability zones
-are the areas that are present inside the regions. These are generally isolated zones that can replicate themselves whenever required.
->>The AWS Cloud spans 99 Availability Zones within 31 geographic regions
->>20 per Region you can request need more
->>ou can create up to 100 buckets in each of your AWS accounts. If you need more buckets, you can increase your account bucket limit to a 
-maximum of 1,000 buckets by submitting a service limit increase.
-
-10  - what is VPC Perrring
-
->>A VPC peering  is a networking connection between two VPCs or two differnet networks. that enables you to route traffic between 
-two differnt networks or two vpcs. once perring comleted they can communicate each other as if they are within the same network
-
->>there is no charges in vpc perring
->>you can also create the vpc peering one region mumbai to another region ohio like this
->>you can also vpc peering one account to another account
-
-===disadvantages of peering
-
->>increase in the vpc will increase in the vpc peerings
->>each vpc needs a vpg for vpn connections
-
-11 -what is nat-gateway
-
->>A NAT gateway is a Network Address Translation (NAT) service. it is used in private system to connect over the internet to take patches or update 
-nat gateway is intellignet device using source destination packets. it will send only traffic through the public instance but not allow outside the 
-traffic to your private instances.when you enabling nat gateway you must select the public subnet not the private subnet
- 
-12 - what is NAT-Instance
-
->>NAT-A NAT (Network Address Translation) instance is, like same nat-instance gateway but the differnce is the amount is big is nat gateway when compared
-to nat instance
-
-13 - What are the differences between NAT Gateways and NAT Instances?
- 
-NAT-Gateway
-1 - nat gateway managed by aws 
-2 - nat gateway canot assigned security groups
-3 - nat gateway highly availble
-4 - nat gateway bandwidth is upto 45 mbps
-5 - nat gateway perfomance is good
-
-NAT-Instance
-1 - nat instance managed by you
-2 - nat instance can assignes security groups
-3 - nat instance is also highly availble
-4 - nat instance bandwidth is depends on instnace bandwidth
-5 - nat instance performance compared to nat gateway is average
-
-14 - what is Vpc End-point
-
->>A VPC endpoint enables you to privately connect your VPC to supported AWS services and VPC endpoint services. instance in your vpc do not require public ip
-address to communicate the aws resources
->>S3
->>DynmoDB
->>Also create Interfaces like EkS,Auto-Scaling,Cloud-Trail,Cloud-formation
-
-15 - what is gateway 
-
->>A gateway refers to a network component that acts as an entry or exit point for traffic entering or leaving a cloud environment. It serves as a bridge between different networks or 
-systems and enables communication and data transfer between them. Gateways can be used for various purposes, such as security, monitoring, load balancing, and routing. Examples of 
-cloud gateways include API gateways, database gateways, and messaging gateways.
-
-gateawy is hardware device that gives you entry and exit point in your network
->>gateway end-point is a gateway that you specific as a target for a route in your table for traffic destined to a supported AWS service
 
 16 - what is firewall
 
@@ -183,16 +29,6 @@ and if anything seems off, they can filter out the suspicious data. Also, a stat
 4 - Out-Bound rule
 
 >>Outbound firewall rules protect against outgoing traffic, originating inside a network.
-
-17 - what is NACL
-
->>A network access control list (NACL) is an optional layer of security for your VPC that acts as a firewall for controlling traffic in and out of one or more subnets.
-You might set up network ACLs with rules similar to your security groups in order to add an additional layer of security to your VPC.
-
->>when you created vpc automatically create nacl 
->>if anyone want say to change something nacl first ask send a mail 
->>don't do changes in nacl in production environment
->>need to add every rule in inbound and outbound  -->if you add ssh in inbound it will not allow so you need to add outbound also
 
 18 - waht is virtual private gateway
 
@@ -232,44 +68,11 @@ and Amazon VPC. it is compared to vpn it is costly
 >>Open source OpenVPN uses VPN technologies to secure and encrypt data sent over the internet. Its custom VPN protocol uses SSL/TLS for key exchange. 
 Since its creation in 2001 it has become the de facto standard in the open source networking space with over 60 million downloads 
  
-24- What is a transit gateway?
-
->>Transit gateway advance layer of vpc perring, in vpc perring if we created 3 or more vpc we need interconnect using vpc perring if we increase vpc perring its
-diffcult to identify the traffic and get confused invpc perring. so that we using transit gateway we create one transit gateway we can interconnect the
-vpc in a region its easy to understand easy to use. we can interconnect differnt region also easy way. but it is chargble
-
->>Transit gateway advance layer of vpc perring. the transit gateway simplifies your network connection and puts an end to complex peering relationships.
-Transit Gateway acts as a highly scalable cloud router—each new connection is made only once
-
-25 - Is there any other alternative tool to log into the cloud environment other than console?
-
-Putty
-AWS CLI for Linux
-AWS CLI for Windows
-AWS CLI for Windows CMD
-AWS SDK
-Eclipse
 
 26 - what is operating system
 
 >>it is an user interface between user and hardware is called operating system
 
-27 - What is Amazon EC2?
-
->>Ec2 Means elastic cloud computing where you are requesting AWS the cloud provider to give a virtual machine or virtual server which is elastic in nature this term is called 
-compute that we called EC2
->> Elastic is nothing but scaled up and scaled-down any time is called elastic
-ex:-Elastic cloud compute, elastic beanstalk, EKS, ECR , ECS
-                                                     (or)
->>Amazon Elastic Compute Cloud (Amazon EC2) is a web-based service that allows businesses to run application programs in the Amazon Web Services (AWS) public cloud.
->>Amazon Ec2 is scalble computing capacity and you can use the images to you cn launch the servers as you need. and its configure security and networking and storage
-amazone ec2 helps you to scale up and down handling the requirments 
-
-28 - what is AMI In AWS
-
->>An Amazon Machine Image (AMI) is a pre-configured image using this images to launch the virtual servers
->>AMI id is different of every region and every image
->>you can use in production mostly use already created AMIs
 
 29 - You are trying to provide a service in a particular region, but you do not see the service in that region. Why is this happening, and how do you fix it?
 
