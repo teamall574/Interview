@@ -1,0 +1,413 @@
+APPLICATION-----------------------------------------------|this two is SAAS
+DATA------------------------------------------------------|
+RUNTIME                              |
+MIDDEL-WARE                          |
+OPERATING SYSTEM ----                |------>This all are PAAS like mysql,Azure app service
+VIRTUALIZATION      |                |
+SERVER              |----------------|------------->This all are IAAS ex:-AWS
+STORAGE             |                |
+NETWORK-------------------------------
+
+1 - what is IAAS
+
+>>Infrastructure as a service (IaaS) is also known as Hardware as a service. the cloud provider provides the Infrastructure to the developers
+like network, storage, virtualization,servers can managed by cloud provider
+>>this not physical things.it will provide only infrastructure. like vms,compute,memory,OS,network,storage,firewall. things you have full control on virtual machines
+ex:- Virtual machines 
+
+>>users are managed by operating system and middle ware, runtime data application all are managed by developers
+>>by using IAAS to develop the application is very hard by compared to PAAS
+Advantages:-
+1-controling is high because you controlled
+2-cost saving
+3-scalibility. 
+4-faster time to market
+5-expand as you grow
+6-tight security
+7-anytime any where access
+Disadvantages:-
+1-no internet no work
+2-privacy is limited
+3-virtualization depend
+
+2 - what PAAS
+ 
+>>this not physical things.the PAAS will give platform for your application. for example you have an appliation or java or dot net application
+there is no database person in your team you can ask the cloud service provide he will give the database and mantainance. things you dont have full control 
+on virtual machines
+>>Platform as a Service (PaaS) is a complete cloud environment that includes everything developers need to build, run, and manage applications—from servers and 
+operating systems to all the networking, storage, middleware, tools, and more.
+
+>>the disadvantage you can't customize the things in you can't troubleshoot and changes you can trade-off or compromise. you can customize but limited things only
+ex:- Azure sql and App-service it is managed by the Azure you can't control anything
+  
+3 - what is SAAS
+
+>>this not physical things. it is readmade product. like office 365 or google apps or salesforce .it will give full software service. its controling on you 
+it is very limited 
+>>SAAS is pre-existed application that applications are accessible through internet connection and web-browsers 
+like google chrome, gmail, mozila browser, salesforce
+
+4-what is cloud-computing
+
+>>Cloud computing is the on-demand delivery of IT resources over the Internet with pay-as-you-go pricing. Instead of buying, owning, and maintaining physical data centers and servers,
+you can access technology services, such as computing power, storage, and databases, on an as-needed basis from a cloud provider like Amazon Web Services (AWS).
+
+5-what is Total upfront,Partial upfront
+
+>>Upfront:-your paying bill first then he will give some discount 
+>>Partial upfront:- you can pay 50% of bill and then you can use remaing amount will pay after the month end bill generation time
+>>No Upfront:- this is on-demand systems
+
+6-what is 1-tier application
+
+>>In 1-tier architecture, the data is directly provided to the user and that user can directly use the database through the computer. Any changes or updates that are done will reflect 
+directly to the database
+
+7-what is 2-tier application
+
+>>Two-tier architecture. In a two-tier architecture, the client is on the first tier. The database server and web application server reside on the same server machine, which is the second tier.
+This second tier serves the data and executes the business logic for the web application.
+
+8-can you explain 3tier architecture or elbrate them
+
+>>first we have extranal load balancer and internal load balancer then the extranal load balancer is open to the internet
+through route53 and internal load balancer is between app and web and the app is connected to database
+
+>>using public and private subnets
+
+9-what is Front-end 
+
+>>A front-end developer builds the front-end portion of websites and web applications—the part users see and interact with. A front-end developer creates websites and applications using 
+web languages such as HTML, CSS, and JavaScript that allow users to access and interact with the site or app
+HTML,CSS, javascript, angular, react-js, Boot-strap, vue-js, Django, Swift, nodejs
+port number 80 or 443
+>>you will see the visual of application
+
+10-what is backend
+
+>>Back-end development means working on server-side software, which focuses on everything you can't see on a website. Back-end developers ensure the website performs correctly, focusing 
+on databases, back-end logic, application programming interface (APIs), architecture, and servers.
+java, python, .net, PHP, Nodejs,Go, C#
+port number is 8080 or anything
+>>java .net python  working on server-side software, which focuses on everything you can't see on a website
+
+11-what is database
+
+>>Databases often store information about people, such as customers or users. For example, social media platforms use databases to store user information, such as names, email addresses 
+and user behavior. The data is used to recommend content to users and improve the user experience
+mysql, RDS, Nosql, mongoDB, Oracle, PostgresSQl 
+port number is 3306 or any other port 
+
+12-how would you know which library is using in code
+
+>>we run before packing the application we can run unit testing and compile the code using maven tool
+>>we dont know which librarys using so that why we combine source code + librarys create into war or jar file
+>>we can check the pom.xml all the librays and it contains information about the project and configuration details plugins goals and versions we can check only pom.xml
+the build toolis 
+java: maven
+Dotnet: MSBuild
+node js: NPM
+python: no need to use build tool in python it is not inter-preted language. it will automaticaly install required packages using pip module
+
+13-what is library
+
+>>without library application will not work. library is nothig but its 3rd party application we will use the librarys to make up or development the application is more easy
+
+14-what is this
+
+>>if my project is java i will take maven as build tool
+>>if my project is Android i will take graddle as build tool
+>> Weservers are nginx, apache2,Caddy,monkey http server which will directly take the traffic which direcly rout to app servers
+apache2 -->in ubuntu 80 port
+httpd    -->in RHEL 80 port
+nginx  -->80 port
+>>app servers is an tomcat,JBoss,WildFly,Oracle weblogic
+tomcat  -->8080 port 
+
+jenkins   -->8080
+sonarqube   -->9000
+jfrog    -->8081
+Nexus    -->8081
+
+15-How many ways to Access the AWS
+
+>>By using management console
+>>access_kay and secret_key
+>>AWS SDKs(software development Kits): using python boto3
+>>AWS SSO(single sign-on) using anji@wipro.com
+>>AWS Federation like SAML or Okta
+>>AWS STS(Security token Service)
+
+16-your unable to SSH into a linux server what steps would you take to troubleshooot this
+
+>>check if the server is running and network accessible 
+>>you can use the oing command to see if the serevr is reachable
+>>check if the SSH port is open or not
+>>check the firewall rules
+>>check ssh configuration
+
+17-how much time would take while launching installing
+
+linux: minimum 3 minutes maximum 4 minutes (its requires minumum 8gb storage)
+windows: minimum 4 minutes maximum 5 minutes (its requires minimum 30 gb storage)
+
+18-Can we recover the EC2 instance when we have lost the key?
+
+>>Yes, it is possible to recover an EC2 instance when you have lost the key. You can create a new key pair and then use it to connect to the instance.
+Alternatively, you can also use other authentication methods such as user name and password, or even IAM roles to access the instance.
+However, if you have encrypted the root volume of the instance using the lost key pair, you will not be able to recover the data on that volume.
+
+19-how to restore the login into ec2 if pem file lost
+
+>>Use a backup or a copy of the original .pem file:
+
+If you have a backup or a copy of the original .pem file stored securely, you can use it to regain access to the EC2 instance.
+Locate the backup or copy of the .pem file and follow the standard procedure to connect to the EC2 instance using the private key.
+
+>>Launch a new EC2 instance and attach the original volume:
+
+Launch a new EC2 instance and make sure to select the same availability zone and the same or compatible Amazon Machine Image (AMI) as the original instance.
+During the instance launch, you can create a new key pair or choose an existing key pair to associate with the new instance.
+Once the new instance is running, stop it and detach its root volume.
+Detach the root volume from the original EC2 instance (the one for which you lost the .pem file).
+Attach the original volume as a data volume to the new instance.
+Start the new instance and access it using the new key pair. You can then mount the original volume and retrieve any necessary files.
+
+>>Use EC2 Instance Connect or Session Manager:
+
+If you have EC2 Instance Connect or AWS Systems Manager Session Manager set up on the EC2 instance, you may be able to regain access without the need for the .pem file.
+EC2 Instance Connect allows you to connect to your EC2 instance using the AWS Management Console or the AWS CLI without a key pair. Check if EC2 Instance Connect is enabled for your
+instance and follow the instructions provided by AWS. AWS Systems Manager Session Manager allows you to establish a secure shell (SSH) session to your instance through the AWS Management 
+Console or the AWS CLI. If Session Manager is enabled for your instance, you can connect to it without needing the .pem file.
+
+20-How to upgrade or downgrade a system with zero downtime?
+
+>>To upgrade or downgrade a system with zero downtime, you can use the following steps:
+1-Set up a load balancer in front of your system.
+2-Deploy the new version of your system to a new set of servers.
+3-Add the new servers to the load balancer and verify that they are healthy.
+4-Remove the old servers from the load balancer.
+5-Monitor the system to ensure that everything is running smoothly.
+By following this process, you can ensure that your system remains available throughout the upgrade or downgrade process.
+
+21-How do you upgrade or downgrade a system with near-zero downtime?
+
+>>You can upgrade or downgrade a system with near-zero downtime using the following steps of migration:
+
+Open EC2 console
+Choose Operating System AMI
+Launch an instance with the new instance type
+Install all the updates
+Install applications
+Test the instance to see if it’s working
+If working, deploy the new instance and replace the older instance
+Once it’s deployed, you can upgrade or downgrade the system with near-zero downtime.
+
+22-what is the secret_key and access_key
+
+>>Access keys consist of an access key ID and secret access key, which are used to sign programmatic requests that you make to AWS. 
+If you don't have access keys, you can create them by using the IAM console
+
+>>AWS access key ID is a form of unique user/account identifier. AWS secret key is like private key. When AWS CLI sends a API request, 
+the payload is signed by generating an HMAC with the secret key as the key
+
+23-Is node.js will supoort backend and frontend
+
+>>yes node.js will support frontend and backend also
+3 tier arch
+database:- MongoDB or Postgres or MySQL
+frontend-web-application:- nodejs (webapp)
+backend-end-application:-  nodejs (app-servers) or java
+
+24-what is virtualization
+
+>>Virtualization uses software to create an abstraction layer over computer hardware that allows the hardware elements of a single computer—processors, memory, 
+storage and more—to be divided into multiple virtual computers, commonly called virtual machines (VMs)
+
+25-What are the different types of virtualization in AWS, and what are the differences between them?
+
+>>Hardware Virtual Machine (HVM)
+It is a fully virtualized hardware, where all the virtual machines act separate from each other. These virtual machines boot by executing a master boot record 
+in the root block device of your image.
+>>Paravirtualization (PV)
+Paravirtualization-GRUB is the bootloader that boots the PV AMIs. The PV-GRUB chain loads the kernel specified in the menu.
+>>Paravirtualization on HVM
+PV on HVM helps operating systems take advantage of storage and network I/O available through the host.
+
+26-Name some of the AWS services that are not region-specific
+
+>>AWS services that are not region-specific are:
+
+IAM
+Route 53
+Web Application Firewall 
+CloudFront
+
+27-Define and explain the three basic types of cloud services and the AWS products that are built based on them?
+
+--The three basic types of cloud services are:
+
+>>Computing: - These include EC2, Elastic Beanstalk, Lambda, Auto-Scaling, and Lightsail.
+>>Storage - These include S3-simple service storage, Glacier, Elastic Block Storage, Elastic File System.
+>>Networking - These include VPC, Amazon CloudFront, Route53
+
+28-what is VPC
+
+>>Amazon Virtual Private Cloud (Amazon VPC) gives you full control over your virtual networking environment, including resource placement, connectivity, and security. 
+
+>>it is a region dependent
+>>Vpc is logical boundary
+>>vpc id is globally uniqe
+>>you can stop the particular ip one ec2 to another ip through routing table in peering
+
+29-what is Subnet
+
+>>A subnet is a range of IP addresses in your VPC. You launch AWS resources, such as Amazon EC2 instances, into your subnets. You can connect a subnet to the internet, other VPCs,
+and your own data centers, and route traffic to and from your subnets using route tables.
+
+30-what is Route tables in AWS
+
+>>A Route table defines how the communication should happen with in the subnet and outside of subnet
+>>we can create custom route tables per each subnet design the network traffic
+>>route table play key role when you want route traffic to 
+-other vnets
+-virtual network gateways
+-virtual appliances
+-internet
+>>it is also subnet level
+
+31-What is the relation between the Availability Zone and Region?
+
+>>AWS regions are separate geographical areas, like the US-West 1 (North California) and Asia South (Mumbai). On the other hand, availability zones
+are the areas that are present inside the regions. These are generally isolated zones that can replicate themselves whenever required.
+>>The AWS Cloud spans 99 Availability Zones within 31 geographic regions
+>>20 per Region you can request need more
+>>ou can create up to 100 buckets in each of your AWS accounts. If you need more buckets, you can increase your account bucket limit to a 
+maximum of 1,000 buckets by submitting a service limit increase.
+
+32-what is nat-gateway
+
+>>A NAT gateway is a Network Address Translation (NAT) service. it is used in private system to connect over the internet to take patches or update 
+nat gateway is intellignet device using source destination packets. it will send only traffic through the public instance but not allow outside the 
+traffic to your private instances.when you enabling nat gateway you must select the public subnet not the private subnet
+ 
+33 - what is NAT-Instance
+
+>>NAT-A NAT (Network Address Translation) instance is, like same nat-instance gateway but the differnce is the amount is big is nat gateway when compared
+to nat instance
+
+34 - What are the differences between NAT Gateways and NAT Instances?
+ 
+NAT-Gateway
+1 - nat gateway managed by aws 
+2 - nat gateway canot assigned security groups
+3 - nat gateway highly availble
+4 - nat gateway bandwidth is upto 45 mbps
+5 - nat gateway perfomance is good
+
+NAT-Instance
+1 - nat instance managed by you
+2 - nat instance can assignes security groups
+3 - nat instance is also highly availble
+4 - nat instance bandwidth is depends on instnace bandwidth
+5 - nat instance performance compared to nat gateway is average
+
+35-what is Vpc End-point
+
+>>A VPC endpoint enables you to privately connect your VPC to supported AWS services and VPC endpoint services. instance in your vpc do not require public ip
+address to communicate the aws resources
+>>S3
+>>DynmoDB
+>>Also create Interfaces like EkS,Auto-Scaling,Cloud-Trail,Cloud-formation
+
+36-what is gateway 
+
+>>A gateway refers to a network component that acts as an entry or exit point for traffic entering or leaving a cloud environment. It serves as a bridge between different networks or 
+systems and enables communication and data transfer between them. Gateways can be used for various purposes, such as security, monitoring, load balancing, and routing. Examples of 
+cloud gateways include API gateways, database gateways, and messaging gateways.
+
+gateawy is hardware device that gives you entry and exit point in your network
+>>gateway end-point is a gateway that you specific as a target for a route in your table for traffic destined to a supported AWS service
+
+37-what is VPC Perrring
+
+>>A VPC peering  is a networking connection between two VPCs or two differnet networks. that enables you to route traffic between 
+two differnt networks or two vpcs. once perring comleted they can communicate each other as if they are within the same network
+
+>>there is no charges in vpc perring
+>>you can also create the vpc peering one region mumbai to another region ohio like this
+>>you can also vpc peering one account to another account
+
+===disadvantages of peering
+
+>>increase in the vpc will increase in the vpc peerings
+>>each vpc needs a vpg for vpn connections
+
+38-what is NACL
+
+>>A network access control list (NACL) is an optional layer of security for your VPC that acts as a firewall for controlling traffic in and out of one or more subnets.
+You might set up network ACLs with rules similar to your security groups in order to add an additional layer of security to your VPC.
+
+>>when you created vpc automatically create nacl 
+>>if anyone want say to change something nacl first ask send a mail 
+>>don't do changes in nacl in production environment
+>>need to add every rule in inbound and outbound  -->if you add ssh in inbound it will not allow so you need to add outbound also
+
+39-what is security group is stateful or stateless in aws
+
+>>Security groups are stateful—if you send a request from your instance, the response traffic for that request is allowed to flow in regardless of 
+inbound security group rules. For VPC security groups, this also means that responses to allowed inbound traffic are allowed to flow out, regardless of 
+outbound rules.
+
+40-What is the difference between security group and NACL?
+
+>>Security Group is applied to an instance only when you specify a security group while launching an instance.NACL has applied automatically to all
+the instances which are associated with an instance. is the second layer of defense.
+>>by default in security group there no deny option it will allow the traffic how you will deny the ip . in that place you can allow specific ip only
+>>security-group is stateful
+>>if you use security group it will be only server level only. security group only have allow the ips only
+
+>>NACL It is the first layer of defense.
+>>NACL only for subnets by default automatically creates a VPC when we create a VPC and NCL is Stateless you need to enable inbound and outbound also if you are enable inbound not 
+enabled outboind it will not work and it will sit infornt of security group 
+>>if you add one port in the inbound rule you need to add an ephemeral port in the outbound otherwise it won't work
+>>it will applied by subnet any server is there in subnet this will apply to that server or subnet level  using NACL.NACL have allow and deny option
+
+41-How many security groups can be attached to an EC2 instance?
+
+>>five
+
+42-where we can attach security groups
+
+>>EC2
+>>Load-Balancer  (all)
+>>Not for subnets
+
+43-What is the difference between NACL and Subnet ? Explain with a use case ?
+
+>>For example, I want to design a security architecture, I would use a combination of NACLs and security groups. At the subnet level, I would configure NACLs to enforce inbound and
+outbound traffic restrictions based on source and destination IP addresses, ports, and protocols. NACLs are stateless and can provide an additional layer of defense by filtering traffic 
+at the subnet boundary.At the instance level, I would leverage security groups to control inbound and outbound traffic. Security groups are stateful and operate at the instance level. 
+By carefully defining security group rules, I can allow or deny specific traffic to and from the instances based on the application's security requirements.By combining NACLs and 
+security groups, I can achieve granular security controls at both the network and instance level, providing defense-in-depth for the sensitive application.
+
+44-
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
