@@ -228,7 +228,7 @@ storage and more—to be divided into multiple virtual computers, commonly calle
 25-What are the different types of virtualization in AWS, and what are the differences between them?
 
 >>Hardware Virtual Machine (HVM)
-It is a fully virtualized hardware, where all the virtual machines act separate from each other. These virtual machines boot by executing a master boot record 
+It is fully virtualized hardware, where all the virtual machines act separately from each other. These virtual machines boot by executing a master boot record 
 in the root block device of your image.
 >>Paravirtualization (PV)
 Paravirtualization-GRUB is the bootloader that boots the PV AMIs. The PV-GRUB chain loads the kernel specified in the menu.
@@ -257,8 +257,8 @@ CloudFront
 >>Amazon Virtual Private Cloud (Amazon VPC) gives you full control over your virtual networking environment, including resource placement, connectivity, and security. 
 
 >>it is a region dependent
->>Vpc is logical boundary
->>vpc id is globally uniqe
+>>Vpc is a logical boundary
+>>vpc id is globally unique
 >>you can stop the particular ip one ec2 to another ip through routing table in peering
 
 29-what is Subnet
@@ -439,50 +439,289 @@ carried out using hardware accelerators.
 >>To make limit administration easier for customers, Amazon EC2 now offers the option to switch from the current 'instance count-based limitations' to the new 
 'vCPU Based restrictions.' As a result, when launching a combination of instance types based on demand, utilization is measured in terms of the number of vCPUs.
 
-50-How do you upgrade or downgrade a system with near-zero downtime?
-
->>You can upgrade or downgrade a system with near-zero downtime using the following steps of migration:
-
-Open EC2 console
-Choose Operating System AMI
-Launch an instance with the new instance type
-Install all the updates
-Install applications
-Test the instance to see if it’s working
-If working, deploy the new instance and replace the older instance
-Once it’s deployed, you can upgrade or downgrade the system with near-zero downtime.
-
-51-What is the difference between a Spot Instance, an On-demand Instance, and a Reserved Instance?
+50-What is the difference between a Spot Instance, an On-demand Instance, and a Reserved Instance?
 
 >>Spot instances are unused EC2 instances that users can use at a reduced cost.
 >>When you use on-demand instances, you must pay for computing resources without making long-term obligations.
 >>Reserved instances, on the other hand, allow you to specify attributes such as instance type, platform, tenancy, region, and availability zone. 
 Reserved instances offer significant reductions and capacity reservations when instances in certain availability zones are used.
 
-52-With specified private IP addresses, can an Amazon Elastic Compute Cloud (EC2) instance be launched? If so, which Amazon service makes it possible?
+51-With specified private IP addresses, can an Amazon Elastic Compute Cloud (EC2) instance be launched? If so, which Amazon service makes it possible?
 
 >>Yes. Utilizing VPC makes it possible (Virtual Private Cloud).
 
-53-What Are Some of the Security Best Practices for Amazon EC2?
+52-What Are Some of the Security Best Practices for Amazon EC2?
 
 >>Security best practices for Amazon EC2 include using Identity and Access Management (IAM) to control access to AWS resources; restricting access by only allowing 
 trusted hosts or networks to access ports on an instance; only opening up those permissions you require, and disabling password-based logins for instances 
 launched from your AMI.
 
-54-What are the common types of AMI designs?
+53-What are the common types of AMI designs?
 There are many types of AMIs, but some of the common AMIs are:
 
 Fully Baked AMI
 Just Enough Baked AMI (JeOS AMI)
 Hybrid AMI
 
-55-What are Key-Pairs in AWS?
+54-What are Key-Pairs in AWS?
 
 >>A key pair is a combination of a public key that is used to encrypt data and a private key that is used to decrypt data
 The Key-Pairs are password-protected login credentials for the Virtual Machines that are used to prove our identity while connecting the Amazon EC2 instances.
 The Key-Pairs are made up of a Private Key and a Public Key which lets us connect to the instances.
 
+55-what EBS Volumes
 
+>>Amazon Elastic Block Store (Amazon EBS) provides block level storage volumes for use with EC2 instances. 
+EBS volumes behave like raw, unformatted block devices. You can mount these volumes as devices on your instances
+>>it is permanent storage/persistance
+>>it can be increased to max of 16TB you can't decreased the ebs
+>>it is availble in SSD and HDD
+
+disadvantages:-
+>>ebs volume you can apply only one ec2 system
+>>ebs volume you can apply only one ec2 system and it should be same availbility zone
+>>it is only for linux
+
+advantages:-
+>>you can diretly mount to the system 
+>>it can shared between multiple servers and multiple availbility zones
+
+56 - Types of EBS-Volumes
+
+===general purpose ssd gp2
+>>it is cheaper compared to provisioned iops
+>>it is high speed gp2  performance
+>>minimum 1GB to you can extend volume upto 16TB
+>>Minimum IOPS 100
+>>Maximum IOPS 16000
+>>if you taken 1GB you will get 3IOPS          -->input/output operations per second
+>>you can't change iops you should use aws given iops
+
+===gp3
+>>it is also costly to gp2
+>>minimum 1GB to you can extend volume upto 16TB
+>>Minimum IOPS 3000
+>>Maximum IOPS 16000
+
+====IO1 Provisioned IOPS
+>>it is costly compared to gp2 
+>>it is also high spped performance
+>>minimum 4GB to you can extend volume upto 16TB
+>>Minimum IOPS 100
+>>Maximum IOPS 64000
+>>if you taken 1GB you will get 50IOPS
+>>you change iops what you want you can modify the iops details
+
+====IO2 Provisioned IOPS
+>>it is costly compared to gp2 and IO1
+>>it is also high spped performance
+>>minimum 4GB to you can extend volume upto 64TB
+>>Minimum IOPS 100
+>>Maximum IOPS 256000
+>>if you taken 1GB you will get 1000IOPS
+>>you change iops what you want you can modify the iops details
+
+47 -===example for iops gp2&IO1
+
+DB requirment given by client 10TB he needs 100000 IOPs using do storage
+
+gp2:
+2 x 5120 = 10TB  30720 iops you will get
+2 x 5120 = 10TB  30720 iops you will get
+2 x 5120 = 10TB  30720 iops you will get
+1 x 2500 = 2.5TB 7000 iops you will get 
+>>estimate cost of your monthly bill ($3650.90)
+>>con: max 250mb/sec
+
+===if you need 100000iops you need to increase gp2 instance but IO1 you can get easily
+
+IO1
+2 x 5120 = 100000 iops with each volume 50000iops
+requirement is fullfield  but it is costly compared to gp2
+
+eatimate cost of monthly bill ($8558)
+con:max throughput 781mb/sec
+
+===cold HDD and optimized HDD and Magnetic (standard)
+
+>>remaining all drives is slow and it is cheaper 
+>>it is used for storage purpose or testing servers purpose
+>>when you cant use data regularly then you can use this
+
+where we can sql databese we can use ebs volumes explaining beloow
+
+>>windows or linux we can gp2 volume
+>>system databases we can gp2 volume
+>>user database we can use IO1 volume
+>>database transaction logs we can use IO1 volume 
+>>tempDB we can use we can use instance store or standard
+>>page file i virtual memory we can use instance store or standard
+>>backups  we can use magnetic or standard
+
+58 - what is Instance store
+
+>>instance store is temporary storage data will be deleted if serevr reset
+>>it cannot be increased or decreased
+>>only ssd type is available
+>>when you use instance storage while launching ec2 if the server restart or reset the data will be loose
+
+59-what is EFS and what is the use case of it
+
+>>Amazon Elastic File System is a cloud storage service provided by Amazon Web Services designed to provide scalable, 
+elastic, concurrent with some restrictions, and encrypted file storage for use with both AWS cloud services and on-premises resources.
+>>After you create an existing file system (EFS), you can't change its encryption setting. This means you can't modify an unencrypted 
+file system to make it encrypted. Instead, you must: Create a new Amazon EFS file system with encryption turned on
+
+uses cases:-
+>>you can directly mount the system to ec2 instances
+>>it is a share folder for network in a region
+>>it is network file system  
+>>it is unix or linux supported
+>>it can shared between multiple servers and multiple regions
+>>the storage limit 8PB
+
+60-What is Amazon S3? 
+
+S3 is short for Simple Storage Service, and Amazon S3 is the most supported storage platform available. S3 is object storage that can store and retrieve any amount
+of data from anywhere.Despite that versatility, it is practically unlimited as well as cost-effective because it is storage available on demand. In addition to 
+these benefits, it offers unprecedented levels of durability and availability. Amazon S3 helps to manage data for cost optimization, access control, and compliance. 
+
+>>we can store log files 
+>>maximum uploading one file size upto 5TB
+>>it is objeted level stoarge
+>>it is global unique name
+>>you can upload files 3types 1 - cli and 2 - aws console 3 - application through api or jenkins
+>>mostly upload through api or applcation through
+>>s3 bucket is not global why meanswhen you creating a buckrt its ask region but it will show all the regions
+>>s3 availbilty is 99.9 uptime
+>>s3 durability is 99.999999 it will not gone delete 
+>>when you uploading a file it will save in 3 az but it will not show that saving
+>>it will charge when you uploading and storage and when you accessing through internet will cost 
+>>you can enable version control
+
+---storage types
+>>if frequently using data means use this (standard)
+>>if we can't access frequently that's a old data we can use this (standar, glacier)
+>>temporary log files you can use this (One Zone-IA)
+
+61-S3 life-cycle
+
+>>you can create the bucket using create the lifecycle then that will save in first 30 days standardd if not frequently accessing that you can move that data into
+standard-IA then this data also not frequently using then you can move into One-Zone-IA then move to S3-glacier it is permenanent data storage for lon-term
+if you want delete you can specify also after 1 or 2 or 10 years afters also
+
+62-what is S3 Replication
+
+>>transfer the data one bucket to another bucket
+>>craete bucket anji256 on that time you should enable the replication
+>>it is use gor mostly log-purpose of saving
+
+===how to add replication
+>>click on add rule >>enable version
+>>select bucket anji159
+>>select the storage type glacier or anything
+>>click on next done
+>>if you upload data in the bucket of anji256 the data will save in the bucket of anji159
+
+63-How many S3 buckets can be created?
+
+Up to 100 buckets can be created by default
+
+64-s3 bucket stoarge types
+
+1-standard
+2-standard I-A
+3-onezone I-A
+4-S3 Intelligent-Tiering,
+5-S3 glacier
+
+65-what is Glacier
+
+>>s3 glacier cheap storage
+>>for longterm backup we can use this
+>>if you stored data in glacier if retriving it  will charge it's not for regular purpose 
+its for longterm
+>>you can take glacier backup using third-party tools fast glacier, altro, vertias,netbackup,networker,Aavamar,Tivoli
+>>glacier is called vault
+
+66-can I store my EBS volume in s3 bucket
+
+>>When you create an EBS snapshot, it's automatically stored in an Amazon S3 bucket that's managed by Amazon Web Services (AWS). You can copy snapshots
+within the same AWS Region, or from one Region to another. However, you can't copy snapshots to S3 buckets that you manage.
+
+67-How can I grant a user access to a specific folder in my Amazon S3 bucket?
+
+>>If your IAM user and s3 bucket are present in the AWS account then you can grant user access to a specific bucket folder using IAM policy
+
+You can add the IAM policy to individual IAM users or you can attach yje IAM policy to an IAM role that multiple users can switch to.
+If the IAM identity (user or role) and the s3 bucket belonging to differnet AWS accounts, then you 
+must grnat access on both IAM policy and the bucket policy
+
+68-What does bucket policy mean?
+
+>>With Amazon S3 bucket policies, you can secure access to objects in your buckets, so that only users with the appropriate permissions can access them. 
+You can even prevent authenticated users without the appropriate permissions from accessing your Amazon S3 resources.
+
+69-can i copy my AMI into s3 bucket
+
+>>You can store an Amazon Machine Image (AMI) in an Amazon S3 bucket, copy the AMI to another S3 bucket, and then restore it from the S3 bucket.
+
+70-what are the types of encryption in s3
+
+>>using AWS KMS policy using create the key assign to users then it will use encrypt the data 
+two types of encryptipon there AWS KMS policys
+
+1-symatric key : same key is used encrypt and decrypt 
+2-asymatric ky : differnt keys used to encrypt and decrypt
+
+Server-side encryption – Amazon S3 encrypts your objects before saving them on disks in AWS data centers and then decrypts the objects when you download them. ...
+Client-side encryption – You encrypt your data client-side and upload the encrypted data to Amazon S3.
+
+71-Do you prefer to host a website on S3? What’s the reason if your answer is either yes or no?
+
+>>Yes, it can be a good option to host a website on S3. Hosting a website on S3 is a cost-effective solution for static websites that don’t require server-side processing.
+S3 is a reliable and scalable storage service that offers high availability and durability.
+>>However, hosting a dynamic website with server-side processing on S3 is not recommended as it lacks the necessary compute resources and scalability to handle such websites.
+In such cases, it’s better to use other AWS services like EC2 or Elastic Beanstalk.
+
+72-which is faster stoarge EBS or S3
+
+EBS: EBS provides block-level storage volumes that can be attached to EC2 instances. It offers low-latency, high-performance storage optimized for transactional workloads and applications
+that require frequent read/write access to data. EBS volumes are typically used as primary storage for applications running on EC2 instances.
+
+S3: S3, on the other hand, is an object storage service designed for storing and retrieving large amounts of unstructured data. It is highly scalable and durable, offering high availability
+and durability for data. S3 is accessed over the network and is well-suited for use cases such as data backup, data archiving, static website hosting, and content distribution.
+>>The performance of EBS and S3 can vary based on several factors, including the storage class, instance type, network connectivity, workload characteristics, and access patterns. 
+However, in general, EBS is designed for low-latency access and is optimized for performance-sensitive workloads, while S3 is optimized for scalability, durability, and cost-effectiveness
+at the expense of slightly higher latency.
+>>It's important to consider the specific requirements of your application or use case when choosing between EBS and S3. If your application requires low-latency access to storage and
+frequent read/write operations, EBS is usually the more suitable choice. On the other hand, if you have large volumes of unstructured data, require high scalability, or need to 
+store data for long-term archival purposes, S3 is a better fit.
+
+In summary, the "faster" storage option between EBS and S3 depends on your specific workload and requirements. It is recommended to analyze your application's needs and the characteristics
+of the storage services to make an informed decision.
+
+73-Your application needs to access AWS services, such as S3 securely within your VPC. How would you achieve this?
+
+>>To securely access AWS services within the VPC, we can use VPC endpoints. VPC endpoints allow instances in the VPC to communicate with AWS services privately, without requiring
+internet gateways or NAT gateways. 
+We can create VPC endpoints for specific AWS services, such as S3 and DynamoDB, and associate them with the VPC. 
+This enables secure and efficient communication between the instances in the VPC and the AWS services.
+
+74-S3 buckets offer several advantages, including:
+
+Durability and availability: S3 provides high durability and availability for your data.
+Scalability: You can store and retrieve any amount of data without worrying about capacity constraints.
+Security: S3 offers multiple security features such as encryption, access control, and audit logging.
+Performance: S3 is designed to deliver high performance for data retrieval and storage operations.
+Cost-effective: S3 offers cost-effective storage options and pricing models based on your usage patterns.
+
+75-hat is S3 Event Notifications and Triggers
+
+>>S3 event notifications allow you to configure actions when specific events occur in an S3 bucket. For example, you can trigger AWS Lambda functions, send messages to 
+Amazon Simple Queue Service (SQS), or invoke other services using Amazon SNS when an object is created or deleted.
+
+76-
 
 
 
