@@ -418,10 +418,69 @@ amazone ec2 helps you to scale up and down handling the requirements
 >>AMI id is different of every region and every image
 >>you can use in production mostly use already created AMIs
 
-47-
+47-you are trying to provide a service in a particular region, but you do not see the service in that region. Why is this happening, and how do you fix it?
 
+>>Not all Amazon AWS services are available in all regions. When Amazon initially launches a new service, it doesn’t get immediately published in all the regions. 
+They start small and then slowly expand to other regions. So, if you don’t see a specific service in your region, chances are the service hasn’t been published in 
+your region yet. However, if you want to get the service that is not available, you can switch to the nearest region that provides the services
 
+48-Mention the different types of instances in  Amazon EC2 and explain its features.
 
+>>General Purpose Instances: They are used to compute a range of workloads and aid in the allocation of processing, memory, and networking resources.
+>>Compute Optimized Instances: These are ideal for compute-intensive applications. They can handle  batch processing workloads, high-performance web servers, 
+machine learning inference, and various other tasks
+>>Memory Optimized: They process workloads that handle massive datasets in memory and deliver them quickly.
+>>Accelerated Computing: It aids in the execution of floating-point number calculations, data pattern matching, and graphics processing. These functions are 
+carried out using hardware accelerators.
+>>Storage Optimised: They handle tasks that require sequential read and write access to big data sets on local storage
+
+49- What do you understand by 'changing' in Amazon EC2?
+
+>>To make limit administration easier for customers, Amazon EC2 now offers the option to switch from the current 'instance count-based limitations' to the new 
+'vCPU Based restrictions.' As a result, when launching a combination of instance types based on demand, utilization is measured in terms of the number of vCPUs.
+
+50-How do you upgrade or downgrade a system with near-zero downtime?
+
+>>You can upgrade or downgrade a system with near-zero downtime using the following steps of migration:
+
+Open EC2 console
+Choose Operating System AMI
+Launch an instance with the new instance type
+Install all the updates
+Install applications
+Test the instance to see if it’s working
+If working, deploy the new instance and replace the older instance
+Once it’s deployed, you can upgrade or downgrade the system with near-zero downtime.
+
+51-What is the difference between a Spot Instance, an On-demand Instance, and a Reserved Instance?
+
+>>Spot instances are unused EC2 instances that users can use at a reduced cost.
+>>When you use on-demand instances, you must pay for computing resources without making long-term obligations.
+>>Reserved instances, on the other hand, allow you to specify attributes such as instance type, platform, tenancy, region, and availability zone. 
+Reserved instances offer significant reductions and capacity reservations when instances in certain availability zones are used.
+
+52-With specified private IP addresses, can an Amazon Elastic Compute Cloud (EC2) instance be launched? If so, which Amazon service makes it possible?
+
+>>Yes. Utilizing VPC makes it possible (Virtual Private Cloud).
+
+53-What Are Some of the Security Best Practices for Amazon EC2?
+
+>>Security best practices for Amazon EC2 include using Identity and Access Management (IAM) to control access to AWS resources; restricting access by only allowing 
+trusted hosts or networks to access ports on an instance; only opening up those permissions you require, and disabling password-based logins for instances 
+launched from your AMI.
+
+54-What are the common types of AMI designs?
+There are many types of AMIs, but some of the common AMIs are:
+
+Fully Baked AMI
+Just Enough Baked AMI (JeOS AMI)
+Hybrid AMI
+
+55-What are Key-Pairs in AWS?
+
+>>A key pair is a combination of a public key that is used to encrypt data and a private key that is used to decrypt data
+The Key-Pairs are password-protected login credentials for the Virtual Machines that are used to prove our identity while connecting the Amazon EC2 instances.
+The Key-Pairs are made up of a Private Key and a Public Key which lets us connect to the instances.
 
 
 
