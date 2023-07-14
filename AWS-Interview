@@ -1121,9 +1121,390 @@ because reaminig will run right
 >>The NS records and A records are both used to provide DNS services. The difference between them is that the former define the servers that provide
 DNS services for a domain name while the A records translate hostnames (such as www, FTP, mail) into IP addresses.
 
+123-Is it possible to create one webserver under we can create 3 domains
 
+>>yes its possible you can 3 folders like anji.com sampi.com vinod.com under deploy your code each domain code route the traffic based on DNS 
+then you will access one-webserver using access 3 differnet domains in one ec2 system
 
+124-what is reverse proxy
 
+>>A reverse proxy is a server or service that sits between client devices and backend servers. When a client makes a request, it is forwarded to the reverse proxy, which then acts as 
+an intermediary and routes the request to the appropriate backend server. The response from the server is then returned to the client through the reverse proxy. The client is unaware of
+the backend server and communicates only with the reverse proxy.
+
+125-what is mod_proxy 
+
+>>mod_proxy and related modules implement a proxy/gateway for Apache HTTP Server, supporting a number of popular protocols as well as several different load-balancing algorithms. 
+Third-party modules can add support for additional protocols and load balancing algorithms.
+
+126-what is the differnce between reverse proxy and mod_proxy
+
+>>In summary, a reverse proxy is a general concept referring to a server or service that acts as an intermediary between clients and backend servers. On the other hand, mod_proxy is a 
+specific module within the Apache HTTP Server that enables reverse proxy functionality and provides additional features and configurations for proxying requests.
+
+127-what is Cloud-Native
+
+>>Cloud native is the software approach of building, deploying, and managing modern applications in cloud computing environments. Modern companies want to build highly scalable, flexible,
+and resilient applications that they can update quickly to meet customer demands
+
+Benifites
+>>Increase efficiency
+>>Reduce Cost
+>>Ensure Availability
+>>Faster development
+>>Platform independence
+>>Cost-effective operations
+
+EX:-Docker kubernetes
+
+128-what is firewall
+
+>>firewall is allow or disallow the traffic in your network
+>>firewall is security group it is used to control the incoming and outgoing traffic
+
+>>firewall are two types
+
+1 - stateless
+>>it is not two-way handshake
+>>Stateless firewalls make use of a data packet's source, destination, and other parameters to figure out whether the data presents a threat. These parameters have to be entered by either
+an administrator or the manufacturer via rules they set beforehand
+
+2 - stateful firewall
+>>it is two-way handshake  process
+>>A stateful firewall inspects everything inside data packets, the characteristics of the data, and its channels of communication. Stateful firewalls examine the behavior of data packets,
+and if anything seems off, they can filter out the suspicious data. Also, a stateful firewall can track how the data behaves, cataloging patterns of behavior. 
+
+>>it is used to allow the one side no need to allow other side it will remeber and send the packets
+>>stateful firewall remebers the connection details it will give replay
+
+3 - In-Bound rule
+
+>> Inbound firewall rules protect the network against incoming traffic, such as disallowed connections, malware, and denial-of-service (DoS) attacks
+
+4 - Out-Bound rule
+
+>>Outbound firewall rules protect against outgoing traffic, originating inside a network.
+
+129-What is a DDoS attack, and what services can minimize them?
+
+>>Distributed denial of service DDOS the main intention is to making unavilable over thr internet in a website or some resources. the hacker send the multiple
+requests into website is going unavailble over the internet
+
+AWS Shield
+AWS WAF
+Amazon Route53
+Amazon CloudFront
+ELB
+VPC
+
+130-What is whitelisting an IP address?
+
+>>IP whitelisting is when you grant network access only to specific IP addresses. Each employee (or approved user) shares their home IP address with the 
+network administrator, who then enters their IP address on a “whitelist” that grants them network access.
+
+131--What is the advantage of using a “reverse proxy server”?
+
+>>The reverse proxy server can hide the presence and characteristics of the origin server. It acts as an intermediate between internet cloud and web server.
+It is good for security reason especially when you are using web hosting services.
+
+132-what is Baston Host
+
+>>Bastion Hosts are a special-purpose instanxe that provides seccure access to linux instacnes located in private subnets
+>>Act as a jump server to access other instances in private subnets
+>>protect instances in private subnets from potential attacks 
+
+133-How Bastion Host work
+
+>>Ec2 instances in private subnets are protected by security group and NACLs, only allow secure connection from Bastion Host
+
+>>Security Group of Bastion Host only allow SSH from trusted IP Address
+>>use ssh agent forwarding on a client do not store private key on bastion host
+
+134-without password how can access linux machines
+
+>>you need to create the sshkey it is uses in rsa alogirthum it will create 2 files public key file named . ssh/id_rsa. pub and a private key file named . ssh/id_rsa.
+you can add that public key into the remote server you must enable the password less authentication in remote servers
+>>vi /etc/ssh/sshd_config  
+passwordauthentication yes
+permitrootlogin yes
+#passwordauthentication no  -->you need comment this 
+>>scp -r /home/anji.tx  2.54.25.2:/root/anji    -->it will send the file  
+two ways to send the file password less like add your ssh keys in destination server or password authentication need to give password
+
+>>ssh-keygen
+>>press enter
+>>press enter
+>>ls -a
+>>cd .ssh
+>>ls
+>>ssh-copy-id anji@172.31.38.167   -->it will ask passwd give next time it will not ask do same in remaing systems
+
+135-how you can see if the port is opened or not in linux
+
+>>>>netstat -a | grep -i 8000     -->to check the port opening and listening
+>>telnet "ip" port
+
+136-What are the kinds of security attacks that can occur on the cloud? And how can we minimize them?
+
+>>The kinds of security attacks that can occur on the cloud include DDoS attacks, phishing attacks, data breaches, and insider attacks. To minimize them, it is important to use
+strong authentication methods, implement proper access control and monitoring, encrypt data, keep systems up to date with security patches, and regularly conduct security audits and 
+training for employees.
+
+137-What is the difference between the Amazon Rds, Dynamodb, and Redshift?
+
+Amazon RDS: Relational database service that allows you to set up, operate, and scale a relational database in the cloud easily.
+
+DynamoDB: Fully-managed NoSQL database that provides fast and predictable performance with seamless scalability.
+
+Redshift: Data warehousing service that provides fast querying and analysis of data using SQL and business intelligence tools.
+
+138-Explain the difference between elasticity from scalability?
+
+>>Elasticity : The ability of a system to handle an increase in the workload by simply adding hardware resources when demand rises, and rolling back scaled resources when there’s no demand.
+
+>>Scalability : ability of a system to increase the hardware resources for handling an increase in demand. It can be achieved by either increasing the hardware specs or increasing the 
+number of processing nodes.
+
+139-what is latency 
+
+>> Latency is nothing but the time taken by request to reach the application and for the application and the server to send the response back to you
+If there is a delay that is high latency
+if there is no delay that is low latency
+
+140-what are tags in what is the use of tags?
+
+>>A tag is a label that you or AWS assigns to an AWS resource. Each tag consists of a key and a value. For each resource, each tag key must be unique, and each tag key can have only 
+one value. You can use tags to organize your resources, and cost allocation tags to track your AWS costs on a detailed level.
+
+141-why AWS block port 25 in outbound ports
+
+>>Amazon Web Services' EC2 instances are throttled on port 25 by default as a spam prevention measure. This can cause connection issues when attempting to use SMTP to relay emails 
+through Postmark in your EC2 instance
+
+142-you can block the certain ip and some countries using AWS WAF 
+
+>>Yes its possible to block certain region
+
+143- what is operating system
+
+>>it is an user interface between user and hardware is called operating system
+
+144-Can I Retrieve Data from a Deleted ELB or Ec2 Instance?
+
+>>Metrics data for deleted ELBs and decommissioned EC2 instances are still available. MetricsData associated with a terminated instance will be removed when the Instance is shut down. 
+In contrast, MetricsData associated with your account will remain on the MetricInfraService until you delete it. This information can be used for diagnosing problems with your ECS cluster 
+or ELB.
+
+145-If I disable monitoring for an Ec2 instance, will I lose the metrics data?
+
+>>No, the metrics data will not be lost.
+>>If you disable monitoring for an EC2 instance, the metrics you've collected are still safely preserved in a SQL database as part of the AWS CloudTrail logs.
+
+146-What is RDS AWS used for?
+
+>>Amazon RDS managed by amazon and it makes easy to setup operate and scale a relational database in the cloud it provides cost efficient and resizable capacity
+while automating time consuming administartion tasks. such as hardware provisioning database setup patching and backups
+>>Amazon RDS is availble on several databases instance types optimized for memory performance I/O provides familar database like aurora, postgresssql,mysql,mariadb,
+oracle database, sql server
+
+>>RDS is structred database
+>>RDs is platform as service(paas)
+>>you can create read replcia in another region also us-east-1a to ap-south-1a
+>>if you createing an database automatically it will create two databases in a region but they don't know
+it will connect in primary database ,the primary will sync to secondary database ,if in case primary not availble then secondary will connect 
+>>if the primary available zone damaged not available then it will create onemore database in availble region like us-east-1c
+>>you will connect only primary database
+>>you can't access secondary why because where the database is there don'tknow
+
+147-what is the rds failover time
+
+>>60-120 seconds
+
+148-rds database tpes
+
+1-master(primary)
+2-read(secondary)replica       -->you can create read replica
+
+>>some tester has come and asked we test the rds you're not giving the primary you dont
+know how to access the secondary that time you can use the read replica
+>>read replica just copy a primary you can put another region also
+>>in read replica you can't write on the database its only read option
+
+149-Will your standby RDS be launched in the same availability zone as your primary?
+
+>>No, standby instances are launched in different availability zones than the primary, resulting in physically separate infrastructures. This is because the entire purpose
+of standby instances is to prevent infrastructure failure. As a result, if the primary instance fails, the backup instance will assist in recovering all of the data.
+
+150-How would you address a situation in which the relational database engine frequently collapses when traffic to your RDS instances increases, given that the RDS instance replica
+is not promoted as the master instance?
+
+>>A larger RDS instance type is required for handling significant quantities of traffic, as well as producing manual or automated snapshots to recover data if the 
+RDS instance fails
+
+151- What is SQL Server in simple words?
+
+>>SQL Server is a database server by Microsoft. The Microsoft relational database management system is a software product which primarily stores and retrieves data
+requested by other applications. These applications may run on the same or a different computer
+
+152-What is AWS redshift used for?
+
+>>it is type of database it belong to postgress sql.it used for data ware-housing purpose
+>>Amazon Redshift uses SQL to analyze structured and semi-structured data across data warehouses, operational databases, and data lakes,
+using AWS-designed hardware and machine learning to deliver the best price performance at any scale
+
+153-what is elastiCahe in aws
+
+>>elastcahe is not regular satabase it is web-service that makes easy to launch manage and scale distributed in memory cache in the cloud
+it is used to improve your website or web-application performance. it will cache the services in that memory it will increase the better performance
+>>it like ec2-service
+ 
+two types:-
+1-memcahed 
+2-redis
+
+154-What is DocumentDB used for?
+
+>>it like mongo database
+>>A document database is a type of nonrelational database that is designed to store and query data as JSON-like documents. Document databases make 
+it easier for developers to store and query data in a database by using the same document-model format they use in their application code.
+
+155-how do you backup rds server
+
+>>you need to create first option group and select the version and type of your database and then create your option group. then go to s3 create bucket and role
+for s3 and then go that group attach the role and bucket and select the backup and restore it will 
+
+156-what is snapshots
+
+>>Snapshots are a point-in-time copy of your data, and can be used to enable disaster recovery, migrate data across regions and accounts,
+and improve backup compliance. 
+
+157-how to make rds highly available
+
+>>multi AZ deployment high availbilty & fail over for disaster recovery
+read replicas provide high performance for read heavy workloads
+automatic database software updates
+easy to scale compute memory stoarge
+automated backups and manula backups
+encryption at rest (AWS KMS) andd transit SSL
+
+158-how to make rds highly availble
+
+>>you can create the one RDS-Database then created the read replicas in 2 more availbilty zones then and also your servers are in different availbility zones like 
+az1->RDS(read-write) az2->RDS(read only), az3->RDS(read only) if the any traffic will go az2 then it will take data from az2->RDS only if any want write then it will az1->RDS
+why because it will have only read and write permisssion this will make your RDS highly availble and fast your database
+
+159-How have you implemented disaster recovery for an AWS application?
+
+>>In a previous project, we implemented disaster recovery for an AWS application by using AWS Route 53 to route traffic to a secondary region in case of a failure in the primary region. 
+We also set up Amazon S3 cross-region replication to ensure that the data was replicated to the secondary region in real-time. Additionally, we created automated backups of the
+application data using Amazon S3 and Amazon Glacier to ensure that we could quickly restore the data in case of a disaster.
+
+160-Can you describe a time when you had to troubleshoot a performance issue in an AWS application?
+
+>>In a previous project, we had an issue where the application was slow to respond to user requests. After reviewing the logs, we identified that the application was experiencing high CPU
+usage. We then analyzed the application’s resource utilization using Amazon CloudWatch and identified that the database queries were taking longer than expected. We optimized the database
+queries and improved the performance of the application.
+
+161-Can you explain a time when you implemented security measures for an AWS application?
+
+>>In my previous role, we implemented several security measures for an AWS application, including setting up Multi-Factor Authentication (MFA) for all AWS accounts, enabling AWS CloudTrail
+to monitor and log all API activity, and encrypting data at rest using AWS Key Management Service (KMS). We also regularly conducted vulnerability assessments and penetration testing to
+identify and mitigate potential security risks.
+
+162-How would you use AWS S3, CloudFront, and Route 53 for a scalable and highly available static website?
+
+>>AWS S3, CloudFront, and Route 53 can be used together to build a scalable and highly available static website. Here’s an overview of the process:
+
+>>Store the website files in an Amazon S3 bucket and make the files publicly accessible.
+
+>>Create a CloudFront distribution, which is Amazon’s global content delivery network (CDN), and configure it to use the S3 bucket as its origin. This allows CloudFront to serve the 
+website files from edge locations around the world, ensuring fast and low-latency access for visitors.
+
+>>Use Amazon Route 53, the highly available and scalable DNS service, to associate a custom domain name with the CloudFront distribution, so visitors can access the website using a 
+familiar and memorable domain name.
+
+>>Configure Route 53 to use the health checks and failover features to ensure that the website is always available, even if one of the edge locations becomes unavailable. Finally, 
+use S3’s versioning and lifecycle policies to automatically store multiple versions of the website files and to transition older versions to less expensive storage options over time.
+
+163-Can you describe a scenario in which you would use AWS Elastic Beanstalk to deploy an application?
+
+>>AWS Elastic Beanstalk is a fully managed service offered by Amazon Web Services that allows developers to easily deploy, run and scale web applications. 
+The service is ideal for situations where a developer has created a web application using a popular framework, such as Ruby on Rails, Node.js, or Java, and is looking to quickly deploy
+the application to a production environment with minimal overhead. AWS Elastic Beanstalk takes care of provisioning the necessary resources, such as EC2 instances, load balancers, 
+databases and security groups, and sets up a fully functional environment for the application. This eliminates the need for the developer to manage the underlying infrastructure, 
+freeing them up to focus on the development and maintenance of the application itself. Monitoring the health of the application can be done using AWS Elastic Beanstalk’s built-in monitoring 
+and reporting features, and updates and changes can be made as needed. This makes AWS Elastic Beanstalk a simple, streamlined solution for deploying and managing web applications, 
+particularly well-suited for developers who want a straightforward way to handle the deployment and management of their applications.
+
+164-How would you implement a disaster recovery solution in AWS using RDS, EC2, and S3?
+
+>>Create an Amazon RDS instance in a primary region, and configure automatic backups to Amazon S3.
+>>Create an Amazon EC2 instance in the same primary region
+>>Create an Amazon S3 bucket to store data backups, and configure the RDS instance to store backups in the S3 bucket.
+>>Set up an Amazon EC2 instance in a secondary region and install the necessary software to access the S3 bucket.
+>>Create an Amazon RDS instance in the secondary region and configure it as a replica of the primary RDS instance.
+>>Configure the secondary RDS instance to automatically fail over to the primary RDS instance in case of a disaster in the secondary region.
+>>Regularly test the failover process to ensure it is working as expected.
+>>Use Amazon S3 versioning and object lifecycle management policies to retain backups for a desired period of time.
+>>Use Amazon CloudWatch to monitor the RDS instances and EC2 instances, and set up alarms to trigger notifications or automated actions in case of a disaster.
+
+165-what Required to connect the MySQL or RDS or any databse
+
+>>The account that is used to connect to the MySQL database must have at least CONNECT permissions. This enables SSMA to obtain metadata from schemas owned by the connecting user.
+1-connection permission any network or locally
+2-mysql endpoint
+3-port number should be open
+4-username and password
+5-mysql workbench or jdbc connection
+
+166-Define Snapshots in Amazon Lightsail?
+
+>>A snapshot is a base feature for creating backups of your EBS volumes. A snapshot takes a copy of the EBS volume and places it in Amazon S3, where it is 
+stored redundantly in multiple Availability Zones. The initial snapshot is a full copy of the volume; ongoing snapshots store incremental block-level changes only
+>>and can be used to enable disaster recovery, migrate data across regions and accounts, and improve backup compliance
+
+167-what is AWS Backup
+
+>> AWS Backup features .AWS Backup is like snapshots. in every organzation need to take a backup some of the particular resources with using of aws backup take some of major 
+resources in aws backup automatically or daily backup no need to write script you can do automated backup on time bases like you can schedule and store the backup in s3 directly
+>>your specify the some of the resource in aws to take backup on AWS Backup service. on which time you need . you can take partcular time take backup between
+partcular  resource to take the backup. its nothing but snapshots
+
+what is backup vault
+>>its like glacier vault where we can storing data or saving the data is called backup vault
+
+168-how many types of backup
+
+>>two types
+1-automatic
+two types
+a-daily backup
+b-transactionlogs
+2-snapshots
+
+two types of RDS backup 
+
+1-Automated backups:- it will store in s3
+>>RDS automatically create backs up your database and transaction logs
+>>RDS automcatically create a storage volumes snapshots of your DB instances backuing up the entire DB intsance
+>>Automated backups occur daily during the preferred nackup window
+>>Automated backups are kept for the Backup Retention period (0 to35 Days)
+>>you can restore the DB instances to specify point in time during the bcakup retention period
+creating a new DB instances
+
+2-Databse snapshots
+
+>>Database snapshots are user-initiated backups of the DB instance stored in s3
+>>DB snapshots are kept intil explicitly delete them
+>>you cna creae a DB instance by restoring from DB snapshots
+>>the first snapshots contains the data for the full DB instance subsequent snapshots of the
+same DBinstance are incremenetl
+>>ypu can copy a sanpshot in the same region acrss regions and across acounts
+>>you can directly resore a DB instance from unencrypted a shared snapshot
+
+169-how many days take AWS-backup can retrive
+
+>>minimum 35 days
 
 
 
