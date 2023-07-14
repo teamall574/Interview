@@ -119,39 +119,6 @@ use to complete the task?
 >>It can be accomplished by setting up an autoscaling group to deploy additional instances, when an EC2 instance's CPU use surpasses 80% and by
 allocating traffic across instances via the creation of an application load balancer and the designation of EC2 instances as target instances.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-53 - Can S3 Be Used with EC2 Instances, and If Yes, How?
-
-Amazon S3 can be used for instances with root devices backed by local instance storage. That way, developers have access to the same highly scalable, reliable, fast,
-inexpensive data storage infrastructure that Amazon uses to run its own global network of websites. To execute systems in the Amazon EC2 environment, 
-developers load Amazon Machine Images (AMIs) into Amazon S3 and then move them between Amazon S3 and Amazon EC2.
-
-Amazon EC2 and Amazon S3 are two of the best-known web services that make up AWS
-
-
-55 - What is the maximum limit of elastic IPs anyone can produce?
-
-A maximum of five elastic IP addresses can be generated per location and AWS account.
-
 56 - what is storage gateway and types
 
 >>AWS Storage Gateway is a set of hybrid cloud storage services that provide on-premises access to virtually connect the cloud storage.
@@ -1023,8 +990,6 @@ network administrator, who then enters their IP address on a “whitelist” tha
 >>tomcatup    -->it will start the server
 >> If you delete the original file, the soft link has no value, because it points to a non-existent file. But in the case of hard link, it is entirely opposite.
 
-
-
 168-What are the two types of AMI?
 
 >>AMI is divided into two categories:
@@ -1091,9 +1056,9 @@ tail -f /var/log/mail.log
 
 >>not complted see the video in liked videos
 
-177-what is shebang line
+177-what is the shebang line
 
->>shebang is nothing but which shell are using to run your script that is shebang line
+>> Shebang is nothing but which shell are using to run your script that is shebang line
 
 179-what Interface endpoint
 
@@ -1178,7 +1143,7 @@ then add the private ec2 instance private ip then reboot using sudo reboot the y
 194-What is the default root folder nginx?
 
 >>The way nginx and its modules work is determined in the configuration file. By default, the configuration file is named nginx.conf and placed in the
-directory /usr/local/nginx/conf , /etc/nginx , or /usr/local/etc/nginx 
+directory /usr/local/nginx/conf , /etc/nginx, or /usr/local/etc/nginx 
 
 195-Can we deploy Node.js application on Tomcat server?
 
@@ -1481,10 +1446,6 @@ ex:-
 	</Address>
 </person>
 
-239-how NAT-Gateway will work
-
->> When we use to launch the nat-gateway in the public subnet then we can add it to private route tables
-
 240-What are the tools used to send logs to the cloud environment?
 
 1-AWS CloudWatch Logs
@@ -1515,13 +1476,6 @@ Amazon RDS: Relational database service that allows you to set up, operate, and 
 DynamoDB: Fully-managed NoSQL database that provides fast and predictable performance with seamless scalability.
 
 Redshift: Data warehousing service that provides fast querying and analysis of data using SQL and business intelligence tools.
-
-246-Do you prefer to host a website on S3? What’s the reason if your answer is either yes or no?
-
->>Yes, it can be a good option to host a website on S3. Hosting a website on S3 is a cost-effective solution for static websites that don’t require server-side processing.
-S3 is a reliable and scalable storage service that offers high availability and durability.
->>However, hosting a dynamic website with server-side processing on S3 is not recommended as it lacks the necessary compute resources and scalability to handle such websites.
-In such cases, it’s better to use other AWS services like EC2 or Elastic Beanstalk.
 
 247-How would you implement a disaster recovery solution in AWS using RDS, EC2, and S3?
 
@@ -1664,12 +1618,6 @@ Key features of Auto Scaling Groups include:
 >>launch-config:-A launch configuration is a template that an EC2 Auto Scaling group uses to launch EC2 instances. When you create a launch configuration, you specify information for the 
 instances such as the ID of the Amazon Machine Image (AMI), the instance type, a key pair, one or more security groups, and a block device mapping.
 
-264-how to encrypt the unencrypted AMI
-
->>A Launch Configuration is a configuration template that specifies the parameters for launching instances in an ASG. It includes details such as the EC2 instance type, AMI ID, 
-security groups, key pairs, block device mappings, and user data scripts. When creating an ASG, you associate it with a Launch Configuration. If the desired capacity of the ASG changes, 
-the ASG automatically creates new instances based on the Launch Configuration settings.
-
 265-what is CFT template/how a resource depends on other resourcce
 
 >>A CFT (CloudFormation Template) is a JSON or YAML file used to describe and provision AWS resources in a repeatable and automated manner. It allows you to define your 
@@ -1725,49 +1673,12 @@ one value. You can use tags to organize your resources, and cost allocation tags
 
 >>Yes its possible to block certain region
 
-275-you have been assigned to design a VPC architeccture for a 2-tier application. the application needs to be highly availble and scalable how would you design the vpc architecture
-
->>in this scenario, i would design a VPC architecture in the follwing way.
-
-I would create 2 subnets public and private the public subnet would contain the load balancer and be accessible from the internet. the private subnet would be host the application servers.
-I would distribute the subnets across multiple Avaliability Zones for high availabilty. Additionally I would configure auto-scaling groups for the application servers.
-
-276-your organization has a VPC with multiple subnets you want to restrict outbound internet access for resources in one subnet but allow outbound internet access for resources in 
-another subnet how would achive this ?
-
->>To restrict outbound internet access for resources in one subnet we can modify the route table associated with that subnet in the route table we can remove the default route (0.0.0.0/0)
-that points to an internet gateway
->>This would prevent resources in that subnet from accessing the internet for the subnet where outbound internet access is required we can keep the default route pointing to the 
-internet gateway
-
 277-you have a VPC with a public subnet and private subnet. INstances in the private subnet need to access the internet for software updates. How would you allow internet access for
 instances in the private subnet?
 
 >>To allow internet access for instances in the private subnet, we can use Internet gateway or a NAT instance
 >>we would place the NAT Gateway/instance in the public subnet and configure the private subnet route table to send outbound traffic to the NAT Gateway/instance. this way instances 
 in the private subnet can access the internet through the NAT Gateway/instance.
-
-278-You have launched EC2 instances in your VPC, and you want them to communicate with each other using private IP addresses. What steps would you take to enable this communication?
-
->>By default, instances within the same VPC can communicate with each other using private IP addresses. 
-To ensure this communication, we need to make sure that the instances are launched in the same VPC and are placed in the same subnet or subnets that are connected through a peering 
-connection or a VPC peering link. 
-Additionally, we should check the security groups associated with the instances to ensure that the necessary inbound and outbound rules are configured to allow communication between them.
-
-279-You want to implement strict network access control for your VPC resources. How would you achieve this?
-
->>To implement granular network access control for VPC resources, we can use Network Access Control Lists (ACLs). 
-NACLs are stateless and operate at the subnet level. We can define inbound and outbound rules in the NACLs to allow or deny traffic based on source and destination IP addresses, 
-ports, and protocols. 
-By carefully configuring NACL rules, we can enforce fine-grained access control for traffic entering and leaving the subnets.
-
-280-Your organization requires an isolated environment within the VPC for running sensitive workloads. How would you set up this isolated environment?
-
->>To set up an isolated environment within the VPC, we can create a subnet with no internet gateway attached. 
->>This subnet, known as an "isolated subnet," will not have direct internet connectivity. We can place the sensitive workloads in this subnet, ensuring that they are protected from 
-inbound and outbound internet traffic. 
->>However, if these workloads require outbound internet access, we can set up a NAT Gateway or NAT instance in a different subnet and configure the isolated subnet's route table to
-send outbound traffic through the NAT Gateway/instance.
 
 283-What is the difference between IAM users, groups, roles and policies ?
 
@@ -1782,16 +1693,6 @@ policies to grant permissions required for developers across your organization.
 >>IAM Policy: An IAM policy is a document that defines permissions and access controls in AWS. IAM policies can be attached to IAM users, IAM roles, and IAM groups to define what actions 
 can be performed on which AWS resources. IAM policies use JSON (JavaScript Object Notation) syntax to specify the permissions and can be created and managed independently of the users, 
 roles, or groups. IAM policies consist of statements that include the actions allowed or denied, the resources on which the actions can be performed, and any additionalconditions.
-
-284-You have a private subnet in your VPC that contains a number of instances that should not have direct internet access. However, you still need to be able to securely access these 
-instances for administrative purposes. How would you set up a bastion host to facilitate this access?
-
->>To securely access the instances in the private subnet, you can set up a bastion host (also known as a jump host or jump box). The bastion host acts as a secure entry point to your 
-private subnet. Here's how you can set up a bastion host: Create a new EC2 instance in a public subnet, which will serve as the bastion host. Ensure that this instance has a public IP 
-address or is associated with an Elastic IP address for persistent access.Configure the security group for the bastion host to allow inbound SSH (or RDP for Windows) traffic from your
-IP address or a restricted range of trusted IP addresses. This limits access to the bastion host to authorized administrators only.Place the instances in the private subnet and configure
-their security groups to allow inbound SSH (or RDP) traffic from the bastion host security group.SSH (or RDP) into the bastion host using your private key or password. From the bastion host,
-you can then SSH (or RDP) into the instances in the private subnet using their private IP addresses.
 
 287-what is AWS API-Gateway
 
