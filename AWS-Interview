@@ -1,8 +1,8 @@
-APPLICATION-----------------------------------------------|this two is SAAS
+APPLICATION-----------------------------------------------| these two is SAAS
 DATA------------------------------------------------------|
 RUNTIME                              |
-MIDDEL-WARE                          |
-OPERATING SYSTEM ----                |------>This all are PAAS like mysql,Azure app service
+MIDDLE-WARE                          |
+OPERATING SYSTEM ----                |------>This all is PAAS like MySQL,Azure app service
 VIRTUALIZATION      |                |
 SERVER              |----------------|------------->This all are IAAS ex:-AWS
 STORAGE             |                |
@@ -2018,15 +2018,627 @@ ec2:-
 4-user can host the complete application
 5-need to update and patches user should maintain
 
-lambda:-
+lambda:-What are the two types of AMI?
+
 1-when we runing functions on that time you should pay the bill into lambda service
 2-AWS Lambad you pay only what you used . your charges based on the number of requests on your functions and duration
 3-selecting only required software or runtime
 4-it is just peace of code to host the code
 5-no need to update the updates and maintian by aws
 
-234-
+234-what is concurrency in lambda
 
+>>concurrency is the number of requests that your function is serving any given time when your function is invoked lambda allocates 
+an instance of it to process the event when the function code finishes running it can handler another request
+
+235-what is Boto3
+
+>>Boto3 is python libray for aws to make simplefiy your work 
+>>Boto3 makes it easy to integrate your Python application, library, or script with AWS services including Amazon S3, Amazon EC2, Amazon DynamoDB, and more.
+
+236-what is authentication and authriozation
+
+>>authentication your accessing or login into the applicatio or portal entry only
+>>authrozation is nothing but you should be assign some roles are features
+
+237-What is an Elastic Transcoder?
+
+>>You can use Amazon Elastic Transcoder to convert video and audio files into supported output formats optimized for playback on desktops, mobile devices,
+tablets, and televisions
+
+238-what is AWS Service Catalog
+
+>>AWS Service Catalog is like menu what you want give the resources to your users you give that images or cloud-formation templates or anything specfiy the 
+role to aws service catalog then it give the permisssions to that user. it will use in big environments like so many developers or there you can specif the role 
+to access the particular only one cloud-formation template you can specify that using AWS service catalog
+
+239-what is AWS SSM
+
+>>service manager is  configuration management tool. we can use deployment and like ansible. we need ssm agnet then we can do deployment without ssm agent
+we can't do anything. ssm agent is like role add to ec2-instance then we can patches and updates over the deployment and configure the resources
+
+240-what is cognito
+
+>>Amazon Cognito lets you easily add user sign-up and authentication to your mobile and web apps. Amazon Cognito also enables you to authenticate users through an 
+external identity provider and provides temporary security credentials to access your app's backend resources in AWS or any service behind Amazon API Gateway
+
+>>you can intregrate the third-party signin and login functionalitys
+
+241-what is OpsWork
+
+>>AWS OpsWorks is a configuration management service that provides managed instances of Chef and Puppet. Chef and Puppet are automation platforms that allow you to use 
+code to automate the configurations of your servers.
+
+242-What is Trusted Advisior
+
+>>you can check your helath and security issues and performance and fault tolerance if the account is secured or not all the snapshots taking perfectly 
+load balancer and cost utilization and if the coudtrail enable or not you can see everything in trusted advisior
+
+243-what is process management
+
+>>when you start a program running an application in linux it actually run as a process
+
+244-What is Elastic Beanstalk
+
+>>AWS Elastic Beanstalk is an orchestration service offered by Amazon Web Servicesand it is used deploying and scaleup the AWS services, 
+including EC2, S3, Simple Notification Service, CloudWatch, autoscaling, and Elastic Load Balancers, health monitoring
+
+>>Elastic beanstaclk is used  if the developer is developing java application he is checking and deploying in 3 days in a week so we can use elastic beanstaclk
+using create servers and required configuration easily
+
+245-what is service 
+
+this controls the starting and stopping of services
+
+246-what is chkconfig
+
+>>this controls which services are set to start on boot
+
+247-what is crontab
+
+>>In any operating system it is possible to create jobs that you want to recoccur. this process know as job-scheduling
+for any linux this process is handled by the cron service or daemon called crond
+
+* * * *  *
+minutes hour day month week
+
+248-what is ECS
+
+>>Amazon Elastic Container Service (ECS) is a highly scalable, high performance container management service that supports Docker containers and allows 
+you to easily run applications on a managed cluster of Amazon Elastic Compute Cloud (Amazon EC2) instances.
+>>when you creating an ecs cluster it will automatically install the ecs agent in your nodes 
+
+1- tasks:-when any node is down the application will down it will not start another node or any ec2 machine
+2-service:-if you using the service if service will down in any node it will move to any other node where is availble it will deploy
+
+249-What is difference between ECS and EC2?
+
+>>The largest difference for EC2 is that it deploys isolated VM instances with auto scaling support, 
+and ECS deploys scalable clusters of managed Docker containers. Enterprises can use ECS to scale web applications, perform batch processing, 
+and run services in a hybrid environment to deliver better services to users
+two services is there
+
+250-what is Fargate in aws
+
+>>AWS Fargate is a serverless, pay-as-you-go compute engine that lets you focus on building applications without managing servers. 
+AWS Fargate is compatible with both Amazon Elastic Container Service (ECS) and Amazon Elastic Kubernetes Service (EKS).
+
+251-What is the difference between EC2 and Fargate?
+
+>>Amazon EC2 manages or deploys your own EC2 instances to effectively run applications. Fargate AWS allows you to run containers without the need for EC2 instances.
+Both are excellent methods for managing or scaling your containers in a dependable manner, but deciding which service to use is always a difficult task.
+
+252-what is SLA(service-level agreement)
+
+>>They provide information on all contracted services and on the agreed expected reliability and they clearly set out the parameters, responsibilities and expectations 
+so that in the event of a problem with the service, no party can plead ignorance
+
+253-what is AWS API-Gateway
+
+>>Amazon API-Gateway is a fully-managed service that makes it easy for developers to create, publish, maintain, montiro, and secure APIs at any Scale
+>>APIs acts as the "front-door" for applications to access data business logic or functionality from your backend services
+>>API-Gateway helps us to create a RESTful APIs and Web-Socket APIs that enable real-time two-way communcication
+
+254-where security comes in 
+
+>>when we build the application then it go the qa team and test then it any changes happen then it will take the build then go the security testing and then deployment
+
+what precautions would take the security of your application
+
+>>we can build the feature development then security testing then sends to qa testing and then security testing then releasing the production
+>>detecting issues early shortens development time
+
+why security issues comes into production what bases it will come
+
+1-time restrictions:- need to relase the relases within a week without checking the secuity issues deploy application into production
+2-hard to get answers:- where the problems hard to find out the issues need to clarify with the developers to take understand the issues
+3-unfamiliar with pipelines 
+
+255-what is SAST
+
+>>SAST stands for Static application security testing and its one of the easier types of security testing to implement in an existing or a new DevOps or DevSecOps pipeline
+>>SAST tools run somewhere between the code and build stage, may be it'll be included in the test satge, but typically it's run pretty close to the code 
+>>SAST we're thinking of statically testing the application. SAST is also known as Source Code Analysis 
+>>it is white-box testing it cheks all the packages in your code it has 
+>>it may false reports also some time
+>>less expensive to fix the vulnerabilites 
+>>it check differnet authentication patterns and scan config files potential security issues 
+Tools like:-
+1-sonarqube
+2-Fortify.
+3-Horusec
+4-Snyk
+5-Insider
+6-HuskyCI
+
+256-what is DAST
+
+>>DAST stands for Dynamic application security testing. we check the application while running application for an issues . we are not loooking code directly
+>>DAST is block box testing the tester dont know anything try to break the code or application logics 
+>>more expensive to fix the vulnerabilites
+>>we can discover run-time environment related issues
+Tools:-
+1-PortSwigger Burp-Suite
+2-OWASP-ZAP
+3-Veracode
+4-Nuclei
+5-HCL AppScan
+
+257-what is Fortify security tool
+
+>>Fortify offers the most comprehensive static and dynamic application security testing technologies, along with runtime application monitoring and protection, backed by indus try-leading\
+security research. Solutions can be deployed in-house or as a managed service to build a scalable, nimble Software Security Assurance program that meets the evolving needs of today’s
+IT organization.
+
+258-what is SNS
+
+>>Amazon Simple Notification Service (Amazon SNS) is a managed service that provides message delivery from publishers to subscribers (also known as producers and 
+consumers). Publishers communicate asynchronously with subscribers by sending messages to a topic, which is a logical access point and communication channel
+
+259-what is Simple Queue service
+
+>>Amazon Simple Queue Service (SQS) lets you send, store, and receive messages between software components at any volume, 
+without losing messages or requiring other services to be available.
+
+260-what is first in first out
+
+>>FIFO (First-In-First-Out) queues have all the capabilities of the standard queues, but are designed to enhance messaging between applications
+when the order of operations and events is critical, or where duplicates can't be tolerated.
+>>For FIFO queues, there can be a maximum of 20,000 in flight messages (received from a queue by a consumer, but not yet deleted from the queue). 
+If you reach this quota, Amazon SQS returns no error messages. A queue name can have up to 80 characters
+
+261-Your business prefers to use its email address and domain to send and receive compliance emails. What service do you recommend to implement it easily 
+and budget-friendly?
+
+>>This can be accomplished by using Amazon Simple Email Service (Amazon SES), a cloud-based   email-sending service.
+
+262-Describe SES.
+
+>>Amazon offers the Simple Email Service (SES) service, which allows you to send bulk emails to customers swiftly at a minimal cost.
+>>it will everyday 50000 emails every day like 24 hours. 14 emails per second 
+
+263-what is AWS secret Manager
+
+>>AWS Secret manager is a service for easier management of secret. Secrets can be passwords, DB Credentials API keys or any text
+>>You can store and control to these secrets centrally by using one of the following
+1-secret manager console
+2-secret manager command line interface(CLI)
+3-secret manager Https query API
+4-AWS SDKS
+>>secrets are secured by audting at a central location
+>>secret manager integrates with AWS logging and monitoring service provides centrailized auditing
+>>secrets are encrypted using AWS KMS key manager service
+>>using cloud watch and cloud trail all events relating to secrets manager can be monitored
+
+264-what is docker-ECR
+
+>>Amazon Elastic Container Registry (Amazon ECR) is an AWS managed container image registry service that is secure, scalable, and reliable. Amazon ECR supports 
+private repositories with resource-based permissions using AWS IAM
+
+265-what is code smell
+
+>>Code smells indicate a deeper problem, but as the name suggests, they are sniffable or quick to spot. The best smell is something easy to find but 
+will lead to an interesting problem, like classes with data and no behavior.
+
+266-What is Inspector in AWS
+
+>>Amazon Inspector is an automated vulnerability management service that continually scans AWS workloads for software vulnerabilities and unintended network exposure.
+
+267-what JSON (JavaScript Object Notation)
+
+>>JSON stands for JavaScript Object Notation . JSON is a lightweight format for storing and transporting data
+(e.g., sending some data from the server to the client, so it can be displayed on a web page, or vice versa).
+
+{
+"Name": "Anji",
+"Age": "26",
+"DOB": "01-01-1996",
+"Address": [
+    {
+   	"Type": "permenanent",
+	"DoorNo": "1-80/1",
+	"Address-line": "ganesh nagar"
+     },
+     {
+	"Type": "current",
+	"DoorNo": "1/90",
+	"Address-line": "neknampur"
+      }
+   ] 
+}
+
+268-what is YAML
+
+>> Yaml is yet another markup languge.YAML is a human-readable data-serialization language
+>>xml,json,yaml are DTO  -->data transfer object
+
+first type(key: value or list)
+Name: Anji
+Age: 26
+DOB: 01-07-1996
+Address:
+- present: VDk
+  street: ganesh nagar
+  city: peddapelli
+- current: hyd
+  street: neknampur
+  city: hyd 
+
+==second type(map type)
+Name: Anji
+Age: 26
+DOB: 01-07-1996
+Address:
+  perm-address:
+    present: VDk
+    street: ganesh nagar
+    city: peddapelli
+  current-address:
+    present: VDk
+    street: ganesh nagar
+    city: peddapelli
+
+269-what is XML
+
+>>XML stands for eXtensible Markup Language. XML is a markup language much like HTML
+>>XML was designed to store and transport data. XML was designed to be self-descriptive
+
+ex:-
+<person>
+	<Name>anji</Name>
+	<Age>26</Age>
+	<DOB>01-07-1996</DOB>
+	<Address>
+		<H-No>1-80/1</H-No>
+		<City>VDK</VDK>
+	</Address>
+</person>
+
+270-What are the two types of AMI?
+
+>>AMI is divided into two categories:
+1-EBS - backed Instances.
+2-Instance Store - backed Instances.
+
+271-What is Nginx?
+
+>>Nginx is a type of an open source web server which is especially used for reverse proxy, load balancer, mail proxy and for the HTTP cache. 
+Nowadays NGINX software is most commonly used by various companies. NGINX can run on Linux, Mac OS X, Solaris, AIX, HP-UX, and the BSD variants.
+>>Nginx is an open supply web server and a opposite proxy server for HTTP,SMTP, POP3, and IMAP protocols with a robust attention on excessive concurrency,
+performance and low reminiscence utilization. It is stated as “engine x”.
+
+272-What is the default root folder nginx?
+
+>>The way nginx and its modules work is determined in the configuration file. By default, the configuration file is named nginx.conf and placed in the
+directory /usr/local/nginx/conf , /etc/nginx, or /usr/local/etc/nginx 
+
+273-Can we deploy Node.js application on Tomcat server?
+
+>>You can run Nodejs such as react or angular on JavaPipe's Tomcat service. You will need to use npm run build to package the Nodejs for production.
+It creates a build folder where you can package it as a war file. cd into the build directory and then run jar cvf webui.
+
+274--what is the node.js build command
+
+>>npm install 
+
+275-where i can see the logs of nginx server or tomcat server
+
+>>By default, the access log is located at /var/log/nginx/access. log
+>>You can override the default settings and change the format of logged messages by editing the NGINX configuration file ( /etc/nginx/nginx.)
+>>The main log is in /opt/tomcat/logs/catalina. <date>. log 
+
+276-In what language was the Nginx software being written?
+
+>>The language in which the Nginx software is written is ‘C’ Language.
+
+277-What are the main tasks of the Nginx web server?
+
+>>The main task of the Nginx web server is to deploy dynamic HTTP content on a network using SCGI, Fast CGI handlers for scripts, 
+WSGI application servers or Phusion passenger module.
+>>Nginx is also used to serve as a load balancer.
+
+278-What are the difference between Nginx and Apache?
+
+Firstly, Nginx is an event-based web server and Apache is a process-based server.
+Nginx is best known for its speed and Apache is best known for its power.
+Nginx is the best when it comes to memory consumption and connection whereas Apache is not best in this category.
+In Nginx, a single thread is handling all of the requests whereas in Apache single thread handles a single request.
+Nginx is best when you want the load balancing. But Apache will refuse the new connection when traffic reaches the limit of the process.
+Apache provides lots of functionality as compared to Nginx.
+
+279-What are the types of versions of Nginx web server?
+
+Mainline - This version of Nginx contains latest features and bug fixes that are up to date. It is also reliable but it may contain some experimental modules.
+Stable- This version of Nginx doesn’t have the latest features but has critical bug fixes. A stable version is always recommended for the production servers.
+
+280-What are the controls used in the Nginx web server?
+
+Stop
+Quit
+Reopen
+Reload
+
+281-What is a directive in Nginx?
+
+>>A directive in NGINX is used to route the server where to look for a resource by including files and folders while matching a location block against a URL.
+
+282-What Are the Features Of Nginx?
+
+Simultaneous Connections with low reminiscence
+Auto Indexing
+Load Balancing
+Reverse Proxy with Caching
+Fault Tolerance
+
+283-How to start and stop nginx server?
+
+>>sudo systemctl start nginx
+
+284-What do you mean by Apache Web Server?
+
+>>Apache web server is the HTTP web server that is open source, and it is used for hosting the website
+
+285-What is the port of HTTP and https of Apache?
+
+The port of HTTP is 80, and https is 443 in Apache.
+
+286-Where are the configuration directories of the Apache webserver?
+
+>>cd /etc/HTTP and type ls -l
+
+287-What do you mean by the log files of the Apache webserver?
+
+>>we can access the log files of Apache server from the below location: /var/log/httpd/access_log and error log from /var/log/httpd/error_log
+
+288-What do you mean by Apache Virtual Hosting?
+
+>>Hosting multiple websites on a single web server is known as Apache Virtual Hosting. There are two types of virtual hosting:
+Name-Based Virtual Hosting and 
+IP Based Virtual Hosting.
+
+289-How to stop/start Apache Web Server?
+
+>>You can restart by going to Apache instance location >> bin folder and execute apachectl script.
+
+./apachectl stop
+./apachectl start
+You may also use a script located in /etc/init.d/. Mostly it will be named either “apache” or “httpd”
+
+/etc/init.d/apache stop
+/etc/init.d/apache start
+
+Another procedure would be using services
+
+httpd stop
+service httpd start
+
+290-What are the log files generated by Apache?
+
+>>There are two popular log files created;
+
+access.log – all request details with the status code
+error.log – capture all the errors within apache or connecting to the backend
+
+291-How to secure a Website hosted on Apache Web Server?
+
+>>There are multiple ways to secure the Apache webserver including the following.
+
+Implementing SSL
+Integrating with WAF (Web Application Firewall) like ModSecurity, etc.
+Using cloud-based security provider
+
+292-What’s a difference between Apache Web Server and Apache Tomcat?
+
+>>Apache Web is an HTTP server to serve static contents where Tomcat is a servlet container to deploy JSP files.
+
+>>You can always integrate Apache HTTP with Tomcat, however, based on the requirement you need to choose either one. If you need a proper web server, 
+then Apache HTTP else Tomcat for JSP-Servlet Container.
+
+293-where is the apche root directory
+
+>>the Apache web server serves documents stored in the var/www/html directory by default. 
+
+294-What is Apache Tomcat?
+
+>>Apache Tomcat is basically a Web Server and Servlet system which is an open-source (i.e. freely available on the internet)
+It is the server mostly used by Java Developers.
+
+The server is nothing but a computer program that provides service to other computers.
+
+There are basically two types of server:
+
+Application Server
+Web Server
+Apache Tomcat offers HTTP protocol, which means the user can connect with the server from anywhere by the URL provided and can access the Java application.
+
+This is very easy and simple to install and is compatible with any Operating System.
+
+295-What are the types of batch file with the help of which we can Start and Stop Apache Tomcat Server?
+
+>>There are basically two types of batch files with which we can Start and Stop the Server.
+
+Startup.bat
+Shutdown.bat
+
+296-What are the vital benefits of Running Tomcat as service?
+The benefits of Running Tomcat as service are:
+
+>>Automatic Startup – If tomcat window service starts up automatically then it would be helpful when we want to start the system remotely.
+>>Security – It allows you to execute under a special account which is protected from the other accounts.
+>>Starting off the server without active user login: So even if there is no active user, the available server can be started.
+
+297-you can configure the onliner commadns like this to start and stop
+
+>>ln -s /opt/tomcat/bin/startup.sh /usr/local/bin/tomcatup
+>>ln -s /opt/tomcat/bin/shutdown.sh /usr/local/bin/tomcatdown
+
+298-how to copy your war file into your tomcat 
+
+>>>cd /usr/local/tomcat
+>>cd webapps.dist
+>>cp -R * ../webapps/ 
+
+>>you can copy your build file into the webapps directory
+
+299-how to add ssl certificate into apache server
+
+>>need to create the .crt file and private.key then add into conf folder and add it 
+>>then open .conf file 
+add this details
+<VirtualHost *:443>
+    ServerName your_domain.com
+    DocumentRoot /var/www/html
+    
+    # SSL Configuration
+    SSLEngine on
+    SSLCertificateFile /path/to/your_domain.crt
+    SSLCertificateKeyFile /path/to/your_domain.key
+    SSLCertificateChainFile /path/to/intermediate_certs.crt
+</VirtualHost>
+>>and replace your domain 
+
+300-While we start the tomcat server its not starting
+
+>>check first java installed and set the home path or not
+>>chek any system or server running in same port 8080
+>>check the you hav sufficent permissions is there are not user permissions
+>>check file permissions
+>>check the system resources like memory and cpu and disk-space availble
+>>Review configuration files: Double-check the configuration files, such as server.xml, web.xml, and any application-specific configuration files, for any errors or misconfigurations
+
+301-what is the full of form WAR file
+
+>>Web Archive File 
+
+302-while installing any package its not installing what will be the problem
+
+>>you have privellges or not
+
+303-what is CORS and SOP
+
+--sop->same origin policy
+>>The same-origin policy is a browser security mechanism that restricts how a
+document or script loaded by one origin can interact with a resource from another
+origin.
+It helps isolate potentially malicious documents, reducing possible attack vectors
+>>the browser will implement the sop in all browser beacuse of security
+>>this implemnentation happiens we can't see the data of your own subdomain also
+>>it checks the three objects
+>>protocal >https:// (or) http://
+>>site >google (or) facebook
+>>port number >80 (or) 443
+--cors->cros origin resource policy
+>>Cross-Origin Resource Sharing (CORS) is an HTTP-header based mechanism that
+allows a server to indicate any origins (domain, scheme, or port)
+other than its own from which a browser should permit loading resources.
+Acess-control-allow-origin==>true,get,post,put,delete
+>>the sop implmented in browser policy we cant read the data in your subdomain of
+the same domian.
+if we can use the cors we can read write the data from main domain to subdomain
+>http://www.google.com
+>http://admin.google.com
+
+304-what is soft and hard link in cmd or symbolic link
+
+>>Symbolic links (also called "soft" links) are files that point to a file or directory in your system, but don't mirror the other file's data.
+>>soft link is an actual link to the original file, whereas a hard link is a mirror copy of the original file. 
+>>ln -s /opt/tomcat/bin/startup.sh /usr/local/bin/tomcatup    -->it will create short-cut to start and down the server
+>>ln -s /opt/tomcat/bin/shutdown.sh /usr/local/bin/tomcatdown         -->this soft link or symbalic link
+>>ln /opt/tomcat/bin/shutdown.sh /usr/local/bin/tomcatdown   -->this hard link
+>>tomcatup    -->it will start the server
+>> If you delete the original file, the soft link has no value, because it points to a non-existent file. But in the case of hard link, it is entirely opposite.
+
+305-what is absolute path and relative path in linux
+
+>>In simple words, an absolute path refers to the same location in a file system relative to the root directory, 
+whereas a relative path points to a specific location in a file system relative to the current directory you are working on.
+
+306-Is this possible to send the mail using cli in command using shell -script
+
+>>yes you need to configure the mail in your system its posssible to send the mail using cli in 
+mail -s "$(date): Report on $(hostname)" "anji159258@gmail.com"
+
+307-how to configure your mail server in linux
+
+>>>>sudo apt-get install mailutils >>select internet site >>give domain name >>click yes
+>>sudo vi /etc/postfix/main.cf
+realyhost = [smtp.gmail.com]:587
+
+#Enable SASL authentication
+
+>>sudo vi/etc/postfix/sasl/sasl_passwd
+[smtp.gmail.com]:587 anji1592@gmail.com
+>>sudo postmap /etc/postfix/sasl/sasl_passwd
+
+echo "test alert" | mail -s "system down" anji1592@gmail.com
+
+tail -f /var/log/mail.log
+
+>>not complted see the video in liked videos
+
+308-what is the shebang line
+
+>> Shebang is nothing but which shell are using to run your script that is shebang line
+
+309-what is daily activites in shell-script
+
+>>delete old files using shell script
+>>taking inventory files like version and ips and those
+>>monitoring files 
+>>installing packages
+>>to see versions
+>>to see backup
+>>if server stop sending a mail 
+
+310-how to stop all services in linux terminal
+
+>>killall
+
+311-how to clear history in linux
+
+>>history -c  //it will delete all history
+>>history -d //it will delete the one line particular you can mention
+
+312-day to day activities
+
+>>my self K Anjaneyulu Iam from Karimnagar iam done by b-tech in mother theressa college in the stream of ece comming to my family background
+we are 4 members mother father and younger brother. young brother is an android developer mother and father formers
+>>iam doing devops engineer in keeno technologies 
+>>currently we using agile methodology we manage the configuration management multiple machines and infrstructure as an on-premises cloud using tools like terraform
+>>we deploy the applications and deliver the containers on the platform like kubernetes and end of the day take care of montoring this applications on kubernetes that
+deployed as containers or pods and and we also montior tools like grafana promethus and node exporter
+
+313-What are the tools and techniques that you can use in AWS to identify if you are paying more than you should be, and how to correct it?
+
+Check the Top Services Table
+It is a dashboard in the cost management console that shows you the top five most used services. This will let you know how much money you are 
+spending on the resources in question.Cost Explorer
+There are cost explorer services available that will help you to view and analyze your usage costs for the last 13 months. You can also get a cost
+forecast for the upcoming three months.AWS Budgets
+This allows you to plan a budget for the services. Also, it will enable you to check if the current plan meets your budget and the details of how you 
+use the services.Cost Allocation Tags
+This helps in identifying the resource that has cost more in a particular month. It lets you organize your resources and cost allocation tags to keep 
+track of your AWS costs.
 
 
 
