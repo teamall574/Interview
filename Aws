@@ -1,9 +1,4 @@
 
-30 - what is authentication and authriozation
-
->>authentication your accessing or login into the applicatio or portal entry only
->>authrozation is nothing but you should be assign some roles are features
-
 34 - What are the tools and techniques that you can use in AWS to identify if you are paying more than you should be, and how to correct it?
 
 Check the Top Services Table
@@ -16,75 +11,6 @@ use the services.Cost Allocation Tags
 This helps in identifying the resource that has cost more in a particular month. It lets you organize your resources and cost allocation tags to keep 
 track of your AWS costs.
 
-39 - What is an Elastic Transcoder?
-
->>You can use Amazon Elastic Transcoder to convert video and audio files into supported output formats optimized for playback on desktops, mobile devices,
-tablets, and televisions
-
-85- what is AWS Service Catalog
-
->>AWS Service Catalog is like menu what you want give the resources to your users you give that images or cloud-formation templates or anything specfiy the 
-role to aws service catalog then it give the permisssions to that user. it will use in big environments like so many developers or there you can specif the role 
-to access the particular only one cloud-formation template you can specify that using AWS service catalog
-
-86- what is AWS SSM
-
->>service manager is  configuration management tool. we can use deployment and like ansible. we need ssm agnet then we can do deployment without ssm agent
-we can't do anything. ssm agent is like role add to ec2-instance then we can patches and updates over the deployment and configure the resoures
-
-94- Your business prefers to use its email address and domain to send and receive compliance emails. What service do you recommend to implement it easily 
-and budget-friendly?
-
->>This can be accomplished by using Amazon Simple Email Service (Amazon SES), a cloud-based   email-sending service.
-
-95- Describe SES.
-
->>Amazon offers the Simple Email Service (SES) service, which allows you to send bulk emails to customers swiftly at a minimal cost.
->>it will everyday 50000 emails every day like 24 hours. 14 emails per second 
-
-110- what is SNS
-
->>Amazon Simple Notification Service (Amazon SNS) is a managed service that provides message delivery from publishers to subscribers (also known as producers and 
-consumers). Publishers communicate asynchronously with subscribers by sending messages to a topic, which is a logical access point and communication channel
-
-112- What is Inspector in AWS
-
->>Amazon Inspector is an automated vulnerability management service that continually scans AWS workloads for software vulnerabilities and unintended network exposure.
-
-115-what is concurrency in lambda
-
->>concurrency is the number of requests that your function is serving any given time when your function is invoked lambda allocates 
-an instance of it to process the event when the function code finishes running it can handler another request
-
-116-what is Boto3
-
->>Boto3 is python libray for aws to make simplefiy your work 
->>Boto3 makes it easy to integrate your Python application, library, or script with AWS services including Amazon S3, Amazon EC2, Amazon DynamoDB, and more.
-
-117 - What is Elastic Beanstalk
-
->>AWS Elastic Beanstalk is an orchestration service offered by Amazon Web Servicesand it is used deploying and scaleup the AWS services, 
-including EC2, S3, Simple Notification Service, CloudWatch, autoscaling, and Elastic Load Balancers, health monitoring
-
->>Elastic beanstaclk is used  if the developer is developing java application he is checking and deploying in 3 days in a week so we can use elastic beanstaclk
-using create servers and required configuration easily
-
-120-what is cognito
-
->>Amazon Cognito lets you easily add user sign-up and authentication to your mobile and web apps. Amazon Cognito also enables you to authenticate users through an 
-external identity provider and provides temporary security credentials to access your app's backend resources in AWS or any service behind Amazon API Gateway
-
->>you can intregrate the third-party signin and login functionalitys
-
-121-what is docker-ECR
-
->>Amazon Elastic Container Registry (Amazon ECR) is an AWS managed container image registry service that is secure, scalable, and reliable. Amazon ECR supports 
-private repositories with resource-based permissions using AWS IAM
-
-131- what is code smell
-
->>Code smells indicate a deeper problem, but as the name suggests, they are sniffable or quick to spot. The best smell is something easy to find but 
-will lead to an interesting problem, like classes with data and no behavior.
 
 132-what JSON (JavaScript Object Notation)
 
@@ -139,62 +65,6 @@ Address:
     present: VDk
     street: ganesh nagar
     city: peddapelli
-
-140- what is OpsWork
-
->>AWS OpsWorks is a configuration management service that provides managed instances of Chef and Puppet. Chef and Puppet are automation platforms that allow you to use 
-code to automate the configurations of your servers.
-
-141- What is Trusted Advisior
-
->>you can check your helath and security issues and performance and fault tolerance if the account is secured or not all the snapshots taking perfectly 
-load balancer and cost utilization and if the coudtrail enable or not you can see everything in trusted advisior
-
-144-what is process management
-
->>when you start a program running an application in linux it actually run as a process
-
-145-what is service 
-
-this controls the starting and stopping of services
-
-146-what is chkconfig
-
->>this controls which services are set to start on boot
-
-148-what is crontab
-
->>In any operating system it is possible to create jobs that you want to recoccur. this process know as job-scheduling
-for any linux this process is handled by the cron service or daemon called crond
-
-* * * *  *
-minutes hour day month week
-
-157-what is ECS
-
->>Amazon Elastic Container Service (ECS) is a highly scalable, high performance container management service that supports Docker containers and allows 
-you to easily run applications on a managed cluster of Amazon Elastic Compute Cloud (Amazon EC2) instances.
->>when you creating an ecs cluster it will automatically install the ecs agent in your nodes 
-
-1- tasks:-when any node is down the application will down it will not start another node or any ec2 machine
-2-service:-if you using the service if service will down in any node it will move to any other node where is availble it will deploy
-
-158-What is difference between ECS and EC2?
-
->>The largest difference for EC2 is that it deploys isolated VM instances with auto scaling support, 
-and ECS deploys scalable clusters of managed Docker containers. Enterprises can use ECS to scale web applications, perform batch processing, 
-and run services in a hybrid environment to deliver better services to users
-two services is there
-
-159-what is Fargate in aws
-
->>AWS Fargate is a serverless, pay-as-you-go compute engine that lets you focus on building applications without managing servers. 
-AWS Fargate is compatible with both Amazon Elastic Container Service (ECS) and Amazon Elastic Kubernetes Service (EKS).
-
-160-What is the difference between EC2 and Fargate?
-
->>Amazon EC2 manages or deploys your own EC2 instances to effectively run applications. Fargate AWS allows you to run containers without the need for EC2 instances.
-Both are excellent methods for managing or scaling your containers in a dependable manner, but deciding which service to use is always a difficult task.
 
 166-what is soft and hard link in cmd or symbolic link
 
@@ -426,31 +296,6 @@ The benefits of Running Tomcat as service are:
 
 >>you can copy your build file into the webapps directory
 
-224-what is Simple Queue service
-
->>Amazon Simple Queue Service (SQS) lets you send, store, and receive messages between software components at any volume, 
-without losing messages or requiring other services to be available.
-
-225-what is first in first out
-
->>FIFO (First-In-First-Out) queues have all the capabilities of the standard queues, but are designed to enhance messaging between applications
-when the order of operations and events is critical, or where duplicates can't be tolerated.
->>For FIFO queues, there can be a maximum of 20,000 in flight messages (received from a queue by a consumer, but not yet deleted from the queue). 
-If you reach this quota, Amazon SQS returns no error messages. A queue name can have up to 80 characters
-
-226-what is AWS secret Manager
-
->>AWS Secret manager is a service for easier management of secret. Secrets can be passwords, DB Credentials API keys or any text
->>You can store and control to these secrets centrally by using one of the following
-1-secret manager console
-2-secret manager command line interface(CLI)
-3-secret manager Https query API
-4-AWS SDKS
->>secrets are secured by audting at a central location
->>secret manager integrates with AWS logging and monitoring service provides centrailized auditing
->>secrets are encrypted using AWS KMS key manager service
->>using cloud watch and cloud trail all events relating to secrets manager can be monitored
-
 227-what is daily activites in shell-script
 
 >>delete old files using shell script
@@ -496,21 +341,9 @@ ex:-
 	</Address>
 </person>
 
-
-261-what is SLA(service-level agreement)
-
->>They provide information on all contracted services and on the agreed expected reliability and they clearly set out the parameters, responsibilities and expectations 
-so that in the event of a problem with the service, no party can plead ignorance
-
 270-what is the full of form WAR file
 
 >>Web Archive File 
-
-287-what is AWS API-Gateway
-
->>Amazon API-Gateway is a fully-managed service that makes it easy for developers to create, publish, maintain, montiro, and secure APIs at any Scale
->>APIs acts as the "front-door" for applications to access data business logic or functionality from your backend services
->>API-Gateway helps us to create a RESTful APIs and Web-Socket APIs that enable real-time two-way communcication
 
 291-what is CORS and SOP
 
@@ -535,55 +368,6 @@ the same domian.
 if we can use the cors we can read write the data from main domain to subdomain
 >http://www.google.com
 >http://admin.google.com
-
-292-where security comes in 
-
->>when we build the application then it go the qa team and test then it any changes happen then it will take the build then go the security testing and then deployment
-
-what precautions would take the security of your application
-
->>we can build the feature development then security testing then sends to qa testing and then security testing then releasing the production
->>detecting issues early shortens development time
-
-why security issues comes into production what bases it will come
-
-1-time restrictions:- need to relase the relases within a week without checking the secuity issues deploy application into production
-2-hard to get answers:- where the problems hard to find out the issues need to clarify with the developers to take understand the issues
-3-unfamiliar with pipelines 
-
-293-what is SAST
-
->>SAST stands for Static application security testing and its one of the easier types of security testing to implement in an existing or a new DevOps or DevSecOps pipeline
->>SAST tools run somewhere between the code and build stage, may be it'll be included in the test satge, but typically it's run pretty close to the code 
->>SAST we're thinking of statically testing the application. SAST is also known as Source Code Analysis 
->>it is white-box testing it cheks all the packages in your code it has 
->>it may false reports also some time
->>less expensive to fix the vulnerabilites 
->>it check differnet authentication patterns and scan config files potential security issues 
-Tools like:-
-1-sonarqube
-2-Fortify.
-3-Horusec
-4-Snyk
-5-Insider
-6-HuskyCI
-
-294-what is DAST
-
->>DAST stands for Dynamic application security testing. we check the application while running application for an issues . we are not loooking code directly
->>DAST is block box testing the tester dont know anything try to break the code or application logics 
->>more expensive to fix the vulnerabilites
->>we can discover run-time environment related issues
-Tools:-
-1-PortSwigger Burp-Suite
-2-OWASP-ZAP
-3-Veracode
-4-Nuclei
-5-HCL AppScan
-
-295-what is Fortify security tool
-
->>Fortify offers the most comprehensive static and dynamic application security testing technologies, along with runtime application monitoring and protection, backed by indus try-leading security research. Solutions can be deployed in-house or as a managed service to build a scalable, nimble Software Security Assurance program that meets the evolving needs of today’s IT organization.
 
 296-how to add ssl certificate into apache server
 
