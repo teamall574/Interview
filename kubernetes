@@ -1478,6 +1478,7 @@ this is the reason GitOps come into picture you can use GitOps git tracking your
 3-Auto upgrades
 4-Auto Healing of any unwanted chnages
 5-Continuous Reconciliation
+6-Repetating code
 
 131-what are some poular GitOps tools
 
