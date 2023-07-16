@@ -1960,4 +1960,8 @@ lightweight applications. It is more secure and reliable. It takes less disk spa
 
 >> Using ingress you can create the DNS locally using you can apply these domains using Route53 to make it public
 
+174-what is Kubernetes Operators
+
+>>A Kubernetes operator is a method of packaging, deploying, and managing a Kubernetes application. A Kubernetes application is both deployed on Kubernetes and managed using the 
+Kubernetes API (application programming interface) and kubectl tooling
 
