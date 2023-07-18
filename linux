@@ -666,6 +666,10 @@ $ cmp file1 file2
 To replace text using sed , use the substitute command s and delimiters (in most cases, slashes - / ) for separating text fields
 >>sed 's/foo/bar/g' hello.txt
 >>sed -e '4s/foo/bar/' hello.txt
+>>sed -i 's/${APP_NAME}.*/${APP_NAME}:${IMAGE_TAG}/g' deployment.yaml
+APP_NAME=anji
+IMAGE_TAG=1.0.4
+APP_NAME:IMAGE_NAME=anji:1.0.4   -->it will replace everytime the build number will change
 >>sed 's/foo/bar/g'  anji.txt    -->it will replace only second letter
 foo anji. bar anji
 foo sampi. bar test
