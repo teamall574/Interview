@@ -541,7 +541,8 @@ enormous operations headache everytime you deployed your application.
 >>Running a Docker daemon inside a container is also known as "Docker-in-Docker" (DinD). This approach can be useful for certain use cases, such as running 
 CI/CD pipelines or testing Docker-related tools. However, it's generally not recommended for production use due to security and efficiency concerns.
 
-52-I want to write a script to check what all containers are running, and what containers are using images, if images are not tagged and dangling then remove them, also remove any stopped and unused containers as well, how you will schedule the same?
+52-I want to write a script to check what all containers are running, and what containers are using images, if images are not tagged and dangling then remove them, also remove any stopped and unused containers 
+as well, how you will schedule the same?
 
 #!/bin/bash
 # List running containers
@@ -882,9 +883,9 @@ include the changes you’d like to make from the original Compose file.
 
 However, for startup Compose does not wait until a container is “ready” (whatever that means for your particular application) - only until it’s running. There’s a good reason for this:
 
-The problem of waiting for a database (for example) to be ready is really just a subset of a much larger problem of distributed systems. In production, your database could become unavailable or move hosts at any time. Your application needs to be resilient to these types of failures.
-To handle this, design your application to attempt to re-establish a connection to the database after a failure. If the application retries the connection, it can eventually connect to the database.
-The best solution is to perform this check in your application code, both at startup and whenever a connection is lost for any reason.
+The problem of waiting for a database (for example) to be ready is really just a subset of a much larger problem of distributed systems. In production, your database could become unavailable or move hosts at any time.
+Your application needs to be resilient to these types of failures.To handle this, design your application to attempt to re-establish a connection to the database after a failure. If the application retries the 
+connection, it can eventually connect to the database.The best solution is to perform this check in your application code, both at startup and whenever a connection is lost for any reason.
 
 86-how to debug the container
 
