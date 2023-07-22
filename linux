@@ -311,10 +311,16 @@ first remove him from primary and secondary group
 
 26-how you can see if the port is opened or not in linux
 
+>>netstat -a    -->it will check the currently running listening and non-listning with open ports
 >>netstat -a | grep -i 8000     -->to check the port opening and listening
+>>netsta -t   -->it will show all the tcp connections and protocol name 
+>>netstat -l
+>>netstat -n    -->it will show the port number along with IP it will not show the protocol name
+>>netstat -r   -->it will show routing tables of my system
+>>netstat -o  -->it will process name and path
 >>telnet "ip" port
 >>yum install net-tools -y  -->it will install net-tools netstat
->>netstat -anp | grep 80   -->it will check the port is open or run
+>>netstat -anp | grep :80   -->it will check the port is open or run
 >>List listening ports: netstat -tuln
 >>Check specific port: netstat -tuln | grep <port_number>
 
