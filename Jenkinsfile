@@ -20,13 +20,17 @@ pipeline {
                 cleanWS()  ##it will clear the workspace every build
             }
         }
-    
         stages {
             stage('checkout source') {
                 steps {
                     git 'https://github.com/teamall574/test.git'   ##it is public repository
                 }
             }
+	    stages("check git secrets") {
+		steps {
+			sh 'git secrets --scan'
+		}
+	    }  
             stage (clone) {
                 steps{     ##if it is private repository if not then not need credentials
                     git credentialsId: 'git_credentials', url: 'https://github.com/teamall574/test.git', branch:'dev'  #if you want add another barnch corner add 
