@@ -91,12 +91,31 @@ On-board level you can divide two parts
 1-control plane(API SERVER, SCHEDULER, controller manager, ETCD, cloud-control manager)
 2-Dataplane(kubelet,kube-proxy,conatiner runtime)
 
-4-what is the main differnce between docker-swarm and kubernetes
+4-what is the main difference between docker-swarm and Kubernetes
 
->>kubernetes is quite popular compared to other orcusation platformlike cloud-founder,docker-swarm or misos
->>kubernetes is better suited for large organizations as it offers more scalibility networking capabilities like policies and huge third party eco-system
->>docker swarm is used to use and install and it is suitable for easy application or simple applications or small organzations. there is no advance network 
-possibilites the supported is limited
+>> Kubernetes is quite popular compared to another orchestration platform like cloud-founder,docker-swarm, or Misos
+>>kubernetes is better suited for large organizations as it offers more scalability networking capabilities like policies and huge third-party eco-system
+>>docker swarm is used to use and install and it is suitable for easy applications or simple applications or small organizations. there are no advanced network 
+possibilities the support is limited
+
+Kubernetes:-
+1-kubernetes setup is complicated but once installed the cluster is very strong
+2-GUI is the Kubernetes Dashboard
+3-Kubernetes can do auto-scaling
+4-Kubernetes can deploy rolling updates & does automatic rollbacks
+5-can share storage volumes only with other containers in the same pod
+6-it has built-in tools for logging and monitoring
+7-manual intervention needed for load-balancing traffic between different containers pods
+
+Docker-Swarm
+1-Docker-swarm setup is very simple but the cluster is not strong
+2-There is no GUI
+3-Docker-swarm can't do auto-scaling
+4-docker-swarm can deploy rolling updates but not automatic rollbacks
+5-can share storage volumes with any other containers
+6-it uses 3rd party like ELK stack for logging and montoring
+7-it does auto-load-balancing of traffics between containers in the cluster
+
 
 5-what is the differnce between docker container and pod in kubernets
 
@@ -366,10 +385,17 @@ this two will not come service
 
 34 - what is Nodeport and what is the use
 
->>The NodePort service serves as the external entry point for incoming requests for your app. The assigned NodePort is publicly exposed in the 
-kubeproxy settings of each worker node in the cluster. Every worker node starts listening on the assigned NodePort for incoming requests for the service.
+>>This type of service exposes a set of pods to the outside world. A NodePort service maps a port on each node in the cluster to a specific port on the pod.
+This service type is used when you need to access a service from outside the cluster or from a different namespace within the same cluster.
 >>>>nodeport is used to connect outside the internet 
 >>It’s important to note that the allocated port range for NodePort services is 30000–32767 by default and can be customized if needed. 
+                                              (or)
+>>NodePort service in Kubernetes allows you to expose a container running in a Kubernetes cluster to the outside world by mapping a specific port of the Kubernetes node to 
+the container’s port.First, you create a NodePort service by defining it in a Kubernetes manifest file. In this manifest file, you specify the target port on which your container
+is listening and the port on which you want to expose the service to the outside world.When you create the service, Kubernetes assigns a random port in the range of 30000–32767 to
+the service. This port is the “NodePort” that gives the service its name.
+>>When you want to access your container from outside the Kubernetes cluster, you can use the IP address of any node in the cluster along with the NodePort to access the service.
+For example, if the NodePort assigned to your service is 32000 and you have a node with IP address 10.0.0.100, you can access the service at http://10.0.0.100:32000.
 
 35-what is ClusterIP
 
@@ -1966,3 +1992,16 @@ lightweight applications. It is more secure and reliable. It takes less disk spa
 >>A Kubernetes operator is a method of packaging, deploying, and managing a Kubernetes application. A Kubernetes application is both deployed on Kubernetes and managed using the 
 Kubernetes API (application programming interface) and kubectl tooling
 
+175-How ingress helps in Kubernetes?
+
+1-Routing
+2-Load balancing
+3-Access control
+4-TLS Termination
+
+176-How does Kubernetes handle network communication between containers?
+
+>>Kubernetes defines a network model called the container network interface (CNI), but the actual implementation relies on network plugins. 
+The network plugin is responsible for allocating internet protocol (IP) addresses to pods and enabling pods to communicate with each other within the Kubernetes cluster.
+>>When a pod is created in Kubernetes, the CNI plugin is used to create a virtual network interface for the pod. Each container in the pod is then assigned its own unique IP address
+within the pod’s network namespace. This enables containers within the pod to communicate with each other via localhost, as if they were running on the same host.
