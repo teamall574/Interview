@@ -829,9 +829,14 @@ but in aws your rasing an ticket but its take some time to contact and its not a
 
 4 - what is the differnce between argument refernce and attribute refernce in terraform
 
->>In Terraform v0. 12 and later, the language makes a distinction between argument syntax and nested block syntax within blocks: 
-Argument syntax sets a named argument for the containing object. If the attribute has a default value then an explicitly-specified value entirely overrides that
-default.
+>>In Terraform, attributes and arguments are two important concepts used to define and configure resources.
+
+>>Arguments: Arguments are used to define the configuration for a resource. They are the input values that define the desired state of the resource. For example, when defining an 
+EC2 instance, arguments might include the instance type, AMI ID, security group, and key pair.
+>>Attributes: Attributes are the output values that are returned by a resource after it has been created or updated. They represent the current state of the resource and can be used
+by other resources or modules. For example, an EC2 instance might have attributes such as the public IP address, private IP address, and instance ID.
+>>In general, arguments are used to define the desired state of a resource, while attributes are used to retrieve the current state of a resource. By using attributes and arguments in
+Terraform, you can define and manage your infrastructure in a more modular and reusable way.
 
 5 - how to deploy dev environment and prod environment in a single folder 
 
