@@ -2640,6 +2640,33 @@ use the services.Cost Allocation Tags
 This helps in identifying the resource that has cost more in a particular month. It lets you organize your resources and cost allocation tags to keep 
 track of your AWS costs.
 
+314-Difference between AWS CloudFormation and AWS Elastic Beanstalk?
+
+AWS-CloudFormation:-
+1-Infrastructure as a code service that automates the deployment and management AWS Services
+2-It is used for Infrastructure Automation
+3-can deploy both infrastructure and application code
+4-support wide range of AWS resources
+5-offers a high degree of customization and control over the deployment process
+6-high and flexible but requires more time and effort to set up
+7-more complex requires a good understanding of AWS infrastructure and services
+8-free pay only for the resources created
+9-best for managing and automating complex infrastructure
+AWS-Elastic-Beanstalk
+1-Platform as a service(Paas) that automates the deployment and management of applications
+2-Application Deployment Automation
+3-only deploys application code
+4-supports only certain languages and application types
+5-provides pre-defined opinionated deployment process
+6-limited flexbility but easier and quick to setup
+7-less complex requires less knowledge of AWS infrastructure and services
+8-free pay only for the resources created
+9-best for deploying and managing web-applications
+
+315-
+
+
+ 
 
 
 
