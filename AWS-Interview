@@ -2359,12 +2359,18 @@ WSGI application servers or Phusion passenger module.
 
 278-What are the difference between Nginx and Apache?
 
-Firstly, Nginx is an event-based web server and Apache is a process-based server.
-Nginx is best known for its speed and Apache is best known for its power.
-Nginx is the best when it comes to memory consumption and connection whereas Apache is not best in this category.
-In Nginx, a single thread is handling all of the requests whereas in Apache single thread handles a single request.
-Nginx is best when you want the load balancing. But Apache will refuse the new connection when traffic reaches the limit of the process.
-Apache provides lots of functionality as compared to Nginx.
+>>A web server is a software application that delivers web content, such as web pages, to client computers that request it via the Internet. The server receives and processes HTTP requests
+from clients, and responds with HTML documents or other types of content that the client’s web browser can display.
+>>Apache and Nginx are two popular web server software applications that are used to serve web content. Both are open-source and widely used in production environments. 
+While both can serve static and dynamic content, there are some differences between them.
+>>Apache is a very popular web server that has been around since the mid-1990s. It is known for its flexibility and ease of use, and it supports a wide range of modules and plugins
+that can be used to add functionality. Apache is also widely used on shared hosting environments, as it can be easily configured to serve multiple websites from the same server.
+>>Nginx, on the other hand, is a newer web server that was first released in 2004. It is known for its high performance and scalability, and it is often used to serve high-traffic websites.
+Nginx uses an event-driven architecture that allows it to handle a large number of requests with low resource usage. It is also commonly used as a reverse proxy and load balancer, 
+in addition to its role as a web server.
+>>In terms of working mechanism, both Apache and Nginx work by listening on a specific port for incoming requests. When a request comes in, the server processes it and generates a response,
+which is sent back to the client. Apache uses a multi-process or multi-threaded model, where each incoming request is handled by a separate process or thread. Nginx, on the other hand, 
+uses an asynchronous, event-driven model, where a single process can handle many connections simultaneously.
 
 279-What are the types of versions of Nginx web server?
 
@@ -2658,15 +2664,22 @@ AWS-Elastic-Beanstalk
 3-only deploys application code
 4-supports only certain languages and application types
 5-provides pre-defined opinionated deployment process
-6-limited flexbility but easier and quick to setup
+6-limited flexibility but easier and quick to setup
 7-less complex requires less knowledge of AWS infrastructure and services
 8-free pay only for the resources created
 9-best for deploying and managing web-applications
 
-315-
+315-What are the meaning of different error codes such as 202, 404, 501.
+
+202 - Accepted (Accepted for processing. ut server has not finished processing it)
+
+404 - Not Found (The request document does not exist on server)
+
+501 — Not Implemented (The server does not support functionality required o fullfill request)
+
+316-
 
 
- 
 
 
 
