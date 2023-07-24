@@ -1067,6 +1067,8 @@ repeatable top-level resources, like VNets, dynamic creates nested blocks within
 
 >>terraform. lock. hcl , and this name is intended to signify that it is a lock file for various items that Terraform caches in the . terraform subdirectory of your
 working directory. Terraform automatically creates or updates the dependency lock file each time you run the terraform init command.
+>>it .terraform.lock.hcl holdes the version of AWS code and hashes version
+
 
 33-what is terraform count
 
@@ -1079,7 +1081,7 @@ s3 where s3 storing on that your mentioning and that will dynamodb lock
 
 35-what is terrafomr depends-on
 
->>using depends_on you cna create the resources like you want create the vpc then after need to create the subnet then you can use the depends-on then it will
+>> Using depends_on you cna create the resources like you want create the vpc then after need to create the subnet then you can use the depends-on then it will
 create when vpc created after it will create the reaming resource
 depends_on = {
 aws_vpc.default
@@ -1089,7 +1091,7 @@ aws_vpc.default
 
 >>yes it will recreate the route table the data is stored in .tfstate so when some one deleted it will automatically created 
 
-37-if you want applu one one instance or one module only how can you apply in terraform
+37-if you want apply one one instance or one module only how can you apply in terraform
 
 >>terraform apply --target=module.vpc
 
@@ -1169,6 +1171,7 @@ resource "aws_instance" "example" {
 
 >>Sentinel is a policy-as-code framework developed by HashiCorp. It enables the implementation of fine-grained, automated policy enforcement for infrastructure provisioning and
 deployment using Terraform. Sentinel policies help enforce security, compliance, and operational best practices.
+>>Sentinel is terraform cloud or enterprise will provide restrict some types like instance types tags cost optimization easy way to build your infrastructure
 
 1-Security Policies
 2-Compliance Policies
@@ -1251,5 +1254,25 @@ state mv allows you to just change the reference so you ccan avoid a create and 
 
 >>terraform state mv packet_device.worker packet_device.helper
 
+52-what is terraform locking versions in different people in same team
 
+>>your developed infrastructure using AWS version 3.74.0 all the infrastructure developed you pasted the code in github .tfstate some other person came and downloaded and the person is
+intialized the code the AWS version 4.1.0 it may get an error right
+so we can overcome this by using terraform locking version
+>>if another person using different version this will make errors code will not work properly
+>>if your not shared this lock.hcl file to other persons that may get error you need to validate the documentation everytime
 
+terraform {
+  required_providers {
+    aws = {
+      source = "hashicorp/aws"
+      version = "3.47.0"
+      version = ">=3.47.0"   ##it will use latest version
+      version = "<=3.47.0"   ##it will use 3.47.0 below version
+      version = "~>3.47.0"   ##any one in the range 3.47.99 something it will not go or work this up versions 3.48.0 
+
+    }
+  }
+}
+
+53-
