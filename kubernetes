@@ -2016,3 +2016,138 @@ Kubernetes API (application programming interface) and kubectl tooling
 The network plugin is responsible for allocating internet protocol (IP) addresses to pods and enabling pods to communicate with each other within the Kubernetes cluster.
 >>When a pod is created in Kubernetes, the CNI plugin is used to create a virtual network interface for the pod. Each container in the pod is then assigned its own unique IP address
 within the pod’s network namespace. This enables containers within the pod to communicate with each other via localhost, as if they were running on the same host.
+
+177-what is Governance in kubernetes
+
+>>managing according to the compilance of orgnazation.compilance is nothing but roles
+for example no should create 64gb memory more tahn system or no can use the latest tag to create pods in kubernetes
+>>using kyverno tool to governance you do adminssion controller. it will validate and mutate the authenticated and authorized user request
+>>for example your using kyverno you implemented some resource quota some will come and deploy the pods and deployments it will restrict the creation of pods without using resource quota
+kyverno will restrict the pods without using or mention without resourcce quota
+
+178-what is kyverno in kubernetes
+
+>>Kyverno is a policy engine designed for Kubernetes
+>>Kyverno is a policy engine designed for Kubernetes
+>>A Kyverno policy is a collection of rules. Each rule consists of a match declaration, an optional exclude declaration, and one of a validate, mutate, generate, or verifyImages declaration.
+Each rule can contain only a single validate, mutate, generate, or verifyImages child declaration.Policies can be defined as cluster-wide resources (using the kind ClusterPolicy) or 
+namespaced resources (using the kind Policy.) As expected, namespaced policies will only apply to resources within the namespace in which they are defined while cluster-wide policies are 
+applied to matching resources across all namespaces. Otherwise, there is no difference between the two types.
+>>This allows using familiar tools such as kubectl , git , and kustomize to manage policies. Kyverno policies can validate, mutate, generate, and cleanup Kubernetes resources, and verify
+image signatures and artifacts to help secure the software supply chain.
+
+kyverno will do this four important topics
+1-Generate
+2-validate
+3-mutate
+4-verfiy image
+
+179-how to secure your kubernetes cluster
+
+1-Secure API-Server:-
+kubectl get pods | grep kube-api-server
+add the tls and crt file this will help to secure your API-Server
+2-RBAC:-Restrict the access to unauthorized the users using(Service-Accounts, Role, Cluster-Role)
+3-Network-policies:-restrict the namespace using network policies
+4-ETCD encryption:- Configure the key management system to store and manage encryption keys.
+5-Secure container images:- scan docker images using this
+docker sync --severity dockerhub.io/anji1592/test:latest
+6-cluster montoring:- dont run your pod on root environment use sysdig to monirot your cluster actions
+7-upgrades cluster:-Keep the Kubernetes cluster and its components up to date with the latest security patches and updates.
+
+180-in kubernetes any user dont use latest tag to create the pod  ,deployment, replicasets, statefulsets  in kubernetes how we can achive this
+
+>>To prevent users from using the "latest" tag for creating pods, deployments, replicasets, and statefulsets in Kubernetes, you can enforce image tag immutability by implementing a 
+combination of custom Admission Controllers and Pod Security Policies (PSP). This approach will allow you to intercept and modify requests to the API server and enforce stricter policies
+for image tags
+Step 1: Create a Custom Admission Controller:
+Step 2: Define Pod Security Policies: Pod Security Policies (PSP) in Kubernetes to enforce stricter security settings for Pod creation. PSP allows you to restrict the usage of certain 
+image tags, among other security-related configurations.
+
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: disallow-latest-tag
+spec:
+  privileged: false
+  seLinux:
+    rule: RunAsAny
+  supplementalGroups:
+    rule: RunAsAny
+  runAsUser:
+    rule: RunAsAny
+  fsGroup:
+    rule: RunAsAny
+  volumes:
+    - '*'
+  hostNetwork: false
+  hostIPC: false
+  hostPID: false
+  allowedCapabilities: []
+  hostPorts: []
+  allowedHostPaths: []
+  allowedFlexVolumes: []
+  forbiddenSysctls:
+    - '*'
+  readOnlyRootFilesystem: false
+  defaultAddCapabilities: []
+  requiredDropCapabilities: []
+  allowedProcMountTypes: []
+  allowedUnsafeSysctls: []
+  allowedCSIDrivers: []
+  allowedUnsafeSysctls: []
+  allowedImageTags:
+    - "*"
+    - "!latest"  # Disallow usage of "latest" tag
+>>kubectl apply -f path/to/pod-security-policy.yaml
+Create a ClusterRole and ClusterRoleBinding to allow the admission controller to access the Pod Security Policy:
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: admission-controller-access
+rules:
+  - apiGroups: ["policy"]
+    resources: ["podsecuritypolicies"]
+    resourceNames: ["disallow-latest-tag"]
+    verbs: ["use"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: admission-controller-access
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: admission-controller-access
+subjects:
+  - apiGroup: ""
+    kind: ServiceAccount
+    name: admission-controller-service-account
+    namespace: <NAMESPACE>  # Replace with the namespace where the admission controller runs
+>>kubectl apply -f path/to/cluster-role.yaml
+
+Step 3: Configure the Admission Controller:Register the webhook server (admission controller) as a ValidatingAdmissionWebhook for the Kubernetes API server. 
+The admission controller will intercept and validate requests before they are admitted.
+
+181-In my organization keep growing how to implement the restrications like user most use resource quota if he cant use he get an error how you will achive this
+
+>>you can create the cutsom admission controllers or you can use kyverno then you can restrict pods without resource request and limit when user creating pods or deployments or replicasets 
+
+182-
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
