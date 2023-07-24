@@ -792,7 +792,8 @@ use:-
 
 68-what is kubectx
 
->>faster way to switch between clusters and namespaces in kubectl
+>>faster way to switch between clusters and namespaces in kubectl (this will work in user account also)
+>>if you want use kubens it wil work only cluster level only
 
 69-what is kubernets helm
 
