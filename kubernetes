@@ -1629,8 +1629,9 @@ cluster, then make or request changes wherever needed. Simply terms, when a cont
 
 >>Istio is an open source service mesh that helps organizations run distributed, microservices-based apps anywhere. Why use Istio? Istio enables organizations to secure, connect,
 and monitor microservices, so they can modernize their enterprise apps more swiftly and securely.
+>>Ision uses Envy sidecar containers like the envy pod will deploy as sidecar containers to every pod. it uses MTLS using securely in pod to pod
 
->>for example you have one web-application in kubernetes in kubernetes you have multiple pods and you edge firewall this will protect the from outside inside pod will be there this 
+>> For example you have one web application in kubernetes in kubernetes you have multiple pods and you edge firewall this will protect the from outside inside pod will be there this 
 will take to each other nad communicate togther and the problem is that it is in plan text only. outside connection secure and internal service not secure afart from the business logic
 you can create communcation controller where pod need to talk which pod. and need security logic and also metric loads to collect and tracing purpose
 and retry logic and this logic need to add business logic if add this logic into images the image size will be increased then what is the solution the solution is service mesh 
@@ -1650,8 +1651,18 @@ Advantages:-
 
 144-what is Service mesh
 
->>which is used manage communication between microservices
->>service mesh is act as a sidecar container
+this thing can solve the service mesh
+>> Communication controller
+>> Metrics collection and tracing
+>> Security logic
+>> Retry logic   --> This thing can be added apart from the business logic
+>> If I add this thing to business logic of the pod the size will increase which will add the complexity
+
+>>which is used to manage communication between microservices in an environment securely and also do traffic splitting this service mesh will be added to the control plane
+The proxy will be a part of control plane this will be automatically injected into application i dont  want chane or modify instead of using service mesh it will help you using
+and one more advantage is that traffic splitting it used in canary deployments. if you version1 payment gateway the version2 is available you can split the 90% traffic to version1
+we can use 10% of traffic to version2 if works good then we can deploy in production. by using service mesh like Istio uses ex:Istio, Linkerd
+>> Service mesh is act as a sidecar container or proxy to the pods
 
 145-How can containers within a pod communicate with each other?
 
