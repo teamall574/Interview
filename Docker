@@ -893,6 +893,13 @@ connection, it can eventually connect to the database.The best solution is to pe
 >>docker logs [container ID]
 >>docker top[container ID]
 
+87-how to check the docker issues like vulnerabilites
+
+1-trivy
+2-sync
+3-clair
+
+88-
 =========================================================================docker login======================================================================
 
 
