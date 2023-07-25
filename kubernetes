@@ -2186,9 +2186,12 @@ spec:
 >>K3s is a lightweight Kubernetes distribution created by Rancher Labs, and it is fully certified by the Cloud Native Computing Foundation (CNCF). 
 K3s is highly available and production-ready. It has a very small binary size and very low resource requirements.
 
-183-
+183-what is Rancher
 
+>>Rancher is a Kubernetes management tool to deploy and run clusters anywhere and on any provider. Rancher can provision Kubernetes from a hosted provider, 
+provision compute nodes and then install Kubernetes onto them, or import existing Kubernetes clusters running anywhere.
 
+184-
 
 
 
