@@ -2181,10 +2181,12 @@ spec:
               limits:
                 memory: "?*"
 
-182-
+182-what is K3S
 
+>>K3s is a lightweight Kubernetes distribution created by Rancher Labs, and it is fully certified by the Cloud Native Computing Foundation (CNCF). 
+K3s is highly available and production-ready. It has a very small binary size and very low resource requirements.
 
-
+183-
 
 
 
