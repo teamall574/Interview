@@ -540,13 +540,16 @@ Disadvantages:-
 2 - Static Provisioning (pv-persistent volume, pvc-persistentvolumecliam)
 
 >> your creating ebs volume under you can create multiple persistent volumes and developer can can claims how much gb he want he can use without giving volume-id
-this called static provisioning
->>it is cluster-level resource
->>there is no need to give the volume-id to developer like direct access
+this is called static provisioning
+>> It is cluster-level resource
+>> There is no need to give the volume-id to the developer like direct access
 >>by default gp2 is available if you want io1 you need to create the storage class
->>creating persistent volume then you can create the pod is using persistentvolumeclaim how much you can attach persistentvolume
->>like first created the pv volumes then use that persistentvolume using persistentvolumelaim
->>when you creating a ebs volume claim you need compulsary to give tag like Kubernetescluster bughunteranji.xyz
+>> Creating persistent volume then you can create the pod using persistent volume claim how much you can attach persistent volume
+>>like first creating the pv volumes and then using that persistent volume using persistentvolumelaim
+>> When you creating an EBS volume claim you need compulsory to give a tag like Kubernetes cluster bughunteranji.xyz
+
+>>by default automatically gp2 will there in gp2 is there then you create pv and pvc then use that pvc in pod or deploymnet if you wnat create the IO1 or any other then you need
+to create the storage class then create pv and pvc then claim the pvc in deploymnet or pod
 
 3 - Dynamic Provisioning(pvc -persistentvolumecliam)
 
@@ -554,6 +557,8 @@ this called static provisioning
 giving permissions developer to him but in this dynamic provisong there no permisssions to developer 
 >>first craete the storage class then use taht stoarge class to use deploy persistentvolumecliam
 >>no need to create the pv you directly claim the pvc 
+>>if you want gp2 no need to create the pv if you want any other Io1 or any other stoarge then create the stoarge class and create pvc and claim that pvc in deployment
+>>if your using EFS means you need to do this things create role and service accounts and cluster role then cluser role binding and stoarge class then pvc claim that in deployment
 
 50-what is reclaiming policyes in persistentvolumes(PV)
 
