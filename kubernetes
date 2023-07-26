@@ -560,6 +560,19 @@ giving permissions developer to him but in this dynamic provisong there no permi
 >>if you want gp2 no need to create the pv if you want any other Io1 or any other stoarge then create the stoarge class and create pvc and claim that pvc in deployment
 >>if your using EFS means you need to do this things create role and service accounts and cluster role then cluser role binding and stoarge class then pvc claim that in deployment
 
+>>using EFS need all this
+RBAC
+clusterrole
+clusterrolebinding
+role
+rolebinding
+configmap
+deployment -->efs-provisoner 
+>>pod will not directly mount to the efs so thats why created deployment to efs then we create the pvc and everything we can claim that in nginx or any pod
+storage class
+pvc
+then deploy your pods to claim in volumes or mounts in deployment
+
 50-what is reclaiming policyes in persistentvolumes(PV)
 
 1-reclaiming:-When a user is done with their volume, they can delete the PVC objects from the API that allows reclamation of the resource. The reclaim policy for 
