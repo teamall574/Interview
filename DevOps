@@ -105,7 +105,8 @@ deployment, and monitoring of the software throughout the lifecycle.
 >>continous deployment:- is the automation of building testing and deploying if all test pass every commit will push new code through the entire development pipeline
 to production with no manual intervention
 
->>continous integration:- is the automated building and testing of your application on every new commit
+>>continous integration:- continuous Integartion is the process of continuously compiling and building creating the artifact and storing the artifacts into some location store nexus or jfrog
+is the automated building and testing of your application on every new commit
 >>CI is the practice of frequently merging code changes from multiple developers into a shared repository, where automated builds and tests are run. 
 The goal is to catch and fix integration issues as early as possible, before they cause delays or bugs downstream.
 
