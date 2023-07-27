@@ -105,9 +105,10 @@ port number is 3306 or any other port
 >>we dont know which librarys using so that why we combine source code + librarys create into war or jar file
 >>we can check the pom.xml all the librays and it contains information about the project and configuration details plugins goals and versions we can check only pom.xml
 the build toolis 
-java: maven
-Dotnet: MSBuild
-node js: NPM
+java: maven  -->pom.xml
+Dotnet: MSBuild  -->project.json
+node js: NPM   -->package.json
+python: pip    -->reqirments.txt           -->this files contains library and dependies list
 python: no need to use build tool in python it is not inter-preted language. it will automaticaly install required packages using pip module
 
 13-what is library
