@@ -516,9 +516,14 @@ in the repo then the pointer or HEAD is going to move or change its position to 
 
 >>the git bisect command helps you to perform a binary search to identify which commit introduced a bug or regression in the codebase
 
+65-how to check the remote repository in git in your local system
 
+>>git remote -v how to see the remote repositorys in your local system
+>>git push -u origin main  -->master is deprected so use main only
+>>git remote set-url origin git@github.com:user/repo.git
+>>git push --set-upstream origin anji  -->this will push the code to anji
 
-
+66-
 
 
 
