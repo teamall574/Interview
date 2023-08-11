@@ -2678,8 +2678,14 @@ AWS-Elastic-Beanstalk
 
 501 — Not Implemented (The server does not support functionality required o fullfill request)
 
-316-
+316-what is the difference between reverse proxy and forward proxy
 
+>>if you use revrese proxy user doesn't know the proxy details and everything this request will be forward to another endpoint or any other servers
+>>if you use forward proxy user knows everything this will help you this things
+1-client citrix
+2-Anonymus
+3-content filter
+4-cacheing 
 
 
 
