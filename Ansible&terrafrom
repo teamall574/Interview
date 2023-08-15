@@ -598,7 +598,7 @@ if we add the ignore errors then if 25 server failed then it will continue and i
 2-play
 3-playbook
 
-30-waht is data structure or data collections
+30-what is data structure or data collections
 
 >>data structure or data collections are used to store multiple values
 
@@ -1056,7 +1056,21 @@ cloud provider or Terraform outputs from other configurations.
 30-what is terraform functions
 
 >>The Terraform language includes a number of built-in functions that you can call from within expressions to transform and combine values. 
-The general syntax for function calls is a function name followed by comma-separated arguments in parentheses: max(5, 12, 9)
+The general syntax for function calls is a function name followed by comma-separated arguments in parentheses: max(5, 12, 9)map
+
+1-concat
+2-element
+3-join
+4-map
+5-slice
+6-format
+7-file
+8-lookup
+9-replace
+10-max
+11-min
+12-timeadd
+13-floor
 
 31-what is dynamic blocks in terraform
 
