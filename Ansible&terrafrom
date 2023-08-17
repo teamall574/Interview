@@ -1083,7 +1083,6 @@ repeatable top-level resources, like VNets, dynamic creates nested blocks within
 working directory. Terraform automatically creates or updates the dependency lock file each time you run the terraform init command.
 >>it .terraform.lock.hcl holdes the version of AWS code and hashes version
 
-
 33-what is terraform count
 
 >>To manage several of the same resources, you can use either count or for_each , which removes the need to write a separate block of code for each one.
@@ -1091,7 +1090,7 @@ working directory. Terraform automatically creates or updates the dependency loc
 34-what is Terraform state locking 
 
 >>any two developers working on same state you an able lok that file then second person get an error to avoid duplications. your mentiong in the backend file like 
-s3 where s3 storing on that your mentioning and that will dynamodb lock
+s3 where s3 storing on that your mentioning and that will dynamodb lock the partition key must be LockID
 
 35-what is terrafomr depends-on
 
