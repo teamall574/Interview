@@ -1577,13 +1577,17 @@ Invalid image/Invalid tag/Invalid permissions
 4-Invalid Image Name
 5-Crash LoopBackoff
 your image pulled successfully when the pod runtime the pod went crashloopbackofff
->>check liveness probe
+>>check the liveness probe
 image pulled but pod is not ready
->>check the readniess probe
+>>check the readiness probe
 
 6-Kill Container Error
+7-Authorization issues
+8-Docker issues
+9-version issues
+10-plugins issue
 
-135-what is kubectl evnets what is the use
+135-what is kubectl events what is the use
 
 >>while launching pod it is not cretaed you can check the logs and describe if not find any answer then you can check the events it will show the problem
 
