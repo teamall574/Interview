@@ -107,7 +107,8 @@ On-board level you can divide two parts
 4-what is kubernetes Architecture
 
 >>Kubernetes uses master and node Architecture 
-1-Master-node-(control-plane) in master node 
+1-Master-node-(control-plane) in master node :-The master node comes control plane The master node is responsible for managing the Kubernetes cluster and its control plane components. 
+It oversees the overall cluster operations, scheduling, and scaling of applications. The master node includes the following components:
 >>API server: The API server is the central component in a Kubernetes cluster. It is responsible for managing the state of the cluster and exposing the Kubernetes API.
 The API server is the endpoint for all requests to the Kubernetes cluster.
 >>Etcd: Etcd is a distributed key-value store that is used to store the configuration data for the Kubernetes cluster. This data includes information about nodes, pods, and services.
@@ -123,7 +124,7 @@ desired state is maintained.
 the available resources on each node, to determine the best node for each pod to run on.
 >>cloud-control manager:-When kubernetes is deployed in cloud environments, the cloud controller manager acts as a bridge between Cloud Platform APIs and the Kubernetes cluster.
 Cloud controller integration allows Kubernetes cluster to provision cloud resources like instances (for nodes), Load Balancers (for services), and Storage Volumes (for persistent volumes)
-2-Worker Node-(Dataplane) 
+2-Worker Node-(Dataplane):--Worker nodes, also known as minion nodes, are the machines that run containerized applications. These nodes execute the tasks assigned to them by the master node 
 >>Kubelet: The kubelet is the agent that runs on each node in the cluster. It is responsible for ensuring that the containers in a pod are running and healthy.
 >>Kube-proxy: Kube-proxy is the network proxy that runs on each node in the cluster. It is responsible for routing traffic from the network to the correct pods in the cluster.
 >>Container Runtime: The container runtime is responsible for pulling the images and starting containers. Kubernetes supports multiple container runtimes, 
