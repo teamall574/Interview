@@ -784,10 +784,20 @@ logic in th C-CM users can access services using the external IP
 
 >>NameSpace is just like a workspace
 >>in kubernetes namespace is a logical isolation of resources network policies rbac and everything  
+>>namespace are way to organize your cluster into virtual sub-clusters
+>>each namespace logical seperated from each other but they can communicate with each other 
 
+1-Avoding conflicts will be use in namespace
+2-Restrcting Access from other users in namwspace
+3-Resourcing limits can apply namespace level
+Default-NameSpaces:-
+1-Default
+2-kube-node-lease
+3-kube-public
+4-kube-system
 >>for example. there are two projects using ns1 and other project is ns2 without any overlap and authentication problems
 
-78-what is resource-quota and limit-range in kubernetes
+78-what is resource quota and limit-range in Kubernetes
 
 >>The resource quota is the total allocated resources for a particular namespace, 
 while limit range also used to assign limits for objects like containers (Pods) running inside the namespace. This is one of the best practice recommended.
