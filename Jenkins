@@ -783,7 +783,7 @@ Advantegs:-
 
 >>Port 50000 allows you to use other JNLP-based Jenkins agents on other machines. This functionality is not required for this example, but is good to know about if you are working with a master-slave system.
 Map host volumes to the container. This means that the container can use, store, and create data on the host.
-
+>>jenkins agent port number is 50000 for JNLP
 >>What port does Jenkins agent use?
 Agents speak “remoting” from agent to controller. By default they do this over TCP, I believe the default is port 50000 though the default might be random, but you can override that in settings.
 
