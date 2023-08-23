@@ -952,6 +952,29 @@ stateful systems expect a response, track information, and resend the request if
 
 >>A Kubernetes volume is a directory that contains data accessible to containers in a given Pod in the orchestration and scheduling platform. 
 Volumes provide a plug-in mechanism to connect ephemeral containers with persistent data stores elsewhere
+>>volume is a directory with some data init and that accessible the pods or containers 
+>>when the pod is deleted the data will be if your not used the volumes 
+
+problem staement:-
+1-Data lose or persisting data
+2-sharing volumes
+
+Types of volumes:-
+
+1-empty dir:- if the pod restarts the data will not delete .if you attach this if the pod delete the volume will delete data will gone.
+it is not persistent volume 
+
+Advantages:-
+1-it is shared multiple pods 
+Disadvantge:-
+1-if the pod delete the data will gone
+
+2-HostPath Volume:-
+>>it will store on local system of your system in the specifying folder
+>>if we have multiple pods running your different nodes it can be if the node is restarted that data will gone
+
+3-persistent volume claim
+
 
 92-what is emptydir in kubernetes
 
@@ -2395,6 +2418,97 @@ install kafka in local system then enter folder run this command
 202-what is the jaegur
 
 >>jaegur will do end-to-end tracing will show 
+
+203-what probleams slove in kubernetes
+
+>>self the helaing(kubernetes will montior and check helath for every pod)
+>>Scalability: While Kubernetes is designed to handle large-scale deployments, scaling applications within a Kubernetes cluster can still be challenging
+>>Networking: Networking in Kubernetes can be complex, especially when dealing with multiple pods, services, and load balancers. Configuring network policies, setting up service discovery, and handling ingress and egress traffic can pose challenges.
+>>Monitoring and Logging: Kubernetes provides basic monitoring and logging capabilities, but setting up a comprehensive monitoring and logging stack can be complex
+>>Persistent Storage: Managing persistent storage in Kubernetes can be challenging. Although Kubernetes provides mechanisms like Persistent Volumes (PVs) and Persistent Volume Claims (PVCs)
+
+204-what is Yaml
+
+>>yaml is humann readble language. this not markup lanaguage
+>>it is serialization lanaguage:-when you sending data from soure to destination your using the network when you sending it will serialized when it goes internet it will be converted into byte stream and the destination will be convert binay to Deserialization
+>>serialization languages like xml yaml json
+
+205-what is self healing in kubernetes
+
+>>you have mention 3 replicas in a node if the pod is deleted then automatically create the pod
+
+206-what is the high availbilty in kubernetes
+
+>>if your using replicas 3 and suddenly the worker is noe is deleted or stopped then replicas will move into another node automatically
+
+207-what is rollout and rollback
+
+RollOut:-
+>>A rolling deployment is a deployment strategy that slowly replaces previous versions of an application with new versions of an application by completely replacing the infrastructure on which the application is running.
+>>kubectl set image deployment/app-your image nginx-caontainer=nginx-1.23.new-image
+
+>>kubectl rollout history deployment/nginx-deployment -->it will show the history of rollout
+
+>>kubectl set image deployment/app-your image nginx-caontainer=nginx-1.23.new-image  --record   --->it will show the reocrd when you seee history
+
+RollBack:-
+>>rolls back deployments by redeploying a previously deployed revision of an application as a new deployment. These rolled-back deployments are technically new deployments, with new deployment IDs,
+rather than restored versions of a previous deployment.
+
+>>kubectl rollout undo deployment/nginx-deployment --to-revicion=1
+
+208-what is the Best-Practices when you applying probes
+
+1-ideal frequency
+2-light-weight
+3-correct Restart policy
+4-use probe when only needed
+5-keep an eyes on probes regularly
+
+209-what is node selector
+
+>>your created some labels in your nodes and then your specify the node selector you deploy your pods in specific node 
+
+nodeSelector: 
+        env: dev
+
+210-how to connect the mongodb
+
+>>you can use mongose to connect the mongodb 
+
+211-how to see the container pids in kuberebtes
+
+>>ps aux
+
+212-what are sidecar containers
+
+>> You can run multiple tasks and it will update the task in sidecar containers 
+>> It is like syncing in your volume 
+>> We can run the refresh part in separate containers without disturbing the main container this refresh service pulls the code or configuration from GitHub from every update or every second of the volume 
+this is called a sidecar container 
+
+213-what is the use of multiple containers in a single pod
+
+>>need to run backend jobs(ex:-git sync run in background using emptydir)
+
+214-what is BackoffLimitExceeded
+
+>> When you mention BackoffLimitExceeded:3 means if the pod getting restarted 3 times it will stop and give an error it will not try every time restart again and again
+>> It will control the load of your system If you do not specify it will run again & again which will consume more memory in your system
+>> We also specify the active deadline seconds: 100 If it takes more than 100 seconds it will be marked as failed
+
+215-what is job in kubenrets
+
+>> It is used to run the job at one time you can specify but you can mention ttl second after finished: 60 if the job is completed then delete the job after 60 seconds 
+
+216-what is cronjob in Kubernetes
+
+>> It will run every second if you specify if not you can specify using the cronjob-specific time
+>> You schedule jobs using cronjob it will run at that time
+ex:- 
+1-DB-Backup
+2-Log-Rotation
+3-Data-Processing
 
 
 
