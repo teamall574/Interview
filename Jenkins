@@ -238,7 +238,8 @@ language) based on the Groovy programming language
 
 5-How to change default port in jenkins
 
-Go to
+>>lib/systemd/system/jenkins.service
+in this path you can change the port number 
 cd /usr/lib/systemd/system
 ls *jenkins*
 sudo vi jenkins.service
