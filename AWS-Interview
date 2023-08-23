@@ -2688,6 +2688,18 @@ as reverse proxy
 3-content filter
 4-cacheing 
 
+317-what is the advantages of using API-Gateway 
+
+>>using API-Gateway in micro-services or monolithic application the request will come api-gateway like authentication or authorization it will fetch the data using APIS 
+>>it will also store or maintain the cache mechnisam the performance will be improved latency will reduced 
+>>it will cpature the metricss like
+1-it will capture the how many API-call will recieved 
+2-how much latency will caused between the request and responce 
+3-how many call is failed 
+4-which backend is not responding using APIS
+
+
+
 
 
 
