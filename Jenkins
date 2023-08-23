@@ -898,3 +898,22 @@ is to be displayed then you may need to create Slave node and run the build usin
 >>use this command in your pipeline it will help you to change build number in 
 >>mvn versions:set -DnewVersion=1.0.0${BUILD_NUMBER}
 >>mvn clean install
+
+74-what is parallel build in pipeline
+
+>>in single stage we create we execute the multiple stages 
+stage("Build & Push Docker Image") { #it will execute parellel in single build stage 
+            steps {
+                script {
+                    parallel (
+                        docker.withRegistry('',DOCKER_PASS) {
+                            docker_image = docker.build "${IMAGE_NAME}"
+                        },
+                        docker.withRegistry('',DOCKER_PASS) {
+                            docker_image.push("${IMAGE_TAG}")
+                            docker_image.push('latest')
+                        }
+                    )    
+                }
+            }
+        }
