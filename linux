@@ -1,3 +1,5 @@
+sudo chage -M 30 anji -->it is used to set user only one password for 30 days only
+sudo chage -d 0 anji  -->it is used to set user can change the password when we login the 
 1- tell me user types in linux
 
 $  -->normal user
