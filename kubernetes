@@ -2423,14 +2423,16 @@ install kafka in local system then enter folder run this command
 
 >>self the helaing(kubernetes will montior and check helath for every pod)
 >>Scalability: While Kubernetes is designed to handle large-scale deployments, scaling applications within a Kubernetes cluster can still be challenging
->>Networking: Networking in Kubernetes can be complex, especially when dealing with multiple pods, services, and load balancers. Configuring network policies, setting up service discovery, and handling ingress and egress traffic can pose challenges.
+>>Networking: Networking in Kubernetes can be complex, especially when dealing with multiple pods, services, and load balancers. Configuring network policies, setting up service discovery, and handling 
+ingress and egress traffic can pose challenges.
 >>Monitoring and Logging: Kubernetes provides basic monitoring and logging capabilities, but setting up a comprehensive monitoring and logging stack can be complex
 >>Persistent Storage: Managing persistent storage in Kubernetes can be challenging. Although Kubernetes provides mechanisms like Persistent Volumes (PVs) and Persistent Volume Claims (PVCs)
 
 204-what is Yaml
 
 >>yaml is humann readble language. this not markup lanaguage
->>it is serialization lanaguage:-when you sending data from soure to destination your using the network when you sending it will serialized when it goes internet it will be converted into byte stream and the destination will be convert binay to Deserialization
+>>it is serialization lanaguage:-when you sending data from soure to destination your using the network when you sending it will serialized when it goes internet it will be converted into byte stream and
+the destination will be convert binay to Deserialization
 >>serialization languages like xml yaml json
 
 205-what is self healing in kubernetes
@@ -2444,7 +2446,8 @@ install kafka in local system then enter folder run this command
 207-what is rollout and rollback
 
 RollOut:-
->>A rolling deployment is a deployment strategy that slowly replaces previous versions of an application with new versions of an application by completely replacing the infrastructure on which the application is running.
+>>A rolling deployment is a deployment strategy that slowly replaces previous versions of an application with new versions of an application by completely replacing the infrastructure on which the application
+is running.
 >>kubectl set image deployment/app-your image nginx-caontainer=nginx-1.23.new-image
 
 >>kubectl rollout history deployment/nginx-deployment -->it will show the history of rollout
