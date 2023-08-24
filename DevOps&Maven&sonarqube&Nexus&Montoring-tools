@@ -245,6 +245,39 @@ giving access to multiple projects persons doing adminstration if devops person 
 
 >>default port number is 8080 and Jenkins version 2.375.2
 
+32-can you describe SDLC .
+
+>>SDLC stands for Software Development Life Cycle. It’s a framework that describes the stages involved in the development of software
+Planning: In this stage, project goals and requirements are identified, and a plan is created for how the software will be developed.
+Analysis: In this stage, the requirements are analyzed in more detail, and a functional specification is created.
+Design: In this stage, the software design is created, including the architecture, database schema, and user interface.
+Implementation: In this stage, the code is written, and the software is tested to ensure it meets the requirements.
+Testing: In this stage, the software is tested to ensure it’s free of bugs and meets the requirements.
+Deployment: In this stage, the software is released to the users.
+Maintenance: In this stage, the software is monitored and updated to ensure it continues to meet the needs of the users.
+
+33-Difference between agile methodologies and DevOps methodology.
+
+>>Focus: Agile focuses on software development and project management, while DevOps focuses on software development, operations, and collaboration.
+>>Methodology: Agile is an iterative and incremental approach to software development, emphasizing frequent delivery of working software, while DevOps is a set of practices 
+and principles that emphasize collaboration, automation, and continuous delivery and deployment.
+>>Team Structure: Agile teams typically consist of developers, testers, and a product owner, while DevOps teams are cross-functional, including developers, operations staff, and 
+other stakeholders.
+>>Release Cycle: Agile methodologies often release software in regular intervals, while DevOps aims to release software as quickly and frequently as possible through 
+continuous integration, delivery, and deployment.
+>>Automation: DevOps places a stronger emphasis on automation than agile methodologies, using tools like configuration management, continuous integration and deployment, 
+and monitoring to improve efficiency and quality.
+
+34-what is the shift left
+
+>>In earlire day we are doing CI, Deploymnet, Testing, Scaning in our deploy production then we have tested .in Shift left process we test in devlopment stages like functional testing 
+and perfformance checking and quality checking security checking
+>>we integrated scaning in CI satge before going resume
+
+35-what is the shift right
+
+>>The shift right approach monitors user behavior, usage, performance, and security metrics to verify software operability in the hands of its actual users.
+
 
 ============================================Maven=============================
 
