@@ -274,12 +274,18 @@ and monitoring to improve efficiency and quality.
 anticipate changes that arise during the development process that can affect performance or other delivery processes
 >>In earlire day we are doing CI, Deploymnet, Testing, Scaning in our deploy production then we have tested .in Shift left process we test in devlopment stages like functional testing 
 and perfformance checking and quality checking security checking
+>>in shift left we start test early in SDLC
+>>since requirements gathering
+>>Delivering Quality software and speed 
 
 35-what is the shift right
 
 >>Shift right is the practice of performing testing, quality, and performance evaluation in production under real-world conditions. Shift right methods ensure that applications 
 running in production can withstand real user load while ensuring the same high levels of quality.
 >>The shift right approach monitors user behavior, usage, performance, and security metrics to verify software operability in the hands of its actual users.
+>>In shift right late testing
+>>it is in production only
+>>better quality software by reai user feedback
 
 ============================================Maven=============================
 
