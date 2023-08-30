@@ -1093,13 +1093,26 @@ such as system logs or container logs, development testing, or when you want to 
 
 101--what is daemon-set
 
->> DaemonSet is a Kubernetes feature that lets you run a Kubernetes pod on all cluster nodes that meet certain criteria. Every time a new node is added to a cluster,
-the pod is added to it, and when a node is removed from the cluster, the pod is removed.
->>deamon set is global mode in kubernetes. deployment is replica
->>deamon set is used to when you deploying a pods it will check how many nodes and it will intiate one-to-one pod mapping if you added one more node 
-then it will add one more pod into the nexrt like when your ruuning 4 pods and 3 nodes in one node2 pods remaing nodes one to one if you added one more node
-then one pod will go to the 4th node
+>>DaemonSet is a top-level resource in the Kubernetes REST API
+>>A DaemonSet is a Kubernetes resource that ensures that a specific pod is running on all or a subset of nodes in a cluster. Unlike other workload controllers like Deployments or ReplicaSets,
+which manage a specified number of replicas across the cluster, DaemonSets are focused on one replica per node.
+>>when you want deploy a pod on each node such as montoring or logging agents if your scaleup or down your cluster you want remove and ad pods as well deamonset automate this process for you deamonset will
+create as many pods aS there are nodes in your cluster so you dont need to manage replicas yourself
 
+features
+1-one pod per node
+2-node additions and removals
+3-automcatic rescheduling
+4-selective scheduling
+5-updating pods
+
+use-cases:-
+1-montoring and logging agents
+2-security and network agents
+3-resource management
+4-backup and management
+5-custom use case
+6-static pods
 use-case:-
 1-logging
 1-fluentd:-collect the logs create the centrailized in sinle location analyzing
