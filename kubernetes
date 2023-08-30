@@ -525,6 +525,8 @@ An image is comparable to a snapshot in virtual machine (VM) environments.
 
 48-what is pod in kubernets
 
+>>Pods are the smallest deployable units of computing that you can create and manage in Kubernetes.
+>>A pod is samllest unit of compuatation and replication in kubernetes
 >>A Kubernetes pod is a collection of one or more Linux® containers, and is the smallest unit of a Kubernetes application.
 >>pod is single entity
 >>pod will run only one node
