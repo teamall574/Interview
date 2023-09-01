@@ -2528,6 +2528,71 @@ ex:-
 2-Log-Rotation
 3-Data-Processing
 
+217-what problems will face if you install or using KOPS as production environment
+
+>>if managed cluster went down not able to do any activity until it will come remains everything works file includes worker node and pods everything. if your using 3 master cluster then this 
+will not face in production problem
+>>if the certifactes may expiry
+>>api server is down
+>>etcd is crashed
+>>scheduler is not working    -->your responsible for maintain this if using kops 
+>>cluster upgradation
+>>Learning Curve: Kops requires a good understanding of both Kubernetes and AWS. If your team is not familiar with these technologies, there might be a steep learning curve, which can lead to
+misconfigurations and issues in a production environment.
+>>Limited Cloud Provider Support: While Kops primarily focuses on AWS, support for other cloud providers like Azure and Google Cloud is not as robust. This can limit your options for multi-cloud 
+or hybrid cloud strategies.
+>>Maintenance Overhead: Managing Kubernetes clusters using Kops requires ongoing maintenance. You need to keep Kops itself updated along with the Kubernetes versions. This involves understanding 
+the compatibility matrix, testing updates, and performing rolling updates of the clusters.
+
+218-how to create a highly managed kubernetes cluster and worker nodes
+
+>>if you use eks and aws fargate then this will help high availbility
+>>fargate will serverless this will managed by AWS if you use EKS this will also manage AWS 
+>>if you use fargate no need to manage anything if you install ec2 manaually you need to maintain the worker node like auto-scaling
+
+219-what is the drawbacks in EKS
+
+>>High cost
+>>complexity hybrid environment
+>>Troubleshooting challenges
+>>Limited Node Instance Types
+>>Delayed kubernetes version updates
+>>cluster scaling limits
+>>vendor lock-in
+>>complex networking
+>>Control and Customization
+
+220what is the Advanatges of EKS
+
+>>managed service
+>>Global Reach
+>backup and restore
+>>Integration with AWS Services
+>>Managed Node Groups
+>>Built-in Monitoring and Logging
+>>Security and Compliance
+>>scalibility 
+>>Easy Setup
+>>High Availbility
+
+>>if your created 100 service then you created 100 load-balancers in eks or kops that will charge high then use ingress it will reduce the cost  
+>>for example if you use 100 load-balancers in kubernetes you need to route then add that 100 load-balancers into route53 then if you use one ingress will create the load-balancer 
+in aws then route that using route53 in sigle load-balancer you can create number of service it will balance the load 
+
+22-1types of Ingress-controller
+
+1-Nginx-ingress
+2-HA-Proxy 
+3-Envoy-proxy
+4-Istio
+5-TrefiK
+6-F5 conatiner ingress
+7-GCp ingress
+8-Ambassador
+ 
+222-what is Ingress class
+
+>>using ingress class you can define watch for ingress resource
 
 
 
