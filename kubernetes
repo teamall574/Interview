@@ -559,6 +559,8 @@ that a pod must run with in order to be accepted into the system, as well as def
 
 labels:- labels can be defined when a new object is created or attached to existing objects and modified later
 anontations:-You can use Kubernetes annotations to attach arbitrary non-identifying metadata to objects. Clients such as tools and libraries can retrieve this metadata.
+Kubernetes annotations are the second way of attaching metadata to the Kubernetes resources. They are pairs of key and value strings that are similar to labels, 
+but which store arbitrary non-identifying data. For instance, you can keep the contact details of the responsible people in the deployment annotations
 
 >>The actual difference between annotations and labels is actually quite simple: Labels are for Kubernetes, while annotations are for humans.
 
