@@ -2581,7 +2581,7 @@ the compatibility matrix, testing updates, and performing rolling updates of the
 >>for example if you use 100 load-balancers in kubernetes you need to route then add that 100 load-balancers into route53 then if you use one ingress will create the load-balancer 
 in aws then route that using route53 in sigle load-balancer you can create number of service it will balance the load 
 
-22-1types of Ingress-controller
+221-types of Ingress-controller
 
 1-Nginx-ingress
 2-HA-Proxy 
@@ -2603,6 +2603,19 @@ in aws then route that using route53 in sigle load-balancer you can create numbe
 3-network issues
 4-resource quota
 5-image in private
+
+224-how to run specific user in kubernetes yaml with user id 1000
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-pod
+spec:
+  containers:
+  - name: my-container
+    image: your-image:tag
+    securityContext:
+      runAsUser: 1000
 
 
 
