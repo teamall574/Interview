@@ -899,7 +899,16 @@ connection, it can eventually connect to the database.The best solution is to pe
 2-sync
 3-clair
 
-88-
+88-what is the advnatges uisng multi-stage dockerfile
+
+1-Smallaer image
+2-Enhanced security
+3-improved build speed
+4-simplified build process
+5-better build pipeline integration
+6-portability
+7-Reduced Attack Surface
+
 =========================================================================docker login======================================================================
 
 
