@@ -2594,8 +2594,15 @@ in aws then route that using route53 in sigle load-balancer you can create numbe
  
 222-what is Ingress class
 
->>using ingress class you can define watch for ingress resource
+>> Using ingress class you can define watch for ingress resource
 
+223-what are the causes of pod is pending status
+
+1-Taints and tolerations
+2-pod affinity or node affinity
+3-network issues
+4-resource quota
+5-image in private
 
 
 
