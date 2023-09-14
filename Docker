@@ -696,19 +696,47 @@ service  running in the container.
 
 67-Here are some commonly used Docker commands with a brief description of their use:
 
-docker build: Builds an image from a Dockerfile.
-docker run: Runs a container from an image.
+docker login myregistry.com :login dockerhub or any registry
+docker logout myregistry.com : logout dockerhub or any registry
+docker build -t myapp:1.0 . : Builds an image from a Dockerfile.
+docker run -d -p 8080:80 nginx : Runs a container from an image.
 docker ps: Lists running containers.
 docker images: Lists local images.
 docker stop: Stops a running container.
 docker rm: Removes a stopped container.
 docker rmi: Removes an image.
-docker logs: Displays logs from a container.
-docker exec: Runs a command inside a running container.
+docker logs mycontainer: Displays logs from a container.
+docker exec -it mycontainer bash : Runs a command inside a running container.
 docker pull: Downloads an image from a registry.
 docker push: Uploads an image to a registry.
-docker network: Manages Docker networks.
-docker volume: Manages Docker volumes.
+docker cp 12356456:/test.txt ~/desktop/anji/html   : it will container to local
+docker cp myfile.txt mycontainer:/path/to/file : it will copy file local to container 
+docker inspect mycontainer : it will inspect the conatiner
+docker stats : Display live resource usage statistics of running containers.
+docker history ubuntu: Show the history of an image.
+docker search ubuntu: search ubuntu image
+docker rename mycontainer newcontainername : rename the container
+docker system prune: Remove unused containers, networks, and images.
+docker pause container: Pause processes within a running container.
+docker restart mycontainer: restart the conatiner
+docker kill mycontainer: Send a signal to stop a running container.
+docker info: Display Docker system-wide information.
+docker events: Display real-time events from the Docker server.
+docker update --cpus 2 --memory 512m mycontainer: Update configuration of a running container.
+docker port mycontainer: List port mappings of a container.
+docker diff mycontainer: Show changes to files in a container's filesystem.
+docker logs mycontainer: Fetch the logs of a container.
+docker attach mycontainer: Attach to a running container's console.
+docker wait mycontainer: Block until a container stops, then print the exit code.
+docker volume prune: Remove unused Docker volumes.
+docker system events: Stream real-time events from the Docker server
+docker top mycontainer: Display the running processes of a container.
+docker system df: Show Docker disk usage. 
+docker save -o myimage.tar myimage: Save an image to a tar archive.
+docker load -i myimage.tar: Load an image from a tar archive.
+docker export mycontainer > mycontainer.tar: Export the filesystem of a container as a tar archive.
+docker import mycontainer.tar myimage: Import the contents of a tar archive as a new Docker image.
+docker unpause container: Unpause processes within a paused container.
 docker-compose: Runs multi-container Docker applications using a YAML file.
 docker swarm: Manages a swarm of Docker nodes.
 docker service: Manages Docker services in a swarm.
@@ -721,7 +749,9 @@ docker network create: Creates a new Docker network.
 docker network ls: Lists all Docker networks.
 docker network inspect: Displays detailed information about a Docker network.
 docker network connect: Connects a container to a Docker network.
-docker network disconnect: Disconnects a container from a Docker network.
+docker network prune 
+docker network connect mynetwork mycontainer : it will connect 
+docker network disconnects anji container: Disconnects a container from a Docker network.
 docker network rm: Removes a Docker network.
 >>Note that this is not an exhaustive list, and there are many more Docker network commands and options available. You can use the docker network --help command to see a full list 
 of available commands, or docker network <command> --help to see more information about a specific command.
@@ -739,13 +769,26 @@ you can create, list, inspect, remove, and prune volumes as needed to manage you
 docker-compose up: Builds and starts containers based on the docker-compose.yml file.
 docker-compose down: Stops and removes containers created by docker-compose up command.
 docker-compose ps: Lists containers created by docker-compose.
-docker-compose logs: Displays logs for containers created by docker-compose.
+docker-compose logs myservice: Displays logs for containers created by docker-compose.
 docker-compose build: Builds images for services defined in the docker-compose.yml file.
 docker-compose start: Starts containers created by docker-compose.
 docker-compose stop: Stops containers created by docker-compose.
 docker-compose restart: Restarts containers created by docker-compose.
-docker-compose exec: Runs a command inside a running container.
+docker-compose exec myservice bash: Runs a command inside a running container.
 docker-compose config: Validates and displays the compose file.
+docker-compose pull :Pull updated images for services defined in a Docker Compose file.
+docker-compose run myservice python script.py: Run a one-time command in a new container defined in a Docker Compose file.
+
+05-docker swarm commands
+docker swarm init: initialize the docker swarm
+docker swarm join --token SWMTKN-1-0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef mymanager:2377
+docker service create --name myservice --replicas 3 myimage
+docker service scale myservice=5
+docker service ls
+docker service inspect myservice
+docker node ls
+docker node inspect mynode
+
 
 68-how to modify the image and push to the docker hub new image
 
@@ -838,7 +881,7 @@ docker stats <container_name_or_id>
 2-prometheus
 3-cAdvisor
 4-ELK (Elasticsearch, Logstash, Kibana) or Fluentd
-
+>>docker stats [container-id] to monitor the memory usage of the container. If the memory usage is constantly growing over time, there may be a memory leak.
 >>Docker events: Docker events are a command to see the stream of activities that are going on in Docker daemon.
 
 79-Can you explain dockerfile ONBUILD instruction?
@@ -906,6 +949,7 @@ connection, it can eventually connect to the database.The best solution is to pe
 1-trivy
 2-sync
 3-clair
+4-Anchore
 
 88-what is the advnatges uisng multi-stage dockerfile
 
@@ -944,6 +988,7 @@ the directory in the container.
 
 >>Docker provides ways to limit CPU usage by setting the CPU shares, CPU sets, or CPU quota at the time of running the container using docker run.
 >>docker run --cpus 0.5 -dit --name anji my_container  this will help you to run the docker 0.5 CPU
+>>you can mention memory also same docker run --memory(or) -m --cpus 0.5 -dit --name anji my_container
 
 95-How can you share data among Docker containers?
 
@@ -972,16 +1017,107 @@ are co-located on the same host.
 >>To troubleshoot, start by checking the logs using docker logs [container-id]. If it's a crash due to the application inside the container, the logs may contain the trace of it. 
 You can also use docker inspect [container-id] to view the container's metadata.
 
+101-To create a new Docker image from an existing container with the modifications you made
 
+>>docker ps -a
+>>docker commit <container_id_or_name> my-modified-sonarqube
+>>docker tag my-modified-sonarqube:latest my-custom-sonarqube:1.0
+>>docker push
 
+102-Your Docker container is running an older version of an application, and you want to update it to a new version without downtime. How would you achieve this?
 
+>>You can use Docker's built-in rolling update feature if you're using Docker Swarm, or Kubernetes rolling updates if you're using Kubernetes. This will ensure zero-downtime deployments.
 
+103-How would you go about managing a Docker application that needs to scale based on load?
 
+>>Docker Swarm or Kubernetes can be used to manage such applications. These tools have the capability to auto-scale the application based on CPU usage or other metrics.
 
+104-You are tasked with reducing the size of your Docker images. What are some strategies you might use?
 
+>>Some strategies could include using alpine based images which are much smaller in size, reducing the number of layers by minimizing the number of commands in Dockerfile, removing unnecessary tools
+from the image, and cleaning up the cache after installing packages.
 
+105-How would you deploy a new version of an image to a running Docker container?
 
+>>You would need to pull the new image, stop and remove the current container, and then start a new container with the new image.
 
+106-How do you ensure that containers restart automatically if they exit?
+
+>>When running the container, Docker provides a restart policy which can be set to "no", "on-failure", "unless-stopped", or "always" to determine when to restart the container.
+
+107-You have an application that consists of five different services. How would you deploy it using Docker?
+
+>>Docker Compose or Docker Swarm can be used to manage multi-service applications. These services would be defined in a docker-compose.yml file or a Docker Stack file.
+
+108-You are running a containerized database, and it seems to be responding slower than usual. How would you investigate this?
+
+>>You can use docker stats to monitor the resource usage of your Docker container. If the database is consuming too many resources, you might need to allocate more resources to the container or optimize 
+your database.
+
+109-You've noticed that your Docker image takes a long time to build. How can you speed up the build process?
+
+>>Use Docker's build cache effectively. If certain steps of your Dockerfile take a long time to execute and do not change often, make sure they are run before the steps that change frequently. 
+This will ensure that Docker can cache the results of the slow steps and re-use them in future builds.
+
+110-How would you handle a situation where a Docker container fails to start due to a problem with a Dockerfile instruction?
+
+>>Docker build will give a log of what it is doing. The logs should give you a hint about which instruction in the Dockerfile caused the failure. Once you've identified the problematic instruction,
+you can modify it and retry building the image.
+
+111-You have to run an application that requires specific kernel parameters to be tuned on the host machine. How would you handle this while running the application in Docker?
+
+>>Docker supports the --sysctl flag that allows setting namespaced kernel parameters. This can be used to set specific kernel parameters that the application might need. However, remember
+that not all kernel parameters can be set in the Docker container as Docker uses the host kernel and is isolated from the kernel of the host.
+
+112-How would you isolate the network for Docker containers to avoid them being accessible from outside?
+
+>>Docker provides network isolation features. You can create a user-defined bridge network and run your containers in this isolated network. This network is isolated from the outside world unless
+you specifically map ports from the containers to the host machine.
+
+113-Your Docker container is stuck and not responding to any commands. How do you force stop and remove it?
+
+>>You can force stop a Docker container by using the command docker stop -f <container-id>. After the container is stopped, you can remove it by using the command docker rm <container-id>.
+
+114-What are some methods to secure Docker containers and images?
+
+>>Some methods include using trusted base images, scanning images for vulnerabilities, using Docker Secrets to handle sensitive data, and minimizing the use of root privileges.
+
+115-You want to temporarily override command in a Docker container for debugging purposes. How would you do it?
+
+>>You can override the default command by specifying a new one at the end of the docker run command.
+
+116-How would you deal with large Docker logs consuming too much disk space?
+
+>>Docker provides a --log-opt option where you can specify max-size and max-file to limit log size and number of log files.
+
+117-How would you share a Docker volume between multiple containers?
+
+>>When running the containers, you can use the -v option to mount the volume in the containers. The same volume name can be used in multiple containers to share the volume between them.
+
+118-A specific Docker command is taking longer to execute than expected. How would you find out what's causing the delay?
+
+>>Docker provides a --debug flag which can be used to get detailed debugging information. Use this flag with the slow command to see what's happening during its execution.
+
+119-How would you secure a Docker registry?
+
+>>You can secure a Docker registry by implementing: Authentication - use basic auth or integrate with an existing authentication service like LDAP or Active Directory; Authorization - control what users
+can do after they've authenticated; Encryption - use HTTPS to encrypt the communication between the Docker client and the registry; Vulnerability scanning - regularly scan images in the registry for known
+vulnerabilities; Implement content trust - use Docker Content Trust (DCT) to verify the integrity of images in the registry.
+
+120-How can you prevent unauthorized access to a Docker registry?
+
+>>Docker Registry supports several methods of authentication including basic (username/password), token, and OAuth2. Implementing one of these, along with TLS encryption for data in transit, 
+can help prevent unauthorized access. Additionally, consider setting up a firewall or other network-level access controls to restrict which IP addresses can access the registry.
+
+121-What instructions or techniques would you use in the Dockerfile to ensure the required Python packages are installed in the image?
+
+>>In the Dockerfile for a Python application, you would include the following instructions:
+–	FROM to specify the base image, such as python:3.9, which provides the Python runtime.
+–	WORKDIR to set the working directory inside the container.
+–	COPY or ADD to copy the application source code into the container.
+–	RUN to run pip install or another package manager command to install the required Python packages specified in a requirements.txt file or directly in the Dockerfile.
+
+122-
 
 
 
@@ -992,7 +1128,6 @@ You can also use docker inspect [container-id] to view the container's metadata.
 
 =========================================================================docker login======================================================================
 
-
 >>docke inspect "container id"               -->it will inspect whats happing
 >>docker login  -->docker hub
 >>docker login -u anji1592 azureb02.azurecr.io                -->it will be azure acr
@@ -1001,8 +1136,6 @@ You can also use docker inspect [container-id] to view the container's metadata.
 >>docker tag anji1592/rolling:v1  engazurebo.azurecr.io/rollingg:v1  -->it will rename the docker image name to push the azure acr 
 
 ==================================================multistage-dockerfile========================================
-
-
 
 FROM openjdk:8-jdk-apline as builder
 RUN mkdir -p /app/source
@@ -1025,8 +1158,6 @@ RUN mvn package
 
 FROM tomcat
 COPY --from=build /app/target/file.war /usr/local/tomcat/webapps 
-
-
 =====================================================================attach-volumes===========================================
 
 FROM ubuntu:latest
