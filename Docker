@@ -575,7 +575,8 @@ consuming unnecessary disk space. Periodically cleaning up these images can help
 generate many dangling images on the build server. Regularly pruning these images can prevent the build server from running out of disk space and improve overall 
 pipeline performance.
 
-55-Docker Containers are restarting frequently and how you troubleshoot this issue?, what might be the reasons ?
+55-Docker Containers are restarting frequently and how you troubleshoot this issue?, what might be the reasons ? or You have a Docker container running in production that
+suddenly starts behaving unusually. How would you debug this container without affecting its service?
 
 >>Check container logs: Inspect the logs of the problematic container to identify any error messages or application-specific issues.
 >>docker logs "container-id"
@@ -908,6 +909,17 @@ connection, it can eventually connect to the database.The best solution is to pe
 5-better build pipeline integration
 6-portability
 7-Reduced Attack Surface
+
+89-How can you monitor the resource usage of Docker containers?
+
+>>Docker provides a command docker stats which can provide CPU, Memory, Network I/O, Disk I/O usage statistics for running containers.
+docker stats <container_name_or_id>
+>>you can use third part montoring tools like 
+1-Grafana
+2-prometheus
+3-cAdvisor
+4-ELK (Elasticsearch, Logstash, Kibana) or Fluentd
+
 
 =========================================================================docker login======================================================================
 
