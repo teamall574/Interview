@@ -480,7 +480,6 @@ communication betweeen
 >>container can be attached and detached from user-defined networks on the fly
 >>each user-defined network creates a configurable bridge
 
-
 43-docker volumes creation managing
 
 Create a Docker Volume Implicitly.
@@ -621,7 +620,7 @@ Container:
 5-Can be started in Seconds
 6-Consumes Very Few resources
 
-59-What is the Difference between an Image, Container and Engine?
+59-What is the Difference between an Image, Container, and Engine?
 
 1.Image is a read-only file that contains all the necessary files, libraries, and dependencies to run an application. Think of it as a snapshot of an application at a specific point in time.
 Images are created from a Dockerfile, which contains instructions on how to build the image. Once an image is created, it can be used to create one or more containers.
@@ -646,6 +645,9 @@ the core component of Docker that manages containers and images.
 3-Remove unnecessary files
 4-use multi-stage builds
 5-Use Docker image optimization tools
+6-Minimize the number of installed packages and libraries to only include what is necessary for the application.
+7-Compress or optimize assets, such as JavaScript or CSS files, before copying them into the image.
+8-use .dockerignore to exclude files or directories that are not needed in the image.
 
 61-what is entrypoint
 
