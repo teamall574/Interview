@@ -355,6 +355,7 @@ when the deleoper B pushes the code we can cause the Merge conflicts problem
 >>Git merge is a command used to combine the changes from one branch into another. It integrates the commit history and changes from one branch (source branch) into another branch
 (target branch).
 >>Rebasing is the process of moving or combining a sequence of commits to a new base commit. Rebasing is most useful and easily visualized in the context of a feature branching workflow.
+>>git rebase main
 
 41-what is the differnce between git merge and rebase
 
@@ -371,6 +372,10 @@ Rebase rewrites history.
 >>git cherry-pick command is used to merge the particular one commit only you can do
 like your have 100 of commits in your branch your want mergr that into master or any feature branch if you merge 100 commits will go you dont want that 
 you can do simply git cherry-pick "commit-id" it will merge only onthat commit id data into that branch 
+# switch to main branch
+$ git checkout main
+# cherry-pick the commit
+$ git cherry-pick commit_hash
 
 43-what is the differnce between merge and pull request
 
@@ -398,6 +403,8 @@ history and spot anything that looks like a password or confidential information
 >>The git pull command is used to fetch and download content from a remote repository and immediately update the local repository to match that content.
 
 47-what is pre-commit hooks and post-commit hooks 
+
+Hooks:Git hooks are scripts that run automatically every time a particular event occurs in a Git repository.
 
 >>git hooks are allow you to run your own scripts whenever important events occur in the git-life-cycle. like commiting merging and pushing.
 >>git hooks run locally. git hooks are built in feature no need to download anything
@@ -523,9 +530,94 @@ in the repo then the pointer or HEAD is going to move or change its position to 
 >>git remote set-url origin git@github.com:user/repo.git
 >>git push --set-upstream origin anji  -->this will push the code to anji
 
-66-
+66-Explain how you would set up a Git repository to run code checks automatically when someone pushes a change.
 
+>>This can be done using Git hooks, specifically the pre-receive hook on the server side, or the pre-push hook on the client side. You can also use CI/CD pipelines with GitHub Actions, Jenkins, 
+or other tools to run checks automatically on push.
 
+67-How do you synchronize a forked GitHub repository with the original repository?
+
+>>This can be done by adding the original repository as a remote (git remote add upstream <repo-url>), fetching the updates (git fetch upstream), and then merging the updates 
+into your fork (git merge upstream/main).
+
+68-What are some advanced features of GitHub that you find particularly useful and why?
+
+>>The answer to this will depend on the individual's experience, but may include features like GitHub Actions, code scanning, security advisories, pull request reviews, the dependency graph, and others.
+
+69-What do you consider best practices for managing branches in Git?
+
+>>Always create a new branch for new features or fixes, regularly merge the main branch into your branch to keep it up-to-date, delete branches after their changes have been merged, and use 
+meaningful branch names.
+
+70-How can one revert a pull request in GitHub?
+
+>>To revert a pull request in GitHub, you can use the "Revert" button in the GitHub interface. This creates a new pull request that undoes all changes made in the original pull request.
+
+71-What are some strategies you might use to keep the history of a Git repository clean?
+
+>>Strategies include interactive rebase to squash or fixup commits, avoiding unnecessary merge commits with rebasing, using git commit --amend for fixing recent mistakes, and using descriptive 
+commit messages to clearly articulate changes.
+
+72-Explain the use and benefit of a Git submodule.
+
+>>Submodules allow you to keep another Git repository in a subdirectory of your repository. This lets you clone another repository into your project and keep your commits separate.
+
+73-How do you enforce code quality standards and reviews in GitHub?
+
+>>This can be accomplished through a combination of tactics, including pull request templates, code review procedures, continuous integration checks, and using GitHub's built-in "protected branches" 
+feature to require certain checks pass before merging.
+
+74-How would you handle large files or large amounts of binary data in a Git repository?
+
+>>Git is not designed to handle large files or large volumes of binary data. The Git LFS (Large File Storage) extension can be used for versioning large files while keeping them out of the actual Git repository.
+
+75-Could you explain how to squash commits in Git?
+
+>>Squashing is the process of combining several commits into a single one. This is usually done in the context of cleaning up a feature branch before merging into main. This is typically performed through
+an interactive rebase, for example, git rebase -i HEAD~n (where 'n' is the number of commits to squash from the current HEAD).
+
+"Squashing" in Git is a technique used to clean up your commit history.
+Here's a simple way to understand it:
+
+Imagine that you're working on a big project and you've made a bunch of changes. Each time you make a set of related changes, you "commit" them, which is like saving your work in a special way that 
+Git can keep track of. After a few days, you might have made 10 commits.
+
+But maybe you realize that all these changes were really just about one thing, like "adding a new feature" or "fixing a bug". It's a bit messy to have all these separate commits about the same thing.
+This is where "squashing" comes in.
+
+"Squashing" is like taking a stack of papers, each with different parts of a story written on them, and combining them all onto one page. With squashing in Git, you take all those different commits and 
+combine them into a single commit. This makes your project's history cleaner and easier to understand.
+
+In short, squashing in Git is all about tidying up your project's history by combining multiple commits into one.
+
+76-What's your approach to secure a Git repository?
+
+>>This could involve measures such as using SSH keys for authentication, regularly updating and auditing contributor access, implementing commit signing to verify the authenticity of commits,
+using .gitignore to prevent committing sensitive data, and using security tools to automatically scan your repositories for security vulnerabilities or secrets.
+
+77-How do you go about resolving a binary file conflict?
+
+>>Binary files cannot be merged like text files, so you have to decide which version to keep. You can do this with git checkout --ours filename or git checkout --theirs filename and then commit the 
+resolved file.
+
+78-What are the steps to perform a rebase in Git?
+
+>>A rebase can be performed using the following steps:
+–	Switch to the branch you want to rebase: git checkout feature-branch
+–	Start the rebase process: git rebase master
+–	If there are any conflicts, resolve them. After resolving conflicts, use git add . to stage the resolved files, then continue the rebase with git rebase --continue.
+–	If you want to abort the process at any time, use git rebase --abort.
+
+79-How would you undo the most recent commit in Git?
+
+>>You can use the command git reset --soft HEAD~1 to undo the most recent commit, keeping the changes in the staging area, or git reset --hard HEAD~1 to discard the changes completely.
+
+80-Can you describe a typical Git workflow you would use in a collaborative project?
+
+>>A common workflow is the feature branch workflow. This involves creating a new branch whenever you want to work on a new feature. The master branch should never contain broken code, 
+it is always production-ready. All development is done in branches and then merged into the master branch once the feature is complete and tested.
+
+81-
 
 
 59-Is this possible to ignore .ignore file in git
