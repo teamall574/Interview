@@ -1108,9 +1108,38 @@ This can be done using the serial keyword in Ansible.
 >>You can use inventory scripts to pull inventory from a data source like a CMDB, cloud inventory, etc. In the Ansible configuration, you can also increase the forks to execute more parallel tasks.
 Also, breaking the hosts into smaller, logical groups in the inventory can help manage it better.
 
-108-
+108-Suppose you need to deploy a package on all your servers, but you want to do it one server at a time to minimize impact on your service. How would you configure the playbook?
 
+>>You can use the serial keyword to limit the number of hosts that are managed at the same time.
+---
+-	name: Serial execution playbook 
+  hosts: all
+  serial: 1 
+  tasks:
+  -	name: Install a package 
+    apt:
+      name: some-package 
+      state: present
 
+109-How would you use a playbook to add a user to your servers and set up their SSH keys?
+
+>>You can use the user and authorized_key modules to accomplish this.
+
+---
+-	name: Add user and setup SSH keys 
+  hosts: all
+  become: yes 
+  tasks:
+  -	name: Add the user 
+    user:
+      name: myuser 
+      state: present
+  -	name: Setup SSH keys 
+    authorized_key: 
+    user: myuser
+     key: "{{ lookup('file', '/path/to/public_key') }}"
+
+110-
 
 
 
