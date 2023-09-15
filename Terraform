@@ -642,13 +642,43 @@ One way to resolve this is by importing the resource into the current Terraform 
 >>This could be due to some default values in the resource configuration that Terraform doesn't correctly identify as unchanged, or external changes that Terraform picked up during refresh.
 To understand why Terraform wants to recreate the resource, you can use the -detailed-exitcode flag with terraform plan which will provide more information about what's changing.
 
-68-
+68-You've made some changes to your Terraform configuration, but when you run terraform plan, it's showing a much larger set of changes than you expected. How would you determine what's causing 
+these extra changes?
 
+>>It could be due to a number of factors like implicit dependencies, changes in default values, etc. You could examine the output of terraform plan to see which resources it's intending to change and why.
+You might also find the terraform graph command useful to visualize dependencies between resources.
 
+69-You're running terraform apply in an automated CI/CD pipeline, and it fails with a timeout error while waiting for a resource to be created. What steps could you take to address this issue?
 
+>>This could be addressed by adjusting the timeout settings in your Terraform configuration, using the timeouts block. You could also investigate whether there are any issues with the cloud provider 
+that's causing resource creation to take longer than expected.
 
+70-A Terraform module you're using from the Terraform Registry is causing errors during terraform apply. What steps can you take to investigate and resolve this issue?
 
+>>You can review the module's documentation and source code to try to understand what might be causing the issue. Check the module's issue tracker for similar problems reported by others.
+If you can't find a solution, consider raising a new issue on the tracker.
 
+71-Terraform fails during planning with an error message "Error: Reference to undeclared resource". How would you fix this?
+
+>>This error occurs when your configuration refers to a resource that Terraform doesn't know about. This could be due to a typo in the resource name, or the resource not being declared in your configuration.
+Ensure that the referred resource is correctly declared in your configuration.
+
+72-When applying a Terraform configuration, you receive an error that a required attribute is missing, but you see it defined in your configuration. What could be happening here?
+
+>>This might be due to the attribute being in the wrong block or being incorrectly named in your configuration. Verify that the attribute is correctly named and placed according to the resource's documentation.
+Also, check for syntax errors or incorrect variable references.
+
+73-You made changes to your Terraform configuration, but when you run terraform plan, it doesn't detect any changes. What might be happening?
+
+>>This could be due to a syntax error in your configuration causing Terraform to not recognize your changes, or your changes might not actually result in any changes to the infrastructure.
+Check your configuration for syntax errors and verify that your changes should result in changes to the infrastructure.
+
+74-When working with multiple Terraform workspaces, you receive an error that a resource already exists. How would you investigate this?
+
+>>Check to make sure you're in the correct workspace by running terraform workspace show. Resources can overlap between workspaces if they're not differentiated in some way. 
+Consider using the workspace name in your resource names to avoid collisions between workspaces.
+
+75-
 
 
 
