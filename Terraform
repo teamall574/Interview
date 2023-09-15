@@ -418,7 +418,9 @@ deployment using Terraform. Sentinel policies help enforce security, compliance,
 1-Input Variables with Sensitive Flag
 2- Environment Variables
 3-External Secret Management Tools
-
+4-Terraform Cloud: If you're using Terraform Cloud, you can set sensitive variables directly in the workspace. These variables are stored securely and only provided to runs as needed.
+5-Vault: For a more sophisticated solution, you could use HashiCorp's Vault. Vault is a tool for securely managing secrets, and it integrates with Terraform.
+	
 43-Below command will destroy everything that is being created in the infrastructure. Tell us how would you save any particular resource while destroying the complete infrastructure.
 
 >>When executing the terraform destroy command, it will remove all the resources created by Terraform and destroy the infrastructure. 
@@ -932,13 +934,169 @@ have their own module. This way, modules can be reused across different environm
 –	It's also helpful to leverage Terraform workspaces to manage multiple environments. This way, we can use the same infrastructure code for different environments, just changing the inputs
 (like instance size, count etc.) based on the environment.
 
-103-
+103-You've inherited a Terraform project and you're asked to implement a plan to handle Terraform drift. What steps would you take?
 
+>>Terraform drift refers to the situation where the actual state of infrastructure differs from the state recorded in the Terraform state file. It usually occurs when changes are made directly in the 
+infrastructure outside of Terraform, making the state file inaccurate.
+–	Firstly, I would use the terraform refresh command to update the state file according to the real resources. Then, I'd use terraform plan to check the differences between the current state and the code.
+If the drift is significant, then we need to understand why it happened and educate the team about the issues of manually tweaking the infrastructure.
+–	To prevent future drift, I would recommend implementing policies or controls that limit direct infrastructure changes and enforcing the use of Terraform for all infrastructure modifications.
+Also, automated tooling or scripts that regularly run terraform plan can help detect drift earlier.
 
+104-You need to upgrade Terraform from version 0.13 to 0.15 in a large project. What would your approach be?
 
+>>Terraform upgrades need to be handled carefully, especially when jumping between versions. The first step is to review the upgrade guides published by HashiCorp for both 0.14 and 0.15 versions to 
+understand any breaking changes, new features, and deprecations.
+–	It's advisable to test the upgrade in a non-production environment first. After a successful test, the upgrade can be done in the production environment. Also, I'd make sure to upgrade any Terraform 
+providers used in the project at the same time.
+–	It's crucial to ensure that all team members are on the same version of Terraform after the upgrade, to prevent inconsistencies and potential issues.
 
+105-You are given a task to automate the process of setting up and tearing down development environments using Terraform. How would you design this process?
 
+>>First, I would write reusable Terraform modules that encapsulate the creation of the resources required for a development environment. These modules could be parameterized to allow customization as needed,
+such as changing the instance size or number of instances.
+–	Next, I would use Terraform workspaces to create separate environments for each developer or team. This isolates the state of each environment and prevents conflicts between them.
+–	I would then use a Continuous Integration/Continuous Deployment (CI/CD) pipeline to handle the automation. The pipeline could be triggered manually when a developer needs a new environment, or 
+automatically at regular intervals or based on some event. It would run terraform init to initialize the workspace, terraform plan to validate the changes, and terraform apply to create or 
+update the environment.
+–	Finally, another pipeline could be set up to destroy environments when they are no longer needed. This could also be run manually or automatically, and would run terraform destroy to remove all resources 
+associated with the environment.
 
+106-Suppose you're creating an Azure Virtual Network with Terraform and want to ensure that only certain IP ranges can access it. How can you do this?
 
+>>You can manage network access control using the azurerm_network_security_group and azurerm_network_security_rule resources in your Terraform configuration.
+
+107-You've inherited a Terraform codebase that is entirely contained within a single main.tf file. You're asked to restructure this into a more maintainable structure using modules. How would you approach this?
+
+>>The first step would be to identify distinct components of the infrastructure. This could be different types of resources like compute instances, networking components, databases, etc.,
+or it could be logical groupings of resources that together serve a common purpose.
+–	Once the components have been identified, I would create a new directory for each one under a modules directory. Each of these directories would then get its own main.tf, variables.tf, and outputs.tf file,
+containing the resources, variables, and outputs for that component.
+–	Back in the root directory, the main.tf file would then be updated to call each of these modules, passing in any necessary variables. This way, the main.tf file serves as an orchestration layer that wires
+together the various modules, while the modules themselves are responsible for creating the actual resources.
+–	It's worth noting that this can be a significant refactor and should be done incrementally, with thorough testing at each stage to ensure that the infrastructure continues to function correctly.
+
+108-Let's say you're working with a Terraform module for deploying an application on Azure, and you need to pass different sets of variables for different environments (prod, dev, staging).
+How would you manage this scenario?
+
+>>One way to manage this scenario is by using separate tfvars files for different environments. We can create files like prod.tfvars, dev.tfvars, and staging.tfvars with the respective configuration 
+for each environment.
+•	For example, the dev.tfvars could look like this: environment_name = "dev"
+location = "West Europe" instance_count = 1
+Then, when running Terraform commands, you can specify the appropriate tfvars file for each environment, like so: terraform apply -var-file=dev.tfvars.
+
+109-Suppose you are managing a Terraform configuration where sensitive data (like passwords or API keys) are defined as variables. How would you handle these to ensure that they are not exposed in any logs
+or console output?
+
+>>As of Terraform 0.14 and later, you can mark variables as sensitive, which will prevent the value from showing in logs or console output.
+variable "db_password" {
+description = "The password for the database" type	= string
+sensitive	= true
+
+output "db_password" {
+value	= azurerm_mysql_database.example.password sensitive = true
+}
+
+110-In a situation where you need to deploy the same infrastructure components multiple times with minor differences, how could you leverage variable lists or maps to simplify the process?
+
+>>In such a scenario, you can use variable lists or maps in combination with for_each or count to create multiple instances of a resource. For example, you could define a list of VM names and then 
+use that list to create multiple VMs.
+
+111-You have a large and complex Terraform configuration, and Terraform is failing with an error message that isn't clear. How would you approach debugging this?
+
+>>Terraform provides several mechanisms to help with debugging. First, you can set the TF_LOG environment variable to enable detailed logging. This often provides more context about the error. 
+If the configuration involves many modules, you can comment out parts of it and run terraform plan to narrow down the source of the error.
+
+112-You run terraform apply and it fails due to insufficient permissions. What steps would you take to resolve this?
+
+>>First, you would need to determine exactly what permissions are missing. The error message from terraform apply will usually indicate what action Terraform is trying to take. 
+Once you know what permissions are needed, you can update the IAM policy for the account or role that Terraform is using to include these permissions.
+
+113-Terraform is failing with an error related to a provider plugin. What steps would you take to resolve this?
+
+>>Provider-related errors can be caused by a variety of issues, such as an outdated or incompatible version of the provider, network connectivity issues when downloading the provider, or bugs in the
+provider itself. Possible solutions include updating the provider version, verifying network connectivity, or reporting the issue to the provider's maintainers if it appears to be a bug.
+
+114-Terraform operations are failing with a lock error on the state file. How would you resolve this?
+
+>>This error usually occurs when two or more Terraform operations are trying to modify the state file concurrently. If you're sure no other operations are ongoing, a lock error might be due to a previous
+operation that didn't clean up its lock properly. In this case, you would need to manually unlock the state using terraform force-unlock.
+
+115-You have updated the provider version in your Terraform configuration, and now you are receiving a number of errors related to resources that were not appearing before the update. 
+How would you address this situation?
+
+>>This could be due to breaking changes introduced in the new version of the provider. Review the changelog for the new provider version to see if there are any breaking changes that could affect your
+configuration. You may need to adjust your configuration to be compatible with the new version, or pin your provider version to the older version until you can accommodate the changes.
+
+116-You run terraform apply and receive an error message indicating a conflict with a resource that was not part of your most recent changes. What could be the cause, and how would you resolve this?
+
+>>This could indicate a dependency issue, where the resource reporting the error depends on another resource that has been changed. Review the dependencies of the problematic resource to see if any of 
+them have been recently altered. You may need to adjust the configuration of these dependencies, or the way they are referenced.
+
+117-Your Terraform operation failed midway through applying changes. Now when you run terraform apply again, you're seeing errors about resources that already exist. What is happening, and 
+how can you resolve this?
+
+>>This could be because the state file was not updated with resources that were successfully created before the operation failed. Use the terraform import command to import the existing resources
+into your state file, then run terraform apply again.
+
+118-You need to deploy a multi-tier application on Azure using Terraform, where the tiers must be deployed in a specific order. How would you manage this?
+
+>>You can use the depends_on argument to specify that a certain resource or module depends on another resource or module. Terraform will ensure that the dependent resources are created first.
+
+119-When working with Azure and Terraform, how do you handle deployments to regions that have differing service availability?
+
+>>You need to carefully plan and structure your Terraform files based on the services available in each region. You can use conditionals within your Terraform configuration to check the region and then 
+provision resources based on service availability.
+
+120- Suppose you're managing an Azure Kubernetes Service (AKS) cluster using Terraform. Now you want to update the version of Kubernetes. How would you do this, and what would you look out for?
+
+>You can update the Kubernetes version by changing the kubernetes_version attribute of the azurerm_kubernetes_cluster resource in your Terraform configuration. 
+It's important to ensure that your applications are compatible with the new version before performing the update.
+
+121-You're working with a large Azure environment managed by Terraform, and running terraform plan is slow. What can you do to speed it up?
+
+>>One strategy to speed up terraform plan is to split your configuration into multiple smaller configurations, each with its own state file. This reduces the amount of data that Terraform needs to
+fetch and compare during the plan phase.
+
+122-You're managing an Azure App Service with Terraform and need to enable "Always On". How can you do this?
+
+>>The "Always On" feature can be enabled in the site_config block of the azurerm_app_service resource in your Terraform configuration.
+
+123-How can you connect to an Azure SQL Database from Terraform to run some initialization scripts?
+
+>>Terraform itself should not be used to run scripts against a SQL database. It's not its intended use case and can lead to complications. Instead, you could use a tool like Azure CLI or PowerShell in 
+conjunction with Terraform.
+
+124-What is the purpose of the variables.tf and outputs.tf files within a Terraform module?
+
+>>The variables.tf file is where we define all the input variables that our module will accept. The outputs.tf file is where we define any values that our module will output after it has been run.
+These outputs are often used to pass information about the resources a module has created to other parts of your Terraform configuration.
+
+125-How would you structure a Terraform project for an application that includes a web server, a database, and a cache, each potentially running on different cloud providers?
+
+>>I would structure this as separate modules for each component of the application. Each module would be responsible for creating the resources on the specific cloud provider. 
+The root module would call these modules, passing any necessary variables between them.
+
+126-How can Terraform modules be shared between projects or teams?
+
+>>Terraform modules can be shared between projects or teams by placing them in their own version control repositories. 
+Other projects can reference the module directly from the repository. This allows the module to be versioned and maintained independently of any individual project.
+
+127-Terraform is not reflecting the changes you made in the Azure portal. How would you troubleshoot this issue?
+
+>>This is likely due to the fact that Terraform's state file does not automatically sync with changes made outside of Terraform. You can run terraform refresh to update the state file with the current state
+of the resources as they exist in Azure. If necessary, you can then adjust your Terraform configuration to match the desired state.
+
+128-You're using Terraform to manage a complex system of interconnected resources. A change to one resource is causing unexpected modifications to others. How would you investigate this?
+
+>>This is likely due to implicit or explicit dependencies between your resources. Terraform's graph command can be helpful here - it outputs a visual representation of your resources and their dependencies,
+which you can use to understand how a change might propagate through your system.
+
+129-What is the purpose of terraform fmt and how does it help in managing Terraform code?
+
+>>The terraform fmt command is used to rewrite Terraform configuration files in a canonical format and style. It helps in maintaining consistent coding style, improving readability and making version control
+diffs cleaner. This is particularly useful in a team environment where multiple engineers are working on the same codebase.
+
+130-
 
 
