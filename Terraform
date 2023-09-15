@@ -1,0 +1,504 @@
+==================================================================Terraform and packer=====================================================================================
+
+1 - what is terraform
+
+>>Terraform version 1.4.0
+>>Terraform it is open-source terrform is IAAC(Infrastructure as a code) tool used to create resources on cloud providers like AWS, Azure, GCP so on. 
+>> For example if you want to create an ec2 instance using Terraform rather than going to the management console to click on service you will write a code 
+>>using terraform is easy to manage the infrastructure you can reuse the code to create multiple resources you can also store the code on a version control system like
+GitHub code commit bitbucket to keep track of your changes in resources 
+>> Terraform is not easy but effective
+>> When any changes happen .tfstate will save the data
+>>tfstate is very important
+
+Advantages:-
+1-Automated infra CRUD(create read update delete)
+2-Terraform code is easy to understand and easy to use
+3-Version control(we can save the code in git and easy to collaborate the other teammates)
+4-terraform have an idempotant
+5-Consistent Infra(using terraform code you can create similar infra into different environment without duplicate)
+6-Config can be split into multiple files (variables)
+7-Inventory management
+8-Cost optimization
+9-Modular Infra(DRY -->Dont Repeat Yourself)
+
+Dis-Advantages:-
+1-Bugs will not be fixed (fast)
+2-new service might not be available(when aws developing an service when he relases aws services then he can develop the terraform )
+3-his is a third-party tool (there is no support at all times and all the new services not availble)
+
+#>>terraform is an infrastructure as a tool that allows you to build infrastructure and change versions,safely and efficently
+#>>Terraform is a tool for building, changing and versioning infrastructure safely and efficiently. Terraform can manage existing and popular cloud service providers
+#as well as custom in-house solutions.Configuration files describe to Terraform the components needed to run a single application or your entire datacenter
+
+2 - is it terraform cloud aganstics
+
+>>terraform is cloud aganstic  -->yes terraform will work every cloud but the code is difference that why we calling cloud aganstics
+
+3 - what is proprietory
+
+>>it is like not a open-source when you using terraform you advised some code to then can verfiy and give resopnce 
+but in aws your rasing an ticket but its take some time to contact and its not accept your advise this proprietory
+
+4 - what is the differnce between argument refernce and attribute refernce in terraform
+
+>>In Terraform, attributes and arguments are two important concepts used to define and configure resources.
+
+>>Arguments: Arguments are used to define the configuration for a resource. They are the input values that define the desired state of the resource. For example, when defining an 
+EC2 instance, arguments might include the instance type, AMI ID, security group, and key pair.
+>>Attributes: Attributes are the output values that are returned by a resource after it has been created or updated. They represent the current state of the resource and can be used
+by other resources or modules. For example, an EC2 instance might have attributes such as the public IP address, private IP address, and instance ID.
+>>In general, arguments are used to define the desired state of a resource, while attributes are used to retrieve the current state of a resource. By using attributes and arguments in
+Terraform, you can define and manage your infrastructure in a more modular and reusable way.
+
+5 - how to deploy dev environment and prod environment in a single folder 
+
+>>yes you can use workspace usinng you can deploy the devand prod environmet by chnaging code in dev.tfvars and prod.tfvars by chnaging workspace context
+there is chance to overwrite the environmet in case if you do mistake so need to be carefully. either you can seprate folders is good in production environment
+>>terraform apply --var-file prod.tfvars --auto-approve       -->it will execute the prod.tfvars in prod workspace
+>>terraform apply --var-file dev.tfvars --auto-approve        -->it will execute the dev.tfvars in dev workspace
+
+6 - what is splat syntax in terraform and element ,functions,
+
+>>splat syntax if the resource has a count attributes set you can access individual attributes with a zero-based 
+index such as ${aws_instance.web.0.id} you can also use the splat syntax to get a list of attributes ${aws_instance.web.*.id}
+ 
+>>functions using we can do duplicate the code
+>>element idicates when you give the index in terraform it indicates starts from 0 
+>>index is count
+
+7 -what is concat
+
+>>concat takes two or more lists and combines them into a single list.
+
+--How do I merge two lists in Terraform?
+
+>>You can use terraform concat() function to combine multiple lists into a single list. concat() takes two or more lists and combines them into a single list.
+
+8 - Define null resource in Terraform.
+
+>>null_resource is used to run the resources using which present the resource using we can create the new resouces
+
+9 - what is local-exec and remote-exec
+
+>>local-exec provisioners. The local-exec using we can retrive or take information from the terraform deployment code and see. where you are executed 
+terraform we can use this in local-exec command and write some details to see without going to aws you can see your system terraform folder
+
+>>remote-exec provisioner is used it will login to your server run your commands inside the server and execute that files inside the server
+
+10- what is for_each and count how to use in terraform and how many types of variables and what is variables 
+
+>>count is using create multiple resources instances according to the count
+>>The count argument is used to determine the amount of instances to create for a particular resource. The count argument can be used in both a module as well as every resource type
+>>count is good if there is not change in the list index and changes are sequentical/leanier. any changes in the existing index will for the resource to recreate
+
+resource "aws_subnet" "public-subnets" {
+    count = "${var.environment == "prod" ? 3 : 2}"
+    vpc_id = "$element{aws_vpc.default.id}"
+    cidr_block = "${element(var.public-cidrs, count.index)}"
+    availability_zone = "${element(var.azs, count.index)}"
+
+    tags = {
+        Name = "$element{aws_vpc.default.tags.name}-public-subnet-${count.index + 1}"
+    }
+}
+
+this can be solved by for_each bcoz it uses key rather than
+
+>>for_each using you can create multiple instances accroding to the map, or set of strings
+
+11 - what is modules in terraform 
+
+>>A Terraform module is a set of Terraform configuration files in a single directory. Even a simple configuration consisting of a single directory with
+one or more .tf files is a module. When you run Terraform commands directly from such a directory, it is considered the root module.
+
+>>modules is using we can use code many times
+>>modules using you can source the files you can use github repository also
+>>modules using ./main.tf file another tab also
+>>it is repetable code.one code you can use number of times
+
+12 -  what is terraform life cycle, Imports , terraform cloud 
+
+---Life cycle:-
+>>create_before_destroy
+--if your created an s3 or any system but your created wrong bucket or wrong vpc this logs have store in vpc flow logs
+but you dont want lose that dat on that you use create_before_destroy and then your write a code to
+copy the files to some other bucket store the data 
+
+>>prevent_destroy
+--if your createdan s3 bucket are any vpc or any ec2 system or anything no one want to delete you can use 
+this prevent_destory 
+
+lifecycle {
+prevent_destory = true
+}
+
+>>ignore_changes
+--if deployed some instance using terraform but your changed some of the tags or some data change 
+maually but in terraform you need to use ignore_changes then the the cant destory what you changed manually
+
+lifecycle {
+ignore changes = [
+ tags,enable_dns_hostname
+]
+}
+
+13 - what is terraform Imports?
+
+>>terraform Imports:-
+---when we have mistkaley or already deployed server in ec2 any service you need import that service
+using terraform command you can take the code command to copy the the code code into .tf file
+
+commands:-
+
+>>terraform import aws_instance.importing "instance-id from the aws"
+>>terraform state list
+>>terraform state show aws_instance.importing          -->you will get code copy and paste below your code page
+
+resource "aws_instance" "importing" {
+
+paste that copy that data
+
+}
+
+14 - what is terraform-cloud
+
+>>What is Terraform Cloud? Terraform Cloud is HashiCorp's managed service offering. It eliminates the need for unnecessary tooling and
+documentation for practitioners, teams, and organizations to use Terraform in production. Provision infrastructure in a remote environment 
+that is optimized for the Terraform workflow.
+
+What is Terraform cloud used for?
+Terraform Cloud enables infrastructure automation for provisioning, compliance, and management of any cloud, datacenter, and service
+
+15 - what is packer
+
+>>packer is used to create only images
+>>Packer is an open-source VM image creation tool from Hashicorp. 
+It helps you automate the process of Virtual machine image creation on the cloud and on-prem virtualized environments.
+
+16 - what is terraform dry-run
+
+>>Dry runs help you identify trouble spots, discover sections you may not fully understand, and get a better understanding of how everything fits together.
+It's also a good way to find out if you don't fully understand how an activity is supposed to be conducted or how the virtual tools function.
+
+17 - What are the most useful Terraform commands?
+
+terraform init - initializes the current directory
+terraform refresh - refreshes the state file
+terraform output - views Terraform outputs
+terraform apply - applies the Terraform code and builds stuff
+terraform destroy - destroys what has been built by Terraform
+terraform graph - creates a DOT-formatted graph
+terraform plan - a dry run to see what Terraform will do
+
+18 - What are some of the built-in provisioners available in Terraform?
+
+Salt-masterless Provisioner
+Remote-exec Provisioner
+Puppet Provisioner
+Local-exec Provisioner
+Habitat Provisioner
+File Provisioner
+Chef Provisioner
+
+19 - What is terraform taint and untaint?
+
+>>the commands comes under terrafomr forcing recreation of resources
+>>terraform taint command manually marks a terraform-managed reosuce as tainted forcing it to be destroyed and recreated on the next apply
+>>terraform untaint command manually umarks a terraform managed resource as tainted restoring it as the primary instance in the state
+
+>>terraform state list
+>>terraform taint "resource-name"
+>>terraform taint aws_instance.my-ec2-vm-new
+>>terraform plan
+>>terraform apply --auto-approve
+>>terraform untaint aws_instance.my-ec2-vm-new
+>>terraform plan
+>>terraform state mv anji.sh sampi.sh
+
+20 - what is the use of provisoners in packer and terraform
+
+>>Terraform Provisioners are used for executing scripts or shell commands on a local or remote machine as part of resource creation/deletion. 
+They are similar to “EC2 instance user data” scripts that only run once on the creation and if it fails terraform marks it tainted
+
+21-What is a tuple Terraform?
+A tuple is a strongly typed collection of one or more values. So, for example, we could define a tuple of three values: string , number , number , 
+or two values: string ,string . Once a tuple is defined, it always has to contain the number of values defined in that tuple.
+
+22- what is .tfstate in terraform
+
+>>when your deploying any resources it will save your code in .tfstate file if any changes happen in code it will go and check the .tfstate file and it will change 
+what need to chnage the resources. it will idempotant so it update the resource what changed only that resources change not changed all the rsources
+
+23-is it possible to execute the dev.tfvars and prod.tfvars
+
+>>No if you executed first dev.tfvars and later add prod.tfvars it will think need to change the .tfvars and destroy your first dev.tfvars and add into prod.tfvars 
+so dont use this method you can use the instead of WorkSpaces. if your using workspace but inside prod workspace if your using the dev.tfvars  it will destroy the 
+prod environment so be careful when you using the workspace
+
+24- how you can give to other devlopers terraform.tfstate
+
+>>when we deploying the code onthat time we saving the terraform.tfstate file in s3 bucket or any version control system then we can give that terraform.tfstae to
+other developer he can easily understand the situvation and he can do chnages then the state file update when we can changes on that time we can use that
+terraform.tfstate to avoid the complications and any errors or misunderstandings. so when the runing the backend it will run first backend so its give an error
+need to add access-key and secret-key in your system. it will not take the access and secret key in your var.tf
+
+25 - what is lookup in terraform
+
+>>The lookup() function can be used to lookup a particular value inside of a map , given its key and if the given key does not exist, the given default value is 
+returned instead: lookup(map, key, default)
+
+26- what is triggers
+
+>>A map of values which should cause this set of provisioners to re-run values are mean to interpolated refernace varibales to attributes of other resources
+
+27-what is DNS_Hostnames
+
+>>For example, when a Web address (URL) is typed into a browser, a DNS query is made to learn an IP address of a Web server associated with that name. 
+Using the www.example.com URL, example.com is the domain name, and www is the hostname. DNS resolution maps www.example.com into an IP address (such as 192.168.2.10)
+
+28-what is variable
+
+>>giving name to storage location. variable is a great way to define centrally controlled reusable values
+
+29-what is terraform data-sources
+
+>>Terraform data sources let you dynamically fetch data from APIs or other Terraform state backends. Examples of data sources include machine image IDs from a 
+cloud provider or Terraform outputs from other configurations.
+
+30-what is terraform functions
+
+>>The Terraform language includes a number of built-in functions that you can call from within expressions to transform and combine values. 
+The general syntax for function calls is a function name followed by comma-separated arguments in parentheses: max(5, 12, 9)map
+
+1-concat
+2-element
+3-join
+4-map
+5-slice
+6-format
+7-file
+8-lookup
+9-replace
+10-max
+11-min
+12-timeadd
+13-floor
+
+31-what is dynamic blocks in terraform
+
+>>Terraform provides the dynamic block to create repeatable nested blocks within a resource. A dynamic block is similar to the for expression. Where for creates 
+repeatable top-level resources, like VNets, dynamic creates nested blocks within a top-level resource, like subnets within a VNet.
+
+32-what is teraform lock file
+
+>>terraform. lock. hcl , and this name is intended to signify that it is a lock file for various items that Terraform caches in the . terraform subdirectory of your
+working directory. Terraform automatically creates or updates the dependency lock file each time you run the terraform init command.
+>>it .terraform.lock.hcl holdes the version of AWS code and hashes version
+
+33-what is terraform count
+
+>>To manage several of the same resources, you can use either count or for_each , which removes the need to write a separate block of code for each one.
+
+34-what is Terraform state locking 
+
+>>any two developers working on same state you an able lok that file then second person get an error to avoid duplications. your mentiong in the backend file like 
+s3 where s3 storing on that your mentioning and that will dynamodb lock the partition key must be LockID
+
+35-what is terrafomr depends-on
+
+>> Using depends_on you cna create the resources like you want create the vpc then after need to create the subnet then you can use the depends-on then it will
+create when vpc created after it will create the reaming resource
+depends_on = {
+aws_vpc.default
+}
+
+36-when you created vpc and route tables using terrform and the data will be stored .tfstate file some one came and delete the route table it will recreate route table one more time
+
+>>yes it will recreate the route table the data is stored in .tfstate so when some one deleted it will automatically created 
+
+37-if you want apply one one instance or one module only how can you apply in terraform
+
+>>terraform apply --target=module.vpc
+
+38-my clinet is asking to setup same infra in 3 or 4 regions using same code and dont duplicate at a time need to execute what we can do
+
+>>you cna do this way 
+provider "aws" {
+ region = "ap-south-1"
+ region = "us-east-1"
+ region = "us-east-1"
+} 
+>>if you want use ami means you need to use true or false because ami will be differnet in other regions
+
+variable "ami" {
+  description = "AMIs by region"
+  default = {
+    ap-south-1 = "ami-024c319d5d14b463e"
+    us-east-1 = "ami-0149b2da6ceec4bb0"
+  }
+}
+
+39-is this possible to do same configuration in another aws account
+
+>>yes it possible to do using variables
+
+40-You have a Terraform configuration file that defines an infrastructure deployment. However, there are multiple instances of the same resource that need to be created.
+How would you modify the configuration file to achieve this..??
+
+>>To create multiple instances of the same resource in Terraform, you can utilize the count or for_each meta-arguments in your configuration file.
+
+count:-
+resource "aws_instance" "example" {
+  count = 3
+
+  # Configuration for each instance
+  ami           = "ami-abc123"
+  instance_type = "t2.micro"
+
+  # Unique tags for each instance
+  tags = {
+    Name = "Instance ${count.index}"
+  }
+}
+
+for_each:-
+variable "instances" {
+  type = map(object({
+    ami           = string
+    instance_type = string
+  }))
+  default = {
+    "instance1" = {
+      ami           = "ami-abc123"
+      instance_type = "t2.micro"
+    },
+    "instance2" = {
+      ami           = "ami-def456"
+      instance_type = "t2.small"
+    }
+  }
+}
+
+resource "aws_instance" "example" {
+  for_each = var.instances
+
+  # Configuration for each instance
+  ami           = each.value.ami
+  instance_type = each.value.instance_type
+
+  # Unique tags for each instance
+  tags = {
+    Name = each.key
+  }
+}
+
+41-What exactly is Sentinel? Can you provide few examples where we can use for Sentinel policies..?
+
+>>Sentinel is a policy-as-code framework developed by HashiCorp. It enables the implementation of fine-grained, automated policy enforcement for infrastructure provisioning and
+deployment using Terraform. Sentinel policies help enforce security, compliance, and operational best practices.
+>>Sentinel is terraform cloud or enterprise will provide restrict some types like instance types tags cost optimization easy way to build your infrastructure
+
+1-Security Policies
+2-Compliance Policies
+3-Cost Optimization
+4-Naming Conventions
+5-Governance and Best Practices
+
+42-How do you manage sensitive data in Terraform, such as API keys or passwords..?
+
+1-Input Variables with Sensitive Flag
+2- Environment Variables
+3-External Secret Management Tools
+
+43-Below command will destroy everything that is being created in the infrastructure. Tell us how would you save any particular resource while destroying the complete infrastructure.
+
+>>When executing the terraform destroy command, it will remove all the resources created by Terraform and destroy the infrastructure. 
+If you want to save a particular resource from being destroyed, you can use Terraform's resource lifecycle management feature.
+>>To save a specific resource, you can modify the resource block in your Terraform configuration file by adding the lifecycle block and setting the prevent_destroy argument to true. 
+This prevents Terraform from destroying that specific resource during the execution of terraform destroy
+resource "aws_instance" "example" {
+  # Resource configuration...
+
+  lifecycle {
+    prevent_destroy = true
+  }
+}
+
+44-What are the main competitors of terraform list and describe them.
+
+1-AWS CloudFormation
+2-Azure Resource Manager (ARM) Templates
+3-Google Cloud Deployment Manager
+4-Ansible
+5-Puppet
+
+45-Define purpose of basic Terraform commands which you’ll use often
+
+1-terraform init: Initializes a Terraform working directory. It downloads the necessary provider plugins and sets up the backend configuration.
+2- terraform init -upgrade: Upgrades the Terraform modules and providers to the latest available versions, ensuring you have the most up-to-date features and bug fixes.
+3-terraform plan: Creates an execution plan by comparing the current state of the infrastructure with the desired state defined in your Terraform configuration. 
+It shows you the changes that Terraform will make without actually applying them.
+4-terraform apply: Applies the changes defined in your Terraform configuration to create, modify, or delete resources. It prompts for confirmation before making any modifications.
+5-terraform validate: Validates the syntax and configuration of your Terraform files. It checks for any errors or warnings in your code without making any changes to your infrastructure.
+6-terraform fmt: Formats your Terraform configuration files to ensure consistent and readable code style. 
+It automatically rearranges and indents the code according to the Terraform style guide.
+7-terraform destroy: Destroys all the resources created by Terraform, effectively tearing down your infrastructure. It prompts for confirmation before removing the resources.
+
+46-What is the Resource..??
+
+>>In Terraform, a resource is a single entity in your infrastructure that you want to manage using Terraform. It could be a virtual machine, a database, a network interface, or any other
+component that you want to provision, configure, or manage. A resource is defined using a Terraform configuration block that specifies the resource type, attributes, and dependencies.
+
+47-What is Desired and Current State..?
+
+>>In the context of infrastructure management tools like Terraform, the desired state refers to the configuration or specification of how the infrastructure should look like. 
+It defines the intended state of resources, such as servers, networks, and databases, in terms of their properties, relationships, and settings.
+
+>>On the other hand, the current state represents the actual state of the infrastructure at a given point in time. It reflects the existing resources, their attributes, and the 
+relationships between them.
+
+48-what are the functions you are using
+
+>>joint
+>>lookup
+>>file
+
+49-Is Terraform is mutable or immutable
+
+>>terraform is mutable >>A mutable object can be changed after it's created, and an immutable object can't.
+
+50-what is HCL(Hashicorp Conffiguration Language)
+
+>>Hashicorp Configuration Language
+
+51-what is terraform state mv ommand in 
+
+>>>>terraform state mv command is used to rename existing resources and move a resource into a module and move a module into a module
+>>if you were to just rename a resourcce or move it to another module and run terraform terraform apply will destroy and recraete the resource.
+state mv allows you to just change the reference so you ccan avoid a create and destroy action
+
+>>terraform state mv packet_device.worker packet_device.helper
+
+52-what is terraform locking versions in different people in same team
+
+>>your developed infrastructure using AWS version 3.74.0 all the infrastructure developed you pasted the code in github .tfstate some other person came and downloaded and the person is
+intialized the code the AWS version 4.1.0 it may get an error right
+so we can overcome this by using terraform locking version
+>>if another person using different version this will make errors code will not work properly
+>>if your not shared this lock.hcl file to other persons that may get error you need to validate the documentation everytime
+
+terraform {
+  required_providers {
+    aws = {
+      source = "hashicorp/aws"
+      version = "3.47.0"
+      version = ">=3.47.0"   ##it will use latest version
+      version = "<=3.47.0"   ##it will use 3.47.0 below version
+      version = "~>3.47.0"   ##any one in the range 3.47.99 something it will not go or work this up versions 3.48.0 
+
+    }
+  }
+}
+
+53-
