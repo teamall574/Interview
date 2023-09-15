@@ -488,6 +488,7 @@ vi .bash_profile
 45-how to delete old files in Linux
 
 >>find /path_to_file/* -mtime +90 exec rm -rf {} \;
+>>find /path/to/search -name "*.log" -type f -mtime +7 -exec rm {} \;        -->delete last 7 days *.logs only
 
 46-what is Daemons 
 
