@@ -1,3 +1,5 @@
+
+
 >>vi anji.yml
 
 ---
@@ -17,7 +19,25 @@
 :wq
 
 >>ansible-playbook -i hosts anji.yml   --check
+====notify-handler
+---
+- name: Deploy Web Application
+  hosts: web_servers
+  become: yes  # Run tasks with sudo privileges
 
+  tasks:
+    - name: Update Application Code
+      git:
+        repo: https://github.com/your/app.git
+        dest: /var/www/app
+        version: main
+      notify: reload nginx  # Notify the handler if code is updated
+
+  handlers:
+    - name: reload nginx
+      service:
+        name: nginx
+        state: reloaded
 =====when commands
 
 >>vi instal.yml
@@ -166,6 +186,26 @@ user: test
 :wq
 
 >>ansible-playbook tom.yml  --check
+
+==================================================find-last-one hour edit-file-=======================================
+---
+- name: Find Files Modified in the Last Hour
+  hosts: your_target_host
+  gather_facts: no  # Disable gathering facts to speed up the playbook
+
+  tasks:
+    - name: Find Files Modified in the Last Hour
+      find:
+        paths: /path/to/search  # Replace with the directory you want to search
+        recurse: yes
+        age: -1h  # Specifies the time frame (last hour)
+        age_stamp: mtime
+      register: found_files
+
+    - name: Display Found Files
+      debug:
+        var: found_files.files
+====================================================================================
 
 ===clone git private repo
 >>vi cl.yml
@@ -362,16 +402,6 @@ and then restart the sshd service: ansible all -m service -a "name=sshd state=re
 >>ansible all -m command -a "top -b -n 1".       -->monitor real-time system performance
 >>ansible webservers -m command -a "ps aux --sort=-%mem | head -n 2".      -->find the process using the most memory on all servers in a group
 >>ansible all -m wait_for -a "host=localhost port=80 timeout=1"   -->verify that a specific TCP port is open on all servers  This will attempt to connect to port 80 on each server and report an error if it fails.
-
-
-
-
-
-
-
- 
-   
-
 
 ==================================================================Ansible===============================================================================
 
@@ -1139,7 +1169,642 @@ Also, breaking the hosts into smaller, logical groups in the inventory can help 
     user: myuser
      key: "{{ lookup('file', '/path/to/public_key') }}"
 
-110-
+110-How would you find all empty directories within a specific directory
+
+---
+- name: Find Empty Directories
+  hosts: your_target_host
+  gather_facts: no  # Disable gathering facts to speed up the playbook
+
+  tasks:
+    - name: Find Empty Directories
+      find:
+        paths: /path/to/search  # Replace with the directory you want to search
+        recurse: yes
+        file_type: directory
+        empty: yes
+      register: empty_dirs
+
+    - name: Display Empty Directories
+      debug:
+        var: empty_dirs.files
+
+111-How would you find all files within a directory tree, ignoring specific directories?
+
+---
+- name: Find All Files in Directory Tree (Ignoring Specific Directories)
+  hosts: your_target_host
+  gather_facts: no  # Disable gathering facts to speed up the playbook
+
+  tasks:
+    - name: Find All Files
+      find:
+        paths: /path/to/search  # Replace with the directory you want to search
+        recurse: yes
+        file_type: file
+        exclude_paths:
+          - /path/to/search/dir_to_ignore1
+          - /path/to/search/dir_to_ignore2
+      register: found_files
+
+    - name: Display Found Files
+      debug:
+        var: found_files.files
+
+112-How would you use the find module to get the total size of all '.mp3' files within a directory
+
+---
+- name: Calculate Total Size of '.mp3' Files
+  hosts: your_target_host
+  gather_facts: no  # Disable gathering facts to speed up the playbook
+
+  tasks:
+    - name: Find '.mp3' Files
+      find:
+        paths: /path/to/search  # Replace with the directory you want to search
+        recurse: yes
+        patterns: "*.mp3"
+      register: mp3_files
+
+    - name: Calculate Total Size
+      set_fact:
+        total_size: "{{ mp3_files.files | map(attribute='size') | sum }}"
+
+    - name: Display Total Size of '.mp3' Files
+      debug:
+        var: total_size
+
+113-How would you recursively search for a specific file within a directory tree
+
+---
+- name: Recursively Search for a Specific File
+  hosts: your_target_host
+  gather_facts: no  # Disable gathering facts to speed up the playbook
+
+  tasks:
+    - name: Find Specific File
+      find:
+        paths: /path/to/search  # Replace with the directory where you want to start the search
+        recurse: yes
+        patterns: "your_specific_file.ext"  # Replace with the file name you're searching for
+      register: found_files
+
+    - name: Display Found Files
+      debug:
+        var: found_files.files
+
+114-How would you use the find module to find symbolic links within a directory
+
+---
+- name: Find Symbolic Links
+  hosts: your_target_host
+  gather_facts: no  # Disable gathering facts to speed up the playbook
+
+  tasks:
+    - name: Find Symbolic Links
+      find:
+        paths: /path/to/search  # Replace with the directory where you want to start the search
+        recurse: yes
+        file_type: link
+      register: found_links
+
+    - name: Display Found Symbolic Links
+      debug:
+        var: found_links.files
+
+115-How do you create a Jinja2 template to manage an Apache configuration file
+
+<VirtualHost *:80>
+    ServerName {{ server_name }}
+    ServerAdmin {{ server_admin }}
+    DocumentRoot {{ document_root }}
+
+    ErrorLog ${APACHE_LOG_DIR}/{{ server_name }}_error.log
+    CustomLog ${APACHE_LOG_DIR}/{{ server_name }}_access.log combined
+
+    <Directory {{ document_root }}>
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+</VirtualHost>
+
+---
+- name: Configure Apache VirtualHost
+  hosts: your_target_host
+  become: yes  # Run tasks with sudo privileges
+
+  vars:
+    server_name: example.com
+    server_admin: webmaster@example.com
+    document_root: /var/www/html
+
+  tasks:
+    - name: Create Apache VirtualHost Configuration
+      template:
+        src: my_apache_template.conf.j2
+        dest: /etc/apache2/sites-available/{{ server_name }}.conf
+      notify: Reload Apache
+
+    - name: Enable Apache VirtualHost
+      apache2_module:
+        state: present
+        name: vhost_alias
+      notify: Reload Apache
+
+  handlers:
+    - name: Reload Apache
+      service:
+        name: apache2
+        state: reloaded
+
+116-delete last week *.logs files
+
+---
+- name: Find and Delete Old Log Files
+  hosts: your_target_host
+  gather_facts: no  # Disable gathering facts to speed up the playbook
+
+  tasks:
+    - name: Find Old Log Files
+      find:
+        paths: /path/to/search  # Replace with the directory where you want to start the search
+        patterns: "*.log"
+        age: 7d
+      register: old_log_files
+      become: yes  # Run the task with sudo privileges
+
+    - name: Delete Old Log Files
+      file:
+        path: "{{ item.path }}"
+        state: absent
+      with_items: "{{ old_log_files.files }}"
+      become: yes  # Run the task with sudo privileges
+
+117-How would you use the find module to search for all '.txt' files in a specific directory
+
+---
+- name: Search for .txt Files
+  hosts: your_target_host
+  gather_facts: no  # Disable gathering facts to speed up the playbook
+
+  tasks:
+    - name: Find .txt Files
+      find:
+        paths: /path/to/search  # Replace with the directory where you want to start the search
+        patterns: "*.txt"
+      register: txt_files
+
+    - name: Display Found .txt Files
+      debug:
+        var: txt_files.files
+
+118-Imagine you need to update multiple configuration files and restart the corresponding services only if the files were changed. How would you achieve this
+
+---
+- name: Update Configuration Files and Restart Services
+  hosts: your_target_host
+  become: yes  # Run tasks with sudo privileges
+vars:
+services:
+-	{ name: 'nginx', src: '/path/to/nginx.conf', dest: '/etc/nginx/nginx.conf' }
+-	{ name: 'apache2', src: '/path/to/apache2.conf', dest: '/etc/apache2/apache2.conf' }
+
+tasks:
+- name: Update configuration files copy:
+src: "{{ item.src }}"
+dest: "{{ item.dest }}"
+loop: "{{ services }}"
+notify: "restart {{ item.name }}"
+
+handlers:
+-	name: "restart nginx" service:
+name: nginx state: restarted
+
+-	name: "restart apache2" service:
+name: apache2 state: restarted
+
+119-How would you configure a playbook to include tasks from another playbook?
+
+>>You can use the import_tasks or include_tasks keywords to include tasks from another playbook.
+---
+-	name: Playbook with included tasks
+  hosts: all
+  tasks:
+  -	import_tasks: other_tasks.yml
+
+120-How would you use a playbook to manage your servers' firewall rules
+
+---
+- name: Manage Firewall Rules
+  hosts: your_target_hosts
+  become: yes  # Run tasks with sudo privileges
+
+  tasks:
+    - name: Install UFW
+      apt:
+        name: ufw
+        state: present
+
+    - name: Ensure UFW is enabled
+      command: ufw --force enable
+
+    - name: Allow SSH
+      ufw:
+        rule: allow
+        name: OpenSSH
+        port: 22
+
+    - name: Allow HTTP
+      ufw:
+        rule: allow
+        name: HTTP
+        port: 80
+
+    - name: Allow HTTPS
+      ufw:
+        rule: allow
+        name: HTTPS
+        port: 443
+
+    - name: Deny Incoming Traffic
+      ufw:
+        rule: deny
+
+    - name: Enable UFW
+      command: ufw --force enable
+
+121-How would you create a playbook to deploy a Docker container on your hosts
+
+---
+- name: Deploy Docker Container and Open Port 80
+  hosts: your_target_hosts
+  become: yes  # Run tasks with sudo privileges
+
+  tasks:
+    - name: Pull Docker Image
+      docker_image:
+        name: your_image_name:tag
+        source: pull
+
+    - name: Run Docker Container
+      docker_container:
+        name: your_container_name
+        image: your_image_name:tag
+        state: started
+        ports:
+          - "80:80"
+
+    - name: Open Port 80 in Firewall (UFW example)
+      ufw:
+        rule: allow
+        port: 80
+        proto: tcp
+      notify: Reload UFW
+
+  handlers:
+    - name: Reload UFW
+      service:
+        name: ufw
+        state: reloaded
+122-How would you create a playbook to update all packages on your hosts without any interruptions (e.g. without requiring a reboot)?
+---
+- name: Update Packages on Debian/Ubuntu
+  hosts: your_target_hosts
+  become: yes  # Run tasks with sudo privileges
+
+  tasks:
+    - name: Update Package Cache
+      apt:
+        update_cache: yes
+
+    - name: Upgrade Packages
+      apt:
+        upgrade: yes
+        autoremove: yes
+        autoclean: yes
+        dpkg_options: "force-confdef,force-confold"
+
+---
+- name: Update Packages on Red Hat/CentOS
+  hosts: your_target_hosts
+  become: yes  # Run tasks with sudo privileges
+
+  tasks:
+    - name: Update Package Cache
+      yum:
+        name: '*'
+        state: latest
+
+123-You need to deploy a web application that requires environment variables to be set. How would you use a playbook to set these environment variables for the application?
+
+---
+-	name: Deploy web application 
+  hosts: webservers
+  become: yes 
+  tasks:
+  -	name: Run web application with environment variables 
+    command: /path/to/web_application
+    environment:
+      DB_HOST: db.example.com 
+      DB_USER: dbuser 
+      DB_PASS: dbpass
+
+124-How would you handle sensitive data, like passwords, in your Ansible playbooks?
+
+>>You can use Ansible Vault to encrypt sensitive data. You can then reference the encrypted data in your playbooks.
+---
+-	name: Playbook with sensitive data 
+  hosts: all
+  become: yes 
+  vars:
+    db_password: "{{ vault_db_password }}" 
+  tasks:
+  -	name: Create database user 
+    mysql_user:
+     name: dbuser
+   password: "{{ db_password }}" 
+     priv: '*.*:ALL'
+     state: present
+
+In this playbook, vault_db_password is an encrypted variable stored in a separate file and decrypted at runtime.
+
+125-You have a web application that needs to retrieve data from a remote API. How could you use Ansible to securely store the API key needed by the application?
+
+# secrets.yml
+
+api_key: !vault |
+    $ANSIBLE_VAULT;1.1;AES256
+    66306262613862383161376131646436626239613532363536613233313361623631656265636565
+    3661393363613764373665356566623832656634336131330a356363323937653066363565656363
+    35383566303838303333626632626263396465656666336630373839636430636335626663626334
+    3961396137346237340a633935363066323735623961316231366339636362653332376237336137
+    36376135366636363432623635356661313161356631313436653365353066306333
+
+ansible-vault encrypt secrets.yml
+
+---
+- name: Deploy Web Application with API Key
+  hosts: your_target_hosts
+  become: yes  # Run tasks with sudo privileges
+
+  tasks:
+    - name: Include Encrypted Secrets
+      include_vars:
+        file: secrets.yml
+        name: secrets
+
+    - name: Deploy Web Application
+      # Your tasks to deploy the web application here
+
+126-How would you test an Ansible playbook before running it on production servers?
+
+>> You could use the --check and --diff flags to do a dry run of the playbook and see what changes it would make:
+ansible-playbook playbook.yml --check --diff
+Additionally, you could use a testing tool like Molecule to create a local test environment and run your playbook against that.
+
+127-You need to execute a command that takes a long time to complete. How would you use Ansible to execute this command without waiting for it to finish
+
+---
+- name: Run Long-Running Command
+  hosts: your_target_hosts
+  become: yes  # Run tasks with sudo privileges
+
+  tasks:
+    - name: Start Long-Running Command
+      command: /path/to/your/long_running_script.sh
+      async: 3600  # Set the timeout for the async task (in seconds)
+      poll: 0      # Set poll to 0 to start the task and immediately move to the next task
+      register: long_running_command_result
+    - name: Check Long-Running Task Status
+  async_status:
+    jid: "{{ long_running_command_result.ansible_job_id }}"
+  register: job_result
+  until: job_result.finished
+  retries: 3600  # Number of retries (adjust as needed)
+  delay: 10      # Delay between retries (in seconds)
+ 
+128-How would you set up a playbook to ensure that all your servers have the same sshd_config file, and that the SSH service is restarted if the file changes
+
+>># sshd_config.j2
+
+# Your SSH server configuration settings go here
+Port {{ ssh_port }}
+PermitRootLogin {{ permit_root_login }}
+PasswordAuthentication {{ password_authentication }}
+# ... other settings ...
+
+---
+- name: Ensure SSHD Configurations Are Consistent
+  hosts: your_target_hosts
+  become: yes  # Run tasks with sudo privileges
+
+  tasks:
+    - name: Copy sshd_config Template
+      template:
+        src: /path/to/sshd_config.j2  # Path to your template file
+        dest: /etc/ssh/sshd_config
+        owner: root
+        group: root
+        mode: 0644
+      notify: Restart SSH Service
+
+    - name: Check SSHD Config Changes
+      command: diff -q /etc/ssh/sshd_config /etc/ssh/sshd_config.old
+      register: sshd_config_diff
+      changed_when: sshd_config_diff.rc != 0
+      ignore_errors: yes
+      when: sshd_config_diff.rc is defined
+
+  handlers:
+    - name: Restart SSH Service
+      service:
+        name: sshd
+        state: restarted
+
+#this is fro safety to backup sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.old
+
+129-Your playbook execution fails midway with a 'Permission Denied' error while trying to copy a file to a remote machine. How would you investigate and solve this problem?
+
+>>This issue may occur due to inadequate permissions. To solve this, you can:
+–	Ensure that the playbook is running with necessary privileges. If you're copying a file to a directory that requires elevated permissions, you might need to use become: yes to elevate privileges for that task.
+–	Check if the SSH user has the required permissions on the remote machine.
+–	If using SSH keys for authentication, ensure the key has been properly added to the remote machine.
+
+130-A task in your playbook is idempotent but still results in a change every time you run the playbook. How would you identify the issue and what could be the possible reasons?
+
+>>The task could be working with dynamic data that changes with each run, or there might be an issue with the task itself. Here are a few ways to debug:
+–	Add the -v flag (verbose mode) when running the playbook to get more information about what the task is doing.
+–	If the task is using a module, check the documentation for that module to see if there are any known issues with idempotency.
+–	Use the debug module to print out the values of variables and other information that might help identify the issue.
+
+131-While running an Ansible playbook, you encounter an error that states "Failed to connect to the host via ssh." How would you troubleshoot this?
+
+>>The error indicates that Ansible is unable to establish an SSH connection to the host. Here's how you can troubleshoot:
+–	Confirm that you can manually SSH into the server from the control node.
+–	Check that your inventory file is correct (i.e., it has the correct usernames, hostnames/IP addresses).
+–	Ensure that the correct SSH keys are being used, and that the necessary keys are added to the ssh-agent if you're using one.
+–	If the target is a remote network, ensure there are no firewall rules or network issues preventing the connection.
+
+132-A playbook is running slower than expected. What steps can you take to identify the cause and remedy the situation?
+
+>>Several things could cause a playbook to run slowly. Here's how you might troubleshoot:
+–	Use the ANSIBLE_DEBUG environment variable to enable debug mode and identify any tasks that are taking a long time to execute.
+–	Use the profile_tasks callback plugin to get a detailed breakdown of how long each task takes.
+–	Check network latency between the control node and the hosts. High latency can slow down playbook execution, especially if many tasks are being performed.
+–	If many tasks are being performed on a large number of hosts, consider using strategies like free or mitogen for task execution to speed up the playbook.
+
+133-You're trying to use a module in your playbook, but Ansible can't seem to find it. What steps would you take to troubleshoot this issue?
+
+>>This could be due to a few reasons:
+–	The module might not be available in the version of Ansible you're running. Check the module documentation to confirm which versions of Ansible support it.
+–	If it's a custom module, make sure it's located in a directory specified in the ANSIBLE_LIBRARY environment variable, or in the /library directory adjacent to your playbook.
+–	Make sure the module name in the playbook doesn't contain any typos or errors.
+–	If the module requires Python libraries that are not installed, it may not be found. Check the module's documentation for any dependencies.
+
+134-Your playbook fails with an error saying that a Jinja2 variable is undefined. How would you resolve this issue?
+
+>>An "undefined variable" error typically means that Ansible can't find a variable that you're referencing in your playbook. Here's how you might troubleshoot:
+–	Check for typos in the variable name in your playbook and in any variable files.
+–	Make sure the variable is defined for the correct hosts or groups. For example, if the variable is defined in a host_vars file for a particular host, it won't be available for other hosts.
+–	If the variable is defined in a role, make sure the role is included in your playbook.
+
+135-A particular task in your playbook is failing, but you're not sure why. How can you get more information about what's happening during the task execution?
+
+>>If a task is failing and the output isn't clear, you can use the -vvv (or - vvvv for even more verbosity) option when running the playbook to get more detailed output:
+ansible-playbook playbook.yml -vvv
+This will show the exact commands that Ansible is running, along with the output from those commands. If you're using modules, 
+you might also find the ansible_module_stderr and ansible_module_stdout variables in the task results helpful.
+
+136-Despite no changes in your playbook or environment, a playbook that used to work is now failing. What could be the reason and how would you troubleshoot this?
+
+>>Here's how you might troubleshoot:
+–	Check if there have been any changes on the hosts that the playbook is running against. This could include software updates, configuration changes, or network changes.
+–	If your playbook depends on external resources (like APIs, remote files, etc.), check if there have been any changes or outages with these resources.
+–	If you're using roles or modules from Ansible Galaxy, check if there have been any updates or changes that might affect your playbook.
+–	Try running the playbook with the -vvv option to get more detailed output which might help identify the issue.
+
+137-Your playbook uses a role from Ansible Galaxy, but when you try to run it, Ansible can't seem to find the role. What might be the problem and how would you fix it?
+
+>>If Ansible can't find a role, it might be due to a few reasons:
+–	The role hasn't been downloaded. You can use the ansible-galaxy command to download the role:
+ansible-galaxy install username.rolename
+The role is not in a directory that Ansible is checking. By default, Ansible looks in roles/ and /etc/ansible/roles. You can add other directories by updating the roles_path option in the 
+Ansible configuration file, or by setting the ANSIBLE_ROLES_PATH environment variable.
+There's a typo or mistake in the role name in the playbook. Make sure the role name matches exactly with the name of the role on Ansible Galaxy.
+
+138-Imagine you are given a playbook which uses a large number of variables, but it seems like some variables are not being set correctly leading to errors. What steps would you take to debug this issue?
+
+>>You might start by using the debug module in the playbook to print out the value of variables at various points to see what they are set to. You could also check all places where a variable could be set
+to see if there are any typos or oversights. This would include the playbook itself, the inventory file, any group_vars/ or host_vars/ directories, and any role defaults or vars files. 
+Finally, you can also run the playbook with the -vvv option to get more detailed output, which might help identify any issues with variables.
+
+139-Can you explain how you might use a variable in a task loop and provide an example?
+
+•	Answer: A variable can be used in a loop in Ansible to perform a task multiple times, altering the task slightly each time. The loop keyword is used to define the loop, and variables are used to provide the values to loop over.
+
+---
+-	hosts: all vars:
+  packages:
+  -	nginx
+  -	postgresql 
+  tasks:
+  - name: Install multiple packages 
+    apt:
+     name: "{{ item }}" state: present
+     loop: "{{ packages }}“
+
+In this playbook, the packages variable is a list of packages to install. The loop iterates over each item in the list, installing the package on each iteration.
+
+140-What is the precedence of variables in Ansible when the same variable is defined in multiple places?
+
+>>Ansible has a specific order of precedence for variables defined in different places. The order from lowest to highest precedence is:
+–	variables defined in inventory file or passed via command line
+–	facts discovered about a system
+–	variables loaded from files specified in vars_files
+–	variables defined in playbooks
+–	variables defined in host_vars/group_vars
+–	variables passed to an include statement
+–	role defaults
+
+141-How can you use a variable in the name field of a task in Ansible?
+
+>>You can include a variable in the name field of a task by using the Jinja2 templating syntax.
+---
+-	hosts: all vars:
+  task_name: "my custom task" 
+  tasks:
+  -	name: "Running {{ task_name }}" 
+    command: echo "Hello, world!"
+
+In this example, the variable task_name is included in the task name, so the output when running the playbook will be "Running my custom task".
+
+142-Suppose you're in a situation where Ansible is not able to connect to a host and you're unsure whether the problem is in the SSH connection or Ansible itself. How could you leverage Ansible facts
+to debug this situation?
+
+>>To test if Ansible can connect to a host, we can use a simple Ansible command that uses the setup module to gather facts. For instance:
+ansible -m setup hostname
+If this command returns facts about the host, then Ansible can connect. If not, it may return an error message that can help you understand why the connection failed, such as an SSH connection error.
+
+143-Can you provide an example where you would use the 'listen' directive in a handler?
+
+>>One case for using the 'listen' directive is when multiple tasks may cause the same change, necessitating the same handler action. For instance, suppose there are two tasks in a playbook 
+that can both modify a web server's configuration file. Both tasks could "notify" a common term that the handler "listens" for, leading the handler to restart the service.
+
+tasks:
+-	name: task one
+command: echo "This is task one" notify: "Restart Services"
+-	name: task two
+command: echo "This is task two" notify: "Restart Services"
+handlers:
+-	name: Restart nginx service:
+name: nginx state: restarted
+listen: "Restart Services"
+-	name: Restart apache service:
+name: apache2 state: restarted
+listen: "Restart Services"
+ 
+144-How would you test handlers in a large and complex playbook?
+
+>>To test handlers, you could run the playbook in check mode with the '-- check' flag to see if the tasks report changes as expected. Additionally, you could use a testing framework like Molecule,
+which allows for more complex testing scenarios, including assertions about the desired state after the playbook runs.
+•	ansible-playbook playbook.yml --check
+
+145-What is the purpose of the 'register' directive in Ansible?
+
+>>The 'register' directive in Ansible is used to capture the output of a task. The registered value can be a simple string message, JSON, or other data returned by a task.
+It can be used in subsequent tasks for conditional execution, error handling, or debugging.
+•	Example:
+
+-	shell: /usr/bin/make_database.sh register: result
+
+-	debug: var: result
+
+146-What is the standard directory structure of an Ansible role?
+
+>>The standard directory structure of an Ansible role includes directories for tasks, handlers, files, templates, variables, defaults, and meta information:
+
+rolename/
+├── defaults
+│ └── main.yml
+├── files
+├── handlers
+│ └── main.yml
+├── meta
+│ └── main.yml
+├── README.md
+├── tasks
+│ └── main.yml
+├── templates
+├── tests
+│ ├── inventory
+│ └── test.yml
+└── vars
+└── main.yml
+
+147-
+
+
 
 
 
