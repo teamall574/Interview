@@ -1006,19 +1006,109 @@ regularly using cron or another job scheduler.
 
 >>You can use the command module to execute the uptime command on all servers. The command would be: ansible all -m command -a "uptime".
 
-87-
+87- Suppose you're managing a web server with Ansible, and you want to ensure that the server is restarted whenever its configuration file is changed. How would you accomplish this?
 
+>>You could use a handler for this. The task that updates the configuration file would have a notify directive that triggers the handler, and the handler would contain the task to restart the server.
 
+88-How would you handle different system environments (development, staging, production) with Ansible?
 
+>>Ansible provides a few ways to handle this. One way is to have a separate inventory file for each environment. Another way is to use group variables to define environment-specific settings.
 
+89-How would you configure a task to run only when a certain condition is met?
 
+>>Ansible uses conditional statements with the when keyword to control whether a task should run. For example, a task might only run when a certain variable is set, or on certain types of machines.
 
+90-How can you distribute the execution of a time-consuming task across multiple systems to decrease the overall execution time?
 
+>>Ansible’s default behavior is to execute operations in parallel up to a certain level of concurrency. You can control this level of concurrency with the forks configuration setting or command-line option.
 
+91-You're managing a set of servers that have slightly different requirements. How might you handle this within a single Ansible role?
 
+>>You could use variables and conditionals to add flexibility to your role. For example, you could have a variable for the required packages, and define this variable differently for each group of servers.
 
+92-Suppose you want to execute a shell script on a remote server using Ansible. How would you do that?
 
+>>You can use Ansible's script module to copy a script from your local machine to the remote server and execute it. Alternatively, you could use the command or shell module to run a script that 
+already exists on the remote server.
 
+93-What strategies can you use to optimize the performance of an Ansible playbook?
+
+>>There are several strategies to optimize Ansible performance such as:
+•	Limiting the hosts (using the --limit option or specifying a more specific host pattern).
+•	Using 'async' for tasks that can run in the background.
+•	Disabling facts gathering with gather_facts: no if it's not needed.
+•	Using pipelining = True in the Ansible configuration file.
+•	Reducing the forks number to limit parallelism if memory usage is a concern.
+
+94-Suppose you need to apply a complex change to your infrastructure that can't be accomplished with a single Ansible module. How might you handle this?
+
+>>This could be accomplished by creating a custom module or using the command or shell modules to run arbitrary commands. In some cases, you might also use a series of existing modules to accomplish
+the change in multiple steps.
+
+95-Suppose you are required to manage the network devices along with servers in your organization. Can Ansible be used for network automation?
+
+>>Yes, Ansible can be used for network automation as well. It has specific network modules to manage network devices from various vendors. We can use these modules to automate the configuration and 
+management of network devices.
+
+96-How can you deploy an application to an auto-scaling infrastructure with Ansible?
+
+>>Auto-scaling environments can be handled using dynamic inventories. This allows Ansible to query your infrastructure every time it runs, so it always knows about all the servers. 
+You can also use Ansible to configure the base image or launch configurations used by your auto-scaling group, ensuring all new servers are configured correctly.
+
+97-How can you test an Ansible playbook to make sure it works before applying it to the production?
+
+>>Testing Ansible playbook can be done by creating a separate testing or staging environment similar to the production environment. Moreover, Ansible has a 'check' mode (--check) which does a dry run and 
+shows what changes will be made without actually executing them.
+
+98-Explain how you would use dynamic inventory in a cloud environment like AWS or Azure. What are the benefits and what are the potential drawbacks?
+
+>>Dynamic inventory is exceptionally useful in cloud environments where the inventory can change often. You can use a dynamic inventory script provided by Ansible or a third-party script to connect to 
+the cloud provider's API and get a list of instances based on their state, tags, etc. The main benefit is up-to-date inventory; the drawback could be the additional time to get the inventory and the
+requirement for valid API credentials during playbook execution.
+
+99-How would you use Ansible to ensure that a certain security policy is applied across all servers in an organization?
+
+>>You can define the security policy as a series of tasks or roles (such as installing certain packages, ensuring certain services are running, or applying specific firewall rules), and then apply those 
+roles to all hosts in your inventory. You could also set up a scheduled job to regularly apply the playbook and ensure continued compliance.
+
+100-If you are required to handle a hybrid environment with Linux and Windows servers, how would you structure your Ansible roles and playbooks?
+
+>>You can use conditionals based on the ansible_os_family variable to handle tasks differently based on the OS type. Alternatively, you can separate out tasks into different roles based on the OS,
+or even use separate playbooks for Windows and Linux hosts.
+
+101- What strategy would you use to deploy a multi-tier application where the different tiers (like the database, application server, and load balancer) have to be deployed in a certain order?
+
+>>This can be achieved by structuring your playbook into multiple plays, each targeting a specific tier. Ansible runs plays in the order they're defined, so the order of deployment can be controlled 
+in that way.
+
+102-How would you handle a scenario where an Ansible playbook needs to interact with APIs?
+
+>>Ansible has the uri module which can be used to interact with a REST API. You can use it to make GET, POST, PUT, DELETE, or HEAD requests.
+
+103-How would you use Ansible in a CI/CD pipeline?
+
+>>Ansible can be used to automate deployment as part of a CI/CD pipeline. After the build stage, you could trigger an Ansible playbook to deploy the built application. If you're using Jenkins, for example, 
+you could use the ansible-playbook command directly in your Jenkins pipeline script, or use the Ansible plugin for Jenkins.
+
+104-You're tasked with managing a legacy application with Ansible. This application has a specific package that must be compiled from source with custom flags. How would you handle this with Ansible?
+
+>>You can use the command or shell module to run the necessary commands to compile the package. Remember to use creates or a similar method to achieve idempotency.
+
+105-You are deploying a critical application using Ansible. How would you design a strategy for zero-downtime deployments?
+
+>>Zero downtime deployment can be achieved using a rolling update strategy, where you update a few hosts at a time, ensuring that the majority of your infrastructure remains available. 
+This can be done using the serial keyword in Ansible.
+
+106-If you need to execute a task that takes a long time to complete, how would you manage that task in Ansible to prevent it from timing out?
+
+>>You can use the async and poll parameters with a task in Ansible to manage long-running tasks. async launches the task asynchronously, and poll checks back on the task status at a specified interval.
+
+107-How would you handle a large inventory with thousands of hosts in Ansible?
+
+>>You can use inventory scripts to pull inventory from a data source like a CMDB, cloud inventory, etc. In the Ansible configuration, you can also increase the forks to execute more parallel tasks.
+Also, breaking the hosts into smaller, logical groups in the inventory can help manage it better.
+
+108-
 
 
 
