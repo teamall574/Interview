@@ -897,8 +897,12 @@ platform
 
 ======================================================Thankyou=========================================================================================================
 
-7-what is the difference between latency and geo dns
+7-what is the difference between war and jar
 
->>
+>>war file is a Web Application Archive which runs inside an application server while a . jar is Java Application Archive that runs a desktop application on a user's machine. 
+A war file is a special jar file that is used to package a web application to make it easy to deploy it on an application server.
 
-8-
+8-what is snapshot in Nexus
+
+>>By definition, snapshots are mutable, releases are immutable. This is why Nexus makes you store them separately because usually you don't care if you lose snapshots, 
+but you will care if you lose releases. It makes snapshot cleanup much easier to deal with that way
