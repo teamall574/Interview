@@ -574,6 +574,9 @@ Kubernetes offers integrated support for using these labels to query objects and
 1-codedns
 2-kube-proxy
 3-nodes
+4-kubernetes dashboard
+5-heapster 
+6-ingress
 
 56-what is kubernetes security mechnisam
 
