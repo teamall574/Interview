@@ -102,6 +102,14 @@ it is expandable through a plug-in system
 >>dashboard number 14513 is linux
 >>dasboard number  14510 is winodws
 >>dashboard number 11802 is kubernetes
+>>dashboard number 12268 is nginx logs and GEO map dashboard 
+>>dashboard number 9614-nginx-ingress-controller
+<<dashboard number 1860-node-exporter-full
+>>dashboard number 8670-cluster-cost-utilization-metrics
+>>dashboard number 13838-kubernetes-overview
+>>dashboard number 8588-1-kubernetes-deployment-statefulset-daemonset-metrics
+>>dashboard number 4358-elasticsearch
+>>dashboard number 139-aws-billing
 1860
 405
 11074
