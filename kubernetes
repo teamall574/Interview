@@ -2620,6 +2620,9 @@ spec:
     securityContext:
       runAsUser: 1000
 
+225-how to see the kubernetes API-server url or Cluster URL
+
+>>kubectl config view --minify -o jsonpath='{.clusters[0].cluster.server}'
 
 
 
