@@ -1,0 +1,37 @@
+version: '3'
+services:
+  anji-db:
+    image: anji1592/my-sql:v1
+    ports:
+      - "3306:3306"
+    volumes:
+      - anjidbdata:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=anji@123
+  anji-cache:
+    image: memcached
+    ports:
+      - "11211:11211"
+  anji-rabbitmq:
+    image: rabbitmq
+    ports:
+      - "15672:15672"
+    environment:
+      - RABBIT_DEFAULT_USER=guest
+        RABBIT_DEFAULT_PASS=guest
+  anji-app:
+    image: anji1592:tomcat:v1
+    ports:
+      - "8080:8080"
+    volumes:
+      - anjiappdata:/usr/local/tomcat/webapps
+  anji-web:
+    image: anji1592/web-nginx:v1 
+    ports:
+      - "80:80"
+volumes:
+  anjidbdata: {}
+  anjiappdata: {}
+
+            
+
