@@ -1961,17 +1961,18 @@ this thing can solve the service mesh
 >> Metrics collection and tracing
 >> Security logic
 >> Retry logic   --> This thing can be added apart from the business logic
->> If I add this thing to business logic of the pod the size will increase which will add the complexity
+>> If I add this thing to the business logic of the pod the size will increase which will add the complexity
 
 >>which is used to manage communication between microservices in an environment securely and also do traffic splitting this service mesh will be added to the control plane
 The proxy will be a part of control plane this will be automatically injected into application i dont  want chane or modify instead of using service mesh it will help you using
 and one more advantage is that traffic splitting it used in canary deployments. if you version1 payment gateway the version2 is available you can split the 90% traffic to version1
 we can use 10% of traffic to version2 if works good then we can deploy in production. by using service mesh like Istio uses ex:Istio, Linkerd
 >> Service mesh is act as a sidecar container or proxy to the pods
+>>kubectl label -n default istio-injection=enabled
 
 170-what is Ingress
 
->>if you eant ingress you must deploy the ingress-controller before ingress deploying(like ex:- HA-Proxy,treafik, Istio, Nginx-ingress-controller)
+>>if you want ingress you must deploy the ingress-controller before ingress deploying(like ex:- HA-Proxy,treafik, Istio, Nginx-ingress-controller)
 >>ingress is nothing but set of rules
 >>ingres is used for only web-application purpose it supports path based also
 >>ingress controller using you can create a single loadbalancer using create multiple services. ingress controller is nothing bt set of rules
