@@ -110,6 +110,11 @@ it is expandable through a plug-in system
 >>dashboard number 8588-1-kubernetes-deployment-statefulset-daemonset-metrics
 >>dashboard number 4358-elasticsearch
 >>dashboard number 139-aws-billing
+>>dashboard number 3119 kubernets 
+>>dashboard number 10856 kubernets 
+>>dashboard number 8685 kubernets 
+>>dashboard number 315 kubernets 
+
 1860
 405
 11074
