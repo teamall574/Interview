@@ -2430,7 +2430,7 @@ apiVersion: security.istio.io/v1beta1
 kind: PeerAuthentication
 metadata: 
   name: default
-  namespace: istio-system
+  namespace: istio-system  ##if you give this namespace means all the namespace will infect it is global
 spec:
   mtls:  ##by default automcatically came if you want disable you can create 
     mode: PERMISSIVE  #if your using permissive this any pod created in the istio-system the pod will go onto the mtls mutual-tls if you DISABLE it will go plan text 
