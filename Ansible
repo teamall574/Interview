@@ -405,18 +405,31 @@ and then restart the sshd service: ansible all -m service -a "name=sshd state=re
 
 ==================================================================Ansible===============================================================================
 
-what is Ansible
+1-what is Ansible
 
 >>Ansible is an open-source automation tool. and it follows push mechansim
 >>Ansible is Idempotent
 >>Ansible is an open-source software provisioning configuartion management and application deployment tool
 >>Ansible is used for managing multiple servers in the infrastructure
 >>it is very very simple to setup and yet powerful tool
+>>parallel operations are possible
+>>no need save the code in each server 
 >>Ansible will be helpful to perform:-
 configuration management
 application deployment
 task automation
 and also it orchestration
+
+push:-
+1-it will push the configuration to the server 
+2-The control node connects directly to the target systems (managed nodes) over SSH or WinRM, and it executes tasks and playbooks remotely.
+3-The control node initiates the execution, pushes the configuration or tasks to the remote systems, and collects the results.
+4-Push mode is suitable for managing remote systems without requiring agent software to be installed on the managed nodes. Ansible connects to these nodes on-demand to perform tasks.
+pull:-
+1-this server will go the server connect pull the configuration
+2-Pull mode is typically used when it's not feasible to initiate connections from a central control node. It's often used in larger, more distributed environments
+3-The target systems periodically check for playbook updates or configuration changes.
+4-When updates are detected, the managed nodes pull the necessary playbooks and execute them locally.
 
 2-why Ansible why not puppet or chef
 
