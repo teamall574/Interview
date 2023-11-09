@@ -381,8 +381,8 @@ $ git cherry-pick commit_hash
 
 43-what is the differnce between merge and pull request
 
->>it pull commnad fetches the latest commits and downloads content from the specified remote repository. 
-Then a git merge is executed to merge the remote content refs and heads into a new local merge commit. 
+>>pull request will do happen two different account on the github to merge there is no differencegit merge or pull requst both are mostly same  
+>>Then a git merge is executed to merge the remote content refs and heads into a new local merge commit. two different branches combine into pne branch 
 
 44-what is git stash
 
