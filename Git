@@ -147,6 +147,8 @@ folder if you should not be delete that file if you delete that file
 >>merge will help you to combine two branches
 >>Git merge is a command used to combine the changes from one branch into another. It integrates the commit history and changes from one branch (source branch) into another branch
 (target branch).
+>>git checkout main ##we are going to main branch 
+>>git merge feature   ##this going to merge the feature branch into main
 uses:-
 1-combining branches
 2-automatic merging
