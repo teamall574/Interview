@@ -1,68 +1,65 @@
                     |-->C Development          --->Git+Maven (npm),(MsBuild--Dotnet)
-                    |-->C Integration          --->Jenkins (teamcity, cloudbees,gitlab)
+                    |-->C Integration          --->Jenkins (TeamCity, Cloud Bees, GitLab)
 DEVOPS--------------|
 		    |-->C Delivery/deployment  --->Docker/K8S (openshift)
-		    |-->C Montoring            --->Grafana/Newrelic,promethus
+		    |-->C Monitoring            --->Grafana/Newrelic,Prometheus
 
 1-what is DevOps 
 
->>DevOps is a methodology in the software development and IT industry.
-so many teams involve together like cloud team , montoring team, security team and automation task and testing and so many involve
-and work together this called devops
+>>DevOps is a methodology in the software development and IT industry. There are so many teams involved like the cloud team, monitoring team, security team, and automation task and testing and so many involved
+and work together this is called DevOps
 
 2-what is RCA
 
->>root cause analaysis (providing the analysis for an error this RCA)
+>>root cause analysis (providing the analysis for an error in this RCA)
 
 3-why file is getting deleted automatically why
 
->>cronjobs running every second
->>your set any lambda script then when ever file created then automatically delete
->>set any script to deletete file automatically  
->>expiry of old file to wrie a script to delete
+>> Cronjobs running every second
+>> You set any lambda script then whenever a file is created automatically delete
+>> Set any script to delete the file automatically  
+>> Expiry of old file to write a script to delete
 
-4-the core principal of devops
+4-the core principle of DevOps
 
 1-collaboration
 2-Automation
 3-CI/CD
-4-Feedback Montoring
-5-Continous learing and improvement
+4-Feedback Monitoring
+5-Continous learning and improvement
 
-5-what is benfites of devops
+5-what are the benfites of DevOps
 
 1-faster delivery and time to market
-2-improved quality and reliabilty
-3-enhanced collabiration
+2-improved quality and reliability
+3-enhanced collaboration
 4-cost saving
 5-increase customer satisfaction
 
 6-how to promote your application dev to test to production
 
->>we will follow this stragey build once run in any environment. 
->>we build our application in development environment we push to the artifactory nexus or jfrog artifactory. we will have configuration files differnet
-environment when we deploy the applications dev environment we will apply the dev configuration file when we deploying the applications in testing environment
-we will apply the test configuration files same as like production also
+>> We will follow this strategy Build once run in any environment. 
+>> We build our application in a development environment we push to the Artifactory Nexus or Jfrog Artifactory or Nexus Repository. we will have configuration files in differnet
+environments when we deploy the applications dev environment we will apply the dev configuration file when we deploy the applications in the testing environment
+we will apply the test configuration files the same as in the production also
 
 7-Why has DevOps become famous?
->>As we know before DevOps there are two other software development models:
+
+>>As we know before DevOps there were two other software development models:
 Waterfall model
 Agile model
-In the waterfall model, we have limitations of one-way working and lack of communication with customers. This was overcome in Agile by including
-the communication between the customer and the company by taking feedback. But in this model, another issue is faced regarding communication between 
-the Development team and operations team due to which there is a delay in the speed of production. This is where DevOps is introduced. It bridges the 
-gap between the development team and the operation team by including the automation feature. Due to this, the speed of production is increased. 
-By including automation, testing is integrated into the development stage. Which resulted in finding the bugs at the very initial stage which increased 
-the speed and efficiency.
+In the waterfall model, we have limitations of one-way working and a lack of communication with customers. This was overcome in Agile by including the communication between the customer and the company
+by taking feedback. But in this model, another issue is faced regarding communication between the Development team and operations team due to which there is a delay in the speed of production. This is where 
+DevOps is introduced. It bridges the gap between the development team and the operation team by including the automation feature. Due to this, the speed of production is increased. By including automation, 
+testing is integrated into the development stage. This resulted in finding the bugs at the very initial stage which increased the speed and efficiency.
 
 8-How DevOps is helpful to developers?
 
->>DevOps is very helpful for developers to fix the bugs and quickly implement the new features. It also helps in more transparent communication 
-between the team members.
+>>DevOps is very helpful for developers to fix the bugs and quickly implement the new features. It also helps in more transparent communication between the team members.
 
-9-Explain some popular devops tools
+9-Explain some popular DevOps tools
 
-1-jenkins
+1-Jenkins
 2-Ansible
 3-Grafana
 4-Docker
@@ -71,10 +68,10 @@ between the team members.
 
 10-What are the prerequisites for the DevOps implementation?
 
-Proper communication between the team members.
-At least one version control software.
-Automated testing.
-Automated deployment.
+>>Proper communication between the team members.
+>>At least one version of control software.
+>>Automated testing.
+>>Automated deployment.
 
 11- What are the different phases in DevOps?
 
@@ -83,7 +80,7 @@ Code - The application is coded as per the end-user requirements.
 Build - Build the application by integrating various codes formed in the previous steps.
 Test - This is the most crucial step of the application development. Test the application and rebuild, if necessary.
 Integrate - Multiple codes from different programmers are integrated into one.
-Deploy - Code is deployed into a cloud environment for further usage. It is ensured that any new changes do not affect the functioning of a high traffic website.
+Deploy - Code is deployed into a cloud environment for further usage. It is ensured that any new changes do not affect the functioning of a high-traffic website.
 Operate - Operations are performed on the code if required.
 Monitor - Application performance is monitored. Changes are made to meet the end-user requirements.
 
@@ -92,25 +89,27 @@ Monitor - Application performance is monitored. Changes are made to meet the end
 Continuous integration
 Continuous testing
 Continuous delivery
-Continuous montiring
+Continuous monitoring
 
 13-How is DevOps different from agile methodology?
 
 >>DevOps is a culture that allows the development and the operations team to work together. This results in continuous development, testing, integration, 
 deployment, and monitoring of the software throughout the lifecycle. 
 
-14-what is continous delivery and continous deployment 
+14-what is continuous delivery and continuous deployment 
 
->>continous delivery:- is state where your application always ready to be deployed manual  step is required to be actually deply the application
+>> Continous delivery:- is a state where your application is always ready to be deployed manually. the manual step is required to actually deploy the application
 
->>continous deployment:- is the automation of building testing and deploying if all test pass every commit will push new code through the entire development pipeline
+>>continous deployment:- is the automation of building testing and deploying if all tests pass every commit will push new code through the entire development pipeline
 to production with no manual intervention
 
->>continous integration:- is the automated building and testing of your application on every new commit
+>> Continous integration:- is the automated building and testing of your application on every new commit . Continuous Integration (CI) is a software development practice where developers frequently integrate 
+their code changes into a shared repository. Each integration is verified by automated build and test processes to detect and address integration errors early in the development process. The primary goal
+of continuous integration is to improve the quality of software, reduce the time taken to deliver new features, and enhance collaboration among team members
 
 15 - What is the difference between continuous delivery and continuous deployment?
 
->>the main difference between them is that continous delivery requires manual intervention to deploy.continous deployment is completely automated
+>> The main difference between them is that continuous delivery requires manual intervention to deploy. continuous deployment is completely automated no manual intervention
 
 16-Which scripting tools are used in DevOps?
 
@@ -118,15 +117,15 @@ to production with no manual intervention
 
 17- Why open source tools boost DevOps?
 
->>Open source tools mainly used by any organization which is adapted by DevOps pipeline because DevOps came with the focus of automation 
-in various aspects of organization build, release, change management, and infrastructure management areas.
+>>Open source tools mainly used by any organization that has adopted by DevOps pipeline because DevOps came with a focus on automation in various aspects of organization build, release, change management,
+and infrastructure management areas.
 
 18-What is the role of AWS in DevOps?
 
->>AWS is a cloud-based service provided by Amazon that ensures scalability through unlimited computing power and storage. 
-It empowers IT enterprises to develop and deliver experienced products and deploy applications on the cloud
+>>AWS is a cloud-based service provided by Amazon that ensures scalability through unlimited computing power and storage. It empowers IT enterprises to develop and deliver experienced products and
+deploy applications on the cloud
 
-19- Explain two-factor authentication?
+19- Explain two-factor authentication.
 
 >>The two-factor authentication is a security method in which the user provides two ways of identification from separate categories.
 
@@ -137,7 +136,7 @@ AWS EC2
 AWS CloudWatch
 AWS CodePipeline
 
-21-what is continuous testing in devops
+21-what is continuous testing in DevOps
 
 >>Continuous testing in DevOps is a type of software testing that involves testing at every stage of the development life cycle. 
 The goal of continuous testing is to evaluate the quality of the software as part of a continuous delivery process, by testing early and often
@@ -154,19 +153,19 @@ Parallel execution is enabled.
 
 23- what is infrastructure deployment
 
->>two ways to build infrastructure deployment
+>> Two ways to build infrastructure deployment
 1-cloud native tools
-a)-aws    -->cloud formation  yaml or json uses
+a)-aws    -->cloud formation YAML or JSON uses
 b)-azure  -->arm templates
-code is heavy in aws and azure
+code is heavy in AWS and Azure
 
 2-third party tools (terraform)
->>hashicorp tool it is an open-souce
->>it is famous it is easy to use and understand
->>it support to all clouds
+>>hashicorp tool it is an open-source
+>> It is famous because it is easy to use and understand
+>> It supports to all clouds
 >>terraform have idempotnce
 
-24-what is configuration mangement tools
+24-what are configuration management tools
 
 >>tools:-
 1-chef
@@ -175,47 +174,249 @@ code is heavy in aws and azure
 4-rundeck
 5-salt
 
-25- what is montoring tools
+25- what are monitoring tools
 
 >>A monitoring application tracks your app's hardware utilization, SLA status, platform performance, and user response times. Among the metrics, 
 DevOps engineers can monitor here are server diagnostics, error logs, network traffic reports, historical statistics, and failure diagnostics
 
 Infrastrucrure-Monitoring tool
-1-nagios
+1-Nagios
 2-Prometheus 
 3-Zabbix
-4-datadog
-5-new-relica
-6-grafana
-7-app dynamics
-8-dynatrace
+4-Datadog
+5-New-Relic
+6-Grafana
+7-App dynamics
+8-Dynatrace
 
 Application-monitoring tool
 1-ELK stack
-2-splunk
-3-suma-logic
-4-solar-wind
+2-Splunk
+3-Suma-logic
+4-Solar-wind
 
 Notifications tool
-1- opsgenie
-2- pagerduty
+1- Opsgenie
+2- Pagerduty
 
 26- What is a ticketing tool?
 
->>A ticketing system is a management tool that processes and catalogs customer service requests. 
-Tickets, also known as cases or issues, need to be properly stored alongside relevant user information. 
+>>A ticketing system is a management tool that processes and catalogs customer service requests. Tickets, also known as cases or issues, need to be properly stored alongside relevant user information. 
 The ticketing system should be user-friendly for customer service representatives, managers, and administrators.
 
 types:-
 1-jira
 2-ServiceNow.
 
-27-what is artifactes 
+27-what is the Agile model agile methodology agile process
 
->>artifact is a by-product produced during the software development process. 
-It may consist of the project source code, dependencies, binaries or resources, and could be represented in different layout depending on the technology
+>>The Agile methodology is a project management approach that involves breaking the project into phases and emphasizes continuous collaboration and improvement. Teams follow a cycle of planning, executing,
+and evaluating.
+>>Agile is a process
+>>Agile is an basically iterative or incremental approach the same kind of process we repeat again and again means iterating getting the requirements designing coding and testing 
+we implement some features as the beginning software we keep adding features in the future 
+>> There will be good communication between customer & business analyst developers & testers
+>> In agile Everyone works together 
+>> If the customer is given 100 features we will give some features first then add step-by-step features then no need to wait for the customer 
 
-28-what is tomcat
+principles:-
+1-customer no need to wait for a long time
+2-We develop, test, and release pieces of software to the customer with a few numbers of features
+3-we can accept/accommodate requirement changes
+
+28-what are the advantages of agile
+
+1-requirements changes are allowed in any stage of development we can accommodate requirement change in the middle of development
+2-release will be very fast(weekly)
+3-customer no need to wait for a long time
+4-good communication between team
+5-it is a very easy model to adopt
+
+29-what are the disadvantages of agile
+
+1-less focus on design and documentation since we deliver software very faster
+2-no much documentation
+
+30-what is Scrum in agile
+
+>> Scrum is a framework through which we build software products by following Agile principles
+>> Scrum includes a group of people called a scrum team. normally contains 5-9 members
+
+scrum owner:-->
+1-the main role is facilitating and driving the Agile process he is not a Developer he is not a tester he knows each every Agile process each and every activity he will facilitate he will give awareness
+to the team. he will take care of the entire stage process take of the project he knows the entire project he will start the project from start to end
+product owner:-->
+1-Define the features of the product
+2-Prioritize features according to market value
+3-Adjust features and prioritize every iteration as needed
+4-Accept or reject work results
+dev team  -->
+>> The develop the product and design unit testing and integration testing
+QA team-->
+this team will test the application
+ 
+31-what is the difference between scrum and agile
+ 
+>> Scrum is the framework for releasing the product
+>> Scrum says how to follow the agile principles
+>> Agile is a process following principles 
+>> Agile is a defined process with some principles 
+
+32-what is the user story in Agile
+
+>>A feature or module in software is called a user story
+>> User stories will be derived from EPIC this thin will be prepared by the product owner
+
+33-what is epic
+
+>> A collection of multiple stories is called Epic. In one epic we can split multiple stories
+
+34-what is product backlog
+
+>> Product backlog contains the list of user stores  prepared by the product owner
+
+35-what is Sprint or Iteration
+
+>>period of time to complete the user stories, decided by the product owner and team, usually 2-4 weeks of time
+
+36-what is the sprint backlog
+  
+>> List of committed stories by DEV/QA for a specific sprint
+
+37-what is a sprint planning meeting 
+
+>> Meeting conducted with the team to define what can be delivered in the sprint and duration
+
+38-what is a scrum meeting or standup call
+
+>> Meeting conducted by scrum master every day for 15 minutes called a scrum meeting/standup meeting
+
+39-what is a sprint retrospective meeting 
+
+>conducts meeting after completion of the sprint the entire team including both the scrum master and the product owner should participate only onetime can happened
+
+40-what is the story point
+
+>>Rough estimation of user stories will be given by Dev & QA in the form of Fibonacci series 
+0, 1, 2, 3, 5, 8, 13, 21, etc
+1   --> 1 hour or 1 day (6 hours)  depends on the company some companies think 1 hour or 6 hour is simple
+2   -->  normal 
+3   -->  hard 
+5   -->  more hard
+8   --> super hard
+13  --> critical
+in Jira ticket called issue. issues is not a bug
+
+41-what is the Burndown chart
+
+>> It shows how much work remaining in the sprint maintained by the scrum master daily
+
+42-what are the roles involved in the agile
+
+>>product owner
+>> Scrum master
+>>Team
+
+43-what are the artifacts in the Agile
+
+>> Product backlog
+>> Sprint backlog
+>> Burndown chart
+
+44-what are ceremonies in the Agile
+
+>> Sprint planning
+>> Daily Scrum
+>> Sprint Review
+
+45-what is scrum board
+
+>>in scrum board contains Stories, ToDO, IN progress, testing, and Done  it will track the issues or tickets on the station
+
+46-what is the definition of a ready
+
+>> The user story is clear
+>> The user story is testable
+>> User story is feasible
+>> User story defined
+>> User story Acceptance criteria defined
+>> User story dependencies identified
+>> User story sized by the development team
+>> The Scrum team accepts user experience artifacts
+>> Performance criteria identified where appropriate
+>> The team has a good idea of what will mean to demo the user story
+
+47-what is the Definition of Done (DOD)
+
+>>Code produced (all 'to do' items in code completed)
+>> Code comments checked and run against the current version is source control
+>>peer reviewed (or product with pair programming) and meeting development standards
+>>build without error
+>> Unit tests written and passing
+>> Deployed to the system test environment and passed system tests
+>>passed UAT(User Acceptance Testing)and signed off as meeting requirements
+>> Any build /deployment /configuration changes are implemented /documented /communicated
+>> Relevant documentation /diagrams produced and/ or updated
+>>remaining hours for task set to zero and task closed 
+
+48-what is QA team Tasks
+
+1-Under standing requirements
+2-writing test scenarios
+3-writing test cases
+4-test case reviews
+5-test environment setup
+6-test data preparation
+7-re-testing bugs
+8-team meetings
+9-automation
+10-Any other
+
+49-what is Dev tasks
+
+1-Under standing requirements
+2-Design
+3-coding
+4-unit testing
+5-integration testing
+6-code review
+7-bug fix
+8-team meeting
+
+50-what is the Jira Tool
+
+>>Jira is bug tracking & reporting, issue tracking, and project management. it is a test management tools
+>> Write test cases 
+>>managing the teaks
+>> Tracking issues
+>> Report the bugs
+>> Close the report using Jira or version one, bug Zilla
+>>jfire plugin using test report along with Jira  
+
+51-what are Agile Scrum activities
+
+>> How to create the project in Jira
+>> How to add users/people in Jira
+>>create backlog
+1-versions
+-->create a version name and description and start date and release date 
+2-epic  --> create an epic under create the stories bug tasks
+-->stories
+-->task
+-->Bug
+>>create sprint
+>>add stories  to the sprint  
+>> start sprint  
+>>add tasks for every story
+>>stories will go first To Do then In progress and last Done
+>>Bug also same
+
+52-what is artifacts 
+
+>> Artifact is a by-product produced during the software development process. 
+It may consist of the project source code, dependencies, binaries, or resources, and could be represented in different layout depending on the technology
+
+53-what is tomcat
 
 >>>>tomcat is open-source
 >>it is a App-server and developed by apache software foundation
@@ -223,13 +424,13 @@ It may consist of the project source code, dependencies, binaries or resources, 
 >>you can deploy the war files in tomcat
 >>the default port number is 8080
 
-29-how to add multiple servers in garfana
+54-how to add multiple servers in garfana
 
 >>your installing prometheus and grafana server in one system your installed node exporter on that server and then launch 5 systems then added into the
 prometheus system and adding this ip and port number 9100 into the prometheus.yml file then go to grafana and select the prometheus and select the dashboard
 you will get the servers details
 
-30-what is SRE
+55-what is SRE
 
 >>so we have pipeline is ready updates are ready need to update the app or application then we have middle in the production if the jenkins is 
 not responding the application will stop or production also stop right
@@ -241,11 +442,12 @@ SRE Team will come to any tools take responsible for
 installing and authentication and autherazation patches and updates and montoring creating multiple projects
 giving access to multiple projects persons doing adminstration if devops person will get any probleam then call to sre person and solving that probleam
 
-31-what is jenkins
+56-what is jenkins
 
->>default port number is 8080 and Jenkins version 2.375.2
+>>jenkins is open-source and it is used to continous integration(CI)/continoud deployment(CD) tools. Jenkins is used to build and test your software projects continuously making it easier for developers to 
+integrate changes to the project, and making it easier for users to obtain a fresh build. default port number is 8080 and Jenkins version 2.375.2
 
-32-can you describe SDLC .
+57-can you describe SDLC .
 
 >>SDLC stands for Software Development Life Cycle. It’s a framework that describes the stages involved in the development of software
 Planning: In this stage, project goals and requirements are identified, and a plan is created for how the software will be developed.
@@ -256,7 +458,7 @@ Testing: In this stage, the software is tested to ensure it’s free of bugs and
 Deployment: In this stage, the software is released to the users.
 Maintenance: In this stage, the software is monitored and updated to ensure it continues to meet the needs of the users.
 
-33-Difference between agile methodologies and DevOps methodology.
+58-Difference between agile methodologies and DevOps methodology.
 
 >>Focus: Agile focuses on software development and project management, while DevOps focuses on software development, operations, and collaboration.
 >>Methodology: Agile is an iterative and incremental approach to software development, emphasizing frequent delivery of working software, while DevOps is a set of practices 
@@ -268,7 +470,7 @@ continuous integration, delivery, and deployment.
 >>Automation: DevOps places a stronger emphasis on automation than agile methodologies, using tools like configuration management, continuous integration and deployment, 
 and monitoring to improve efficiency and quality.
 
-34-what is the shift left
+59-what is the shift left
 
 >>Shift left is the practice of moving testing, quality, and performance evaluation early in the development process, often before any code is written. Shift left testing helps teams 
 anticipate changes that arise during the development process that can affect performance or other delivery processes
@@ -278,7 +480,7 @@ and perfformance checking and quality checking security checking
 >>since requirements gathering
 >>Delivering Quality software and speed 
 
-35-what is the shift right
+60-what is the shift right
 
 >>Shift right is the practice of performing testing, quality, and performance evaluation in production under real-world conditions. Shift right methods ensure that applications 
 running in production can withstand real user load while ensuring the same high levels of quality.
