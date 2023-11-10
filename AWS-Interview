@@ -159,6 +159,8 @@ windows: minimum 4 minutes maximum 5 minutes (its requires minimum 30 gb storage
 >>Yes, it is possible to recover an EC2 instance when you have lost the key. You can create a new key pair and then use it to connect to the instance.
 Alternatively, you can also use other authentication methods such as user name and password, or even IAM roles to access the instance.
 However, if you have encrypted the root volume of the instance using the lost key pair, you will not be able to recover the data on that volume.
+>>if you lost private key no longer need to take that form anywhere instead you can create one more keypair if you have ssm or iam option then login that new instance copy that public key pass that key 
+old instance using ssm in this place ~/.ssh/authorized_keys 
 
 19-how to restore the login into ec2 if pem file lost
 
@@ -195,16 +197,21 @@ By following this process, you can ensure that your system remains available thr
 
 21-How do you upgrade or downgrade a system with near-zero downtime?
 
->>You can upgrade or downgrade a system with near-zero downtime using the following steps of migration:
-
-Open EC2 console
-Choose Operating System AMI
-Launch an instance with the new instance type
-Install all the updates
-Install applications
-Test the instance to see if it’s working
-If working, deploy the new instance and replace the older instance
-Once it’s deployed, you can upgrade or downgrade the system with near-zero downtime.
+1-Auto Scaling Groups: Use Auto Scaling Groups to manage the desired capacity of your instances. When upgrading or downgrading, you can change the launch configuration or the Amazon Machine Image (AMI) 
+associated with the Auto Scaling Group. Auto Scaling Groups automatically replace instances to maintain the desired capacity, minimizing downtime.
+2-Blue-Green Deployments: Implement a blue-green deployment strategy, where you maintain two identical environments (blue and green). You direct the traffic to the active environment (blue), 
+and when you're ready to upgrade, you switch traffic to the new environment (green). This approach allows for a smooth transition with minimal downtime.
+3-Elastic Load Balancers (ELB): Use Elastic Load Balancers to distribute traffic across multiple instances. When upgrading, you can take instances out of service, perform the necessary upgrades, 
+and reintroduce them to the ELB. This ensures continuous traffic flow while updating the system.
+4-Amazon RDS Read Replicas: If your system involves a database, consider using Amazon RDS Read Replicas. During upgrades, you can promote a read replica to the primary instance with minimal downtime.
+This helps maintain database availability during the upgrade process.
+5-Amazon EC2 Instance Termination Protection: When upgrading instances in an Auto Scaling Group, enable termination protection for instances you are about to replace. 
+This prevents accidental termination of instances during the upgrade process.
+6-Amazon Route 53 DNS Failover: If you are implementing a blue-green deployment, use Amazon Route 53 DNS failover to switch traffic between the blue and green environments. 
+This allows you to control the traffic flow during the upgrade or downgrade process.
+7-AWS Lambda: Use AWS Lambda for serverless computing. If your application architecture includes serverless components, updating Lambda functions can be done without downtime as each function execution
+is stateless.
+8-Snapshot and AMI Backup: Before making changes, take snapshots of EBS volumes and create AMIs of instances. This provides a backup in case something goes wrong during the upgrade or downgrade process.
 
 22-what is the secret_key and access_key
 
