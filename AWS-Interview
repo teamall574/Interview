@@ -98,6 +98,7 @@ port number is 8080 or anything
 and user behavior. The data is used to recommend content to users and improve the user experience
 mysql, RDS, Nosql, mongoDB, Oracle, PostgresSQl 
 port number is 3306 or any other port 
+>>NO-Sql will store the images and data using mongodb
 
 12-how would you know which library is using in code
 
