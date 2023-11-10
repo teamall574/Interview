@@ -399,55 +399,53 @@ in Jira ticket called issue. issues is not a bug
 >> How to add users/people in Jira
 >>create backlog
 1-versions
--->create a version name and description and start date and release date 
-2-epic  --> create an epic under create the stories bug tasks
+--> Create a version name and description and start date and release date 
+2-epic  --> Create an epic under creating the stories bug tasks
 -->stories
 -->task
 -->Bug
 >>create sprint
->>add stories  to the sprint  
->> start sprint  
->>add tasks for every story
->>stories will go first To Do then In progress and last Done
+>> Add stories  to the sprint  
+>> Start sprint  
+>> Add tasks for every story
+>> Stories will go first To-Do then In progress and last Done
 >>Bug also same
 
 52-what is artifacts 
 
 >> Artifact is a by-product produced during the software development process. 
-It may consist of the project source code, dependencies, binaries, or resources, and could be represented in different layout depending on the technology
+It may consist of the project source code, dependencies, binaries, or resources, and could be represented in different layouts depending on the technology
 
-53-what is tomcat
+53-what in tomcat
 
 >>>>tomcat is open-source
->>it is a App-server and developed by apache software foundation
->>apche tomcat is purely java based application and serve java servlets, jsp pages 
->>you can deploy the war files in tomcat
->>the default port number is 8080
+>> It is an App-server developed by the Apache software foundation
+>> Apache tomcat is a pure java based application and serves Java servlets, JSP pages 
+>> You can deploy the war files in Tomcat
+>> The default port number is 8080
 
-54-how to add multiple servers in garfana
+54-how to add multiple servers in Garfana
 
->>your installing prometheus and grafana server in one system your installed node exporter on that server and then launch 5 systems then added into the
-prometheus system and adding this ip and port number 9100 into the prometheus.yml file then go to grafana and select the prometheus and select the dashboard
-you will get the servers details
+>> You install Prometheus and Grafana servers in one system your installed node exporter on that server and then launch 5 systems then add to the Prometheus system and add this IP and port number 9100 into 
+the prometheus.yml file then go to Grafana and select Prometheus and select the dashboard you will get the server details
 
 55-what is SRE
 
->>so we have pipeline is ready updates are ready need to update the app or application then we have middle in the production if the jenkins is 
-not responding the application will stop or production also stop right
-devops team will do applcication development
+>> So we have the pipeline ready updates are ready need to update the app or application then we have middle in the production If Jenkins is not responding the application will stop or production 
+also, stop right DevOps team will do application development
 
-SRE this way to do it SRE is like implentation
+SRE This way to do it SRE is like implementation
 
-SRE Team will come to any tools take responsible for 
-installing and authentication and autherazation patches and updates and montoring creating multiple projects
-giving access to multiple projects persons doing adminstration if devops person will get any probleam then call to sre person and solving that probleam
+The SRE Team will come to any tools and take responsibility for 
+installing and authentication and authorization patches and updates and monitoring creating multiple projects
+giving access to multiple project persons doing administration if a DevOps person gets any problems then call SRE person and solve that problem
 
-56-what is jenkins
+56-what is Jenkins
 
 >>jenkins is open-source and it is used to continous integration(CI)/continoud deployment(CD) tools. Jenkins is used to build and test your software projects continuously making it easier for developers to 
 integrate changes to the project, and making it easier for users to obtain a fresh build. default port number is 8080 and Jenkins version 2.375.2
 
-57-can you describe SDLC .
+57-can you describe SDLC.
 
 >>SDLC stands for Software Development Life Cycle. It’s a framework that describes the stages involved in the development of software
 Planning: In this stage, project goals and requirements are identified, and a plan is created for how the software will be developed.
@@ -474,29 +472,29 @@ and monitoring to improve efficiency and quality.
 
 >>Shift left is the practice of moving testing, quality, and performance evaluation early in the development process, often before any code is written. Shift left testing helps teams 
 anticipate changes that arise during the development process that can affect performance or other delivery processes
->>In earlire day we are doing CI, Deploymnet, Testing, Scaning in our deploy production then we have tested .in Shift left process we test in devlopment stages like functional testing 
-and perfformance checking and quality checking security checking
->>in shift left we start test early in SDLC
+>>In earlier days we did CI, Deployment, Testing, and Scanning in our deploy production then we tested the Shift left process test in development stages like functional testing 
+and performance checking quality checking security checking
+>> In shift left we start the testing early in SDLC
 >>since requirements gathering
 >>Delivering Quality software and speed 
 
 60-what is the shift right
 
->>Shift right is the practice of performing testing, quality, and performance evaluation in production under real-world conditions. Shift right methods ensure that applications 
+>>Shift right is the practice of performing testing, quality, and performance evaluation in production under real-world conditions. Shift-right methods ensure that applications 
 running in production can withstand real user load while ensuring the same high levels of quality.
 >>The shift right approach monitors user behavior, usage, performance, and security metrics to verify software operability in the hands of its actual users.
 >>In shift right late testing
->>it is in production only
->>better quality software by reai user feedback
+>> It is in production only
+>> Better quality software by receiving user feedback
 
 ============================================Maven=============================
 
 1-what is maven
 
->>Maven is build tool to build your code it is powerful tool 
+>>Maven is build tool to build your code it is a powerful tool 
 >>Maven is a build automation tool used primarily for Java projects
->>Maven is a powerful project management tool that is based on POM (project object model). It is used for projects build, dependency and documentation
->>maven will do resource, compile, Test, Package 
+>>Maven is a powerful project management tool that is based on POM (project object model). It is used for project build, dependency, and documentation
+>> Maven will do resource, compile, Test, Package 
 
 2-what is the pre-requesite for maven
 
