@@ -329,17 +329,49 @@ address to communicate the aws resources
 >>S3
 >>DynmoDB
 >>Also create Interfaces like EkS,Auto-Scaling,Cloud-Trail,Cloud-formation
+use cases of endpoints 
+1-Replacing NAT gateway with interface endpoints
+2-Addding gateways endpoint for s3 intensive Workload
+3-private access to saas based applications 
 
-36-what is gateway 
+36-what is gateway endpoint
 
->>A gateway refers to a network component that acts as an entry or exit point for traffic entering or leaving a cloud environment. It serves as a bridge between different networks or 
+>>gateway end-point is a gateway that you specific as a target for a route in your table for traffic destined to a supported AWS service.It serves as a bridge between different networks or 
 systems and enables communication and data transfer between them. Gateways can be used for various purposes, such as security, monitoring, load balancing, and routing. Examples of 
 cloud gateways include API gateways, database gateways, and messaging gateways.
+Amazon S3
+DynmoDB
+>>Must be inside the VPC to be used 
+>>Use s3 public IP address
+>>Use same S3 DNS names
+>>No access from on-permise 
+>>Cross region access not allowed
+>>Not billed 
+>>Assocaited on a VPC level 
+>>if you create DynmoDB or S3 endpoint automatically updated route table 
 
-gateawy is hardware device that gives you entry and exit point in your network
+>>gateawy is hardware device that gives you entry and exit point in your network
 >>gateway end-point is a gateway that you specific as a target for a route in your table for traffic destined to a supported AWS service
 
-37-what is VPC Perrring
+37-what is interface endpoint 
+
+>>it will create a interface to connecting privately through AWS Interface endpoint securly   
+>>An Interface endpoint is an elastic network interface witha private Ip Address from the IP address range of your subnet that serves as an entrypoint for traffic destinated to a supported service 
+services:-
+Amazon API Gateway 
+Amazon AppStream
+Amazon APP Mesh 
+>>Support most of the AWS Services 
+>>It is ENI(Elastic Network Interface) which is attached with a security group 
+>>use private IP address from your VPC to s3 
+>>Requires endpoint specific S3 DNS names
+>>Allow access from on-premise 
+>>Allow cross region access through VPC perring or Tranist gateway 
+>>billed
+>>Associated on subnet level 
+>>it will create separate endpont for service then using you can connect the Interface resource or AWS Resources  
+
+38-what is VPC Perrring
 
 >>A VPC peering  is a networking connection between two VPCs or two differnet networks. that enables you to route traffic between 
 two differnt networks or two vpcs. once perring comleted they can communicate each other as if they are within the same network
