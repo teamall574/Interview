@@ -459,10 +459,17 @@ but when you execute this command it wil ignoe the ENTRYPOINT command in dockerf
 7- Use a .dockerignore file
 8-Use COPY Instead of ADD
 9-use docker cache it will cache previous executed comand it will help to skip that command it impact your time to execute the file it will takes less time it will save time it will cache
+10-run as a user dont give root permissions 
+11-scan images (like trivy, clair, )
+12-isolate containers 
+13-never hardcode secrets(like don't use secrets in docker file) 
+14-update regularly
+15-use CIS(center of Internet Security) 
+16-avoid running containers with direct internet access use proxy or egress traffic 
 
 41-what is multistage dockerfile
 
->>when you creating images the size will be grow huge using multi stage dockerfile you can create the different stages into the dockerfile
+>>when you create images the size will be grow huge using multi stage dockerfile you can create the different stages into the dockerfile
 and control how you want build the images using this stages
 >>if you multistage the first stage will generate temporary images that image discord into second stage
 
