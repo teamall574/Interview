@@ -954,6 +954,38 @@ multiple targets, such as Amazon EC2 instances.This increases the availability o
 >>you can create the multiple target group like home , movies, shows then use the path based routing or url based routing
 >>it is used or suitable for complex applications 
 
+98-what is the differnce between application load-balncer and network load-balancer and gateway load-balancer step by step comparision
+
+1-Network-Load-Balancer:-
+>>Operates at the transport layer (Layer 4) of the OSI model. It focuses on routing traffic based on IP protocol data.
+>>Suited for scenarios where low-latency and high-throughput are essential, such as TCP/UDP-based applications.
+>>Primarily works at the transport layer, supporting TCP, UDP, and TLS.
+>>Performs health checks at the transport layer, ensuring the health of the underlying instances.
+>>Employs algorithms such as Least Outstanding Requests and Round Robin.
+>>Offers features like source IP preservation, allowing the backend servers to see the original client IP addresses
+>>by default cross-zone load balancer is not-enabled you should enable if the required happens
+>>it is suitable for single application or easy application
+>>>>it will support path based routing but you need to every time differnt ports or different listners everytime
+
+2-Application Load-Balancer:-
+>>Operates at the application layer (Layer 7) of the OSI model. It can make routing decisions based on content, such as HTTP/HTTPS headers.
+>>Ideal for applications that require advanced routing, content-based routing, and support for multiple protocols. Commonly used for web applications.
+>>Supports application layer protocols such as HTTP, HTTPS, and WebSocket.
+>>Supports health checks at the application layer, checking the health of the individual services.
+>>Uses advanced algorithms like Least Outstanding Requests, Least Connection Count, and Round Robin.
+>>Provides features like SSL termination and Web Application Firewall (WAF) to enhance security.
+>>by default cross-zone load-balancer is enabled
+>>it is used or suitable for complex applications 
+>>it will support path based routing or url based routing
+
+3-Gateway-Load-Balancer:-
+>>Primarily designed for managing and distributing traffic at the edge of the network, often used in scenarios involving multiple virtual private clouds (VPCs).
+>>Used in edge network scenarios where multiple VPCs need to be interconnected efficiently, making it suitable for hybrid cloud architectures.
+>>Provides flexibility to handle various protocols at the edge of the network.
+>>Incorporates health checks for the connected VPCs and services.
+>>Typically employs algorithms suitable for global load balancing, considering factors like proximity and latency.
+>>May include security features relevant to edge network scenarios, but specifics depend on the implementation.
+
 97-If any one asking the my load balancer is in public my subnets is private can use this subnets to connect through internet 
 
 >>yes you can connect through internet by using the load-balancer must be public .like when you create the load-balancer it will create in only public not private
