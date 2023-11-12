@@ -2661,6 +2661,10 @@ spec:
 >>kubectl cluster-info     -->this will show the server information include API server endpoint.
 >>kubectl config view --minify -o jsonpath='{.clusters[0].cluster.server}'
 
+226-how to create the eks cluster using cmd
+
+>>sudo eksctl create cluster --name anji --region ap-south-1 --node-type t2.micro --nodes-min 1
+>>aws eks update-kubeconfig --name anji --region ap-south-1    -->update the kubeconfig file
 
 
 
