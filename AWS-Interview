@@ -2624,8 +2624,8 @@ add this details
 document or script loaded by one origin can interact with a resource from another
 origin.
 It helps isolate potentially malicious documents, reducing possible attack vectors
->>the browser will implement the sop in all browser beacuse of security
->>this implemnentation happiens we can't see the data of your own subdomain also
+>> The browser will implement the SOP in all browsers beacuse of security
+>> This implementation happiness we can't see the data of your own subdomain also
 >>it checks the three objects
 >>protocal >https:// (or) http://
 >>site >google (or) facebook
@@ -2719,14 +2719,14 @@ spending on the resources in question.Cost Explorer
 There are cost explorer services available that will help you to view and analyze your usage costs for the last 13 months. You can also get a cost
 forecast for the upcoming three months.AWS Budgets
 This allows you to plan a budget for the services. Also, it will enable you to check if the current plan meets your budget and the details of how you 
-use the services.Cost Allocation Tags
+use the services. Cost Allocation Tags
 This helps in identifying the resource that has cost more in a particular month. It lets you organize your resources and cost allocation tags to keep 
 track of your AWS costs.
 
 314-Difference between AWS CloudFormation and AWS Elastic Beanstalk?
 
 AWS-CloudFormation:-
-1-Infrastructure as a code service that automates the deployment and management AWS Services
+1-Infrastructure as a code service that automates the deployment and management of AWS Services
 2-It is used for Infrastructure Automation
 3-can deploy both infrastructure and application code
 4-support wide range of AWS resources
@@ -2741,24 +2741,44 @@ AWS-Elastic-Beanstalk
 3-only deploys application code
 4-supports only certain languages and application types
 5-provides pre-defined opinionated deployment process
-6-limited flexibility but easier and quick to setup
+6-limited flexibility but easier and quick to set
 7-less complex requires less knowledge of AWS infrastructure and services
 8-free pay only for the resources created
 9-best for deploying and managing web-applications
 
-315-What are the meaning of different error codes such as 202, 404, 501.
+315-What are the meaning of different error codes such as 202, 404, 501
 
-202 - Accepted (Accepted for processing. ut server has not finished processing it)
-
-404 - Not Found (The request document does not exist on server)
-
-501 — Not Implemented (The server does not support functionality required o fullfill request)
+>> 100=continue (or) Informational
+2XX-->>Success
+>> 200=ok
+>> 201=created
+>> 202=Acepted
+>> 203 Non-Authoritative Information
+>> 204=Delete or no content
+3XX-->>Redirects
+>> 301=moved permanently
+>> 302=found
+>> 304=Not modified
+4XX-->>Client side derror
+>> 400=Bad request
+>> 401=unauthorized
+>> 402=payment required
+>> 403=forbideen=>not allowed and is similar to 401
+>> 404=not found
+>> 409=conflict
+5XX-Server side errors
+>> 500=internal server error
+>> 501=not implemented
+>> 502=bad gateway
+>> 503= service unavailable
+>> 504=gateway timeout
+>> 509=network timeout
 
 316-what is the difference between reverse proxy and forward proxy
 
->>if you use Revrese proxy user doesn't know the proxy details and everything this request will be forward to another endpoint or any other servers and also we use ssl termination in 
+>> If you use Reverse proxy user doesn't know the proxy details and everything this request will be forwarded to another endpoint or any other servers also we use SSL termination in 
 as reverse proxy
->>if you use forward proxy user knows everything this will help you this things
+>>if you use a forward proxy user knows everything which will help you this things
 1-client citrix
 2-Anonymus
 3-content filter
@@ -2774,7 +2794,83 @@ as reverse proxy
 3-how many call is failed 
 4-which backend is not responding using APIS
 
+318-upload file into s3 bucket using aws cli
 
+>>aws s3 cp local-file s3://bucket-name/destination-prefix/
+>>aws s3 cp example.txt s3://my-bucket/
+>>aws s3 cp example.txt s3://my-bucket/my-directory/
+>>aws s3 ls s3://my-bucket/
+
+319-how to delete a file in s3 bucket using aws cli 
+
+>>aws s3 rm s3://bucket-name/path/to/file
+>>aws s3 rm s3://my-bucket/example.txt
+>>aws s3 ls s3://my-bucket/
+
+320-how to create or delete the s3 bucket using aws cli 
+
+>>aws s3api create-bucket --bucket BUCKET-NAME --region REGION
+>>aws s3 rb s3://BUCKET-NAME --force
+>>aws s3 mb s3://anji159258
+
+321-how to send a nginx docker container logs to AWS cloudwatch if you use ECS also  
+
+1-Install the AWS CloudWatch Logs Agent:First, you need to install the AWS CloudWatch Logs agent on your EC2 instance. This agent will be responsible for streaming logs from your Docker containers to CloudWatch.
+2-Create an IAM Role:Ensure your EC2 instance has an IAM role that grants permissions to write logs to CloudWatch Logs. Attach the role to the EC2 instance where your Docker containers are running.
+3-Configure Docker Logging Driver:To send Docker container logs to AWS CloudWatch, you need to configure Docker to use the awslogs logging driver. You can do this by adding the --log-driver and --log-opt options 
+when starting a container.
+
+For example:
+>>docker run -d --name nginx-container --log-driver=awslogs --log-opt awslogs-region=your-region --log-opt awslogs-group=your-log-group nginx
+>>Replace your-region with your AWS region and your-log-group with the name of the CloudWatch Log Group you want to send logs to.
+
+4-Configure the AWS CloudWatch Agent:The AWS CloudWatch Logs agent should be configured to watch the log files generated by the Docker containers and send them to CloudWatch.
+
+>>Edit the CloudWatch agent configuration file, typically located at /etc/awslogs/awslogs.conf, and add an entry for each log stream you want to send. For Nginx, the log path 
+might be /var/log/nginx/access.log and /var/log/nginx/error.log. An example entry might look like:
+
+[nginx-access-logs]
+file = /var/log/nginx/access.log
+log_group_name = your-log-group
+log_stream_name = nginx-access
+datetime_format = %d/%b/%Y:%H:%M:%S %z
+Make sure to adjust the file, log_group_name, and log_stream_name to match your specific setup.
+
+5-Restart the CloudWatch Agent:After editing the configuration file, restart the AWS CloudWatch Logs agent to apply the changes:
+
+sudo service awslogs restart
+
+6-View Logs in CloudWatch Console:Your Nginx container logs should now be streaming to the specified CloudWatch Log Group. You can view and analyze the logs from the AWS CloudWatch Console.
+
+Please note that this is a high-level overview, and you may need to adjust the configuration based on your specific requirements and log file paths. Make sure to follow AWS security best practices 
+when setting up log forwarding to CloudWatch.
+
+ECS using:-
+1-Update Task Definition:
+>>In your ECS task definition, you need to specify that you want to use the awslogs logging driver for the Nginx container.
+>>For example, in your task definition JSON or in the AWS Management Console, you can add a logConfiguration section for the container:
+
+json
+Copy code
+"logConfiguration": {
+  "logDriver": "awslogs",
+  "options": {
+    "awslogs-group": "your-log-group",
+    "awslogs-region": "your-region",
+    "awslogs-stream-prefix": "nginx-container"
+  }
+}
+Replace your-log-group with the name of the CloudWatch Log Group you want to send logs to, and your-region with your AWS region.
+2-Create an IAM Role:-Ensure that your ECS task definition uses an IAM role with the necessary permissions to write logs to CloudWatch Logs. The IAM role should have a policy allowing logs:CreateLogStream,
+logs:PutLogEvents, and logs:CreateLogGroup actions on the specified log group.
+3-Configure the AWS CloudWatch Agent:You'll need to install and configure the AWS CloudWatch Logs agent on the EC2 instances that run your ECS tasks. The agent will be responsible for streaming the 
+container logs to CloudWatch.
+4-Run ECS Tasks:-Launch your ECS tasks as usual. Ensure that they use the updated task definition that specifies the awslogs logging driver for the Nginx container.
+5-View Logs in CloudWatch Console:Your Nginx container logs should now be streaming to the specified CloudWatch Log Group. You can view and analyze the logs from the AWS CloudWatch Console.
+>>Please note that this approach is for ECS tasks running on EC2 instances. If you are using AWS Fargate, the setup may be slightly different, as Fargate abstracts the underlying infrastructure. 
+Ensure that the AWS CloudWatch Logs agent is properly configured and running on the EC2 instances that host your ECS tasks.
+
+322-
 
 
 
