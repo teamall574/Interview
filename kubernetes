@@ -2656,8 +2656,9 @@ spec:
     securityContext:
       runAsUser: 1000
 
-225-how to see the kubernetes API-server url or Cluster URL
+225-how to see the Kubernetes API-server url or Cluster URL
 
+>>kubectl cluster-info     -->this will show the server information include API server endpoint.
 >>kubectl config view --minify -o jsonpath='{.clusters[0].cluster.server}'
 
 
