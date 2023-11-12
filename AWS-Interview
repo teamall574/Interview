@@ -2307,6 +2307,10 @@ and budget-friendly?
 
 >>Amazon Elastic Container Registry (Amazon ECR) is an AWS managed container image registry service that is secure, scalable, and reliable. Amazon ECR supports 
 private repositories with resource-based permissions using AWS IAM
+>>aws ecr get-login-password --region <your-region> | docker login --username AWS --password-stdin <your-account-id>.dkr.ecr.<your-region>.amazonaws.com
+>>docker pull <your-account-id>.dkr.ecr.<your-region>.amazonaws.com/<repository-name>:<tag>
+>>docker build -t <your-account-id>.dkr.ecr.<your-region>.amazonaws.com/<repository-name>:<tag> .
+>>docker push <your-account-id>.dkr.ecr.<your-region>.amazonaws.com/<repository-name>:<tag>
 
 265-what is code smell
 
