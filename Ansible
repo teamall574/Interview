@@ -551,7 +551,7 @@ your software packages and applications adn updates and patches and installtion 
 reduce the effort required to perform repetitive tasks. Popular configuration management tools on the market today include Chef, Puppet, Salt, 
 and of course, Ansible.
 
-16-what is Ansible modules
+16-what is Ansible modules or (collection->2.10 its called collection) ->2.9 before its called modules 
 
 >>module is nothing pre-defined program that program is able to execute is task on your managed nodes .A module is a reusable, standalone script that Ansible 
 runs on your behalf, either locally or remotely. Modules interact with your local machine, an API,or a remote system to perform specific tasks like 
@@ -567,7 +567,7 @@ changing a database password or spinning up a cloud instance.
 >>ansible-doc -l | wc -l  --->it will show the list
 >>2834
 
-18-types of modules in ansible
+18-types of modules or collection in ansible
 
 1-yum
 2-apt
