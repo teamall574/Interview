@@ -619,7 +619,11 @@ resolved file.
 >>A common workflow is the feature branch workflow. This involves creating a new branch whenever you want to work on a new feature. The master branch should never contain broken code, 
 it is always production-ready. All development is done in branches and then merged into the master branch once the feature is complete and tested.
 
-81-
+81-git remote remove origin what is the command what is the use 
+
+>>The command git remote remove origin is used to remove the remote named "origin" from your Git repository.
+>>In Git, a remote is a reference to a remote repository, typically on a server or another location. The "origin" remote is often the default name given to the remote repository from which
+your local repository was cloned. It's the default upstream repository for your local repository.
 
 
 59-Is this possible to ignore .ignore file in git
