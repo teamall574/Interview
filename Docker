@@ -86,17 +86,20 @@ about compatibility issues.
 
 >>The Docker ecosystem consists of several components that work together to manage containers and containerized applications. Here are the main components:
 
+>>Docker_Client:- the Docker client ( docker ) is the primary way that many Docker users interact with Docker. it will be installed on desktops like Cli
+>>Docker_Deamon:- it will be A persistent background process that manages Docker images, containers, networks, and storage volumes. works for backend services
+>>Docker_container:- This Runs your images in docker desktop in Isolation
+>>Docker_Image:- It is a Blue-Print of your Application
+>>Dockerfile:- It is a step-by-step process of how the docker works or builds the Image 
+>>Docker_Network:- It will work with Connectivity with containers
+>>Docker_volume:- It helps in a container to the storage mechanism
+>>Docker_Host:- Machine Running Deamon like System 
+>>Docker_Plugins:- To extend Docker capabilites
 >>Docker Engine: The core component of Docker, responsible for creating and managing containers. It is a client-server application with a REST API that allows users to 
 interact with the Docker daemon.
 >>Docker Registry: A central repository that stores Docker images. Docker Hub is the default public registry provided by Docker, but users can also set up private registries to store their
 own images.
->>Docker CLI: A command-line interface that allows users to interact with Docker Engine and perform various container-related operations.
->>Docker Compose: A tool that allows users to define and manage multi-container Docker applications using a YAML file. Docker Compose makes it easy to spin up a multi-container environment
-with just a few commands.
->>Docker Swarm: A native clustering and orchestration solution for Docker containers. It allows users to manage a cluster of Docker nodes as a single virtual system, making it easy to scale
-and manage containerized applications.
->>Docker API: A RESTful API that allows users to programmatically interact with Docker Engine and perform various container-related operations.
-Now let’s see how these components interact with each other to manage a containerized application. Here’s an example:
+
 
 Suppose we have a web application that consists of a frontend and a backend, each running in its own container. To manage these containers, we’ll use Docker Compose.
 
