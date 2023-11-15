@@ -11,17 +11,17 @@ NETWORK-------------------------------
 1 - what is IAAS
 
 >>Infrastructure as a service (IaaS) is also known as Hardware as a service. the cloud provider provides the Infrastructure to the developers
-like network, storage, virtualization,servers can managed by cloud provider
->>this not physical things.it will provide only infrastructure. like vms,compute,memory,OS,network,storage,firewall. things you have full control on virtual machines
+like network, storage, virtualization, and servers can managed by the cloud provider
+>> This is not a physical thing. it will provide only infrastructure. like VMS, compute, memory, OS, network, storage, firewall. things you have full control over virtual machines
 ex:- Virtual machines 
 
->>users are managed by operating system and middle ware, runtime data application all are managed by developers
->>by using IAAS to develop the application is very hard by compared to PAAS
+>> Users are managed by the operating system and middleware, and runtime data applications all are managed by developers
+>>by using IAAS to develop the application is very hard compared to PAAS
 Advantages:-
-1-controling is high because you controlled
+1-controlling is high because you controlled
 2-cost saving
 3-scalibility. 
-4-faster time to market
+4-Faster time to market
 5-expand as you grow
 6-tight security
 7-anytime any where access
@@ -32,9 +32,8 @@ Disadvantages:-
 
 2 - what PAAS
  
->>this not physical things.the PAAS will give platform for your application. for example you have an appliation or java or dot net application
-there is no database person in your team you can ask the cloud service provide he will give the database and mantainance. things you dont have full control 
-on virtual machines
+>> This is not a physical thing. the PAAS will give a platform for your application. for example you have an appliation or java or dot net application
+there is no database person in your team you can ask the cloud service provide he will give the database and mantainance. things you dont have full control on virtual machines
 >>Platform as a Service (PaaS) is a complete cloud environment that includes everything developers need to build, run, and manage applications—from servers and 
 operating systems to all the networking, storage, middleware, tools, and more.
 
@@ -43,10 +42,8 @@ ex:- Azure sql and App-service it is managed by the Azure you can't control anyt
   
 3 - what is SAAS
 
->>this not physical things. it is readmade product. like office 365 or google apps or salesforce .it will give full software service. its controling on you 
-it is very limited 
->>SAAS is pre-existed application that applications are accessible through internet connection and web-browsers 
-like google chrome, gmail, mozila browser, salesforce
+>> This is not a physical thing. it is a readymade product. like Office 365 or google apps or salesforce .it will give full software service. its controling on you it is very limited 
+>>SAAS is a pre-existed application that applications are accessible through internet connection and web-browsers like google chrome, gmail, mozila browser, salesforce
 
 4-what is cloud-computing
 
@@ -69,27 +66,27 @@ directly to the database
 >>Two-tier architecture. In a two-tier architecture, the client is on the first tier. The database server and web application server reside on the same server machine, which is the second tier.
 This second tier serves the data and executes the business logic for the web application.
 
-8-can you explain 3tier architecture or elbrate them
+8-can you explain 3tier architecture or elaborate them
 
->>first we have extranal load balancer and internal load balancer then the extranal load balancer is open to the internet
-through route53 and internal load balancer is between app and web and the app is connected to database
+>> First we have external load balancer and an internal load balancer then the external load balancer is open to the internet
+through route53 and the internal load balancer is between the app and the web and the app is connected to the database
 
->>using public and private subnets
+>> Using public and private subnets
 
 9-what is Front-end 
 
 >>A front-end developer builds the front-end portion of websites and web applications—the part users see and interact with. A front-end developer creates websites and applications using 
 web languages such as HTML, CSS, and JavaScript that allow users to access and interact with the site or app
-HTML,CSS, javascript, angular, react-js, Boot-strap, vue-js, Django, Swift, nodejs
+HTML, CSS, javascript, angular, react-js, Boot-strap, vue-js, Django, Swift, nodejs
 port number 80 or 443
->>you will see the visual of application
+>> You will see the visual of the application
 
 10-what is backend
 
 >>Back-end development means working on server-side software, which focuses on everything you can't see on a website. Back-end developers ensure the website performs correctly, focusing 
 on databases, back-end logic, application programming interface (APIs), architecture, and servers.
-java, python, .net, PHP, Nodejs,Go, C#
-port number is 8080 or anything
+java, python, .net, PHP, Nodejs, Go, C#
+the port number is 8080 or anything
 >>java .net python  working on server-side software, which focuses on everything you can't see on a website
 
 11-what is database
@@ -144,22 +141,22 @@ Nexus    -->8081
 16-your unable to SSH into a linux server what steps would you take to troubleshooot this
 
 >>check if the server is running and network accessible 
->>you can use the oing command to see if the serevr is reachable
+>>you can use the oing command to see if the server is reachable
 >>check if the SSH port is open or not
 >>check the firewall rules
 >>check ssh configuration
 
-17-how much time would take while launching installing
+17-how much time would take to launch and install
 
-linux: minimum 3 minutes maximum 4 minutes (its requires minumum 8gb storage)
-windows: minimum 4 minutes maximum 5 minutes (its requires minimum 30 gb storage)
+Linux: minimum 3 minutes maximum 4 minutes (it requires minimum of 8 GB storage)
+Windows: minimum 4 minutes maximum 5 minutes (it requires minimum 30 GB storage)
 
 18-Can we recover the EC2 instance when we have lost the key?
 
 >>Yes, it is possible to recover an EC2 instance when you have lost the key. You can create a new key pair and then use it to connect to the instance.
 Alternatively, you can also use other authentication methods such as user name and password, or even IAM roles to access the instance.
 However, if you have encrypted the root volume of the instance using the lost key pair, you will not be able to recover the data on that volume.
->>if you lost private key no longer need to take that form anywhere instead you can create one more keypair if you have ssm or iam option then login that new instance copy that public key pass that key 
+>> If you lost the private key no longer need to take that form anywhere instead you can create one more keypair if you have ssm or iam option then login that new instance copy that public key pass that key 
 old instance using ssm in this place ~/.ssh/authorized_keys 
 
 19-how to restore the login into ec2 if pem file lost
@@ -261,7 +258,13 @@ CloudFront
 >>Storage - These include S3-simple service storage, Glacier, Elastic Block Storage, Elastic File System.
 >>Networking - These include VPC, Amazon CloudFront, Route53
 
-28-what is VPC
+28-what is CIDR 
+
+>>CIDR stands for Classless Inter-Domain Routing. It is a method used to allocate and specify IP addresses and their routing on the Internet. CIDR replaces the older system that used classes A, B, and C to 
+define network addresses, providing a more flexible and efficient way to allocate IP addresses.
+>>CIDR is used to create subnet it will reduce wastage of the IPS 
+
+29-what is VPC
 
 >>Amazon Virtual Private Cloud (Amazon VPC) gives you full control over your virtual networking environment, including resource placement, connectivity, and security. 
 
@@ -270,23 +273,40 @@ CloudFront
 >>vpc id is globally unique
 >>you can stop the particular ip one ec2 to another ip through routing table in peering
 
-29-what is Subnet
+30-what is Subnet
 
 >>A subnet is a range of IP addresses in your VPC. You launch AWS resources, such as Amazon EC2 instances, into your subnets. You can connect a subnet to the internet, other VPCs,
 and your own data centers, and route traffic to and from your subnets using route tables.
 
-30-what is Route tables in AWS
+31-what is Route tables in AWS
 
 >>A Route table defines how the communication should happen with in the subnet and outside of subnet
 >>we can create custom route tables per each subnet design the network traffic
->>route table play key role when you want route traffic to 
--other vnets
+>>route table play key role when you want to route traffic to 
+>>it is also subnet level
+-other Vnets
 -virtual network gateways
 -virtual appliances
--internet
->>it is also subnet level
+-Internet
+Use-Cases:-
+1-Routing Decisions: The primary purpose of a route table is to make routing decisions for traffic within a VPC. It determines where the traffic within a subnet should be directed. 
+This includes local traffic within the VPC and outbound traffic to the internet or other VPCs.
+2-Default Routes: Route tables can include default routes, also known as "0.0.0.0/0" routes. These routes define the default path for traffic that doesn't match any specific route in the table.
+For example, the default route might point to an Internet Gateway for outbound internet-bound traffic.
+3-Internet Gateway Association: When you want your instances in a subnet to communicate with the internet, you associate the subnet's route table with an Internet Gateway. 
+This enables the routing of traffic to and from the internet.
+4-Virtual Private Gateway Association: If you have a Virtual Private Network (VPN) or Direct Connect connection to your on-premises network, you can associate a subnet's route table with a
+Virtual Private Gateway. This allows traffic to flow between your VPC and your on-premises network.
+5-Peering Connection Association: When you have VPC peering connections between multiple VPCs, you can associate a subnet's route table with a peering connection. This allows traffic to flow between 
+the peered VPCs.
+6-Egress-Only Internet Gateway Association (for IPv6): When using IPv6, you can associate a subnet's route table with an egress-only Internet Gateway. This allows IPv6-enabled instances in the subnet 
+to communicate with the internet over IPv6.
+7-Custom Routes: Route tables can include custom routes to define specific paths for traffic. This is useful for scenarios where you want to route traffic to specific destinations through particular 
+network devices, such as a transit gateway or specific instances acting as routers.
+8-Multiple Route Tables per VPC: A VPC can have multiple route tables, and subnets can be associated with different route tables. This allows for flexibility in defining routing policies for different
+subsets of resources within a VPC.
 
-31-What is the relation between the Availability Zone and Region?
+32-What is the relation between the Availability Zone and Region?
 
 >>AWS regions are separate geographical areas, like the US-West 1 (North California) and Asia South (Mumbai). On the other hand, availability zones
 are the areas that are present inside the regions. These are generally isolated zones that can replicate themselves whenever required.
@@ -295,21 +315,19 @@ are the areas that are present inside the regions. These are generally isolated 
 >>ou can create up to 100 buckets in each of your AWS accounts. If you need more buckets, you can increase your account bucket limit to a 
 maximum of 1,000 buckets by submitting a service limit increase.
 
-32-what is nat-gateway
+33-what is nat-gateway
 
->>A NAT gateway is a Network Address Translation (NAT) service. it is used in private system to connect over the internet to take patches or update 
-nat gateway is intellignet device using source destination packets. it will send only traffic through the public instance but not allow outside the 
-traffic to your private instances.when you enabling nat gateway you must select the public subnet not the private subnet
+>>A NAT gateway is a Network Address Translation (NAT) service. it is used in a private system to connect over the internet to take patches or updates nat gateway is an intelligent device using source destination
+packets. it will send only traffic through the public instance but not allow outside the traffic to your private instances. when you enable nat gateway you must select the public subnet, not the private subnet
  
-33 - what is NAT-Instance
+34-what is NAT-Instance
 
->>NAT-A NAT (Network Address Translation) instance is, like same nat-instance gateway but the differnce is the amount is big is nat gateway when compared
-to nat instance
+>>NAT-A NAT (Network Address Translation) instance is, like the same nat-instance gateway but the difference is the amount is big is nat gateway when compared to nat instance
 
-34 - What are the differences between NAT Gateways and NAT Instances?
+35-What are the differences between NAT Gateways and NAT Instances?
  
 NAT-Gateway
-1 - nat gateway managed by aws 
+1 - nat gateway managed by AWS 
 2 - nat gateway canot assigned security groups
 3 - nat gateway highly availble
 4 - nat gateway bandwidth is upto 45 mbps
@@ -322,10 +340,9 @@ NAT-Instance
 4 - nat instance bandwidth is depends on instnace bandwidth
 5 - nat instance performance compared to nat gateway is average
 
-35-what is Vpc End-point
+36-what is Vpc End-point
 
->>A VPC endpoint enables you to privately connect your VPC to supported AWS services and VPC endpoint services. instance in your vpc do not require public ip
-address to communicate the aws resources
+>>A VPC endpoint enables you to privately connect your VPC to supported AWS services and VPC endpoint services. instance in your vpc do not require public ip address to communicate the aws resources
 >>S3
 >>DynmoDB
 >>Also create Interfaces like EkS,Auto-Scaling,Cloud-Trail,Cloud-formation
@@ -334,7 +351,7 @@ use cases of endpoints
 2-Addding gateways endpoint for s3 intensive Workload
 3-private access to saas based applications 
 
-36-what is gateway endpoint
+37-what is gateway endpoint
 
 >>gateway end-point is a gateway that you specific as a target for a route in your table for traffic destined to a supported AWS service.It serves as a bridge between different networks or 
 systems and enables communication and data transfer between them. Gateways can be used for various purposes, such as security, monitoring, load balancing, and routing. Examples of 
@@ -353,7 +370,7 @@ DynmoDB
 >>gateawy is hardware device that gives you entry and exit point in your network
 >>gateway end-point is a gateway that you specific as a target for a route in your table for traffic destined to a supported AWS service
 
-37-what is interface endpoint 
+38-what is interface endpoint 
 
 >>it will create a interface to connecting privately through AWS Interface endpoint securly   
 >>An Interface endpoint is an elastic network interface witha private Ip Address from the IP address range of your subnet that serves as an entrypoint for traffic destinated to a supported service 
@@ -371,14 +388,21 @@ Amazon APP Mesh
 >>Associated on subnet level 
 >>it will create separate endpont for service then using you can connect the Interface resource or AWS Resources  
 
-38-what is VPC Perrring
+39-what is VPC Perrring
 
->>A VPC peering  is a networking connection between two VPCs or two differnet networks. that enables you to route traffic between 
-two differnt networks or two vpcs. once perring comleted they can communicate each other as if they are within the same network
-
->>there is no charges in vpc perring
->>you can also create the vpc peering one region mumbai to another region ohio like this
->>you can also vpc peering one account to another account
+>>A VPC peering  is a networking connection between two VPCs or two differnet networks. that enables you to route traffic between two different networks or two Vpcs. 
+once perring completed they can communicate with each other as if they are within the same network . There are no charges in vpc peering
+>> You can also create the vpc peering one region Mumbai to another region Ohio like this
+>> You can also vpc peering one account to another account
+Use-cases:-
+1-Cross-Account Connectivity: When different AWS accounts need to communicate with each other securely.
+2-Isolation of Environments: Organizations often use separate VPCs for different environments, such as development, testing, and production, to isolate resources and environments from each other.
+3-Shared Resources: Multiple VPCs within the same AWS account may need to share resources, such as databases, application servers, or other services.
+4-Hub-and-Spoke Architecture: Implementing a hub-and-spoke architecture where a central VPC (hub) connects to multiple spoke VPCs.
+5-Data Sharing: Sharing data securely between VPCs.
+6-Reduced costs: Peering can help to reduce costs by eliminating the need to pay transit fees to an ISP.
+7-Improved performance: Peering can improve performance by reducing latency and jitter.
+8-Increased reliability: Peering can increase reliability by providing an alternative path for traffic to flow in the event of an outage.
 
 ===disadvantages of peering
 
@@ -2884,9 +2908,43 @@ Ensure that the AWS CloudWatch Logs agent is properly configured and running on 
 8-Layer7-Load-Balancing:-Distribute Incoming Traffic across multiple targets based on content type URL or Header
 9-Geographical-Load-balancing:- Routes requests based on the geographic location of the client
 10-DNS-Load-Balancing:- uses the DNS to direct users to the best server based on various strategies
-11-Transport-layer-protocol-load-balancing:- Distribute incoming traffic based on transport layer protocols
+11-Transport-layer-protocol-load-balancing:- Distribute incoming traffic based on transport-layer protocols
 
+333-what is the parameter store
 
+>>AWS Systems Manager Parameter Store provides secure, hierarchical storage for configuration data management and secrets management. You can store data such as passwords, database strings, 
+and license codes as parameter values.
+>>this will not rotate your password but the Sceret manager will do
+>>some kind of features are not available in compared to secret manager 
+
+334-what is mounting in Linux
+
+>>In Linux, "mounting" refers to the process of associating a filesystem with a specific location (mount point) in the directory tree of the file system hierarchy. When you mount a filesystem, you are essentially making the contents of that filesystem accessible at the specified mount point in the directory structure.
+1-mountpoint mount point is a directory on the file system where an additional filesystem is attached. This is the location where the contents of the mounted filesystem become accessible. Common mount points include directories like /mnt, /media, or custom directories created for specific purposes.
+2-Filesystem:A filesystem is a hierarchy of directories and files that is used to organize and store data on a storage device. Examples of filesystems in Linux include ext4, XFS, and others.
+3-Mount Command:The mount command is used to attach a filesystem to the system's directory tree. The basic 
+mount [options] device|mount_point
+4-Unmount Command:The umount command is used to detach a mounted filesystem. The syntax is:
+umount mount_point
+
+this is the process:-
+>>fdisk -l or lsblk 
+>>Identify the device name of your 1 TB hard disk. It will typically be something like /dev/xvdb or /dev/xvdc.
+>>Type n to create a new partition.
+>>Choose the primary partition type (usually the default, press Enter).
+>>Specify the starting and ending sectors. For a 500 GB partition, you might specify +500G as the ending sector.
+>>Type t to change the partition type (if needed) and set the file system type.
+>>Type w to write the changes to the disk and exit.
+>>After you've created the partition, you should have a new partition (e.g., /dev/xvdb1)
+>>sudo mkfs.ext4 /dev/xvdb1   -->You need to create a file system on the new partition. The following example creates an ext4 file system:
+>>sudo mkdir /mnt/mynewdrive   -->Create a directory where you want to mount the new partition.
+>>sudo mount /dev/xvdb1 /mnt/mynewdrive  -->Mount the new partition to this directory
+>>vi /etc/fstab
+/dev/xvdb1 /mnt/mynewdrive ext4 defaults 0 0
+:wq   -->To ensure the partition is mounted at boot, add an entry to the /etc/fstab file. Edit the file using a text editor (e.g., sudo nano /etc/fstab)
+>>df -h   -->You can verify that the partition is correctly mounted by running
+
+335-
 
 
 
