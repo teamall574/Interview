@@ -3037,12 +3037,14 @@ Ensure that the AWS CloudWatch Logs agent is properly configured and running on 
 >>AWS Systems Manager Parameter Store provides secure, hierarchical storage for configuration data management and secrets management. You can store data such as passwords, database strings, 
 and license codes as parameter values.
 >>this will not rotate your password but the Sceret manager will do
->>some kind of features are not available in compared to secret manager 
+>> Some kind of the features are not available in comparison to the secret manager 
 
 336-what is mounting in Linux
 
->>In Linux, "mounting" refers to the process of associating a filesystem with a specific location (mount point) in the directory tree of the file system hierarchy. When you mount a filesystem, you are essentially making the contents of that filesystem accessible at the specified mount point in the directory structure.
-1-mountpoint mount point is a directory on the file system where an additional filesystem is attached. This is the location where the contents of the mounted filesystem become accessible. Common mount points include directories like /mnt, /media, or custom directories created for specific purposes.
+>>In Linux, "mounting" refers to the process of associating a filesystem with a specific location (mount point) in the directory tree of the file system hierarchy. When you mount a filesystem, 
+you are essentially making the contents of that filesystem accessible at the specified mount point in the directory structure.
+1-mountpoint mount point is a directory on the file system where an additional filesystem is attached. This is the location where the contents of the mounted filesystem become accessible.
+Common mount points include directories like /mnt, /media, or custom directories created for specific purposes.
 2-Filesystem:A filesystem is a hierarchy of directories and files that is used to organize and store data on a storage device. Examples of filesystems in Linux include ext4, XFS, and others.
 3-Mount Command:The mount command is used to attach a filesystem to the system's directory tree. The basic 
 mount [options] device|mount_point
