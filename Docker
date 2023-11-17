@@ -801,7 +801,6 @@ docker service inspect myservice
 docker node ls
 docker node inspect mynode
 
-
 68-how to modify the image and push to the docker hub new image
 
 >>sudo docker pull ubuntu
@@ -827,16 +826,18 @@ docker node inspect mynode
 >>docker client is nothing but it will install in local system
 
 1-Docker client:-
->>docker build
->>docker pull
->>docker run
+>> Docker build
+>> Docker pull
+>> Docker run
+>> Docker push
 
-Docker Host:-
-2-Docker Daemon
-3-Docker containers
-4-Docker images
-5-Docker Registry
->>all the images are here
+2-Docker Host:-
+>>Docker Daemon
+>>Docker containers
+>>Docker images  -->it will run here
+
+3-Docker Registry
+>> All the images are here
 
 71-what is layers in Docker
 
