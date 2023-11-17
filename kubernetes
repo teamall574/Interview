@@ -582,9 +582,9 @@ The plugin specification defines an interface for configuring the network, provi
 
 51-what is kubenet limitions
 
->>kubenet - a simple /24 IP address range can support up to 251 nodes in the cluster (each Azure virtual network subnet reserves the 
+>>kubenet - a simple /24 IP address range can support up to 5000 nodes in the cluster (each Azure virtual network subnet reserves the 
 first three IP addresses for management operations)
-This node count could support up to 27,610 pods (with a default maximum of 110 pods per node with kubenet)
+This node count could support up to 27,610 pods (with a default maximum of 100 pods per node with Kubernetes)
 
 52-what is pod security policy
 
