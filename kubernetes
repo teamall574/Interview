@@ -292,7 +292,7 @@ for an HA cluster with this topology.
 we do not have the same liberty, as we need to ensure that our applications:
 
 Are fault-tolerant
-Can scale, and do this on-demand
+Can scale, and do this on demand
 Use resources optimally
 Can discover other applications automatically, and communicate with each other
 Are accessible from the external world
@@ -300,13 +300,15 @@ Can update/rollback without any downtime.
 
 17-Which problems does a Container Orchestration solve?
 
->>Containers run in an isolated process (usually in it's own namespace). This means that by default the container will not be aware of other containers. Additionally, 
-it will not be aware of the systems files, network interfaces, and processes. While this can greatly help with portability of the software it does not solve several production issues
-such as microservices, container discovery, scalability, disaster recovery, or upgrades.
-
->>Adding a container orchestrator can greatly reduce the complexity in production as these tools are designed to resolve the issues outlined above. For example, Kubernetes is built to
-allow containers to be linked together, deploy containers across an entire network, scale and load balance the network based on container resource consumption, and allow upgrades of 
-individual containers with no downtime.
+>>Automated Deployment and Scaling
+>>Resource Optimization:
+>>Service Discovery
+>>Load Balancing
+>>Rolling Updates and Rollbacks
+<<Health Monitoring and Self-healing
+<<Security
+>>Portability
+>>Resource Isolation
 
 18-What happens when a master fails? What happens when a worker fails?
 
