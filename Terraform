@@ -792,3 +792,43 @@ depends_on = [aws_instance.public-instances]
     }  
 }
 
+84-how to open all ports incomming ports using terraform 
+
+ingress = [
+  for port in [20, 80, 443, 8080, 9000] : {
+    description   = "inbound rules"
+    from_port     = port
+    to_port       = port
+    protocol      = "tcp"
+    cidr_blocks   = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = []
+    prefix_list_ids = []
+    security_groups = []
+    self            = false  
+  }
+] 
+
+
+ingress {
+    from_port   = 0
+    to_port     = 65535
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  } 
+single port only 
+ingress {
+    description = "http"
+    from_port = 80
+    to_port = 80 
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+
+}
+egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1" 
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+
