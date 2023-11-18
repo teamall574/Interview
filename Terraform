@@ -541,6 +541,9 @@ terraform {
 }
 or else 
 Release Lock: After they are done, they should release the lock by running terraform destroy or terraform state unlock followed by terraform apply to ensure that the state file is not left locked.
+>>terraform state unlock lock-id-1234567890    -->you will see the lock id in state file  -->The Terraform lock ID is typically displayed in the error message when you try to access a locked state file.
+For example, if you try to run the terraform apply command and the state file is locked, you will see an error message like this: 
+>>terraform state unlock -force lock-id-1234567890  
 
 54-What would you do if you were working in a team and your Terraform operations were consistently failing due to state lock errors?
 
