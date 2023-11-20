@@ -274,6 +274,14 @@ Using the www.example.com URL, example.com is the domain name, and www is the ho
 >>Terraform data sources let you dynamically fetch data from APIs or other Terraform state backends. Examples of data sources include machine image IDs from a 
 cloud provider or Terraform outputs from other configurations.
 
+data "aws_instance" "anji" {
+  instance_id = "i-78vula7*jkba"
+}
+
+output "instance" {
+  value = data.aws_instance.anji.public_ip
+} ##this will fecth the public ip of your instance only
+
 30-what is terraform functions
 
 >>The Terraform language includes a number of built-in functions that you can call from within expressions to transform and combine values. 
