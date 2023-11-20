@@ -569,7 +569,7 @@ Step 6: Start The Jenkins Server.
 
 >>An upstream job is a configured project that triggers a project as part of its execution. A downstream job is a configured project that is triggered 
 as part of a execution of pipeline.
-
+>>if job1 na job2 the job2 always checks the job1 .if job1 success then job2 execute  
 Job1----------->Job2-------------->Job2
 
 DownStream:- Job2 is Downstream Job for Job1 and Job3 is DownStream project for Job2
@@ -616,6 +616,8 @@ A: This can be done in multiple ways, To briefly explain about the different opt
   - Webhooks: A webhook can be created in GitHub to notify Jenkins when changes are pushed to the repository. 
               Jenkins can then automatically build the updated code. This can be set up in the "Build Triggers" section of a job and in the GitHub repository settings.
 		>>you can select the custom events like (push, pull , merge like this)
+
+  - Upstream:-this will if job1 na job2 the job2 always checks the job1 .if job1 success then job2 execute  
 
 41-How do you store/secure/handle secrets in Jenkins ?
 
