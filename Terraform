@@ -10,6 +10,7 @@ GitHub code commit bitbucket to keep track of your changes in resources
 >> Terraform is not easy but effective
 >> When any changes happen .tfstate will save the data
 >>tfstate is very important
+>>you can apply single module if you want 
 
 Advantages:-
 1-Automated infra CRUD(create read update delete)
