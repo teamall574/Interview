@@ -1,3 +1,52 @@
+vpc
+ec2
+vpc perring
+tarnsit gateway
+ebs volumes
+efs 
+s3
+nat gateway
+iam 
+route53
+vpc endpoint
+cloudfront(CDN)
+load-balancer
+auto-scaling
+elastic beanstalk
+subnets
+routetable
+nacl
+secuity groups
+sns
+elasticIP
+AWS-firewall
+rds
+elasticCache
+cloudwatch
+lambda
+cloudtrail
+awsconfig
+global acclerator
+session manager
+site-to-site-vpn
+point-to-site-vpn
+direct vpn
+openvpn
+control lower
+cloud-formation
+coginto
+SSM->service manager
+service catalogue
+ECS
+EKS
+ECR
+AWS FARGATE
+SQS
+SES
+INSpector
+parameterstore
+secret-manager
+
 APPLICATION-----------------------------------------------| These two is SAAS
 DATA------------------------------------------------------|
 RUNTIME                              |
