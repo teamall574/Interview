@@ -316,7 +316,7 @@ we can push into the development branch. then we can send it into the q&a testin
 
 Git is capable of automatically merging the changes only if the commits are on different lines or branches.
 
-39 - how to solve merge conflicts
+39-how to solve merge conflicts
 
 >>git throughs the conflicts when the differnce content of the same lines both party should work together. and decide which one should be there which 
 one should delete. and they have to merge there codes create merge commit
@@ -625,12 +625,74 @@ it is always production-ready. All development is done in branches and then merg
 >>In Git, a remote is a reference to a remote repository, typically on a server or another location. The "origin" remote is often the default name given to the remote repository from which
 your local repository was cloned. It's the default upstream repository for your local repository.
 
+82-what is git branch -a    
+
+>>it will list all the branches in local machine  
+
+83-you have hundred branches how to clone specific branch name as anji
+
+>>git clone -b anji urlofgit
+
+84-how to change git branch name 
+
+>>git branch -m nameofthebranch
+
+85-what is git lock branch
+
+>>Locking a branch prevents other users from changing the existing commit history. Locking also blocks any new commits from being added to the branch by others
+
+>>git lock <branch-name>
+>>git unlock <branch-name>
+
+86-how to give tag in git 
+
+>>git tag v2  -->this will help to identify the version instead of remebering commit ids we can use short and identified the tags it will easy to identify and remeber easiely
+like we follow major and minor , Patch  this will like 2.0.0  major micro patch its dependes on the company 
+MAJOR:-Major version when you make incompataible API changes
+MINOR:-Minor when you add functionality in a backwards compatible manner
+PATCH:-Patch version when you make backwards compatible bug fixes 
+
+>>git tag --delete "commit-id-or-Tag-id"
+
+87--how to create pull request and merge 
+
+>>if you want merge the code you can create the pull request the review that then approve then merge into main or any branch 
+
+88-what are branching strategy
+
+>>your developing are follwing trunck based development where we always have short living branches. we will then merge into feature branches  
+
+89-how to clone the code from github 
+
+>>git clone https://github.com/teamall574/devops.git 
+
+90-how to pull the code from github any changes happend
+
+>>git pull   -->this command is used to pull the code from any changes happen 
+
+91-how cherry pick works with commands  expalin 
+
+>>git branch 
+* master 
+  anji 
+>>ls  -->your in master branch 
+anji.txt ls.txt sampi.txt  
+>>git checkout anji 
+>>ls 
+anji.txt ls.txt sampi.txt  
+>>touch test.txt 
+>>git add .
+>>git commit -m "anji added test.txt"
+>>touch gampa.txt 
+>>git add .
+>>git commit -m "anji added gampa.txt"    -->but this was not correct need to copy first one 
+>>git log --online  -->select the first commit id 
+>>git checkout master 
+>>git cherry-pick "commit-id-you copied first commit" 
+
+>>git checkout -b ＜new-branch＞  ==>create new branch 
+
+92-
 
 59-Is this possible to ignore .ignore file in git
-
-
-
-
-
-
 
