@@ -50,15 +50,13 @@ EXPOSE 8080
 
 1-what is the difference between Kubernetes and docker
 
->Docker is a container platform whereas Kubernetes is a container orchestration environment that offers capabilities like auto-scaling, auto-healing, clustering
-and enterprise-level support like load balancing
+>Docker is a container platform whereas Kubernetes is a container orchestration environment that offers capabilities like auto-scaling, auto-healing, clustering and enterprise-level support like load balancing
 
-1 - what are docker and container how do use docker containers
+2-what are docker and container how do use docker containers
 
 >>Docker is a tool designed to create, deploy and run applications easily by using containers
 >> Docker packages the application and dependencies required to run the application in a single bundle and ship to the target environment in the docker world we called docker image. 
-when we run this image in any environment this creates an isolated environment for the application to run by installing required packages and we called this isolated environment is
-called container 
+>>when we run this image in any environment this creates an isolated environment for the application to run by installing required packages and we called this isolated environment is called container 
 >> No matter where you can run these images this will work fine 
 >> By taking advantage of Dockers methodologies for shipping  testing and deploying code quickly we can significantly reduce the delay between writing code and running it in production
 
@@ -78,7 +76,7 @@ Advantages:-
 2-It is difficult to manage large amount of containers.
 3-container is process it can fail anytime
 
-2 - Explain the Docker components and how they interact with each other..?
+3-Explain the Docker components and how they interact with each other..?
 
 >>Docker is a containerization technology that allows developers to package an application along with its dependencies, libraries, and configuration files into a 
 single package called a container. Containers provide a consistent and isolated runtime environment, making it easy to deploy applications across different environments without worrying 
@@ -97,28 +95,26 @@ about compatibility issues.
 >>Docker_Plugins:- To extend Docker capabilites
 >>Docker Engine: The core component of Docker, responsible for creating and managing containers. It is a client-server application with a REST API that allows users to 
 interact with the Docker daemon.
->>Docker Registry: A central repository that stores Docker images. Docker Hub is the default public registry provided by Docker, but users can also set up private registries to store their
-own images.
+>>Docker Registry: A central repository that stores Docker images. Docker Hub is the default public registry provided by Docker, but users can also set up private registries to store their own images.
 
 
-Suppose we have a web application that consists of a frontend and a backend, each running in its own container. To manage these containers, we’ll use Docker Compose.
+>>Suppose we have a web application that consists of a frontend and a backend, each running in its own container. To manage these containers, we’ll use Docker Compose.
 
-We define the application in a YAML file using Docker Compose syntax, specifying the frontend and backend containers along with their respective configurations.
-We use the Docker CLI to build the Docker images for the frontend and backend containers and push them to the Docker Registry.
-We use Docker Compose to spin up the containers and start the application. Docker Compose creates a network and attaches the containers to it, allowing them to communicate with each other.
-Users access the application through a web browser, sending requests to the frontend container, which forwards them to the backend container. The containers communicate over the network 
-created by Docker Compose.
-If we need to scale the application, we can use Docker Swarm to manage a cluster of nodes running Docker Engine and deploy multiple instances of the frontend and backend containers.
+>>We define the application in a YAML file using Docker Compose syntax, specifying the frontend and backend containers along with their respective configurations.
+>>We use the Docker CLI to build the Docker images for the frontend and backend containers and push them to the Docker Registry.
+>>We use Docker Compose to spin up the containers and start the application. Docker Compose creates a network and attaches the containers to it, allowing them to communicate with each other.
+>>Users access the application through a web browser, sending requests to the frontend container, which forwards them to the backend container. The containers communicate over the network created by Docker Compose.
+>>If we need to scale the application, we can use Docker Swarm to manage a cluster of nodes running Docker Engine and deploy multiple instances of the frontend and backend containers.
 
-3 - why everyone using production environment in kubernets and why not using docker and docker swarm
+4-why everyone using production environment in kubernets and why not using docker and docker swarm
 
 >>The major difference between the platforms is based on complexity. Kubernetes is well suited for complex applications. 
-On the other hand, Docker Swarm is designed for ease of use, making it a preferable choice for simple applications
+>>On the other hand, Docker Swarm is designed for ease of use, making it a preferable choice for simple applications
 
 >>kubernets have additional network plugins thats why using kubernets and this is this reason docker swarm not using
-plugins ex:-panel and kolak 
+>>plugins ex:-panel and kolak 
 
-4 - what is docker storage
+5-what is docker storage
 
 >>docker has come to used in first stateless applications later it come to used  stateful applications also.stateless applications means
 is no need to save the data or stateful applications is storing the data
@@ -128,7 +124,7 @@ is no need to save the data or stateful applications is storing the data
 >>docker volume ls
 >>docker run --rm -dit -v anji:/myapp sreeharshav/utils            -->it will create one container and create the myapp one folder
 
-5 - What is a container?
+6-What is a container?
 
 >>A Docker container image is a lightweight, standalone, executable package of software that includes everything needed to run an application:
 code, runtime, system tools, system libraries and settings
@@ -137,16 +133,16 @@ code, runtime, system tools, system libraries and settings
 >>container doesn't need any (opearting system)
 >>docker-container is likea service or process the process can end anytime or anytime it will crashed
 
-6 - Explain virtualization.
+7-Explain virtualization.
 
 >>Virtualization uses software to create an abstraction layer over computer hardware that allows the hardware elements of a single computer—processors, memory, 
 storage and more—to be divided into multiple virtual computers, commonly called virtual machines (VMs)
 
-7 - What’s the difference between virtualization and containerization?
+8-What’s the difference between virtualization and containerization?
 
 >>Virtualization is an abstract version of a physical machine, while containerization is the abstract version of an application.
 
-8 - Describe a Docker container’s lifecycle.
+9-Describe a Docker container’s lifecycle.
 
 Create container
 Run container
@@ -159,7 +155,7 @@ Restart container
 Kill container
 Destroy container
 
-9 - Name the essential Docker commands and what they do.
+10-Name the essential Docker commands and what they do.
 
 Build. Builds a Docker image file
 Commit. Creates a new image from container changes
@@ -167,22 +163,22 @@ Create. Creates a new container
 Dockerd. Launches Docker daemon
 Kill. Kills a container
 
-10 - What are Docker object labels?
+11-What are Docker object labels?
 
 >>Labels are the mechanism for applying metadata to Docker objects such as containers, images, local daemons, networks, volumes, and nodes.
 
-11 - what is nodes in docker 
+12-what is nodes in docker 
 
 >>A Node is a worker machine in docker and may be either a virtual or a physical machine, depending on the cluster. Each Node is managed by the control plane
 
-12 - what docker volumes and mounts explain briefly.How do you find stored Docker volumes?
+13-what docker volumes and mounts explain briefly.How do you find stored Docker volumes?
 
 >>Docker volumes are dependent on Docker's file system and are the preferred method of persisting data for Docker containers and services. When a container is 
-started, Docker loads the read-only image layer, adds a read-write layer on top of the image stack, and mounts volumes onto the container filesystem
+>>started, Docker loads the read-only image layer, adds a read-write layer on top of the image stack, and mounts volumes onto the container filesystem
 
-Use the command: /var/lib/docker/volumes
+>>Use the command: /var/lib/docker/volumes
 
-13 - what is docker file and can you write a docker file???
+14-what is docker file and can you write a docker file???
 
 >>A Dockerfile is used to run Docker instructions and build the images
 >>there are three types of instructions(commands) used in a dockerfile
@@ -219,10 +215,10 @@ CMD ["/opt/tomcat/catalina.sh" "run"]
 >>docker build -t anji .       -->. means present directory 
 >>docker run --rm -dit --name anji1592/test -p 8081:8080 anji  -->it will run the container
 
-14 - what is docker compose and docker stack
+15-what is docker compose and docker stack
 
 >>Compose is a tool for defining and running multi-container Docker applications. With Compose, you use a YAML file to configure your application’s services. 
-Then, with a single command, you create and start all the services from your configuration.
+>>Then, with a single command, you create and start all the services from your configuration.
 >>docker compose is make easy your work.creating yaml file then it will execute your yaml file or deploying
 >>it will execute multiple docker container at a time
 >>docker compose is installed in only system it is not cluster level that is the reason we are not using docker-compose
@@ -231,15 +227,14 @@ Then, with a single command, you create and start all the services from your con
 >>docker compose written in yaml file
 
 >>docker stack:-Docker Stack sits at a higher level than Docker containers and helps to manage the orchestration of multiple containers across several machines. 
-Docker Stack is run across a Docker Swarm, which is essentially a group of machines running the Docker daemon, which are grouped together, essentially pooling 
-resources.
+>>Docker Stack is run across a Docker Swarm, which is essentially a group of machines running the Docker daemon, which are grouped together, essentially pooling resources.
 
-15 - what is docker swarm 
+16-what is docker swarm 
 
 >>>>Docker Swarm is a container orchestration platform provided by Docker that allows you to deploy and manage a cluster of Docker containers across multiple hosts.
-It provides an easy-to-use interface for deploying and scaling containerized applications, as well as built-in tools for managing container networking and load balancing.
+>>It provides an easy-to-use interface for deploying and scaling containerized applications, as well as built-in tools for managing container networking and load balancing.
 >>A Docker Swarm consists of a group of Docker hosts, or nodes, that work together to run a set of containerized applications. The Swarm Manager node is responsible for 
-coordinating and managing the cluster, while the Worker nodes run the containerized applications.
+>>coordinating and managing the cluster, while the Worker nodes run the containerized applications.
 
 docker swarm init --advertise-addr <MANAGER-IP>  -->it will intilize
 docker swarm join --token <TOKEN> <MANAGER-IP>:<PORT>  -->join worker node
@@ -252,8 +247,7 @@ docker service ps my-webapp   -->Monitor the status of the service
 >>docker swarm uses orcus station layers or management layer (ex: AKS/EKS/Kubernets)
 >>docker swarm you can upto use masters in docker swarm is 7 master either you can use idd numbers 1 3 5 7
 >>docker masters must be in odd numbers ex:-1,3,5,7
->>docker swarm uses Raft Algorithm up to (N-1)/2 failures and reauires a majority or quoram 
-of (N/2)+1 members to agree on values proposed to the cluster
+>>docker swarm uses Raft Algorithm up to (N-1)/2 failures and reauires a majority or quoram of (N/2)+1 members to agree on values proposed to the cluster
 >>when you enable docke swarm automatically enable two networks one ingress and docker gwbridge
 >>docker swarm distribute the load into multiple worker nodes
 
@@ -261,55 +255,52 @@ of (N/2)+1 members to agree on values proposed to the cluster
 >>docker service scale nginx5=5           -->it will create 5 containers
 >>docker service update nginx5 --replicas 5           -->you can this command also to increase the containers
 
-16 - what is docker swarm is quoram 
+17-what is docker swarm is quoram 
 
->>In a swarm of N managers, a quorum (a majority) of manager nodes must always be available. For example, in a swarm with five managers,
- a minimum of three must be operational and in communication with each other
+>>In a swarm of N managers, a quorum (a majority) of manager nodes must always be available. For example, in a swarm with five managers, a minimum of three must be operational and in communication with each other
 
-17 - why quoram needs an odd number
+18-why quoram needs an odd number
 
 >>quoram is an latein word
 >>minimum number of nodes in swarm cluster that needs to be up and running for swarm cluster to work
 
-18 - what is docker ingress and docker gateway-bridge
+19-what is docker ingress and docker gateway-bridge
 
 >>The docker_gwbridge is a virtual bridge that connects the overlay networks (including the ingress network) to an individual Docker daemon's physical network.
-Docker creates it automatically when you initialize a swarm or join a Docker host to a swarm, but it is not a Docker device.
+>>Docker creates it automatically when you initialize a swarm or join a Docker host to a swarm, but it is not a Docker device.
 
-19 - what is ingress docker
+20-what is ingress docker
 
 >>When a user initializes a docker swarm an overlay network is generated called an ingress network which handles swarm service control and data traffic.
 
-20 - what is rooling update in docker
+21-what is rooling update in docker
 
 >>rolling update is used without downtime you change your version or image on container or servers
 >>The scheduler applies rolling updates as follows by default: Stop the first task. Schedule update for the stopped task. 
-Start the container for the updated task. If the update to a task returns RUNNING , wait for the specified delay period then start the next task
+>>Start the container for the updated task. If the update to a task returns RUNNING , wait for the specified delay period then start the next task
 
-21 - what is in efk stack in docker
+22-what is in efk stack in docker
 
 >>EFK Stack is an enterprise-ready log aggregation and logs analysis framework for bare-metal and container infrastructure. 
-But before deploying an EFK stack, you'll first set up a project directory and create a Docker configuration for deploying EFK Stack on your Docker host
+>>But before deploying an EFK stack, you'll first set up a project directory and create a Docker configuration for deploying EFK Stack on your Docker host
 
-22 - what is resource managment 
+23-what is resource managment 
 
->>resource managment is nothing but how much cpu utilization and memory utilization docker container. container consume the total memory
-you can specify the docker container how much need to use the cpu or memory utilization it will reduce java memory leaks
+>>resource managment is nothing but how much cpu utilization and memory utilization docker container. container consume the total memory you can specify the docker container how much need to use the cpu or memory utilization it will reduce java memory leaks
 
->>docker service create --name limittest --reserve-memory 100M --reserve-cpu .25 --limit-cpu 1 --limit-memory 300M
---repicas 3 --publish 3000:80 sreeharshav/rollingupdate:v3
+>>docker service create --name limittest --reserve-memory 100M --reserve-cpu .25 --limit-cpu 1 --limit-memory 300M --repicas 3 --publish 3000:80 sreeharshav/rollingupdate:v3
 
 >docker servicce inspect limittest
 >>docker service update limittest --limit-memory 500M
 
-23 - what does docker swarm do
+24-what does docker swarm do
 
 1-worker node availibility
 2-resource utilization
 3-container scheduling
 4-container fail-over or self-healing
 
-24 - what is docker traefik ingress controller
+25-what is docker traefik ingress controller
 
 >>Traefik  ingress controller is a act as load balancer in docker swarm
 >>docker network create --driver=overlay traefik-net 
@@ -333,53 +324,51 @@ app3.bughunteranji.xyz
 >>docker service logs app1                   -->it will show your logs
 >>now try access the browser differnt differnt urls
 
-25 - what is docker node maintaince and types
+26-what is docker node maintaince and types
 
 >>node maintaince are 3 types
 --pause  -->if your runing in 3 container your need to troubleshoot or maintaince the one container
-no need to send any new activies in first container use pause option only run old activites but not added
-any new activites
+>>no need to send any new activies in first container use pause option only run old activites but not added any new activites
 >>docker node ls
 >>docker node update --availability pause ip-192-168-2-199
 
 --Drain
-if your using drain means the activites will go on to add another container no new activites is not
-gone add its like temporarily suspended
+>>if your using drain means the activites will go on to add another container no new activites is not gone add its like temporarily suspended
 >>docker node update --availability drain ip-192-168-2-199
 
 -- active
-active means the containers running node no need to maintaine the work so it split the activites
+>>active means the containers running node no need to maintaine the work so it split the activites
 >>docker node update --availability active ip-192-168-2-199
 
-26 - what is docker swarm config
+27-what is docker swarm config
 
 >>Docker swarm service configs allow you to store non-sensitive information, such as configuration files, outside a service's image or running containers. 
-This allows you to keep your images as generic as possible, without the need to bind-mount configuration files into the containers or use environment variables
+>>This allows you to keep your images as generic as possible, without the need to bind-mount configuration files into the containers or use environment variables
 
-27 - what is docker swarm secrets
+28-what is docker swarm secrets
 
->>In terms of Docker Swarm services, a secret is a blob of data, such as a password, SSH private key, SSL certificate, or another piece of data that should not 
-be transmitted over a network or stored unencrypted in a Dockerfile or in your application's source code
+>>In terms of Docker Swarm services, a secret is a blob of data, such as a password, SSH private key, SSL certificate, or another piece of data that should not be transmitted over a network or stored unencrypted in a Dockerfile or in your application's source code
 
-28 - what is docker swarm helath checks
+29-what is docker swarm helath checks
 
 >>the Docker swarm health check ensures that the Docker service is running properly. A faulty service can cause a major incident!
 
-29 - what is the differnce between registry and repository 
+30-what is the differnce between registry and repository 
 
 >>registry inside have an repository, repository inside you can put multiple images
 
-30 - Types of registery
+31-Types of registery
 
 >>Docker hub , AWS ECR, Azure ACR ,google GCR
 
-31 - how many types to run docker in AWS
-install docler in ec2 and run conatiner
-run using AWS Elastic conatiners service(ECS)
-Run using AWS ECS Fargate
-Run Using AWS EKS
+32-how many types to run docker in AWS
 
-32 -what is docker default network and networks
+>>install docler in ec2 and run conatiner
+>>run using AWS Elastic conatiners service(ECS)
+>>Run using AWS ECS Fargate
+>>Run Using AWS EKS
+
+33-what is docker default network and networks
 
 >>default brige network or docker0
 >>docker0 is works as nat-gateway or firewall 
@@ -389,10 +378,9 @@ Run Using AWS EKS
 >>docker network create anji           -->it will create the anji network
 >>netstat -a | grep -i 8100             -->it will listen your ports
 
-33 - what is the problems in persistent storage in docker
+34-what is the problems in persistent storage in docker
 
->>In docker, the persistent storage is dealt with the volume concept. Persistent storage is means when we are stopping or removing the container the data 
-should be persistent.It will not delete automatically once the docker container is not available.
+>>In docker, the persistent storage is dealt with the volume concept. Persistent storage is means when we are stopping or removing the container the data should be persistent.It will not delete automatically once the docker container is not available.
 
 1-Storage:-when application shutdown data gone loose
 2-Container mobility:- Containers are meant to be small and lightweight, quickly spinning up and down and moving around the cluster.
@@ -401,22 +389,19 @@ Your data on the other hand is large and difficult to move around.
 4-Containers aren’t designed to be stateful
 5-Quality of service controls
 
-34-What is the container instance?
+35-What is the container instance?
 
->>Azure Container Instances is a solution for any scenario that can operate in isolated containers, without orchestration. Run event-driven applications,
-quickly deploy from your container development pipelines, and run data processing and build jobs.
+>>Azure Container Instances is a solution for any scenario that can operate in isolated containers, without orchestration. Run event-driven applications, quickly deploy from your container development pipelines, and run data processing and build jobs.
 
-35-What does Container Insights provide?
+36-What does Container Insights provide?
 
->>Container Insights also provides diagnostic information, such as container restart failures, to help you isolate issues and resolve them quickly. You can also 
-set CloudWatch alarms on metrics that Container Insights collects. Container Insights collects data as performance log events using embedded metric format
+>>Container Insights also provides diagnostic information, such as container restart failures, to help you isolate issues and resolve them quickly. You can also set CloudWatch alarms on metrics that Container Insights collects. Container Insights collects data as performance log events using embedded metric format
 
-36-what is continer as a service
+37-what is continer as a service
 
->>Containers as a service (CaaS) is a cloud-based service that allows software developers and IT departments to upload, organize, run, scale, and manage containers 
-by using container-based virtualization.
+>>Containers as a service (CaaS) is a cloud-based service that allows software developers and IT departments to upload, organize, run, scale, and manage containers by using container-based virtualization.
 
-37-what is differnce between CMD and ENRTYPOINT
+38-what is differnce between CMD and ENRTYPOINT
 
 >>CMD commands are ignored by Daemon when there are parameters stated within the docker run command while ENTRYPOINT instructions are not ignored but instead 
 are appended as command line parameters by treating those as arguments of the command
@@ -434,9 +419,9 @@ FROM ubuntu
 ENTRYPOINT  ["yum", "-y", "install", "httpd"]
 
 >>docker run --entrypoint useradd anji11 anji      -->but when you execute this command it wil ignoe the ENTRYPOINT command in dockerfile you 
-can execute this command withot docker file it will add user anji not execute other commands the
+>>can execute this command withot docker file it will add user anji not execute other commands the
 
-38-what is the differnce between CMD and RUN
+39-what is the differnce between CMD and RUN
 
 >>RUN: used to build images and install applictions and packages create a new layer over an existing image by commiting the results
 
@@ -444,14 +429,28 @@ can execute this command withot docker file it will add user anji not execute ot
 
 >>ENTRYPOINT: default parameters that cannot be overriden when containers run
 
-39-is there possible to use multiple CMD commads in dockerfile
+40-how docker CMD is ignored 
+
+vi Dockerfile
+
+FROM nginx
+ENTRYPOINT ["ping", "-c", "3"]
+CMD ["google.com"]
+:wq
+
+>>docker build -t anji .
+>>docker run anji    -->it will ping google.com 
+>>docker run anji yahoo.com  -->it will replace the google.com in CMD command 
+>>this type cmd command are overwritten compared ENTRYPOINT canot be overwritten
+
+41-is there possible to use multiple CMD commads in dockerfile
 
 >>yes you can but the problem when you given two CMD commands it will execute only second or latest the first will not execute it will treat is second 
 >>ENTRYPONT also same
 
-but when you execute this command it wil ignoe the ENTRYPOINT command in dockerfile you canexecute this command withot docker file
+>>but when you execute this command it wil ignoe the ENTRYPOINT command in dockerfile you canexecute this command withot docker file
 
-40-what is the best practice to wriet a dockerfile
+42-what is the best practice to wriet a dockerfile
 
 1-use offical image 
 2-Avoid installing unnecessary packages.dependies
@@ -470,16 +469,15 @@ but when you execute this command it wil ignoe the ENTRYPOINT command in dockerf
 15-use CIS(center of Internet Security) 
 16-avoid running containers with direct internet access use proxy or egress traffic 
 
-41-what is multistage dockerfile
+43-what is multistage dockerfile
 
->>when you create images the size will be grow huge using multi stage dockerfile you can create the different stages into the dockerfile
-and control how you want build the images using this stages
+>>when you create images the size will be grow huge using multi stage dockerfile you can create the different stages into the dockerfile and control how you want build the images using this stages
 >>if you multistage the first stage will generate temporary images that image discord into second stage
 
 >>multi stage build allows you to build your docker container in multipl stages allowing you to copy artifacts from one stage to another stage. 
 the major advantage of this is to buoild light weight containers
 
-42-what are network types in docker
+44-what are network types in docker
 
 >>1-Bridge:-the default network drive. bridge networks apply to continers running on the same docker deamon host
 2-Host:-for standlone continers, remove network isolation between the container and docker host and use the host's networking directly
@@ -490,7 +488,7 @@ communication betweeen
 >>container can be attached and detached from user-defined networks on the fly
 >>each user-defined network creates a configurable bridge
 
-43-docker volumes creation managing
+45-docker volumes creation managing
 
 Create a Docker Volume Implicitly.
 Create a Docker Volume Explicitly.
@@ -500,7 +498,7 @@ Mount a Volume to a Container.
 Configure a Volume Using docker-compose.
 Copy Files Between Containers from a Shared Volume.
 
-44-What is Docker volume and its types?
+46-What is Docker volume and its types?
 
 >>Docker volumes are a widely used and useful tool for ensuring data persistence while working in containers. Docker volumes are file systems mounted on Docker 
 containers to preserve data generated by the running container.
@@ -521,45 +519,43 @@ if you want you specify the size, how much do you want gb and MBS also
 >>docker volume ls
 >>docker inspect "volumeid"
 
-45-what is a docker image
+47-what is a docker image
 
 >>docker image act as a set of instructions to build a docker container it can be compared to snapshot in a VM
 
-46-what is the differnce between docker COPY and docker ADD
+48-what is the differnce between docker COPY and docker ADD
 
 >>docker ADD can copy your files from URL unlike 
 >>Docker COPY which can only copy files from host system into the container
 
-47-can you explain how to isolate networking between the containers
+49-can you explain how to isolate networking between the containers
 
 >>you can create your own bridge networkings so using your own bridge networkings liek assign your own network to a secure container.
 create a new network in docker using docker network create anji something like this 
 
-48-what is distro-less images in docker
+50-what is distro-less images in docker
 
->>distroless images contains only your application and runtime dependencies with very minimum operating system libearies they do noyt contain package managers shells
-or any other programs you would expect to find a standard linux distribution .they are very small and lightweight images 
+>>distroless images contains only your application and runtime dependencies with very minimum operating system libearies they do noyt contain package managers shells or any other programs you would expect to find a standard linux distribution .they are very small and lightweight images 
 
-49-Realtime challenges with docker
+51-Realtime challenges with docker
 
 >>Docker is a single deamon process which can cause a single point of failure if the docker deamon goes down for some reason the application goes down
 
->>docker deamon runs as a root user which is a security threat any process running as a root can have adverse effects when it is comprised for security reasons 
-it can impact other application or containers
+>>docker deamon runs as a root user which is a security threat any process running as a root can have adverse effects when it is comprised for security reasons it can impact other application or containers
 
-50-what is the differnce between docker and dockerswarm
+52-what is the differnce between docker and dockerswarm
 
 >>Docker runs containers on a single machine, while docker swarm orchestrates a collection of containers (and the communication between them) across a network, 
 allowing you to join multiple ‘host’ machines together to create a resilient, redundant cluster.
 >>Docker-Swarm is a tool that makes it convenient to quickly deploy many containers on many machines running docker. Without it there’d be potential for an 
 enormous operations headache everytime you deployed your application.
 
-51-I have a scenario,. where I need to run docker daemon inside a container, is it possible if it is how to achieve this?
+53-I have a scenario,. where I need to run docker daemon inside a container, is it possible if it is how to achieve this?
 
 >>Running a Docker daemon inside a container is also known as "Docker-in-Docker" (DinD). This approach can be useful for certain use cases, such as running 
 CI/CD pipelines or testing Docker-related tools. However, it's generally not recommended for production use due to security and efficiency concerns.
 
-52-I want to write a script to check what all containers are running, and what containers are using images, if images are not tagged and dangling then remove them, also remove any stopped and unused containers 
+54-I want to write a script to check what all containers are running, and what containers are using images, if images are not tagged and dangling then remove them, also remove any stopped and unused containers 
 as well, how you will schedule the same?
 
 #!/bin/bash
@@ -579,26 +575,20 @@ docker image prune -f
 echo "Removing stopped and unused containers..."
 docker container prune -f
 
-53-What are dangling images in docker and why you need to remove them?
+55-What are dangling images in docker and why you need to remove them?
 
->>Dangling images are Docker images that are not associated with any tagged images or containers. They are usually created when you build a new version of an image, 
-but the old, untagged layers are still stored locally. Removing dangling images helps you reclaim disk space and keeps your Docker environment clean.
+>>Dangling images are Docker images that are not associated with any tagged images or containers. They are usually created when you build a new version of an image, but the old, untagged layers are still stored locally. Removing dangling images helps you reclaim disk space and keeps your Docker environment clean.
 
-54-Why it is important to remove dangling images? and how it helps you? how you see this in your environment?
+56-Why it is important to remove dangling images? and how it helps you? how you see this in your environment?
 
->>During development: As you iterate on your application and build new versions of your container image, you may accumulate several dangling images, 
-consuming unnecessary disk space. Periodically cleaning up these images can help you free up space and maintain a clean environment.
+>>During development: As you iterate on your application and build new versions of your container image, you may accumulate several dangling images, consuming unnecessary disk space. Periodically cleaning up these images can help you free up space and maintain a clean environment.
 
->>In CI/CD pipelines: Continuous Integration and Deployment pipelines often involve building and testing container images. Over time, these pipelines can 
-generate many dangling images on the build server. Regularly pruning these images can prevent the build server from running out of disk space and improve overall 
-pipeline performance.
+>>In CI/CD pipelines: Continuous Integration and Deployment pipelines often involve building and testing container images. Over time, these pipelines can generate many dangling images on the build server. Regularly pruning these images can prevent the build server from running out of disk space and improve overall pipeline performance.
 
-55-Docker Containers are restarting frequently and how you troubleshoot this issue?, what might be the reasons ? or You have a Docker container running in production that
-suddenly starts behaving unusually. How would you debug this container without affecting its service?
+57-Docker Containers are restarting frequently and how you troubleshoot this issue?, what might be the reasons ? or You have a Docker container running in production that suddenly starts behaving unusually. How would you debug this container without affecting its service?
 
 >>Check container logs: Inspect the logs of the problematic container to identify any error messages or application-specific issues.
->>docker logs "container-id"
-Check container status: Use the docker ps command to see the status and restart count of the container.
+>>docker logs "container-id" Check container status: Use the docker ps command to see the status and restart count of the container.
 >>docker ps --filter "name=container_name"
 >>Inspect the container: Use the docker inspect command to gather more information about the container, such as configuration and runtime data.
 >>docker inspect container_id
@@ -608,12 +598,12 @@ Check container status: Use the docker ps command to see the status and restart 
 >>resource-limits
 >>dependency issues
 
-56-How to find size of any container’s writable layer ? also how can I decrease the size of an image which is already in use.
+58-How to find size of any container’s writable layer ? also how can I decrease the size of an image which is already in use.
 
 >>To find the size of a container's writable layer, you can use the docker ps command with the --size or -s flag:
 >>docker ps -s
 
-57-how to copy your container file into local system
+59-how to copy your container file into local system
 
 docker run -it --name anji ubuntu --bash
 echo "anjiiii" > test.txt
@@ -621,7 +611,7 @@ docker start anji
 docker container ls
 docker cp 12356456:/test.txt ~/desktop/anji/html
 
-58-what is the differece betweeen VM and Container
+60-what is the differece betweeen VM and Container
 
 VMS:-
 1-Vitulizes Hardware
@@ -639,7 +629,7 @@ Container:
 5-Can be started in Seconds
 6-Consumes Very Few resources
 
-59-What is the Difference between an Image, Container, and Engine?
+61-What is the Difference between an Image, Container, and Engine?
 
 1.Image is a read-only file that contains all the necessary files, libraries, and dependencies to run an application. Think of it as a snapshot of an application at a specific point in time.
 Images are created from a Dockerfile, which contains instructions on how to build the image. Once an image is created, it can be used to create one or more containers.
@@ -657,7 +647,7 @@ for managing containers and images.
 >>In summary, an image is a read-only template for creating containers, a container is a runtime instance of an image, and the engine is 
 the core component of Docker that manages containers and images.
 
-60-How Will you reduce the size of the Docker image..?
+62-How Will you reduce the size of the Docker image..?
 
 1-Use Apline-based images
 2-Minimize the number of layers
@@ -668,20 +658,20 @@ the core component of Docker that manages containers and images.
 7-Compress or optimize assets, such as JavaScript or CSS files, before copying them into the image.
 8-use .dockerignore to exclude files or directories that are not needed in the image.
 
-61-what is entrypoint
+63-what is entrypoint
 
 >>In Docker, an entry point is the initial command that runs when a container is started from an image. It is a script or executable file that defines the main application or service 
 running in the container.
 >>The entry point is defined in the Dockerfile using the ENTRYPOINT instruction. For example, let's say we have a simple Python script that prints "Hello, World!" to the console:
 
-62-Do I lose my data when the container exits..?
+64-Do I lose my data when the container exits..?
 
 >>Not at all! The data cannot be lost if the container is stopped and we can view this docker container by using “docker ps -a” command We can restart this container also. 
 The data of a container remains in it until and unless you delete the container.
 >>If Docker runs on Linux, tmpfs mount is used to store files in the host’s system memory. If Docker S on Windows, named pipe is used to store files in the host’s system memory,
 Volumes are the most preferred way to store container data as they provide efficient performance and are isolated from the other functionalities of the Docker host.
 
-63-how to save or export docker images 
+65-how to save or export docker images 
 
 docker save -o image.tar.gz image-name
 >>This command will save the image named “image-name” to a compressed tar archive called “image.tar.gz
@@ -691,18 +681,18 @@ To import an existing Docker image, you can use the docker load command. This co
 docker load -i image.tar.gz
 This command will load the image from the “image.tar.gz” file into the Docker image cache.
 
-64-how to remove all stopped or unused or dangling images or build caches
+66-how to remove all stopped or unused or dangling images or build caches
 
 >>docker system prune
 
-65-What is a Docker namespace?
+67-What is a Docker namespace?
 
 >>In Docker, a namespace is a feature that isolates a resource or a set of resources in a way that the process or resource can only see the subset of the entire system. 
 Docker provides various namespaces, such as PID (process IDs), Network, Mount, UTS (hostname), and User. Each namespace provides an isolated environment for its associated resources.
 >>For example, consider a scenario where two containers running on the same host system require the same port number to be exposed. Using namespaces, 
 Docker can isolate the network namespace for each container and assign the same port number to both containers. This allows both containers to use the same port number without any conflict.
 
-66-what is the differnce between RUN and CMD
+68-what is the differnce between RUN and CMD
 
 >>CMD:-CMD is used to specify the default command that should be executed when a container is started from an image. It is not executed during the building of the image, 
 but rather when the container is run. The CMD command is generally used to specify the main application that should be run inside the container.
@@ -714,8 +704,496 @@ create directories, and perform other tasks that are needed to set up the image.
 >>EntryPoint:-In Docker, an entry point is the initial command that runs when a container is started from an image. It is a script or executable file that defines the main application or 
 service  running in the container.
 
+69-how to modify the image and push to the docker hub new image
 
-67-Here are some commonly used Docker commands with a brief description of their use:
+>>sudo docker pull ubuntu
+>>>>sudo docker images
+>>sudo docker run -it cf0f3ca922e0 bin/bash
+>>apt-get install nmap
+>>nmap --version
+>>exit
+>>docker ps -a
+>>sudo docker commit [CONTAINER_ID] [new_image_name]
+>>sudo docker commit deddd39fa163 ubuntu-nmap
+>>sudo docker images
+>>docker push ubuntu-nmap
+
+70-how to give the docker permission
+
+>>sudo chmod 777 /var/run/docker.sock
+
+71-can you explain docker architecture
+
+>>Docker uses a client-server architeccture
+>>docker client talks to the docker daemon whicch does the heavy lifting of building running and distributing 
+>>docker client is nothing but it will install in local system
+
+1-Docker client:-
+>> Docker build
+>> Docker pull
+>> Docker run
+>> Docker push
+
+2-Docker Host:-
+>>Docker Daemon
+>>Docker containers
+>>Docker images  -->it will run here
+
+3-Docker Registry
+>> All the images are here
+
+72-what is layers in Docker
+
+>>layers is nothing but docker commands in dockerfile when we pull the image it will execute the every command as a layer
+>>Docker image consistes of collection of files or layers that pack togther all the necessities such as dependencies, source code, and libraries-needed to setup
+completely functional container enviroment and its docker image is read-only
+
+73-what is docker exec commad
+
+>>docker exec command followed by the container ID or name and the command you want to run
+
+74-how to backup container imge
+
+>>docker commit anji sampi:1.0(to save the container data as new image)
+>>docker save sampi:1.0 --output backup.tar(to save image as tar)
+>>docker load -i backup.tar(to unzip the image tar)
+>>docker start/stop/restart anji
+
+>>docker run -itd --restart=always --name anji ubuntu:latest sleep 5
+>>when ther issue an container it will restart the container
+
+75-Is there a way to identify the status of a Docker container?
+
+>>docker ps –a
+
+76-What are the most common instructions in Dockerfile?
+
+FROM: We use FROM to set the base image for subsequent instructions. In every valid Dockerfile, FROM is the first instruction.
+LABEL: We use LABEL to organize our images as per project, module, licensing etc. We can also use LABEL to help in automation.
+In LABEL we specify a key value pair that can be later used for programmatically handling the Dockerfile.
+RUN: We use RUN command to execute any instructions in a new layer on top of the current image. With each RUN command we add something on top of the image and use it in subsequent
+steps in Dockerfile.
+CMD: We use CMD command to provide default values of an executing container. In a Dockerfile, if we include multiple CMD commands, then only the last instruction is used
+
+77-What are the various states that a Docker container can be in at any given point in time?
+
+>>Running
+>>Paused
+>>Restarting
+>>Exited
+
+78-What type of applications - Stateless or Stateful are more suitable for Docker Container?
+
+>>It is preferable to create Stateless application for Docker Container. We can create a container out of our application and take out the configurable state parameters from application.
+Now we can run same container in Production as well as QA environments with different parameters. This helps in reusing the same Image in different scenarios.
+Also a stateless application is much easier to scale with Docker Containers than a stateful application.
+
+79-How will you monitor Docker in production?
+
+>>Docker stats: When we call docker stats with a container id, we get the CPU, memory usage etc of a container. It is similar to top command in Linux.
+docker stats <container_name_or_id>
+>>you can use third part montoring tools like 
+1-Grafana
+2-prometheus
+3-cAdvisor
+4-ELK (Elasticsearch, Logstash, Kibana) or Fluentd
+>>docker stats [container-id] to monitor the memory usage of the container. If the memory usage is constantly growing over time, there may be a memory leak.
+>>Docker events: Docker events are a command to see the stream of activities that are going on in Docker daemon.
+
+80-Can you explain dockerfile ONBUILD instruction?
+
+>>The ONBUILD instruction adds to the image a trigger instruction to be executed at a later time, when the image is used as the base for another build. This is useful if you are 
+building an image which will be used as a base to build other images, for example an application build environment or a daemon which may be customized with user-specific configuration.
+
+81-Can you run Docker containers natively on Windows?
+
+With Windows Server 2016 you can run Docker containers natively on Windows, and with Windows Nano Server you’ll have a lightweight OS to run inside containers, so you can run .NET apps
+on their native platform.
+
+82-Is it good practice to run stateful applications on Docker? What are the scenarios where Docker best fits in?
+
+>>he problem with statefull docker aplications is that they by default store their state (data) in the containers filesystem. Once you update your software version or want to move 
+to another machine its hard to retrieve the data from there.
+
+What you need to do is bind a volume to the container and store any data in the volume.
+>>if you run your container with: docker run -v hostFolder:/containerfolder any changes to /containerfolder will be persisted on the hostfolder. Something similar can be done with a nfs drive.
+Then you can run you application on any host machine and the state will be saved in the nfs drive.
+
+83-What is an orphant volume and how to remove it?
+
+>>An orphant volume is a volume without any containers attached to it. Prior Docker v. 1.9 it was very problematic to remove it.
+
+84-How does Docker run containers in non-Linux systems?
+
+>>The concept of a container is made possible by the namespaces feature added to Linux kernel version 2.6.24. The container adds its ID to every process and adding new access control checks to
+every system call. It is accessed by the clone() system call that allows creating separate instances of previously-global namespaces.
+
+>>If containers are possible because of the features available in the Linux kernel, then the obvious question is that how do non-Linux systems run containers. Both Docker for Mac and 
+Windows use Linux VMs to run the containers. Docker Toolbox used to run containers in Virtual Box VMs. But, the latest Docker uses Hyper-V in Windows and Hypervisor.framework in Mac.
+
+85-How to use Docker with multiple environments?
+
+>>You’ll almost certainly want to make changes to your app configuration that are more appropriate to a live environment. These changes may include:
+
+Removing any volume bindings for application code, so that code stays inside the container and can’t be changed from outside
+Binding to different ports on the host
+Setting environment variables differently (e.g., to decrease the verbosity of logging, or to enable email sending)
+Specifying a restart policy (e.g., restart: always) to avoid downtime
+Adding extra services (e.g., a log aggregator)
+For this reason, you’ll probably want to define an additional Compose file, say production.yml, which specifies production-appropriate configuration. This configuration file only needs to 
+include the changes you’d like to make from the original Compose file.
+>>docker-compose -f docker-com
+
+86-Why Docker compose does not wait for a container to be ready before moving on to start next service in dependency order?
+
+>>Compose always starts and stops containers in dependency order, where dependencies are determined by depends_on, links, volumes_from, and network_mode: "service:...".
+
+However, for startup Compose does not wait until a container is “ready” (whatever that means for your particular application) - only until it’s running. There’s a good reason for this:
+
+The problem of waiting for a database (for example) to be ready is really just a subset of a much larger problem of distributed systems. In production, your database could become unavailable or move hosts at any time.
+Your application needs to be resilient to these types of failures.To handle this, design your application to attempt to re-establish a connection to the database after a failure. If the application retries the 
+connection, it can eventually connect to the database.The best solution is to perform this check in your application code, both at startup and whenever a connection is lost for any reason.
+
+87-how to debug the container
+
+>>docker logs --tail 100 [container ID]
+>>docker logs [container ID]
+>>docker top[container ID]
+
+88-how to check the docker issues like vulnerabilites
+
+1-trivy
+2-sync
+3-clair
+4-Anchore
+
+89-what is the advnatges uisng multi-stage dockerfile
+
+1-Smallaer image
+2-Enhanced security
+3-improved build speed
+4-simplified build process
+5-better build pipeline integration
+6-portability
+7-Reduced Attack Surface
+
+90-How would you handle sensitive data (passwords, API keys, etc.) in Docker?
+
+>>Sensitive data should be managed using Docker Secrets or environment variables. Secrets are encrypted and only available to containers on a need-to-know basis, thereby increasing security.
+
+91-Your Docker container is running out of disk space, how would you increase it?
+
+>>The Docker container shares the host machine's OS, including its file system. So, to provide more disk space to Docker containers, you need to free up space on the host machine.
+
+92-How would you go about setting up a CI/CD pipeline with Docker?
+
+>>Docker integrates well with most of the CI/CD tools like Jenkins, GitLab CI, Travis CI, etc. You can create a Docker image of your application, push it to Docker Hub or a private registry as part of your build stage, and pull and run the image in the deployment stage.
+
+93-What if a Docker container is not able to communicate with another service running on the same host?
+
+>>Docker containers are isolated and they have their own network interface by default. You need to ensure proper network configuration is done for inter-service communication.  Docker networking options like bridge, host, or overlay networks can be utilized for this.
+
+94-How can you handle persistence in Docker?
+
+>>Docker volumes can be used to persist data generated by and used by Docker containers. Docker volumes are managed by Docker and a directory is set up within the Docker host which is then linked to the directory in the container.
+
+95-What would you do if Docker starts to consume a lot of CPU?
+
+>>Docker provides ways to limit CPU usage by setting the CPU shares, CPU sets, or CPU quota at the time of running the container using docker run.
+>>docker run --cpus 0.5 -dit --name anji my_container  this will help you to run the docker 0.5 CPU
+>>you can mention memory also same docker run --memory(or) -m --cpus 0.5 -dit --name anji my_container
+
+96-How can you share data among Docker containers?
+
+>>Docker volumes can be used to share data between containers. Create a volume using docker volume create, and then mount it into containers at run time.
+
+97-If you wanted to run multiple services (like an app server and a database server) on a single host with Docker, how would you manage it?
+
+>>Docker Compose is a great tool for this purpose. It allows you to define and run multi-container Docker applications. You can create a docker-compose.yml file that defines your services, and then bring up your entire app with just one command docker-compose up.
+
+98-How would you ensure that a group of inter-dependent containers always run on the same Docker host?
+
+>>Docker Swarm or Kubernetes can be used to orchestrate a group of containers across multiple hosts. Docker Swarm has a concept of "services" which ensures that the defined set of containers
+are co-located on the same host.
+
+99-Your team has multiple environments (e.g. dev, staging, production). How would you manage different configurations for these environments using Docker?
+
+>>Environment-specific configurations can be externalized from Docker images and provided at runtime using environment variables.
+
+100-How would you automate the deployment of a multi-container application?
+
+>>Docker Compose or orchestration tools like Docker Swarm or Kubernetes can be used to automate the deployment of multi-container applications.
+
+101-What steps will you follow to troubleshoot a Docker container that has stopped unexpectedly?
+
+>>To troubleshoot, start by checking the logs using docker logs [container-id]. If it's a crash due to the application inside the container, the logs may contain the trace of it. 
+You can also use docker inspect [container-id] to view the container's metadata.
+
+102-To create a new Docker image from an existing container with the modifications you made
+
+>>docker ps -a
+>>docker commit <container_id_or_name> my-modified-sonarqube
+>>docker tag my-modified-sonarqube:latest my-custom-sonarqube:1.0
+>>docker push
+
+103-Your Docker container is running an older version of an application, and you want to update it to a new version without downtime. How would you achieve this?
+
+>>You can use Docker's built-in rolling update feature if you're using Docker Swarm, or Kubernetes rolling updates if you're using Kubernetes. This will ensure zero-downtime deployments.
+
+104-How would you go about managing a Docker application that needs to scale based on load?
+
+>>Docker Swarm or Kubernetes can be used to manage such applications. These tools have the capability to auto-scale the application based on CPU usage or other metrics.
+
+105-You are tasked with reducing the size of your Docker images. What are some strategies you might use?
+
+>>Some strategies could include using alpine based images which are much smaller in size, reducing the number of layers by minimizing the number of commands in Dockerfile, removing unnecessary tools
+from the image, and cleaning up the cache after installing packages.
+
+106-How would you deploy a new version of an image to a running Docker container?
+
+>>You would need to pull the new image, stop and remove the current container, and then start a new container with the new image.
+
+107-How do you ensure that containers restart automatically if they exit?
+
+>>When running the container, Docker provides a restart policy which can be set to "no", "on-failure", "unless-stopped", or "always" to determine when to restart the container.
+
+108-You have an application that consists of five different services. How would you deploy it using Docker?
+
+>>Docker Compose or Docker Swarm can be used to manage multi-service applications. These services would be defined in a docker-compose.yml file or a Docker Stack file.
+
+109-You are running a containerized database, and it seems to be responding slower than usual. How would you investigate this?
+
+>>You can use docker stats to monitor the resource usage of your Docker container. If the database is consuming too many resources, you might need to allocate more resources to the container or optimize your database.
+
+110-You've noticed that your Docker image takes a long time to build. How can you speed up the build process?
+
+>>Use Docker's build cache effectively. If certain steps of your Dockerfile take a long time to execute and do not change often, make sure they are run before the steps that change frequently. 
+This will ensure that Docker can cache the results of the slow steps and re-use them in future builds.
+
+111-How would you handle a situation where a Docker container fails to start due to a problem with a Dockerfile instruction?
+
+>>Docker build will give a log of what it is doing. The logs should give you a hint about which instruction in the Dockerfile caused the failure. Once you've identified the problematic instruction,
+you can modify it and retry building the image.
+
+112-You have to run an application that requires specific kernel parameters to be tuned on the host machine. How would you handle this while running the application in Docker?
+
+>>Docker supports the --sysctl flag that allows setting namespaced kernel parameters. This can be used to set specific kernel parameters that the application might need. However, remember
+that not all kernel parameters can be set in the Docker container as Docker uses the host kernel and is isolated from the kernel of the host.
+
+113-How would you isolate the network for Docker containers to avoid them being accessible from outside?
+
+>>Docker provides network isolation features. You can create a user-defined bridge network and run your containers in this isolated network. This network is isolated from the outside world unless
+you specifically map ports from the containers to the host machine.
+
+114-Your Docker container is stuck and not responding to any commands. How do you force stop and remove it?
+
+>>You can force stop a Docker container by using the command docker stop -f <container-id>. After the container is stopped, you can remove it by using the command docker rm <container-id>.
+
+115-What are some methods to secure Docker containers and images?
+
+>>Some methods include using trusted base images, scanning images for vulnerabilities, using Docker Secrets to handle sensitive data, and minimizing the use of root privileges.
+
+116-You want to temporarily override command in a Docker container for debugging purposes. How would you do it?
+
+>>You can override the default command by specifying a new one at the end of the docker run command.
+
+117-How would you deal with large Docker logs consuming too much disk space?
+
+>>Docker provides a --log-opt option where you can specify max-size and max-file to limit log size and number of log files.
+
+118-How would you share a Docker volume between multiple containers?
+
+>>When running the containers, you can use the -v option to mount the volume in the containers. The same volume name can be used in multiple containers to share the volume between them.
+
+119-A specific Docker command is taking longer to execute than expected. How would you find out what's causing the delay?
+
+>>Docker provides a --debug flag which can be used to get detailed debugging information. Use this flag with the slow command to see what's happening during its execution.
+
+120-How would you secure a Docker registry?
+
+>>You can secure a Docker registry by implementing: Authentication - use basic auth or integrate with an existing authentication service like LDAP or Active Directory; Authorization - control what users
+can do after they've authenticated; Encryption - use HTTPS to encrypt the communication between the Docker client and the registry; Vulnerability scanning - regularly scan images in the registry for known
+vulnerabilities; Implement content trust - use Docker Content Trust (DCT) to verify the integrity of images in the registry.
+
+121-How can you prevent unauthorized access to a Docker registry?
+
+>>Docker Registry supports several methods of authentication including basic (username/password), token, and OAuth2. Implementing one of these, along with TLS encryption for data in transit, 
+can help prevent unauthorized access. Additionally, consider setting up a firewall or other network-level access controls to restrict which IP addresses can access the registry.
+
+122-What instructions or techniques would you use in the Dockerfile to ensure the required Python packages are installed in the image?
+
+>>In the Dockerfile for a Python application, you would include the following instructions:
+–	FROM to specify the base image, such as python:3.9, which provides the Python runtime.
+–	WORKDIR to set the working directory inside the container.
+–	COPY or ADD to copy the application source code into the container.
+–	RUN to run pip install or another package manager command to install the required Python packages specified in a requirements.txt file or directly in the Dockerfile.
+
+122-write a script for install docker using shell script
+
+sudo apt-get update
+sudo apt-get install docker.io -y 
+sudo usermod -aG docker $ec2-user or else you can write your username
+newgrp docker 
+sudo chmod 777 /var/run/docker.sock 
+>>sudo chmod 660 /var/run/docker.sock  ##give this for best practice for security
+sudo docker service restart 
+
+123-what is mean by -it in docker or kubernetes
+
+>>it is like it-->means interactive 
+>>docker exec -it xxxxxx or kubectl exec -it xxxx 
+
+124-how to forward 8080 to expose  9000 port number using docker command 
+
+>>docker run -d -p 9000:8080 custom-nginx
+
+125-write a multistage docker file how to copy the file first stage another stage
+
+>>A multi-stage Dockerfile is useful for building smaller and more efficient Docker images by using separate stages for building and packaging your application. Here's an example of a multi-stage Dockerfile that demonstrates how to copy files from one stage to another
+>>COPY --from=build /app/build /usr/share/nginx/html    -->this command will copy 
+
+# Stage 1: Build the application
+FROM node:14 AS build
+
+# Set the working directory in the build stage
+WORKDIR /app
+
+# Copy the package.json and package-lock.json to the container
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy the application source code to the container
+COPY . .
+
+# Build the application (replace with your build command, e.g., npm run build)
+RUN npm run build
+
+# Stage 2: Create a production-ready image
+FROM nginx:alpine
+
+# Copy the build artifacts from the previous stage to the production image
+COPY --from=build /app/build /usr/share/nginx/html
+
+# Expose port 80 (the default port for nginx)
+EXPOSE 80
+
+# Start the nginx server
+CMD ["nginx", "-g", "daemon off;"]
+
+
+126-write docker file and build the image should run as non root user how we can write 
+
+To create a Docker image that runs as a non-root user, you'll need to follow best practices for creating a secure and least-privileged container
+
+# Use a base image with the desired OS and packages
+FROM debian:bullseye-slim
+
+# Create a non-root user and group with a specific UID and GID
+RUN groupadd -g 1000 myusergroup \
+    && useradd -u 1000 -g 1000 -m myuser
+
+# Set the working directory
+WORKDIR /app
+
+# Copy your application code into the container
+COPY . .
+
+# Set the ownership of the application files to the non-root user
+RUN chown -R myuser:myusergroup /app
+
+# Switch to the non-root user
+USER myuser
+
+# Define the command to run your application
+CMD ["./your_app_executable"]
+# Use a base image with the desired OS and packages
+FROM debian:bullseye-slim
+
+# Create a non-root user and group with a specific UID and GID
+RUN groupadd -g 1000 myusergroup \
+    && useradd -u 1000 -g 1000 -m myuser
+
+# Set the working directory
+WORKDIR /app
+
+# Copy your application code into the container
+COPY . .
+
+# Set the ownership of the application files to the non-root user
+RUN chown -R myuser:myusergroup /app
+
+# Switch to the non-root user
+USER myuser
+
+# Define the command to run your application
+CMD ["./your_app_executable"]
+
+127-we are docker swarm or kubernetes with 5 worker nodes i need to deploy only app in node4 only how we can achive this
+
+>>we can use taints and tolerations and lables and custom scheduler, node selector we can use node name we can use pod affinity and node affinity 
+
+128-we are docker swarm with 5 worker nodes i need to deploy only app in node4 only how we can achive this
+
+>>In Docker Swarm, you can deploy a service to a specific node or a set of nodes by using node constraints. To deploy your app to node4 (assuming that node4 is one of your worker nodes), you can use the node.labels constraint to target that specific node. Here's how to achieve this:
+
+>>docker node update --label-add mynode=4 node4
+version: '3'
+services:
+  my_app:
+    image: my_image:latest
+    deploy:
+      placement:
+        constraints:
+          - node.labels.mynode == 4
+
+>>docker service create \
+  --name my_app \
+  --constraint 'node.labels.mynode == 4' \
+  my_image:latest
+
+2nd type
+
+docker node update --label-add my-special-node=true node4
+
+version: '3'
+
+services:
+  my_app:
+    image: my_image:latest
+    deploy:
+      placement:
+        constraints:
+          - node.labels.my-special-node == true
+
+docker stack deploy -c docker-compose.yml my_stack
+
+129-ow you are going to specify the resource limit in docker-compose
+
+>>In a Docker Compose file, you can specify resource limits for containers using the resources section within the services section of your docker-compose.yml file. Resource limits include options like cpus for CPU limits and memory for memory limits. Here's how you can specify resource limits for a container:
+
+version: '3'
+services:
+  my_service:
+    image: my_image:latest
+    ports:
+      - "8080:80"
+    resources:
+      limits:
+        cpus: "0.5"    # Set CPU limit to 0.5 cores
+        memory: "256M" # Set memory limit to 256 megabytes
+      reservations:
+        cpus: "0.25"   # Set CPU reservation to 0.25 cores
+        memory: "128M" # Set memory reservation to 128 megabytes
+
+130-how to push the docker images you 10images need to push single commad using shell script 
+
+>>for i in shipping cart user signup test payment logout bill frontend catalogue ; do 
+  docker push anji/$i ;
+done
+
+131-Here are some commonly used Docker commands with a brief description of their use:
 
 docker login myregistry.com :login dockerhub or any registry
 docker logout myregistry.com : logout dockerhub or any registry
@@ -810,344 +1288,6 @@ docker service inspect myservice
 docker node ls
 docker node inspect mynode
 
-68-how to modify the image and push to the docker hub new image
-
->>sudo docker pull ubuntu
->>>>sudo docker images
->>sudo docker run -it cf0f3ca922e0 bin/bash
->>apt-get install nmap
->>nmap --version
->>exit
->>docker ps -a
->>sudo docker commit [CONTAINER_ID] [new_image_name]
->>sudo docker commit deddd39fa163 ubuntu-nmap
->>sudo docker images
->>docker push ubuntu-nmap
-
-69-how to give the docker permission
-
->>sudo chmod 777 /var/run/docker.sock
-
-70-can you explain docker architecture
-
->>Docker uses a client-server architeccture
->>docker client talks to the docker daemon whicch does the heavy lifting of building running and distributing 
->>docker client is nothing but it will install in local system
-
-1-Docker client:-
->> Docker build
->> Docker pull
->> Docker run
->> Docker push
-
-2-Docker Host:-
->>Docker Daemon
->>Docker containers
->>Docker images  -->it will run here
-
-3-Docker Registry
->> All the images are here
-
-71-what is layers in Docker
-
->>layers is nothing but docker commands in dockerfile when we pull the image it will execute the every command as a layer
->>Docker image consistes of collection of files or layers that pack togther all the necessities such as dependencies, source code, and libraries-needed to setup
-completely functional container enviroment and its docker image is read-only
-
-72-what is docker exec commad
-
->>docker exec command followed by the container ID or name and the command you want to run
-
-73-how to backup container imge
-
->>docker commit anji sampi:1.0(to save the container data as new image)
->>docker save sampi:1.0 --output backup.tar(to save image as tar)
->>docker load -i backup.tar(to unzip the image tar)
->>docker start/stop/restart anji
-
->>docker run -itd --restart=always --name anji ubuntu:latest sleep 5
-when ther issue an container it will restart the container
-
-74-Is there a way to identify the status of a Docker container?
-
->>docker ps –a
-
-75-What are the most common instructions in Dockerfile?
-
-FROM: We use FROM to set the base image for subsequent instructions. In every valid Dockerfile, FROM is the first instruction.
-LABEL: We use LABEL to organize our images as per project, module, licensing etc. We can also use LABEL to help in automation.
-In LABEL we specify a key value pair that can be later used for programmatically handling the Dockerfile.
-RUN: We use RUN command to execute any instructions in a new layer on top of the current image. With each RUN command we add something on top of the image and use it in subsequent
-steps in Dockerfile.
-CMD: We use CMD command to provide default values of an executing container. In a Dockerfile, if we include multiple CMD commands, then only the last instruction is used
-
-76-What are the various states that a Docker container can be in at any given point in time?
-
->>Running
-Paused
-Restarting
-Exited
-
-77-What type of applications - Stateless or Stateful are more suitable for Docker Container?
-
->>It is preferable to create Stateless application for Docker Container. We can create a container out of our application and take out the configurable state parameters from application.
-Now we can run same container in Production as well as QA environments with different parameters. This helps in reusing the same Image in different scenarios.
-Also a stateless application is much easier to scale with Docker Containers than a stateful application.
-
-78-How will you monitor Docker in production?
-
->>Docker stats: When we call docker stats with a container id, we get the CPU, memory usage etc of a container. It is similar to top command in Linux.
-docker stats <container_name_or_id>
->>you can use third part montoring tools like 
-1-Grafana
-2-prometheus
-3-cAdvisor
-4-ELK (Elasticsearch, Logstash, Kibana) or Fluentd
->>docker stats [container-id] to monitor the memory usage of the container. If the memory usage is constantly growing over time, there may be a memory leak.
->>Docker events: Docker events are a command to see the stream of activities that are going on in Docker daemon.
-
-79-Can you explain dockerfile ONBUILD instruction?
-
->>The ONBUILD instruction adds to the image a trigger instruction to be executed at a later time, when the image is used as the base for another build. This is useful if you are 
-building an image which will be used as a base to build other images, for example an application build environment or a daemon which may be customized with user-specific configuration.
-
-80-Can you run Docker containers natively on Windows?
-
-With Windows Server 2016 you can run Docker containers natively on Windows, and with Windows Nano Server you’ll have a lightweight OS to run inside containers, so you can run .NET apps
-on their native platform.
-
-81-Is it good practice to run stateful applications on Docker? What are the scenarios where Docker best fits in?
-
->>he problem with statefull docker aplications is that they by default store their state (data) in the containers filesystem. Once you update your software version or want to move 
-to another machine its hard to retrieve the data from there.
-
-What you need to do is bind a volume to the container and store any data in the volume.
->>if you run your container with: docker run -v hostFolder:/containerfolder any changes to /containerfolder will be persisted on the hostfolder. Something similar can be done with a nfs drive.
-Then you can run you application on any host machine and the state will be saved in the nfs drive.
-
-82-What is an orphant volume and how to remove it?
-
->>An orphant volume is a volume without any containers attached to it. Prior Docker v. 1.9 it was very problematic to remove it.
-
-83-How does Docker run containers in non-Linux systems?
-
->>The concept of a container is made possible by the namespaces feature added to Linux kernel version 2.6.24. The container adds its ID to every process and adding new access control checks to
-every system call. It is accessed by the clone() system call that allows creating separate instances of previously-global namespaces.
-
->>If containers are possible because of the features available in the Linux kernel, then the obvious question is that how do non-Linux systems run containers. Both Docker for Mac and 
-Windows use Linux VMs to run the containers. Docker Toolbox used to run containers in Virtual Box VMs. But, the latest Docker uses Hyper-V in Windows and Hypervisor.framework in Mac.
-
-84-How to use Docker with multiple environments?
-
->>You’ll almost certainly want to make changes to your app configuration that are more appropriate to a live environment. These changes may include:
-
-Removing any volume bindings for application code, so that code stays inside the container and can’t be changed from outside
-Binding to different ports on the host
-Setting environment variables differently (e.g., to decrease the verbosity of logging, or to enable email sending)
-Specifying a restart policy (e.g., restart: always) to avoid downtime
-Adding extra services (e.g., a log aggregator)
-For this reason, you’ll probably want to define an additional Compose file, say production.yml, which specifies production-appropriate configuration. This configuration file only needs to 
-include the changes you’d like to make from the original Compose file.
->>docker-compose -f docker-com
-
-85-Why Docker compose does not wait for a container to be ready before moving on to start next service in dependency order?
-
->>Compose always starts and stops containers in dependency order, where dependencies are determined by depends_on, links, volumes_from, and network_mode: "service:...".
-
-However, for startup Compose does not wait until a container is “ready” (whatever that means for your particular application) - only until it’s running. There’s a good reason for this:
-
-The problem of waiting for a database (for example) to be ready is really just a subset of a much larger problem of distributed systems. In production, your database could become unavailable or move hosts at any time.
-Your application needs to be resilient to these types of failures.To handle this, design your application to attempt to re-establish a connection to the database after a failure. If the application retries the 
-connection, it can eventually connect to the database.The best solution is to perform this check in your application code, both at startup and whenever a connection is lost for any reason.
-
-86-how to debug the container
-
->>docker logs --tail 100 [container ID]
->>docker logs [container ID]
->>docker top[container ID]
-
-87-how to check the docker issues like vulnerabilites
-
-1-trivy
-2-sync
-3-clair
-4-Anchore
-
-88-what is the advnatges uisng multi-stage dockerfile
-
-1-Smallaer image
-2-Enhanced security
-3-improved build speed
-4-simplified build process
-5-better build pipeline integration
-6-portability
-7-Reduced Attack Surface
-
-89- How would you handle sensitive data (passwords, API keys, etc.) in Docker?
-
->>Sensitive data should be managed using Docker Secrets or environment variables. Secrets are encrypted and only available to containers on a need-to-know basis, thereby increasing security.
-
-90-Your Docker container is running out of disk space, how would you increase it?
-
->>The Docker container shares the host machine's OS, including its file system. So, to provide more disk space to Docker containers, you need to free up space on the host machine.
-
-91-How would you go about setting up a CI/CD pipeline with Docker?
-
->>Docker integrates well with most of the CI/CD tools like Jenkins, GitLab CI, Travis CI, etc. You can create a Docker image of your application, push it to Docker Hub or a private registry as
-part of your build stage, and pull and run the image in the deployment stage.
-
-92-What if a Docker container is not able to communicate with another service running on the same host?
-
->>Docker containers are isolated and they have their own network interface by default. You need to ensure proper network configuration is done for inter-service communication. 
-Docker networking options like bridge, host, or overlay networks can be utilized for this.
-
-93-How can you handle persistence in Docker?
-
->>Docker volumes can be used to persist data generated by and used by Docker containers. Docker volumes are managed by Docker and a directory is set up within the Docker host which is then linked to 
-the directory in the container.
-
-94-What would you do if Docker starts to consume a lot of CPU?
-
->>Docker provides ways to limit CPU usage by setting the CPU shares, CPU sets, or CPU quota at the time of running the container using docker run.
->>docker run --cpus 0.5 -dit --name anji my_container  this will help you to run the docker 0.5 CPU
->>you can mention memory also same docker run --memory(or) -m --cpus 0.5 -dit --name anji my_container
-
-95-How can you share data among Docker containers?
-
->>Docker volumes can be used to share data between containers. Create a volume using docker volume create, and then mount it into containers at run time.
-
-96-If you wanted to run multiple services (like an app server and a database server) on a single host with Docker, how would you manage it?
-
->>Docker Compose is a great tool for this purpose. It allows you to define and run multi-container Docker applications. You can create a docker-compose.yml file that defines your services,
-and then bring up your entire app with just one command docker-compose up.
-
-97-How would you ensure that a group of inter-dependent containers always run on the same Docker host?
-
->>Docker Swarm or Kubernetes can be used to orchestrate a group of containers across multiple hosts. Docker Swarm has a concept of "services" which ensures that the defined set of containers
-are co-located on the same host.
-
-98-Your team has multiple environments (e.g. dev, staging, production). How would you manage different configurations for these environments using Docker?
-
->>Environment-specific configurations can be externalized from Docker images and provided at runtime using environment variables.
-
-99-How would you automate the deployment of a multi-container application?
-
->>Docker Compose or orchestration tools like Docker Swarm or Kubernetes can be used to automate the deployment of multi-container applications.
-
-100-What steps will you follow to troubleshoot a Docker container that has stopped unexpectedly?
-
->>To troubleshoot, start by checking the logs using docker logs [container-id]. If it's a crash due to the application inside the container, the logs may contain the trace of it. 
-You can also use docker inspect [container-id] to view the container's metadata.
-
-101-To create a new Docker image from an existing container with the modifications you made
-
->>docker ps -a
->>docker commit <container_id_or_name> my-modified-sonarqube
->>docker tag my-modified-sonarqube:latest my-custom-sonarqube:1.0
->>docker push
-
-102-Your Docker container is running an older version of an application, and you want to update it to a new version without downtime. How would you achieve this?
-
->>You can use Docker's built-in rolling update feature if you're using Docker Swarm, or Kubernetes rolling updates if you're using Kubernetes. This will ensure zero-downtime deployments.
-
-103-How would you go about managing a Docker application that needs to scale based on load?
-
->>Docker Swarm or Kubernetes can be used to manage such applications. These tools have the capability to auto-scale the application based on CPU usage or other metrics.
-
-104-You are tasked with reducing the size of your Docker images. What are some strategies you might use?
-
->>Some strategies could include using alpine based images which are much smaller in size, reducing the number of layers by minimizing the number of commands in Dockerfile, removing unnecessary tools
-from the image, and cleaning up the cache after installing packages.
-
-105-How would you deploy a new version of an image to a running Docker container?
-
->>You would need to pull the new image, stop and remove the current container, and then start a new container with the new image.
-
-106-How do you ensure that containers restart automatically if they exit?
-
->>When running the container, Docker provides a restart policy which can be set to "no", "on-failure", "unless-stopped", or "always" to determine when to restart the container.
-
-107-You have an application that consists of five different services. How would you deploy it using Docker?
-
->>Docker Compose or Docker Swarm can be used to manage multi-service applications. These services would be defined in a docker-compose.yml file or a Docker Stack file.
-
-108-You are running a containerized database, and it seems to be responding slower than usual. How would you investigate this?
-
->>You can use docker stats to monitor the resource usage of your Docker container. If the database is consuming too many resources, you might need to allocate more resources to the container or optimize 
-your database.
-
-109-You've noticed that your Docker image takes a long time to build. How can you speed up the build process?
-
->>Use Docker's build cache effectively. If certain steps of your Dockerfile take a long time to execute and do not change often, make sure they are run before the steps that change frequently. 
-This will ensure that Docker can cache the results of the slow steps and re-use them in future builds.
-
-110-How would you handle a situation where a Docker container fails to start due to a problem with a Dockerfile instruction?
-
->>Docker build will give a log of what it is doing. The logs should give you a hint about which instruction in the Dockerfile caused the failure. Once you've identified the problematic instruction,
-you can modify it and retry building the image.
-
-111-You have to run an application that requires specific kernel parameters to be tuned on the host machine. How would you handle this while running the application in Docker?
-
->>Docker supports the --sysctl flag that allows setting namespaced kernel parameters. This can be used to set specific kernel parameters that the application might need. However, remember
-that not all kernel parameters can be set in the Docker container as Docker uses the host kernel and is isolated from the kernel of the host.
-
-112-How would you isolate the network for Docker containers to avoid them being accessible from outside?
-
->>Docker provides network isolation features. You can create a user-defined bridge network and run your containers in this isolated network. This network is isolated from the outside world unless
-you specifically map ports from the containers to the host machine.
-
-113-Your Docker container is stuck and not responding to any commands. How do you force stop and remove it?
-
->>You can force stop a Docker container by using the command docker stop -f <container-id>. After the container is stopped, you can remove it by using the command docker rm <container-id>.
-
-114-What are some methods to secure Docker containers and images?
-
->>Some methods include using trusted base images, scanning images for vulnerabilities, using Docker Secrets to handle sensitive data, and minimizing the use of root privileges.
-
-115-You want to temporarily override command in a Docker container for debugging purposes. How would you do it?
-
->>You can override the default command by specifying a new one at the end of the docker run command.
-
-116-How would you deal with large Docker logs consuming too much disk space?
-
->>Docker provides a --log-opt option where you can specify max-size and max-file to limit log size and number of log files.
-
-117-How would you share a Docker volume between multiple containers?
-
->>When running the containers, you can use the -v option to mount the volume in the containers. The same volume name can be used in multiple containers to share the volume between them.
-
-118-A specific Docker command is taking longer to execute than expected. How would you find out what's causing the delay?
-
->>Docker provides a --debug flag which can be used to get detailed debugging information. Use this flag with the slow command to see what's happening during its execution.
-
-119-How would you secure a Docker registry?
-
->>You can secure a Docker registry by implementing: Authentication - use basic auth or integrate with an existing authentication service like LDAP or Active Directory; Authorization - control what users
-can do after they've authenticated; Encryption - use HTTPS to encrypt the communication between the Docker client and the registry; Vulnerability scanning - regularly scan images in the registry for known
-vulnerabilities; Implement content trust - use Docker Content Trust (DCT) to verify the integrity of images in the registry.
-
-120-How can you prevent unauthorized access to a Docker registry?
-
->>Docker Registry supports several methods of authentication including basic (username/password), token, and OAuth2. Implementing one of these, along with TLS encryption for data in transit, 
-can help prevent unauthorized access. Additionally, consider setting up a firewall or other network-level access controls to restrict which IP addresses can access the registry.
-
-121-What instructions or techniques would you use in the Dockerfile to ensure the required Python packages are installed in the image?
-
->>In the Dockerfile for a Python application, you would include the following instructions:
-–	FROM to specify the base image, such as python:3.9, which provides the Python runtime.
-–	WORKDIR to set the working directory inside the container.
-–	COPY or ADD to copy the application source code into the container.
-–	RUN to run pip install or another package manager command to install the required Python packages specified in a requirements.txt file or directly in the Dockerfile.
-
-122-
-
-
-
-
-
-
-
-
 =========================================================================docker login======================================================================
 
 >>docke inspect "container id"               -->it will inspect whats happing
@@ -1190,3 +1330,9 @@ VOLUME /data
 RUN apt-get -y update
 RUN groupadd -r user && useradd -r -g user user
 USER user
+
+
+
+
+
+
