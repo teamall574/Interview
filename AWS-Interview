@@ -113,12 +113,12 @@ directly to the database
 7-what is 2-tier application
 
 >>Two-tier architecture. In a two-tier architecture, the client is on the first tier. The database server and web application server reside on the same server machine, which is the second tier.
-This second tier serves the data and executes the business logic for the web application.
+>>This second tier serves the data and executes the business logic for the web application.
 
 8-can you explain 3tier architecture or elaborate them
 
 >> First we have external load balancer and an internal load balancer then the external load balancer is open to the internet
-through route53 and the internal load balancer is between the app and the web and the app is connected to the database
+>>through route53 and the internal load balancer is between the app and the web and the app is connected to the database
 
 >> Using public and private subnets
 
@@ -197,8 +197,8 @@ Nexus    -->8081
 
 17-how much time would take to launch and install
 
-Linux: minimum 3 minutes maximum 4 minutes (it requires a minimum of 8 GB storage)
-Windows: minimum 4 minutes maximum 5 minutes (it requires minimum 30 GB storage)
+>>Linux: minimum 3 minutes maximum 4 minutes (it requires a minimum of 8 GB storage)
+>>Windows: minimum 4 minutes maximum 5 minutes (it requires minimum 30 GB storage)
 
 18-Can we recover the EC2 instance when we have lost the key?
 
@@ -639,7 +639,7 @@ the data from the old volume to the new one. Popular cloning tools include rsync
 storage space. To detach the old volume, navigate to the EC2 console, select the instance, and click on the "Actions" button. Choose "Detach Volume" and select the old volume to detach it.
 Once detached, you can safely delete the old volume from the EBS console.
 
-59 - Types of EBS-Volumes
+59-Types of EBS-Volumes
 
 ===general purpose ssd gp2
 >>it is cheaper compared to provisioned iops
@@ -862,7 +862,7 @@ if you want to delete you can specify also after 1 or 2 or 10 years after also
 
 Up to 100 buckets can be created by default
 
-64-s3 bucket storage types
+70-S3 bucket storage types
 
 1-standard
 2-standard I-A
@@ -870,7 +870,7 @@ Up to 100 buckets can be created by default
 4-S3 Intelligent-Tiering,
 5-S3 glacier
 
-70-What is Glacier
+71-What is Glacier
 
 >> S3 glacier cheap storage
 >> For long-term backup, we can use this
@@ -878,28 +878,28 @@ Up to 100 buckets can be created by default
 >> You can take glacier backup using third-party tools fast glacier, altro, veritas, Netbackup,networker, Aavamar, Tivoli
 >> Glacier is called the vault
 
-71-can I store my EBS volume in an s3 bucket
+72-can I store my EBS volume in an s3 bucket
 
 >>When you create an EBS snapshot, it's automatically stored in an Amazon S3 bucket that's managed by Amazon Web Services (AWS). You can copy snapshots
 within the same AWS Region, or from one Region to another. However, you can't copy snapshots to the S3 buckets that you manage.
 
-72-How can I grant a user access to a specific folder in my Amazon S3 bucket?
+73-How can I grant a user access to a specific folder in my Amazon S3 bucket?
 
 >>If your IAM user and s3 bucket are present in the AWS account then you can grant the user access to a specific bucket folder using the IAM policy
 
 You can add the IAM policy to individual IAM users or you can attach the IAM policy to an IAM role that multiple users can switch to.
 If the IAM identity (user or role) and the s3 bucket belong to different AWS accounts, then you  must grant access to both the IAM policy and the bucket policy
 
-73-What does bucket policy mean?
+74-What does bucket policy mean?
 
 >>With Amazon S3 bucket policies, you can secure access to objects in your buckets, so that only users with the appropriate permissions can access them. 
 You can even prevent authenticated users without the appropriate permissions from accessing your Amazon S3 resources.
 
-74-can I copy my AMI into the s3 bucket?
+75-can I copy my AMI into the s3 bucket?
 
 >>You can store an Amazon Machine Image (AMI) in an Amazon S3 bucket, copy the AMI to another S3 bucket, and then restore it from the S3 bucket.
 
-75-what are the types of encryption in s3
+76-what are the types of encryption in s3
 
 >> Using AWS KMS policy using create the key assign to users then it will use encrypt the data 
 two types of encryption there AWS KMS policies
@@ -910,14 +910,14 @@ two types of encryption there AWS KMS policies
 Server-side encryption – Amazon S3 encrypts your objects before saving them on disks in AWS data centers and then decrypts the objects when you download them. ...
 Client-side encryption – You encrypt your data client-side and upload the encrypted data to Amazon S3.
 
-76-Do you prefer to host a website on S3? What’s the reason if your answer is either yes or no?
+77-Do you prefer to host a website on S3? What’s the reason if your answer is either yes or no?
 
 >>Yes, it can be a good option to host a website on S3. Hosting a website on S3 is a cost-effective solution for static websites that don’t require server-side processing.
 S3 is a reliable and scalable storage service that offers high availability and durability.
 >>However, hosting a dynamic website with server-side processing on S3 is not recommended as it lacks the necessary computing resources and scalability to handle such websites.
 In such cases, it’s better to use other AWS services like EC2 or Elastic Beanstalk.
 
-77-which is faster storage EBS or S3
+78-which is faster storage EBS or S3
 
 EBS: EBS provides block-level storage volumes that can be attached to EC2 instances. It offers low-latency, high-performance storage optimized for transactional workloads and applications
 that require frequent read/write access to data. EBS volumes are typically used as primary storage for applications running on EC2 instances.
@@ -934,14 +934,14 @@ store data for long-term archival purposes, S3 is a better fit.
 In summary, the "faster" storage option between EBS and S3 depends on your specific workload and requirements. It is recommended to analyze your application's needs and the characteristics
 of the storage services to make an informed decision.
 
-78-Your application needs to access AWS services, such as S3 securely within your VPC. How would you achieve this?
+79-Your application needs to access AWS services, such as S3 securely within your VPC. How would you achieve this?
 
 >>To securely access AWS services within the VPC, we can use VPC endpoints. VPC endpoints allow instances in the VPC to communicate with AWS services privately, without requiring
 Internet gateways or NAT gateways. 
 We can create VPC endpoints for specific AWS services, such as S3 and DynamoDB, and associate them with the VPC. 
 This enables secure and efficient communication between the instances in the VPC and the AWS services.
 
-79-S3 buckets offer several advantages, including:
+80-S3 buckets offer several advantages, including:
 
 Durability and availability: S3 provides high durability and availability for your data.
 Scalability: You can store and retrieve any amount of data without worrying about capacity constraints.
@@ -949,39 +949,39 @@ Security: S3 offers multiple security features such as encryption, access contro
 Performance: S3 is designed to deliver high performance for data retrieval and storage operations.
 Cost-effective: S3 offers cost-effective storage options and pricing models based on your usage patterns.
 
-80-hat is S3 Event Notifications and Triggers
+81-hat is S3 Event Notifications and Triggers
 
 >>S3 event notifications allow you to configure actions when specific events occur in an S3 bucket. For example, you can trigger AWS Lambda functions, send messages to 
 Amazon Simple Queue Service (SQS), or invoke other services using Amazon SNS when an object is created or deleted.
 
-81-you have a VPC with a public subnet and private subnet. Instances in the private subnet need to access the internet for software updates. How would you allow internet access for
+82-you have a VPC with a public subnet and private subnet. Instances in the private subnet need to access the internet for software updates. How would you allow internet access for
 instances in the private subnet?
 
 >>To allow internet access for instances in the private subnet, we can use an Internet gateway or a NAT instance
 >> We would place the NAT Gateway/instance in the public subnet and configure the private subnet route table to send outbound traffic to the NAT Gateway/instance. This way instances 
 in the private subnet can access the internet through the NAT Gateway/instance.
 
-82-you have launched EC2 instances in your VPC, and you want them to communicate with each other using private IP addresses. What steps would you take to enable this communication?
+83-you have launched EC2 instances in your VPC, and you want them to communicate with each other using private IP addresses. What steps would you take to enable this communication?
 
 >>By default, instances within the same VPC can communicate with each other using private IP addresses. To ensure this communication, we need to make sure that the instances are launched in the same VPC 
 and are placed in the same subnet or subnets that are connected through a peering connection or a VPC peering link. 
 Additionally, we should check the security groups associated with the instances to ensure that the necessary inbound and outbound rules are configured to allow communication between them.
 
-83-your organization has a VPC with multiple subnets you want to restrict outbound internet access for resources in one subnet but allow outbound internet access for resources in 
+84-your organization has a VPC with multiple subnets you want to restrict outbound internet access for resources in one subnet but allow outbound internet access for resources in 
 another subnet how would achieve this?
 
 >>To restrict outbound internet access for resources in one subnet we can modify the route table associated with that subnet in the route table we can remove the default route (0.0.0.0/0)
 that points to an internet gateway
 >>This would prevent resources in that subnet from accessing the internet for the subnet where outbound internet access is required we can keep the default route pointing to the Internet gateway
 
-84-you have been assigned to design a VPC architecture for a 2-tier application. the application needs to be highly available and scalable how would you design the VPC architecture
+85-you have been assigned to design a VPC architecture for a 2-tier application. the application needs to be highly available and scalable how would you design the VPC architecture
 
->> In this scenario, I would design a VPC architecture in the following way.
+>>In this scenario, I would design a VPC architecture in the following way.
 
 I would create 2 subnets public and private the public subnet would contain the load balancer and be accessible from the internet. the private subnet would host the application servers.
 I would distribute the subnets across multiple Availability Zones for high availability. Additionally, I would configure auto-scaling groups for the application servers.
 
-85-Your organization requires an isolated environment within the VPC for running sensitive workloads. How would you set up this isolated environment?
+86-Your organization requires an isolated environment within the VPC for running sensitive workloads. How would you set up this isolated environment?
 
 >>To set up an isolated environment within the VPC, we can create a subnet with no internet gateway attached. 
 >>This subnet, known as an "isolated subnet," will not have direct internet connectivity. We can place the sensitive workloads in this subnet, ensuring that they are protected from 
@@ -989,13 +989,13 @@ inbound and outbound internet traffic.
 >>However, if these workloads require outbound internet access, we can set up a NAT Gateway or NAT instance in a different subnet and configure the isolated subnet's route table to
 send outbound traffic through the NAT Gateway/instance.
 
-86-You want to implement strict network access control for your VPC resources. How would you achieve this?
+87-You want to implement strict network access control for your VPC resources. How would you achieve this?
 
 >>To implement granular network access control for VPC resources, we can use Network Access Control Lists (ACLs). NACLs are stateless and operate at the subnet level. We can define inbound and outbound 
 rules in the NACLs to allow or deny traffic based on source and destination IP addresses, ports, and protocols. By carefully configuring NACL rules, we can enforce fine-grained access control for 
 traffic entering and leaving the subnets.
 
-87-You have a private subnet in your VPC that contains a number of instances that should not have direct internet access. However, you still need to be able to securely access these 
+88-You have a private subnet in your VPC that contains a number of instances that should not have direct internet access. However, you still need to be able to securely access these 
 instances for administrative purposes. How would you set up a bastion host to facilitate this access?
 
 >>To securely access the instances in the private subnet, you can set up a bastion host (also known as a jump host or jump box). The bastion host acts as a secure entry point to your 
@@ -1005,38 +1005,38 @@ IP address or a restricted range of trusted IP addresses. This limits access to 
 their security groups to allow inbound SSH (or RDP) traffic from the bastion host security group.SSH (or RDP) into the bastion host using your private key or password. From the bastion host,
 you can then SSH (or RDP) into the instances in the private subnet using their private IP addresses.
 
-88-how to encrypt the unencrypted AMI
+89-how to encrypt the unencrypted AMI
 
 >>A Launch Configuration is a configuration template that specifies the parameters for launching instances in an ASG. It includes details such as the EC2 instance type, AMI ID, 
 security groups, key pairs, block device mappings, and user data scripts. When creating an ASG, you associate it with a Launch Configuration. If the desired capacity of the ASG changes, 
 the ASG automatically creates new instances based on the Launch Configuration settings
 
-89-How have you ensured high availability and fault tolerance for an AWS application?
+90-How have you ensured high availability and fault tolerance for an AWS application?
 
 >>In a previous project, we implemented AWS Elastic Load Balancers and Auto Scaling Groups to ensure that our application could handle sudden spikes in traffic and maintain high availability.
 We also set up Amazon CloudWatch to monitor the performance of the application and alert us in case of any failures, allowing us to quickly respond and ensure fault tolerance.
 
-90-Can you explain a time when you had to troubleshoot an issue with an AWS application?
+91-Can you explain a time when you had to troubleshoot an issue with an AWS application?
 
 >>In my previous role, we had an issue with an EC2 instance not responding to incoming traffic. After reviewing the logs, we discovered that the security group rules were misconfigured,
 causing the instance to reject incoming traffic. We adjusted the security group rules to allow incoming traffic, and the issue was resolved.
 
-91-how NAT-Gateway will work
+92-how NAT-Gateway will work
 
 >> When we use to launch the nat-gateway in the public subnet then we can add it to private route tables
 
-92-Can S3 Be Used with EC2 Instances, and If Yes, How?
+93-Can S3 Be Used with EC2 Instances, and If Yes, How?
 
 Amazon S3 can be used for instances with root devices backed by local instance storage. That way, developers have access to the same highly scalable, reliable, fast,
 inexpensive data storage infrastructure that Amazon uses to run its own global network of websites. To execute systems in the Amazon EC2 environment, 
 developers load Amazon Machine Images (AMIs) into Amazon S3 and then move them between Amazon S3 and Amazon EC2.
 >>Amazon EC2 and Amazon S3 are two of the best-known web services that make up AWS
 
-93-What is the maximum limit of elastic IPs anyone can produce?
+94-What is the maximum limit of elastic IPs anyone can produce?
 
 >>A maximum of five elastic IP addresses can be generated per location and AWS account.
 
-94-what is a storage gateway and what types
+95-what is a storage gateway and what types
 
 >>AWS Storage Gateway is a set of hybrid cloud storage services that provide on-premises access to virtually connect the cloud storage.
 
@@ -1049,7 +1049,7 @@ With S3 File Gateway, your configured S3 buckets will be available as Network Fi
 >>Tape-gateway:-Tape Gateway enables you to replace using physical tapes on premises with virtual tapes in AWS without 
 changing existing backup workflows. Tape Gateway supports all leading backup applications and caches virtual tapes on premises for low-latency data access
 
-95-What is auto-scaling?
+96-What is auto-scaling?
 
 >>Auto scaling groups must not be used for database
 >> Auto scaling groups are used mostly used web and app servers because of static content
@@ -1064,7 +1064,7 @@ resource capacity in relation to the demand.Cloud Architect Master's
 >>t2.micro to t2.micro 
 >> If you want to increase the system you need to use horizontal scaling
 
-96-where we can use cloud watch mostly in AWS
+97-where we can use cloud watch mostly in AWS
 
 1-Auto-scaling --scaling policies
 2-
@@ -1198,7 +1198,7 @@ and 50 persent 1b then it will get over trafficed by 1b so on that time you can 
 >>An SSL connection sends encrypted data between an end-user's computer and web server by using a certificate for authentication. SSL termination helps speed the decryption process and reduces 
 the processing burden on backend servers
 
-107- what is round-robin load balancer              -->video 17 40mins
+106- what is round-robin load balancer              -->video 17 40mins
 
 >>Round-robin DNS is a technique of load distribution, load balancing, or fault-tolerance provisioning multiple, redundant Internet Protocol service hosts, 
 e.g., Web server, FTP servers, by managing the Domain Name System's (DNS) responses to address requests from client computers according to an appropriate 
@@ -1208,19 +1208,19 @@ How does it works:
 >>What Is Round-Robin Load Balancing? Round‑robin load balancing is one of the simplest methods for distributing client requests across a group of servers. 
 Going down the list of servers in the group, the round‑robin load balancer forwards a client request to each server in turn.
 
-108-what is target group in load balancer
+107-what is target group in load balancer
 
 >>collections of machines and also specified protocols and ports to specified instances
          or
 >>A target group tells a load balancer where to direct traffic to : EC2 instances, fixed IP addresses; or AWS Lambda functions, amongst others. When creating a 
 load balancer, you create one or more listeners and configure listener rules to direct the traffic to one target group
 
-109-what is the use of health checks in aws
+108-what is the use of health checks in aws
 
 >>Health checks are a way of asking a service on a particular server whether or not it is capable of performing work successfully. 
 Load balancers ask each server this question periodically to determine which servers it is safe to direct traffic to.
 
-110-what is deregistration delay
+109-what is deregistration delay
 
 >>Elastic Load Balancing stops sending requests to targets that are deregistering. By default, Elastic Load Balancing waits 300 seconds before completing the 
 deregistration process,which can help in-flight requests to the target to complete
@@ -1228,17 +1228,17 @@ deregistration process,which can help in-flight requests to the target to comple
 >>Connection draining allows you to specify a maximum time (between 1 and 3,600 seconds and default 300 seconds) to keep the connections alive before reporting the
 instance as de-registered. The maximum timeout limit does not apply to connections to unhealthy instances.
 
-111-What is AZ affinity?
+110-What is AZ affinity?
 
 >>The AZ Affinity architectural pattern reduces the number of times an AZ boundary is crossed. In the example system we looked at in Figure 1, 
 AZ Affinity can be implemented with two changes. First, the ALB is replaced with a Network Load Balancer (NLB).
 
-112-what is gateway load balancer
+111-what is gateway load balancer
 
 >>Gateway Load Balancer helps you easily deploy, scale, and manage your third-party virtual appliances. It gives you one gateway for distributing traffic
 across multiple virtual appliances while scaling them up or down, based on demand.
 
-113-What is a load balancer? Give scenarios of each kind of balancer based on your experience.
+112-What is a load balancer? Give scenarios of each kind of balancer based on your experience.
 
 >>A load balancer is a device or service that distributes network traffic across multiple servers to prevent any one server from becoming overwhelmed. There are three main types of load balancers:
 
@@ -1246,12 +1246,12 @@ across multiple virtual appliances while scaling them up or down, based on deman
 2-Network Load Balancers (NLBs) distribute traffic at the transport layer (TCP/UDP).
 3-Classic Load Balancers (CLBs) distribute traffic across multiple EC2 instances and can be used with both HTTP and HTTPS protocols.
 
-114-How have you ensured high availability and fault tolerance for an AWS application?
+113-How have you ensured high availability and fault tolerance for an AWS application?
 
 >>In a previous project, we implemented AWS Elastic Load Balancers and Auto Scaling Groups to ensure that our application could handle sudden spikes in traffic and maintain high availability.
 We also set up Amazon CloudWatch to monitor the performance of the application and alert us in case of any failures, allowing us to quickly respond and ensure fault tolerance.
 
-115-what is ASG and launch config
+114-what is ASG and launch config
 
 >>ASG:-ASG stands for Auto Scaling Group. It is a feature provided by Amazon Web Services (AWS) that automatically adjusts the number of instances in a group based on the specified 
 scaling policies. ASGs are commonly used to maintain the availability, performance, and cost-efficiency of applications running on EC2 instances.
@@ -1265,13 +1265,13 @@ Key features of Auto Scaling Groups include:
 >> launch-config launch configuration is a template that an EC2 Auto Scaling group uses to launch EC2 instances. When you create a launch configuration, you specify information for the 
 instances such as the ID of the Amazon Machine Image (AMI), the instance type, a key pair, one or more security groups, and a block device mapping.
 
-116-can I add multiple target groups in a load balancer
+115-can I add multiple target groups in a load balancer
 
 >>yes you can add multiple target groups. for example your created two servers server-1, server-2 your created server-1 in tg-1 target group and then created tg-2 target add server-2 then
 create the application load balancer and the listeners tg-1 target group it will add 100% traffic to server-1. you can goto the load-balancer in listeners go to add rules edit 
 load-balancer then add server-2 or target group and add 50% of traffic to server-1 and server-2 this will highly available
 
-117-what is Route53 and what is the uses
+116-what is Route53 and what is the uses
 
 >>Amazon Route 53 is a highly available and scalable Domain Name System (DNS) web servic. Rout53 using we can host the domians.Route53 is global. 
 route53 using you can do one region to another region load balancing.route53 using you can do multiple region load-balancing.  
@@ -1301,12 +1301,13 @@ ex:-you can localize yourcontent present some or all of your website in the lang
 near by india that user will connect to the india based load balancer and if any us then that user will connect the us load balancer its region based. 
 it is used to decrease the latency in your application to the users
 
-what is traffic policies in route53
+117-what is traffic policies in route53
+
 >>it will give the graphical representaion of dns records
 
 118-What is the difference between AWS latency-based routing and geo DNS
 
-Amazon maps-out typical latency between IP addresses and AWS regions. Choose Latency-based Routing to have the fastest response. Geolocation maps the IP addresses to geographic locations. 
+>>Amazon maps-out typical latency between IP addresses and AWS regions. Choose Latency-based Routing to have the fastest response. Geolocation maps the IP addresses to geographic locations. 
 This permits rules like "send all users from Côte d'Ivoire to the website in France", so they see a language-specific version
 
 119-What is dns how it works
@@ -1317,7 +1318,7 @@ This permits rules like "send all users from Côte d'Ivoire to the website in Fr
 >>most orgnazation disable ping to stop the ddos attacks by hackers
 >>rembering name is easy but number are diffcult that we using dns names
 
-120- what is hostname resolution 
+120-what is hostname resolution 
 
 >>HostName resolution is the process of associating names and IP addresses, and it's one of the most essential services on a network. 
 People understand descriptive names, but network communications require difficult-to-remember addresses
@@ -1396,12 +1397,12 @@ the backend server and communicates only with the reverse proxy.
 >>mod_proxy and related modules implement a proxy/gateway for Apache HTTP Server, supporting a number of popular protocols as well as several different load-balancing algorithms. 
 Third-party modules can add support for additional protocols and load balancing algorithms.
 
-137-what is the difference between reverse proxy and mod_proxy
+133-what is the difference between reverse proxy and mod_proxy
 
 >>In summary, a reverse proxy is a general concept referring to a server or service that acts as an intermediary between clients and backend servers. On the other hand, mod_proxy is a 
 specific module within the Apache HTTP Server that enables reverse proxy functionality and provides additional features and configurations for proxying requests.
 
-138-what is Cloud-Native
+134-what is Cloud-Native
 
 >>Cloud native is the software approach of building, deploying, and managing modern applications in cloud computing environments. Modern companies want to build highly scalable, flexible,
 and resilient applications that they can update quickly to meet customer demands
@@ -1416,19 +1417,19 @@ Benefits
 
 EX:-Docker kubernetes
 
-139-what is firewall
+135-what is firewall
 
 >>firewall is allow or disallow the traffic in your network
 >>firewall is security group it is used to control the incoming and outgoing traffic
 
 >>firewall are two types
 
-1 - stateless
+1-stateless
 >> It is not a two-way handshake
 >>Stateless firewalls make use of a data packet's source, destination, and other parameters to figure out whether the data presents a threat. These parameters have to be entered by either
 an administrator or the manufacturer via rules they set beforehand
 
-2 - stateful firewall
+2-stateful firewall
 >> It is a two-way handshake  process
 >>A stateful firewall inspects everything inside data packets, the characteristics of the data, and its channels of communication. Stateful firewalls examine the behavior of data packets,
 and if anything seems off, they can filter out the suspicious data. Also, a stateful firewall can track how the data behaves, cataloging patterns of behavior. 
@@ -1436,15 +1437,15 @@ and if anything seems off, they can filter out the suspicious data. Also, a stat
 >> It is used to allow one side no need to allow the other side will remember and send the packets
 >> A stateful firewall remembers the connection details it will give a replay
 
-3 - In-Bound rule
+3-In-Bound rule
 
 >> Inbound firewall rules protect the network against incoming traffic, such as disallowed connections, malware, and denial-of-service (DoS) attacks
 
-4 - Out-Bound rule
+4-Out-Bound rule
 
 >>Outbound firewall rules protect against outgoing traffic, originating inside a network.
 
-140-What is a DDoS attack, and what services can minimize them?
+136-What is a DDoS attack, and what services can minimize them?
 
 >>Distributed denial of service DDOS The main intention is to make it unavailable over the internet on a website or some resources. the hacker sends the multiple
 requests into website is going unavailble over the internet
@@ -1456,30 +1457,30 @@ Amazon CloudFront
 ELB
 VPC
 
-131-What is whitelisting an IP address?
+137-What is whitelisting an IP address?
 
 >>IP whitelisting is when you grant network access only to specific IP addresses. Each employee (or approved user) shares their home IP address with the 
 network administrator, who then enters their IP address on a “whitelist” that grants them network access.
 
-142--What is the advantage of using a “reverse proxy server”?
+138-What is the advantage of using a “reverse proxy server”?
 
 >>The reverse proxy server can hide the presence and characteristics of the origin server. It acts as an intermediate between internet cloud and web server.
 It is good for security reason especially when you are using web hosting services.
 
-143-what is Baston Host
+139-what is Baston Host
 
 >>Bastion Hosts are a special-purpose instanxe that provides seccure access to linux instacnes located in private subnets
 >>Act as a jump server to access other instances in private subnets
 >>protect instances in private subnets from potential attacks 
 
-144-How Bastion Host work
+140-How Bastion Host work
 
 >>Ec2 instances in private subnets are protected by security group and NACLs, only allow secure connection from Bastion Host
 
 >>Security Group of Bastion Host only allow SSH from trusted IP Address
 >>use ssh agent forwarding on a client do not store private key on bastion host
 
-145-without password how can access linux machines
+141-without password how can access linux machines
 
 >>you need to create the sshkey it is uses in rsa alogirthum it will create 2 files public key file named . ssh/id_rsa. pub and a private key file named . ssh/id_rsa.
 you can add that public key into the remote server you must enable the password less authentication in remote servers
@@ -1498,17 +1499,17 @@ two ways to send the file password less like add your ssh keys in destination se
 >>ls
 >>ssh-copy-id anji@172.31.38.167   -->it will ask passwd give next time it will not ask do same in remaing systems
 
-146-how you can see if the port is opened or not in linux
+142-how you can see if the port is opened or not in linux
 
 >>>>netstat -a | grep -i 8000     -->to check the port opening and listening
 >>telnet "ip" port
 
-147-What are the kinds of security attacks that can occur on the cloud? And how can we minimize them?
+143-What are the kinds of security attacks that can occur on the cloud? And how can we minimize them?
 
 >>The kinds of security attacks that can occur on the cloud include DDoS attacks, phishing attacks, data breaches, and insider attacks. To minimize them, it is important to use
 strong authentication methods, implement proper access control and monitoring, encrypt data, keep systems up to date with security patches, and regularly conduct security audits and training for employees.
 
-148-What is the difference between the Amazon Rds, Dynamodb, and Redshift?
+144-What is the difference between the Amazon Rds, Dynamodb, and Redshift?
 
 Amazon RDS: Relational database service that allows you to set up, operate, and scale a relational database in the cloud easily.
 
@@ -1516,47 +1517,47 @@ DynamoDB: Fully-managed NoSQL database that provides fast and predictable perfor
 
 Redshift: Data warehousing service that provides fast querying and analysis of data using SQL and business intelligence tools.
 
-149- Explain the difference between elasticity from scalability.
+145- Explain the difference between elasticity from scalability.
 
 >>Elasticity: The ability of a system to handle an increase in the workload by simply adding hardware resources when demand rises, and rolling back scaled resources when there’s no demand.
 
 >>Scalability: the ability of a system to increase the hardware resources for handling an increase in demand. It can be achieved by either increasing the hardware specs or increasing the number of processing nodes.
 
-150-what is latency 
+146-what is latency 
 
 >> Latency is nothing but the time taken by request to reach the application and for the application and the server to send the response back to you
 If there is a delay that is high latency
 if there is no delay that is low latency
 
-151-what are tags in what is the use of tags?
+147-what are tags in what is the use of tags?
 
 >>A tag is a label that you or AWS assigns to an AWS resource. Each tag consists of a key and a value. For each resource, each tag key must be unique, and each tag key can have only 
 one value. You can use tags to organize your resources, and cost allocation tags to track your AWS costs on a detailed level.
 
-152-why AWS block port 25 in outbound ports
+148-why AWS block port 25 in outbound ports
 
 >>Amazon Web Services' EC2 instances are throttled on port 25 by default as a spam prevention measure. This can cause connection issues when attempting to use SMTP to relay emails 
 through Postmark in your EC2 instance
 
-153-you can block the certain ip and some countries using AWS WAF 
+149-you can block the certain ip and some countries using AWS WAF 
 
 >>Yes its possible to block certain region
 
-154- what is operating system
+150- what is operating system
 
 >>it is an user interface between user and hardware is called operating system
 
-155-Can I Retrieve Data from a Deleted ELB or Ec2 Instance?
+151-Can I Retrieve Data from a Deleted ELB or Ec2 Instance?
 
 >>Metrics data for deleted ELBs and decommissioned EC2 instances are still available. MetricsData associated with a terminated instance will be removed when the Instance is shut down. 
 In contrast, MetricsData associated with your account will remain on the MetricInfraService until you delete it. This information can be used for diagnosing problems with your ECS cluster or ELB.
 
-156-If I disable monitoring for an Ec2 instance, will I lose the metrics data?
+152-If I disable monitoring for an Ec2 instance, will I lose the metrics data?
 
 >>No, the metrics data will not be lost.
 >>If you disable monitoring for an EC2 instance, the metrics you've collected are still safely preserved in a SQL database as part of the AWS CloudTrail logs.
 
-157-What is RDS AWS used for?
+153-What is RDS AWS used for?
 
 >>Amazon RDS managed by Amazon and it makes it easy to set up operate and scale a relational database in the cloud it provides cost-efficient and resizable capacity
 while automating time-consuming administration tasks. such as hardware provisioning database setup patching and backups
@@ -1571,11 +1572,11 @@ it will connect in primary database ,the primary will sync to secondary database
 >>you will connect only primary database
 >>you can't access secondary why because where the database is there don'tknow
 
-158-what is the rds failover time
+154-what is the rds failover time
 
 >>60-120 seconds
 
-159-rds database tpes
+155-rds database tpes
 
 1-master(primary)
 2-read(secondary)replica       -->you can create read replica
@@ -1585,28 +1586,28 @@ know how to access the secondary that time you can use the read replica
 >>read replica just copy a primary you can put another region also
 >>in read replica you can't write on the database its only read option
 
-160-Will your standby RDS be launched in the same availability zone as your primary?
+156-Will your standby RDS be launched in the same availability zone as your primary?
 
 >>No, standby instances are launched in different availability zones than the primary, resulting in physically separate infrastructures. This is because the entire purpose
 of standby instances is to prevent infrastructure failure. As a result, if the primary instance fails, the backup instance will assist in recovering all of the data.
 
-161-How would you address a situation in which the relational database engine frequently collapses when traffic to your RDS instances increases, given that the RDS instance replica
+157-How would you address a situation in which the relational database engine frequently collapses when traffic to your RDS instances increases, given that the RDS instance replica
 is not promoted as the master instance?
 
 >>A larger RDS instance type is required for handling significant quantities of traffic, as well as producing manual or automated snapshots to recover data if the RDS instance fails
 
-162- What is SQL Server in simple words?
+158- What is SQL Server in simple words?
 
 >>SQL Server is a database server by Microsoft. The Microsoft relational database management system is a software product which primarily stores and retrieves data
 requested by other applications. These applications may run on the same or a different computer
 
-163-What is AWS redshift used for?
+159-What is AWS redshift used for?
 
 >>it is type of database it belong to postgress sql.it used for data ware-housing purpose
 >>Amazon Redshift uses SQL to analyze structured and semi-structured data across data warehouses, operational databases, and data lakes,
 using AWS-designed hardware and machine learning to deliver the best price performance at any scale
 
-164-what is elastiCahe in aws
+160-what is elastiCahe in aws
 
 >>elastcahe is not regular satabase it is web-service that makes easy to launch manage and scale distributed in memory cache in the cloud
 it is used to improve your website or web-application performance. it will cache the services in that memory it will increase the better performance
@@ -1616,22 +1617,22 @@ two types:-
 1-memcahed 
 2-redis
 
-165-What is DocumentDB used for?
+161-What is DocumentDB used for?
 
 >>it like mongo database
 >>A document database is a type of nonrelational database that is designed to store and query data as JSON-like documents. Document databases make 
 it easier for developers to store and query data in a database by using the same document-model format they use in their application code.
 
-166-how do you backup rds server
+162-how do you backup rds server
 
 >>you need to create first option group and select the version and type of your database and then create your option group. then go to s3 create bucket and role
 for s3 and then go that group attach the role and bucket and select the backup and restore it will 
 
-167-what is snapshots
+163-what is snapshots
 
 >>Snapshots are a point-in-time copy of your data, and can be used to enable disaster recovery, migrate data across regions and accounts, and improve backup compliance. 
 
-168-how to make rds highly available
+164-how to make rds highly available
 
 >>multi AZ deployment high availbilty & fail over for disaster recovery.
 >>read replicas provide high performance for read heavy workloads
@@ -1640,31 +1641,31 @@ for s3 and then go that group attach the role and bucket and select the backup a
 >>automated backups and manula backups
 >>encryption at rest (AWS KMS) andd transit SSL
 
-169-how to make rds highly availble
+165-how to make rds highly availble
 
 >>you can create the one RDS-Database then created the read replicas in 2 more availbilty zones then and also your servers are in different availbility zones like 
 az1->RDS(read-write) az2->RDS(read only), az3->RDS(read only) if the any traffic will go az2 then it will take data from az2->RDS only if any want write then it will az1->RDS
 why because it will have only read and write permisssion this will make your RDS highly availble and fast your database
 
-170-How have you implemented disaster recovery for an AWS application?
+166-How have you implemented disaster recovery for an AWS application?
 
 >>In a previous project, we implemented disaster recovery for an AWS application by using AWS Route 53 to route traffic to a secondary region in case of a failure in the primary region. 
 We also set up Amazon S3 cross-region replication to ensure that the data was replicated to the secondary region in real-time. Additionally, we created automated backups of the
 application data using Amazon S3 and Amazon Glacier to ensure that we could quickly restore the data in case of a disaster.
 
-171-Can you describe a time when you had to troubleshoot a performance issue in an AWS application?
+167-Can you describe a time when you had to troubleshoot a performance issue in an AWS application?
 
 >>In a previous project, we had an issue where the application was slow to respond to user requests. After reviewing the logs, we identified that the application was experiencing high CPU
 usage. We then analyzed the application’s resource utilization using Amazon CloudWatch and identified that the database queries were taking longer than expected. We optimized the database
 queries and improved the performance of the application.
 
-172-Can you explain a time when you implemented security measures for an AWS application?
+168-Can you explain a time when you implemented security measures for an AWS application?
 
 >>In my previous role, we implemented several security measures for an AWS application, including setting up Multi-Factor Authentication (MFA) for all AWS accounts, enabling AWS CloudTrail
 to monitor and log all API activity, and encrypting data at rest using AWS Key Management Service (KMS). We also regularly conducted vulnerability assessments and penetration testing to
 identify and mitigate potential security risks.
 
-173-How would you use AWS S3, CloudFront, and Route 53 for a scalable and highly available static website?
+169-How would you use AWS S3, CloudFront, and Route 53 for a scalable and highly available static website?
 
 >>AWS S3, CloudFront, and Route 53 can be used together to build a scalable and highly available static website. Here’s an overview of the process:
 
@@ -1679,7 +1680,7 @@ familiar and memorable domain name.
 >>Configure Route 53 to use the health checks and failover features to ensure that the website is always available, even if one of the edge locations becomes unavailable. Finally, 
 use S3’s versioning and lifecycle policies to automatically store multiple versions of the website files and to transition older versions to less expensive storage options over time.
 
-174-Can you describe a scenario in which you would use AWS Elastic Beanstalk to deploy an application?
+170-Can you describe a scenario in which you would use AWS Elastic Beanstalk to deploy an application?
 
 >>AWS Elastic Beanstalk is a fully managed service offered by Amazon Web Services that allows developers to easily deploy, run and scale web applications. 
 The service is ideal for situations where a developer has created a web application using a popular framework, such as Ruby on Rails, Node.js, or Java, and is looking to quickly deploy
@@ -1689,7 +1690,7 @@ freeing them up to focus on the development and maintenance of the application i
 and reporting features, and updates and changes can be made as needed. This makes AWS Elastic Beanstalk a simple, streamlined solution for deploying and managing web applications, 
 particularly well-suited for developers who want a straightforward way to handle the deployment and management of their applications.
 
-175-How would you implement a disaster recovery solution in AWS using RDS, EC2, and S3?
+171-How would you implement a disaster recovery solution in AWS using RDS, EC2, and S3?
 
 >>Create an Amazon RDS instance in a primary region, and configure automatic backups to Amazon S3.
 >>Create an Amazon EC2 instance in the same primary region
@@ -1701,7 +1702,7 @@ particularly well-suited for developers who want a straightforward way to handle
 >>Use Amazon S3 versioning and object lifecycle management policies to retain backups for a desired period of time.
 >>Use Amazon CloudWatch to monitor the RDS instances and EC2 instances, and set up alarms to trigger notifications or automated actions in case of a disaster.
 
-176-what Required to connect the MySQL or RDS or any databse
+172-what Required to connect the MySQL or RDS or any databse
 
 >>The account that is used to connect to the MySQL database must have at least CONNECT permissions. This enables SSMA to obtain metadata from schemas owned by the connecting user.
 1-connection permission any network or locally
@@ -1710,23 +1711,24 @@ particularly well-suited for developers who want a straightforward way to handle
 4-username and password
 5-mysql workbench or jdbc connection
 
-177-Define Snapshots in Amazon Lightsail?
+173-Define Snapshots in Amazon Lightsail?
 
 >>A snapshot is a base feature for creating backups of your EBS volumes. A snapshot takes a copy of the EBS volume and places it in Amazon S3, where it is 
 stored redundantly in multiple Availability Zones. The initial snapshot is a full copy of the volume; ongoing snapshots store incremental block-level changes only
 >>and can be used to enable disaster recovery, migrate data across regions and accounts, and improve backup compliance
 
-178-what is AWS Backup
+174-what is AWS Backup
 
 >> AWS Backup features .AWS Backup is like snapshots. in every organzation need to take a backup some of the particular resources with using of aws backup take some of major 
 resources in aws backup automatically or daily backup no need to write script you can do automated backup on time bases like you can schedule and store the backup in s3 directly
 >>your specify the some of the resource in aws to take backup on AWS Backup service. on which time you need . you can take partcular time take backup between
 partcular  resource to take the backup. its nothing but snapshots
 
-what is backup vault
+175-what is backup vault
+
 >>its like glacier vault where we can storing data or saving the data is called backup vault
 
-179-how many types of backup
+176-how many types of backup
 
 >>two types
 1-automatic
@@ -1755,11 +1757,11 @@ same DBinstance are incremenetl
 >>ypu can copy a sanpshot in the same region acrss regions and across acounts
 >>you can directly resore a DB instance from unencrypted a shared snapshot
 
-180-how many days take AWS-backup can retrive
+177-how many days take AWS-backup can retrive
 
 >>minimum 35 days
 
-181--what is cloudwatch
+178--what is cloudwatch
 
 >>Amazon CloudWatch is a monitoring and management service that provides data and actionable insights for AWS, hybrid, 
 and on-premises applications and infrastructure resources and also analyze the logs by using iam role
@@ -1781,57 +1783,57 @@ and on-premises applications and infrastructure resources and also analyze the l
 >>and its not free of cost
 >>every one minute logs will updated 
 
-182--What is an AWS CloudWatch Alarm?
+179--What is an AWS CloudWatch Alarm?
 
 >>An AWS CloudWatch Alarm is a monitoring and management solution for AWS resources. It enables the configuration of alarms based on individual indicators or as part of a larger monitoring plan.
 >>you can set the alarm you set sns then it whenever it will trigger you will get an notification
 >>you can also billing to the alarm like if we bill some amount then it will trigger 
 
-183-types of alarm in cloudwatch 
+180-types of alarm in cloudwatch 
 
 1-Ok -The metric is below the threshold
 2-Insuffiecnt data -Not enough data available for the metric to determine the alarm state.
 3-ALARM — When the metric crosses the threshold.
 
-184-What are Cloudwatch Logs?
+181-What are Cloudwatch Logs?
 
 >>CloudWatch Logs is a tool that helps us monitor and troubleshoot our systems and applications. It uses our already-established systems, applications, and custom log files. 
 In addition, it allows us to monitor our logs in real-time for particular phrases, values, or patterns.
 
-185-How Long Do Cloudwatch Logs Store My Data?
+182-How Long Do Cloudwatch Logs Store My Data?
 
 >>Your information will be kept in Cloudwatch Logs for up to 7 days. After that point, only the most current logs will be kept, with older ones automatically deleted to save space.
 
-186-what is the AWS CloudWatch Agent?
+183-what is the AWS CloudWatch Agent?
 
 >>The AWS CloudWatch Agent is software that can be deployed to any server, whether hosted on Amazon EC2, Amazon ECS, or on-premises. Using the AWS CloudWatch Agent, you can quickly gather 
 and send system-level performance information from specific AWS resources.
 
-187-What are three things you can do in CloudWatch?
+184-What are three things you can do in CloudWatch?
 
 >>Real-time monitoring is available for AWS resources and apps.
 >>Create alerts that will respond automatically to changes in your AWS resources.
 >>AWS CloudWatch Logs allows you to see and search log data.
 
-188-What Types Of Cloudwatch Alarms Can Be Created?
+185-What Types Of Cloudwatch Alarms Can Be Created?
 
 >>Any CloudWatch measure can be displayed via an alarm you set up. You can also set off an alert based on metrics specific to your application or system.
 
-189-What Actions Can We Take From a Cloudwatch Alarm?
+186-What Actions Can We Take From a Cloudwatch Alarm?
 
 Share an email with the team.
 Schedule a Cron task to run.
 Share on Slack or HipChat.
 Run a script on this machine, such as one that imports data into a spreadsheet.
 
-190-What Types Of Cloudwatch Alarms Can Be Created?
+187-What Types Of Cloudwatch Alarms Can Be Created?
 
 A warning about a specific resource (e.g., a virtual machine).
 A regular notification for a specific metric (e.g., CPU usage).
 A user-defined alarm (for example, if your application runs slowly, the alarm will trigger when the CPU reaches 80% and notify you immediately).
 A personalized alarm based on user-defined rules.
 
-191-What Statistics Can I View And Graph In Cloudwatch?
+188-What Statistics Can I View And Graph In Cloudwatch?
 
 >>Disk I/O Activity
 >>Memory Share 
@@ -1839,29 +1841,29 @@ A personalized alarm based on user-defined rules.
 >>Memory Usage
 >>Network Interface Usage.
 
-192-What is the data retention period in CloudWatch?
+189-What is the data retention period in CloudWatch?
 
 >>You can change the log data retention setting for CloudWatch logs. By default, logs are kept indefinitely and never expire. You can adjust the retention policy for each log group, 
 keeping the indefinite retention, or choosing a retention period between 10 years and one day.
 
-193-What is the difference between CloudWatch and CloudTrail?
+190-What is the difference between CloudWatch and CloudTrail?
 
 >>CloudWatch is a tool provided by Amazon Web Services that monitors and reports on the performance of various AWS resources and services.
 >>CloudTrail, on the other hand, is a log of all actions in your AWS environment since it was first launched.
 
-194-What is CloudWatch events used for?
+191-What is CloudWatch events used for?
 
 >>Amazon CloudWatch Events delivers a near real-time stream of system events that describe changes in Amazon Web Services (AWS) resources. 
 Using simple rules that you can quickly set up, you can match events and route them to one or more target functions or streams.
 
-195-What services can be used to create a centralized logging solution?
+192-What services can be used to create a centralized logging solution?
 
 >>The essential services that you can use are Amazon CloudWatch Logs, store them in Amazon S3, and then use Amazon Elastic Search to visualize them.
 You can use Amazon Kinesis Firehose to move the data from Amazon S3 to Amazon ElasticSearch.
 >>if your service is stopped are anything happen you can create a rule to trigger your script and send the notifications
 (like if your lamabda function to stop the start and specific time then youy can use the rules it will be changed)
 
-196-How do you set up a system to monitor website metrics in real-time in AWS?
+193-How do you set up a system to monitor website metrics in real-time in AWS?
 
 >>Amazon CloudWatch helps you to monitor the application status of various AWS services and custom events. It helps you to monitor:
 
@@ -1872,7 +1874,7 @@ AWS API calls
 Console sign-in events
 amazon cloud watch
 
-197-What are the native AWS Security logging capabilities?
+194-What are the native AWS Security logging capabilities?
 
 >>Most of the AWS services have their logging options. Also, some of them have an account level logging, like in AWS CloudTrail, AWS Config, and others.
 Let’s take a look at two services in specific:
@@ -1888,7 +1890,7 @@ it will automatically shows what you updated in your system it will and it will 
 
 >>AWS Config is a fully managed service that provides you with an AWS resource inventory, configuration history, and configuration change notifications to enable security and governance.
 
-198-How would you use AWS CloudTrail and CloudWatch to monitor and log AWS resource activity and events?
+195-How would you use AWS CloudTrail and CloudWatch to monitor and log AWS resource activity and events?
 
 >>AWS CloudTrail and CloudWatch are two services that can be used to monitor and log AWS resource activity and events. CloudTrail records API calls made to AWS services and stores 
 information about the caller, time of call, source IP address, request parameters, and response elements. This information can be used to track changes to AWS resources and identify 
@@ -1902,39 +1904,39 @@ track resource activity, and diagnose issues.
 and meet compliance requirements. The centralized logging and analysis provided by these services helps organizations to ensure the security and availability of their AWS resources, 
 giving them greater control and visibility into their cloud infrastructure.
 
-199-What is CDN and how it works?
+196-What is CDN and how it works?
 
 >>A CDN or cloud-front is same. content deliver network is decrese the latency in your website and it provide the cache server in all edge locations 
 on your website.it is used to speedup your website over the internet
 
-200-what is global acclerator
+197-what is global acclerator
 
 >>it is like cloud-front or CDN. CDN provides cache server but global-acclerator gives to allow ports and give you can configure fixed entry-points to ip address  
 >> AWS Global accelerator is a networking service that helps you to improve the availability zones and performance of the applications that offer you to your 
 golbal users. aws global acclerator easy to setup and manage and configure. it provides static ip address and fixed entry point your application. 
 global acclerator is basically global load balancer which load balancing the regions as well .it is costly compared to dns load balancer
 
-201-what is WAF in AWS
+198-what is WAF in AWS
 
 >>it can provide the additional security of your web application. it will hide your servers on the internet it will prevent cyber attacks like sql injection and xss and ddos attacks 
 
-202-what is flow logs
+199-what is flow logs
 
 >>New Flow Logs will appear in the Flow Logs tab of the VPC dashboard. The Flow Logs are saved into log groups in CloudWatch Logs. The log group will be created
 approximately 15 minutes after you create a new Flow Log. You can access them via the CloudWatch Logs dashboard.
 
-203-how to port forwarding in linux or ec2
+200-how to port forwarding in linux or ec2
 
 >>public ec2 and private ec2 you can login one public ec2 instnace using ssh then go to the vi /etc/multifortforwarding/multiforwad.config 
 then add the private ec2 instance private ip then reboot using sudo reboot the you can login using ssh -i -/ssh/anji.pem anji@12.24.45.25 -p 2222
 
-204-what ssh key types
+201-what ssh key types
 
 1-RSA
 2-DSA 
 3-ECDSA.
 
-205-what is AWS KMS Policys
+202-what is AWS KMS Policys
 
 >>AWS Key Management Service (AWS KMS) is a managed service that makes it easy for you to create and control the cryptographic keys that are used to protect your data
 two types of keys 
@@ -1946,12 +1948,12 @@ permission no can get the write the permission to that bucket
 >>Use AWS KMS to encrypt data across your AWS workloads, digitally sign data, encrypt within your applications using AWS Encryption SDK, and generate and verify
 message authentication codes (MACs).
 
-206-what is ARN
+203-what is ARN
 
 >>Amazon Resource Names (ARNs) uniquely identify AWS resources. We require an ARN when you need to specify a resource unambiguously across all of AWS, 
 such as in IAM policies, Amazon Relational Database Service (Amazon RDS) tags, and API calls.
 
-207-what is aws migration
+204-what is aws migration
 
 >>Cloud migration is the process of moving a company's digital assets, services, databases, IT resources, and applications either partially, 
 or wholly, into the cloud. Cloud migration is also about moving from one cloud to another.
@@ -1964,68 +1966,68 @@ types of migration
 5-retaining.
 6-retiring.
 
-208-what is session manager
+205-what is session manager
 
 >>Session Manager is a fully managed AWS Systems Manager capability that lets you manage your Amazon EC2 instances through an interactive 
 one-click browser-based shell or through the AWS CLI. You can use Session Manager to start a session with an instance in your account.
 
-209-what is virtual private gateway
+206-what is virtual private gateway
 
 >>A virtual private gateway is a tool establishig a safe connection or tonnel to connect over the Internet . it will create secure connection over the
 Internet and it reliable. virtual network gateway is to connect your on-premises network with VPC
 >>A virtual private gateway is a tool for establishing a safe tunnel to connect and transport encrypted data between devices, the cloud, and enterprise servers
 across the internet. Use a virtual private gateway to create a VPN connection that is both secure and reliable.
 
-210-What is site-to-site-vpn
+207-What is site-to-site-vpn
 
 >>A site-to-site virtual private network (VPN) is a connection between two or more networks, such as a corporate network and a branch office network. the site-to-site-vpn creates a tonnel to connect a
 secure way over the ineternet .Many organizations use site-to-site VPNs to leverage an internet connection for private traffic as an alternative to using private MPLS circuits
 >>it will give two ips you can create the two tonnles if first one fails then you can use or set second one 
 >>tonnel is nothing but connecting the secure way in the ineternet
 
-211-What is point-to-site VPN?
+208-What is point-to-site VPN?
 
 >>A Point-to-Site (P2S) VPN gateway connection lets you create a secure connection to your virtual network from an individual client computer.
 A P2S connection is established by starting it from the client computer.
 >>you launch public and private certificates in your system and connect to the aws VPCS
 
-212- what is client vpn-endpoint
+209- what is client vpn-endpoint
 
 >>AWS Client VPN is a fully-managed remote access VPN solution used by your remote workforce to securely access resources within both AWS and your on-premises network. 
 Fully elastic, it automatically scales up, or down, based on demand
 
-213-what is direct connect in aws
+210-what is direct connect in aws
 
 >>direct connect is like vpn but it like leased line or dedicted line to internet . you can create your virtual private network then you can connect your aws to your on-premises. 
 AWS Direct Connect does not involve the Internet; instead, it uses dedicated, private network connections between your internet and Amazon VPC. it is compared to vpn it is costly
 >>AWS Direct Connect is a networking service that provides an alternative to using the internet to connect to AWS.
 
-214-What is OpenVPN used for?
+211-What is OpenVPN used for?
 
 >>Open source OpenVPN uses VPN technologies to secure and encrypt data sent over the internet. Its custom VPN protocol uses SSL/TLS for key exchange. 
 Since its creation in 2001 it has become the de facto standard in the open source networking space with over 60 million downloads 
 
-215- what is IAM
+212-what is IAM
 
 >>AWS Identity and Access Management (IAM) is a web service that helps you securely control access to AWS resources. You use IAM to control who is authenticated 
 (signed in) and authorized (has permissions) to use resources.
 
-216-what are the types IAM policies    -->see in iam.txt read inline policy
+213-what are the types IAM policies    -->see in iam.txt read inline policy
 
 >>AWS managed policies:- aws managed by this policies, you can reuse the policies
 >>customer managed policies:- you can create and attach the policies to user and groups like giving permssiones and denying users or groups. you can reuse the polices
 >>Inline policies:- its like same customer maneged policies but its one to one like one user or role you cant reuse the poliices it is not visible for everyone 
 it is visible for only user and it is embed directly into a single user, group, or role.
 
-217-what is IAM policy simulator?
+214-what is IAM policy simulator?
 
 >>Iam policy simulator is used to see the policy briefly what you attached to the users for permisiions what you given
 
-218-what is the differnce between customer managed policy and inline policy
+215-what is the differnce between customer managed policy and inline policy
 
 >>A customer managed policy is a standalone policy that you administer in your own AWS account. An inline policy is a policy that's embedded in an IAM identity (a user, group, or role).
 
-219- where we can use roles
+216-where we can use roles
 
 >>role is used manage the Accounts
 >>AWS Identity and Access Management (IAM) roles are entities you create and assign specific permissions to that allow trusted identities such as workforce identities and applications
@@ -2033,14 +2035,14 @@ to perform actions in AWS. When your trusted identities assume IAM roles, they a
 >>roles is also use access-key and secret-key but will not show its automatically create that and also create the token in your system but it will be expiry in 6-8 hours then 
 it will create the one more token. if you want use that credentials in without token it will not work
 
-220-what is the difference between IAM and roles
+217-what is the difference between IAM and roles
 
 >>The difference between IAM roles and policies in AWS is that a role is a type of IAM identity that can be authenticated and authorized to utilize an AWS resource, 
 whereas a policy defines the permissions of the IAM identity.
 >>A Role with no Policy attached to it won’t have to access any AWS resources.
 >>A Policy that is not attached to an IAM role is effectively unused. Permissions listed in an IAM policy are only enforced when that policy is attached to an IAM identity.
 
-221-what is Assume role
+218-what is Assume role
 
 >>Assume role is nothing your giving temporary or prmenaent access another aws account user or group level access to another account.the user can access what permission your
 giving that will be accessbile that user anytime briefly in below see
@@ -2049,30 +2051,30 @@ giving that will be accessbile that user anytime briefly in below see
 go to sampi account have vinod user go to policies create STS policy in that paste anji1 role ARN and create that policy. attach that policy into vinod user and login with vinod user
 you can see option in support that see switch to role paste the Account number and role number you will be able to access anji1 role what the permission you have
 
-222-what is role-switching
+219-what is role-switching
 
 >>When you switch to a role, you temporarily give up your user permissions and work with the permissions that are assigned to the role. 
 When you exit the role, your user permissions are automatically restored
 
 >>your createing one role giving this access to another accounts then that account can access the your given resources this called role-switching
 
-223-what is Service control policys
+220-what is Service control policys
 
 >>Service control policies (SCPs) are a type of organization policy that you can use to manage permissions in your organization. SCPs offer central control over the maximum available 
 permissions for all accounts in your organization.
 
-224-how you can manage the 20 accounts as acccounts
+221-how you can manage the 20 accounts as acccounts
 
 >>we can use orgnzation create the some group to add and divide specific groups to aws accounts
                               (or)
 >>if we have 20 accounts we use master and sub-account architecture we use. master is there we use organzations, properly use organzation units we kept as internal
 external and third party we are properly segrgated. then we can apply security control policy ,we can restrict users using permisiion boundary
 
-225-how to secure your system or aws accounts how to see logs 
+222-how to secure your system or aws accounts how to see logs 
 
 >>using cloud trail feature enable it send the logs into s3 bucket
 
-226-an you explain the steps to secure an AWS environment using IAM, VPC security groups, and network ACLs
+223-an you explain the steps to secure an AWS environment using IAM, VPC security groups, and network ACLs
 
 >>Certainly! Securing an AWS environment involves multiple layers of security controls, including Identity and Access Management (IAM), Virtual Private Cloud (VPC) security groups, 
 and network ACLs. Here are the steps to secure an AWS environment using these components:
@@ -2097,7 +2099,7 @@ Define inbound and outbound rules in network ACLs to allow or deny traffic based
 Carefully evaluate and configure network ACLs to restrict access to your resources.
 Regularly review and update network ACL rules as per your security requirements.
 
-227-What is the difference between IAM users, groups, roles and policies ?
+224-What is the difference between IAM users, groups, roles and policies ?
 
 >>IAM User: An IAM user is an identity within AWS that represents an individual or application needing access to AWS resources. IAM users have permanent long-term credentials, such as
 a username and password, or access keys (Access Key ID and Secret Access Key). IAM users can be assigned directly to IAM policies or added to IAM groups for easier management of permissions.
@@ -2111,12 +2113,12 @@ policies to grant permissions required for developers across your organization.
 can be performed on which AWS resources. IAM policies use JSON (JavaScript Object Notation) syntax to specify the permissions and can be created and managed independently of the users, 
 roles, or groups. IAM policies consist of statements that include the actions allowed or denied, the resources on which the actions can be performed, and any additionalconditions.
 
-228-What is the relation between AMI and Instance?
+225-What is the relation between AMI and Instance?
 
 >>Instances can be launched by AMIs. One AMI can launch as many instances as required. An instance type defines the hardware of the host computer including information about computers and
 its memory abilities. After launching an instance, it works as a traditional host and could be interacted with as with any other computer.
 
-229-What are the tools used to send logs to the cloud environment?
+226-What are the tools used to send logs to the cloud environment?
 
 1-AWS CloudWatch Logs
 2-AWS Elastic Beanstalk
@@ -2124,12 +2126,12 @@ its memory abilities. After launching an instance, it works as a traditional hos
 4-Fluentd
 5-Logstash
 
-230-what is the schedular and event pattern in events in Cloudwatch
+227-what is the schedular and event pattern in events in Cloudwatch
 
 >> Schedular is like you can schedule a certain time
 >> Event pattern you can create a pattern and you do whenever the event triggers it will execute
 
-231-what are the main reasons to server went down
+228-what are the main reasons to server went down
 
 >>ddos attacks
 software issues
@@ -2143,7 +2145,7 @@ check the network issues like pinging or not
 >>check the cpu utilization and network and memoty 
 >>add load balancer and auto-scaling groups on-demand
 
-232-what is control tower
+229-what is control tower
 
 >>control tower is used to create setup Set up and govern your multi-account AWS environment and  accounts like create the sub accounts and organizations and creating who are going to 
 create aws environment newly then this will help you
@@ -2151,7 +2153,7 @@ create aws environment newly then this will help you
 non-compliant accounts and resources as your team provisions them 
 >>montior compilance you'll get visual summaries of your AWS environment through dashboard taht lets see your accounts guardrails and compliance status all in one place  
 
-233-what is cloud-formation (it is infrastructure as a code)(IAAS) what is CFT template
+230-what is cloud-formation (it is infrastructure as a code)(IAAS) what is CFT template
 
 >>A CFT (CloudFormation Template) is a JSON or YAML file used to describe and provision AWS resources in a repeatable and automated manner. It allows you to define your 
 infrastructure as code, specifying the desired state of your AWS resources and their relationships.In a CloudFormation template, you define a collection of AWS resources, their properties,
@@ -2184,7 +2186,7 @@ create CloudFormation templates greater than 51MB in size. In case the template 
 >>Save the code in an S3 bucket, which serves as a repository for the code.
 >>Use AWS CloudFormation to call the bucket and create a stack on your template
 
-234-what are important component of CFT
+231-what are important component of CFT
 
 1-Resources:-
 2-parameters:-
@@ -2195,49 +2197,49 @@ create CloudFormation templates greater than 51MB in size. In case the template 
 7-Mappings:-
 8-Trandforms:-
 
-235-if the replacement is true in cloud-formation
+232-if the replacement is true in cloud-formation
 
 >>in cloud formation when your are deployed one server and then changed key pair or something nything in your cloud-formation and importing in resource 
 through updating when its come true means it will destroy the server or ec2-system and install fresh system or ec2 or resource. if it comes false then it update the system or resources
 
-236-what is import-resource in cloud-formation
+233-what is import-resource in cloud-formation
 
 >>in cloud formation import-resource using. when you acccidentaly created ec2-instance manualy by mistake without deleeting that
 you can import that resource using the Import-resource option but you must mention "deletionpolicy": "retain" is mandatory and if you want destory that system using
 cloud-formation means first system will delete but next time add system not gone delete because it will using retain policy
 
-237-what is roolback failure in cloud-formation
+234-what is roolback failure in cloud-formation
 
 >>roll-back failure is must be enable. when your deploying code using cloud-formation if gets an error then automatically delete the everything what is deployed  in cloud-formation 
 
-238-what is a designer in cloud-formation
+235-what is a designer in cloud-formation
 
 >>AWS CloudFormation Designer (Designer) is a graphic tool for creating, viewing, and modifying AWS CloudFormation templates. With Designer, you can diagram your 
 template  resources using a drag-and-drop interface, and then edit their details using the integrated JSON and YAML editor
 
-239-what is stack policy in cloud-formation
+236-what is stack policy in cloud-formation
 
 >>stack-policy is used to restrict the updates of your cloud-formation templates of any user anyone
 
-240-what is nested template in cloud-formation
+237-what is nested template in cloud-formation
 
 >>nested stack using you can create multiple resource like 3 differnet vpc inside the 3 servers using centrailized url or your cloud formation stored or saved 
 in somewhere s3 any where 
 
-241-what is stackset in cloud-formation
+238-what is stackset in cloud-formation
 
 >>stacksets using can deploy cloud-formation using the resources in different accounts . this accounts added in your orgnaztion , first need to create the stackset 
 role and then create the stack-set execcution rule and give master account id and do same in sub-accounts and give master account id and then copy the ou id 
 and then deploy your resources in other accounts if you added two more accounts that accounts also deployed that resources
 
-242- what is detect drift in cloud-formation
+239- what is detect drift in cloud-formation
 
 >>detect drift is used to identify what is changes done when you deployed in cloud-formation configuration it detect and show you either you can add or delete further
                           (or)
 >>Drift is the difference between the expected configuration values of stack resources defined in CloudFormation templates and the actual configuration values of these 
 resources in the corresponding CloudFormation stacks.
 
-243-what is lambda and what is use of lambda
+240-what is lambda and what is use of lambda
 
 >>AWS Lambda is a server-less computing platform that allows engineers to create a small function, configure the function in the AWS console and have the
 code executed without the need to provision servers-paying only for the resources used during the execution
@@ -2255,7 +2257,7 @@ Requirements for AWS Lambda function:-
 
 >>you can stop and start ec2-instance using python boto3 and lambda, Alerting mails if ec2 stop or start and creating EBS snapshots,copy of EBS snapshots
 
-244-differnce between ec2 and lambda
+241-differnce between ec2 and lambda
 
 ec2:-
 1-ec2 instance how much used you should pay the bill
@@ -2272,58 +2274,58 @@ lambda:-What are the two types of AMI?
 4-it is just peace of code to host the code
 5-no need to update the updates and maintian by aws
 
-245-what is concurrency in lambda
+242-what is concurrency in lambda
 
 >>concurrency is the number of requests that your function is serving any given time when your function is invoked lambda allocates 
 an instance of it to process the event when the function code finishes running it can handler another request
 
-246-what is Boto3
+243-what is Boto3
 
 >>Boto3 is python libray for aws to make simplefiy your work 
 >>Boto3 makes it easy to integrate your Python application, library, or script with AWS services including Amazon S3, Amazon EC2, Amazon DynamoDB, and more.
 
-247-what is authentication and authriozation
+244-what is authentication and authriozation
 
 >>authentication your accessing or login into the applicatio or portal entry only
 >>authrozation is nothing but you should be assign some roles are features
 
-248-What is an Elastic Transcoder?
+245-What is an Elastic Transcoder?
 
 >>You can use Amazon Elastic Transcoder to convert video and audio files into supported output formats optimized for playback on desktops, mobile devices, tablets, and televisions
 
-249-what is AWS Service Catalog
+246-what is AWS Service Catalog
 
 >>AWS Service Catalog is like menu what you want give the resources to your users you give that images or cloud-formation templates or anything specfiy the 
 role to aws service catalog then it give the permisssions to that user. it will use in big environments like so many developers or there you can specif the role 
 to access the particular only one cloud-formation template you can specify that using AWS service catalog
 
-250-what is AWS SSM
+247-what is AWS SSM
 
 >>service manager is  configuration management tool. we can use deployment and like ansible. we need ssm agnet then we can do deployment without ssm agent
 we can't do anything. ssm agent is like role add to ec2-instance then we can patches and updates over the deployment and configure the resources
 
-251-what is cognito
+248-what is cognito
 
 >>Amazon Cognito lets you easily add user sign-up and authentication to your mobile and web apps. Amazon Cognito also enables you to authenticate users through an 
 external identity provider and provides temporary security credentials to access your app's backend resources in AWS or any service behind Amazon API Gateway
 
 >>you can intregrate the third-party signin and login functionalitys
 
-252-what is OpsWork
+249-what is OpsWork
 
 >>AWS OpsWorks is a configuration management service that provides managed instances of Chef and Puppet. Chef and Puppet are automation platforms that allow you to use 
 code to automate the configurations of your servers.
 
-253-What is Trusted Advisior
+250-What is Trusted Advisior
 
 >>you can check your helath and security issues and performance and fault tolerance if the account is secured or not all the snapshots taking perfectly 
 load balancer and cost utilization and if the coudtrail enable or not you can see everything in trusted advisior
 
-254-what is process management
+251-what is process management
 
 >>when you start a program running an application in linux it actually run as a process
 
-255-What is Elastic Beanstalk
+252-What is Elastic Beanstalk
 
 >>AWS Elastic Beanstalk is an orchestration service offered by Amazon Web Servicesand it is used deploying and scaleup the AWS services, 
 including EC2, S3, Simple Notification Service, CloudWatch, autoscaling, and Elastic Load Balancers, health monitoring
@@ -2331,15 +2333,15 @@ including EC2, S3, Simple Notification Service, CloudWatch, autoscaling, and Ela
 >>Elastic beanstaclk is used  if the developer is developing java application he is checking and deploying in 3 days in a week so we can use elastic beanstaclk
 using create servers and required configuration easily
 
-256-what is service 
+253-what is service 
 
 this controls the starting and stopping of services
 
-257-what is chkconfig
+254-what is chkconfig
 
 >>this controls which services are set to start on boot
 
-258-what is crontab
+255-what is crontab
 
 >>In any operating system it is possible to create jobs that you want to recoccur. this process know as job-scheduling
 for any linux this process is handled by the cron service or daemon called crond
@@ -2347,7 +2349,7 @@ for any linux this process is handled by the cron service or daemon called crond
 * * * *  *
 minutes hour day month week
 
-259-what is ECS
+256-what is ECS
 
 >>Amazon Elastic Container Service (ECS) is a highly scalable, high performance container management service that supports Docker containers and allows 
 you to easily run applications on a managed cluster of Amazon Elastic Compute Cloud (Amazon EC2) instances.
@@ -2356,35 +2358,35 @@ you to easily run applications on a managed cluster of Amazon Elastic Compute Cl
 1- tasks:-when any node is down the application will down it will not start another node or any ec2 machine
 2-service:-if you using the service if service will down in any node it will move to any other node where is availble it will deploy
 
-260-What is difference between ECS and EC2?
+257-What is difference between ECS and EC2?
 
 >>The largest difference for EC2 is that it deploys isolated VM instances with auto scaling support, 
 and ECS deploys scalable clusters of managed Docker containers. Enterprises can use ECS to scale web applications, perform batch processing, 
 and run services in a hybrid environment to deliver better services to users
 two services is there
 
-261-what is Fargate in aws
+258-what is Fargate in aws
 
 >>AWS Fargate is a serverless, pay-as-you-go compute engine that lets you focus on building applications without managing servers. 
 AWS Fargate is compatible with both Amazon Elastic Container Service (ECS) and Amazon Elastic Kubernetes Service (EKS).
 
-262-What is the difference between EC2 and Fargate?
+259-What is the difference between EC2 and Fargate?
 
 >>Amazon EC2 manages or deploys your own EC2 instances to effectively run applications. Fargate AWS allows you to run containers without the need for EC2 instances.
 Both are excellent methods for managing or scaling your containers in a dependable manner, but deciding which service to use is always a difficult task.
 
-263-what is SLA(service-level agreement)
+260-what is SLA(service-level agreement)
 
 >>They provide information on all contracted services and on the agreed expected reliability and they clearly set out the parameters, responsibilities and expectations 
 so that in the event of a problem with the service, no party can plead ignorance
 
-264-what is AWS API-Gateway
+261-what is AWS API-Gateway
 
 >>Amazon API-Gateway is a fully-managed service that makes it easy for developers to create, publish, maintain, montiro, and secure APIs at any Scale
 >>APIs acts as the "front-door" for applications to access data business logic or functionality from your backend services
 >>API-Gateway helps us to create a RESTful APIs and Web-Socket APIs that enable real-time two-way communcication
 
-265-where security comes in 
+262-where security comes in 
 
 >>when we build the application then it go the qa team and test then it any changes happen then it will take the build then go the security testing and then deployment
 
@@ -2399,7 +2401,7 @@ why security issues comes into production what bases it will come
 2-hard to get answers:- where the problems hard to find out the issues need to clarify with the developers to take understand the issues
 3-unfamiliar with pipelines 
 
-266-what is SAST
+263-what is SAST
 
 >>SAST stands for Static application security testing and its one of the easier types of security testing to implement in an existing or a new DevOps or DevSecOps pipeline
 >>SAST tools run somewhere between the code and build stage, may be it'll be included in the test satge, but typically it's run pretty close to the code 
@@ -2416,7 +2418,7 @@ Tools like:-
 5-Insider
 6-HuskyCI
 
-267-what is DAST
+264-what is DAST
 
 >>DAST stands for Dynamic application security testing. we check the application while running application for an issues . we are not loooking code directly
 >>DAST is block box testing the tester dont know anything try to break the code or application logics 
@@ -2429,40 +2431,40 @@ Tools:-
 4-Nuclei
 5-HCL AppScan
 
-268-what is Fortify security tool
+265-what is Fortify security tool
 
 >>Fortify offers the most comprehensive static and dynamic application security testing technologies, along with runtime application monitoring and protection, backed by indus try-leading\
 security research. Solutions can be deployed in-house or as a managed service to build a scalable, nimble Software Security Assurance program that meets the evolving needs of today’s
 IT organization.
 
-269-what is SNS
+266-what is SNS
 
 >>Amazon Simple Notification Service (Amazon SNS) is a managed service that provides message delivery from publishers to subscribers (also known as producers and 
 consumers). Publishers communicate asynchronously with subscribers by sending messages to a topic, which is a logical access point and communication channel
 
-270-what is Simple Queue service
+267-what is Simple Queue service
 
 >>Amazon Simple Queue Service (SQS) lets you send, store, and receive messages between software components at any volume, 
 without losing messages or requiring other services to be available.
 
-271-what is first in first out
+268-what is first in first out
 
 >>FIFO (First-In-First-Out) queues have all the capabilities of the standard queues, but are designed to enhance messaging between applications
 when the order of operations and events is critical, or where duplicates can't be tolerated.
 >>For FIFO queues, there can be a maximum of 20,000 in flight messages (received from a queue by a consumer, but not yet deleted from the queue). 
 If you reach this quota, Amazon SQS returns no error messages. A queue name can have up to 80 characters
 
-272-Your business prefers to use its email address and domain to send and receive compliance emails. What service do you recommend to implement it easily 
+269-Your business prefers to use its email address and domain to send and receive compliance emails. What service do you recommend to implement it easily 
 and budget-friendly?
 
 >>This can be accomplished by using Amazon Simple Email Service (Amazon SES), a cloud-based   email-sending service.
 
-273-Describe SES.
+270-Describe SES.
 
 >>Amazon offers the Simple Email Service (SES) service, which allows you to send bulk emails to customers swiftly at a minimal cost.
 >>it will everyday 50000 emails every day like 24 hours. 14 emails per second 
 
-274-what is AWS secret Manager
+271-what is AWS secret Manager
 
 >>AWS Secret manager is a service for easier management of secret. Secrets can be passwords, DB Credentials API keys or any text
 >>You can store and control to these secrets centrally by using one of the following
@@ -2475,7 +2477,7 @@ and budget-friendly?
 >>secrets are encrypted using AWS KMS key manager service
 >>using cloud watch and cloud trail all events relating to secrets manager can be monitored
 
-275-what is docker-ECR
+272-what is docker-ECR
 
 >>Amazon Elastic Container Registry (Amazon ECR) is an AWS managed container image registry service that is secure, scalable, and reliable. Amazon ECR supports 
 private repositories with resource-based permissions using AWS IAM
@@ -2484,16 +2486,16 @@ private repositories with resource-based permissions using AWS IAM
 >>docker build -t <your-account-id>.dkr.ecr.<your-region>.amazonaws.com/<repository-name>:<tag> .
 >>docker push <your-account-id>.dkr.ecr.<your-region>.amazonaws.com/<repository-name>:<tag>
 
-276-what is code smell
+273-what is code smell
 
 >>Code smells indicate a deeper problem, but as the name suggests, they are sniffable or quick to spot. The best smell is something easy to find but 
 will lead to an interesting problem, like classes with data and no behavior.
 
-277-What is Inspector in AWS
+274-What is Inspector in AWS
 
 >>Amazon Inspector is an automated vulnerability management service that continually scans AWS workloads for software vulnerabilities and unintended network exposure.
 
-278-what JSON (JavaScript Object Notation)
+275-what JSON (JavaScript Object Notation)
 
 >>JSON stands for JavaScript Object Notation . JSON is a lightweight format for storing and transporting data
 (e.g., sending some data from the server to the client, so it can be displayed on a web page, or vice versa).
@@ -2516,7 +2518,7 @@ will lead to an interesting problem, like classes with data and no behavior.
    ] 
 }
 
-279-what is YAML
+276-what is YAML
 
 >> Yaml is yet another markup languge.YAML is a human-readable data-serialization language
 >>xml,json,yaml are DTO  -->data transfer object
@@ -2547,7 +2549,7 @@ Address:
     street: ganesh nagar
     city: peddapelli
 
-280-what is XML
+277-what is XML
 
 >>XML stands for eXtensible Markup Language. XML is a markup language much like HTML
 >>XML was designed to store and transport data. XML was designed to be self-descriptive
@@ -2563,18 +2565,43 @@ ex:-
 	</Address>
 </person>
 
-281-What are the two types of AMI?
+278-What are the two types of AMI?
 
 >>AMI is divided into two categories:
 1-EBS-backed Instances.
 2-Instance Store-backed Instances.
 
-282-What is Nginx?
+279-What is Nginx?
 
 >>Nginx is a type of open-source web server that is especially used for reverse proxy, load balancer, mail proxy, and for the HTTP cache. 
 Nowadays NGINX software is most commonly used by various companies. NGINX can run on Linux, Mac OS X, Solaris, AIX, HP-UX, and the BSD variants.
 >>Nginx is an open supply web server and an opposite proxy server for HTTP, SMTP, POP3, and IMAP protocols with robust attention on excessive concurrency,
 performance, and low reminiscence utilization. It is stated as “engine x”.
+
+280-what is webserver
+
+>>A web server is a computer that runs websites. It's a computer program that distributes web pages as they are requisitioned. The basic objective of the web server is to store, process and deliver web pages to the users. This intercommunication is done using Hypertext Transfer Protocol (HTTP)
+>>webservers serves the static content it acts as reverse proxy to the app-servers 
+ex:-Nginx, Apache, caddy, jetty 
+
+281-use case of nginx web-server 
+
+>>it is webserver and it is used for reverese proxy for webserver. and load-balancing the request and email proxy and http cache service 
+>>it serves the static content 
+>>you can setup reverse proxy videos in cloudwithsiva video10 
+
+282-what is website and webapplication 
+
+>>the content is always same its like static pages is website 
+1-news website 
+2-blogging websites 
+3-wikipedia websites 
+>>the content always change its Dynamic pages is webapplication 
+1-Facebook
+2-Instagram
+3-Twitter
+4-Gmail 
+5-Amazon 
 
 283-What is the default root folder nginx?
 
@@ -3152,6 +3179,474 @@ Full-Access:-
   ]
 }
 
+338-what is paramter group in mysql or RDS in AWS 
+
+>>if you want modify any setting or any changes then like if you want change the max=connection for example you RDS max connection 20 it small instance but that pods connected 2 pods is okay you used hpa the pods increased to 20 it will not connect because of RDS instance type max connection also you need to change 
+
+339-what is Operating System 
+
+>>What is operating system it is combination of software and hardware
+>>Like os will take the instructions from to convert into 0/1 binrays into hardware
+>>Like clicking something is convert into 0/1 in software or os in background you will not see that but it will work on that way only computer understand only binaries only we changed that like human readble for understand for example you want run binaries it big headche Or it's tds task so that why operating system this when we run instructions it run in background in binaries so this operating system
+
+340-what is client-server explain day to day also
+
+>>Who is server the who is asking for some information for someone that means your asking information from your friend your friend is server your client
+>>Who is client asking information from someone like your asking details from your friend here you is client your friend is server
+
+341-what is best practice for download 
+
+>>If you download pem directly you can create ppk if you lost pem you can't create the pem Or ppk if you download pem you can create ppk if you lost pem you can't create one more time using ppk
+>>Always try to download to pem  not ppk if you download pem you can create the ppk you can store pem somewhere for backup
+
+Inlinux 
+>>puttygen ppkkey.ppk -O private-openssh -o pemkey.pem
+>>puttygen pemKey.pem -o ppkKey.ppk -O private
+>>Pem is for linux purpose. ppk is for putty or windows
+
+342-what is called in AWS everything
+
+>>in AWS Everything is called as Resource
+
+343-what is shared storage and distributed storage
+
+Shared-Stoarge:-Shared storage consolidates files and other information in a central resource that can be accessed or shared among multiple users and data systems simultaneously. Gathering and storing data in a single, shared resource streamlines archive and backup processes, and simplifies information security. Shared storage solutions include network attached storage (NAS), storage area networks (SAN), and redundant arrays of independent disks (RAID), as well as dedicated storage servers and cloud storage.
+Distributed-Storage :-Distributed block storage is a computer data storage architecture that the data is stored in volumes across multiple physical servers, as opposed to other storage architectures like file systems which manages data as a file hierarchy, and object storage which manages data as objects
+
+344-can i add the one instance in one load-balancer using anji target group created another target group using same instance is it possible to create that instance in one more load-balancer
+
+>>no its possible if you created one instance in using load-blancer using the target group.then its not possible use one more load-balancer 
+
+345-why the load-balacner and nat-gateway in public subnets
+
+>>so when we create the load-balacner we must select the public subnets only in load-balancer or nat-gateway then we add the route into private route table and select the target groups under private instance    
+
+346-can i create the target group under like not instances in that place is IPs and another load-balancer or lambda function
+
+>>yes you can create rather than use instance you can use IPS and load-balancer and lambda functions 
+
+347-what is physical servers
+
+hardware-->operating-systems-->application 
+--Problams
+1-Take time to boot 
+2-physical server is down no backup until you create extra server 
+3-need to configure everything 
+
+1-vm is faster to boot 
+2-if the server is down we can configure next one is easy 
+3-
+
+348-what is Caching 
+
+>>Caching is nothing but storing some data in your cache server dont hit every request on the real webserver any db-server 
+
+349-mostly frontend will work 80 port 
+
+>>backend will work on 8080 either java or python or nodejs also 
+>>if you use java most compile if you node or python no need to compile only java required to compile  
+>>python for pip , nodejs for npm , java for maven , dotnet for msbuild 
+>>APP/WEB apps are called stateless -->database will follow the CRUD operations  
+>>DB apps are called stateful. it take the request and give back the responce to customers that why called stateful. request come and take the responce back is called stateful   
+>>nginx used as reverse proxy for web applications. like any if the servers crash we can create immediatly but coming to DB its not possible if loose the data we can't recreate it until you have backup  
+
+350-what is forward proxy and reverse proxy 
+
+>>forward proxy:-
+1-A Forward proxy sits infront of users then after the traffic will go the internet then hit the servers 
+>>if you use forward proxy server dont understand real clients. hiding our identity for security purpose companies can impose restrictions not to use particular sites access not do naything from internet  
+>>Clients configure their applications or systems to use a forward proxy to access external resources.
+>>When a client makes a request, it first goes through the forward proxy, which then forwards the request to the target server.
+>>The target server sees the request as coming from the forward proxy, not the original client.
+Use-Cases:-
+1-Client Anonymity
+2-Caching
+3-Traffic Control
+4-Logging
+5-Request/Response Transformation
+6-Encryption
+Examples:- 	Squid, Proxy, Tor 
+>>Reverse proxy:-  
+1-A reverse proxy sits in front of servers and acts on behalf of those servers to handle incoming client requests.
+>>to hide the web appliation so organization puts the web server infront load-balancer then webserver then app-servers then db-servers when user hit the url it will connect the loadBalancer then web-server this act as reverse proxy  
+>>Clients send requests to the reverse proxy, thinking it is the server.
+>>The reverse proxy then forwards the request to the appropriate backend server.
+>>The backend server processes the request, and the reverse proxy sends the response back to the client.
+Use-Cases:-
+1-Server Anonymity
+2-Caching
+3-Load Balancing
+4-DDoS Protection
+5-Canary Experimentation
+6-URL/Content Rewriting
+Examples:- Nginx, Apache, HAProxy
+
+351-when npm install used build once build happens what you will get 
+
+>>package-lock.json and node_modules this two files will get 
+>>if you build using java application then you will get .Jar or .War files
+
+352-if you compile java code where the jar file will go 
+
+>>if you compile or build the java code by default it will go target/shipping.jar it will go target folder under anyfile name what you will give 
+
+353-what is TTL in Route53 
+
+>>The time for which a DNS resolver caches a response is set by a value called the time to live (TTL) associated with every record. Amazon Route 53 does not have a default TTL for any record type.
+>> It is like cache your request on the server by default 300 seconds is there you reduce how much you want 
+>>Best practice 
+1-Short TTLs (e.g., 300 seconds or 5 minutes):
+2-Medium TTLs (e.g., 3600 seconds or 1 hour):
+3-Long TTLs (e.g., 86400 seconds or 1 day, or even longer):
+
+354-how to attch a role to eks cluster 
+
+>>by using OIDC when you creating role you can select the web-identity and select the eks arn then next then attach your policy give role name thats it 
+
+355-what is CRUD
+
+>>In computer programming, create, read, update, and delete are the four basic operations of persistent storage. CRUD is also sometimes used to describe user interface conventions that
+facilitate viewing, searching, and changing information using computer-based forms and reports.
+
+C    -->Create
+R    -->Read
+U    -->Update
+D    -->Delete
+
+356-what is HTTP Methods in Web-Application
+
+GET:-GET Request is used to request information from a resource such as a website or server 
+POST:-It creates a new resource on the backend(server)we can send data to the server in the request body 
+PUT:-IT will update the name or any details in the server or appliation
+PATCH:-it will work same put,patch the updates of resource it updates data in server or application
+DELETE:-it will delete the data in server or application
+HEAD:-the HEAD method is similar to GET method but its doesn't have any response body 
+OPTIONS:-this method is used to get information about the possible communcation option for the give URL or asterisk 
+TRACE:-the trace method is for diagnosis purposes it createa loop-back test with the same request body that the client sent to the server before 
+CONNECT:-the connection method is for making end to end connections between client to server     
+
+357-what are code standards and code best practice
+
+code standards:-
+1-code should Never be kept in local(Laptop/Desktop)
+2-always try to push code to central like (github)
+3-code should developed in local only 
+4-always choose editors as per your comfort
+5-editors always improve productivity 
+best practice:-
+1-code should never hardcode the username and passwords 
+we can passthat password along with the server system only like export root_mysql_password 
+sudo -E anji.sh  ##this anji.sh has written code if [ -z "${root_mysql_password}" ]; then
+  echo "Variable root_mysql_password is missing"
+  exit 1
+fi  ##this root password has given some other command has variable
+mysql_secure_installation --set-root-pass ${root_mysql_password}  ##like this this password will be taken direcctly from the server it self because we written environment variables if not will fail   
+2-code DRY vs WET, Always try to make code DRY 
+3-rerun of automation should never fail 
+
+358-how to configure one domain www.anji.com to another sales.anji.com its not a subdomain sub-sub-domain
+
+>>you have two aws accounts for example 1st account anji.com 2nd account sales that domain need add this 1st why because takenover by my company how we achive this 
+>>first create the www.anji.com in 1st account then name server you are pasting godday or hostinger right then go the second create sales.anji.com this will give you name servers then paste that 
+servers into 1st account like this create subdomain sales.anji.com select the NS record paste that 2nd account NS record into 1st account then automatically name resloution will happen then you can create the subdomain 2nd account like 
+sampi.sales.anji.com in 2nd account only . like that you can you can AZURE also    
+
+359-how to build angular application
+
+>>npm install -g @angular/cli    -->Make sure you have the Angular CLI installed globally on your system. If you haven't already installed it, you can do so using the following command
+>>ng build   -->command Run the ng build command to build your Angular application. By default, this command will create a dist/ directory with the compiled and optimized application code. You can specify various options and flags with this command, such as the --prod flag for a production build
+
+360-what is the difference between SQL or NO-SQL 
+
+SQL:-sequl database it means store the data rows and columns data only 
+NO-SQL:-non-relastional database it will store rows and columns and more than that like images or videos 
+
+361-what is rabbitmq 
+
+>>RabbitMQ is an open-source message-broker software that originally implemented the Advanced Message Queuing Protocol and has since been extended with a plug-in architecture to support Streaming Text Oriented Messaging Protocol, MQ Telemetry Transport, and other protocols
+>>RabbitMQ is a messaging Queue which is used by some components of the applications.
+>>port number of rabbitmq 5672 
+>>for example take Whatsapp you send message to your friend how the message will go your friend in the middle their is message streaming platform like rabbitmq or kafka like your friend number always pull the request from rabbitmq your pushing rabbitmq then it will send to friend and their is Queue option if your not online it will be on Queue
+whenever it will be online then that messages will be pulled you from your rabbitmq  
+>>your publisher your-friend subscriber to buy something the for ecomerce for example only 
+
+362-use case of rabbitmq
+
+1-Messaging System
+2-Activity Tracking
+3-Gather metrics from many differnet locations
+4-Application logs gathering
+5-Stream processing(with the kafka Streams API fro example)
+6-De-coupling of system dependencies
+7-Integration with spark, Flink, Storm, Hadoop, and many other Big Data technologies
+8-it uses microservice public
+
+363-how to install specific version of nginx or httpd in linux 
+
+>>sudo apt install nginx=1.16.* 
+see video of cloudwithsiva video no 10
+
+364-what is the differnce between public and private nat-gateway in aws
+
+public-nat-gateway:-
+
+Use Case: A public NAT gateway is typically used in a public subnet. Instances in public subnets can have public IP addresses and are intended for resources that need to be directly accessible from the internet. Public NAT gateways allow these instances to initiate outbound traffic to the internet while also providing a level of security.
+
+Configuration: To set up a public NAT gateway, it's placed in a public subnet and associated with an Elastic IP address. The route tables for private subnets are configured to route outbound traffic to the public NAT gateway. Instances in private subnets send their internet-bound traffic to the public NAT gateway, which then performs Network Address Translation (NAT) to make the traffic appear as if it's coming from the public NAT gateway's Elastic IP address.
+
+Security: A public NAT gateway is typically used when you want your private instances to have limited inbound traffic from the internet. In this configuration, the security groups for the private instances should be configured to allow only the necessary outbound traffic.
+
+private-nat-gateway:-
+
+Use Case: A private NAT gateway is used in a private subnet and is designed for resources that should not have direct public internet access. Instead, private NAT gateways are used for outbound traffic from private instances that need to access the internet, such as for software updates or retrieving external data. This approach provides enhanced security for the private instances.
+
+Configuration: Similar to a public NAT gateway, a private NAT gateway is placed in a public subnet, but it doesn't have a direct public IP address. Instead, it routes traffic to the internet through a Network Address Translation (NAT) gateway service managed by AWS. The route tables for private subnets are configured to route outbound traffic to the private NAT gateway. The instances in private subnets send their internet-bound traffic to the private NAT gateway, which then routes it to the AWS NAT gateway.
+
+Security: Private NAT gateways provide a higher level of security for private instances. Since they don't have a public IP address, they can't receive direct inbound traffic from the internet. This configuration helps to protect sensitive or critical resources.
+
+365-what are the load-balancing algorithums in load-balacers
+
+1-Round Robin: In Round Robin load balancing, each new connection or request is directed to the next server in a circular order. It evenly distributes traffic among all available servers. It is simple and can be effective, but it doesn't take into account server load or response times.
+2-Least Connections: The Least Connections load balancing method routes traffic to the server with the fewest active connections. This helps in distributing traffic based on server load and ensures that servers are not overwhelmed.
+3-Least Response Time: This method directs traffic to the server with the lowest response time. It is based on the idea that faster-responding servers should receive more traffic. This method can be effective in minimizing response time for end users. 
+4-IP Hash:IP Hash load balancing uses a hash function to map the client's IP address to a specific server. This ensures that a specific client always connects to the same server, which can be useful for session persistence or stateful applications. 
+5-Weighted Round Robin: Weighted Round Robin allows you to assign different weights to servers. Servers with higher weights receive more traffic. This is useful when servers have different capacities or performance levels. 
+6-Weighted Least Connections: Similar to Weighted Round Robin, Weighted Least Connections allows you to assign weights to servers but routes traffic to the server with the fewest connections, taking server load into account. 
+7-Session Persistence (Sticky Sessions): Sticky sessions, also known as session persistence, ensure that a user's requests are always directed to the same server for the duration of their session. This is crucial for stateful applications that rely on a specific server for session data
+8-Content-Based Load Balancing: Content-based load balancing examines the content or characteristics of incoming requests to make routing decisions. For example, it can route traffic based on URL paths or specific HTTP headers.
+9-Geographic Load Balancing: Geographic load balancing directs traffic based on the geographical location of the client, which can be useful for serving content from servers closer to the user, reducing latency, and complying with data sovereignty regulations.
+10-Dynamic Load Balancing: Dynamic load balancing adapts to changing server conditions by continually monitoring server health and traffic conditions. It can automatically adjust the routing decisions to ensure optimal performance and high availability.
+
+366-what is instance 
+
+>>instance is nothing but server. "instance" typically refers to a virtual machine (VM) that you can run in the cloud. These instances are a fundamental part of AWS's Elastic Compute Cloud (EC2) service, which provides scalable computing capacity in the cloud.
+>>is is virtual machine 
+
+367-how to login username and password to linux ec2 instance 
+
+>>create ec2 instance connect to the instance using ssh keys then create root password
+>>ssh -i /path/to/your/key.pem ec2-user@your-instance-public-ip
+>>sudo passwd root
+>>sudo nano /etc/ssh/sshd_config
+>>PermitRootLogin yes
+>>sudo service ssh restart
+>>ssh root@your-instance-public-ip
+
+368-what is bare images
+
+>>bare images is nothing but it will not come with any software its base image 
+
+369-what is the difference between reload and restart
+
+Reload:-Reloading typically means reloading a specific component or configuration within a system without stopping the entire system.
+Example: In the context of web servers, a reload might involve reloading the configuration files or restarting a specific module or application without stopping the entire server.
+Restart:-Restarting usually involves stopping the entire system or application and then starting it again. This action results in a fresh initialization of all components.
+Example: Restarting a computer, server, or service involves shutting it down completely and then starting it anew. This ensures that all processes and configurations are reloaded from scratch.
+
+370-what is mutable and immutable
+
+>>if use mutable always take longtime to deploy change the version or OS Anything 
+>>if use immutable always take lesstime to deploy change the version or OS or Anything 
+
+371-what is instance refresh in auto-scaling 
+
+>>Instance refresh in auto-scaling refers to the process of replacing instances within an auto-scaling group with new instances running the latest version of the application or operating system. This process helps ensure that the auto-scaling group maintains a healthy and up-to-date fleet of instances.
+>>video 71 26mins 
+
+372-how to control java memory in java application or package 
+
+>>uWSGI is a fast, open-source application server container that is widely used to deploy and run web applications and frameworks written in various programming languages. It acts as a bridge between web servers and web applications, providing a communication interface for handling requests and responses.
+>>if using package Running. The most basic way to run uWSGI is to tell it to start an HTTP server and import your application. If you're using the app factory pattern, you'll need to create a small Python file to create the app, then point uWSGI at that.
+ExecStart=/bin/java -XX:MaxRAMPercentage=90 -XX:MinRAMPercentage=50 -XX:InitailRAMPercentage=50 -jar /app/shipping.jar 
+
+373-what is uwsgi configuration
+
+>>
+>>vi /app/payment.ini 
+[uwsgi]
+wsgi-file = payment.py
+callable  = app
+master    = true 
+processes = 4
+threads   = 2
+lazy-apps = true 
+enable-threads = true 
+
+socket  = 0.0.0.0:8080
+protocal  = https 
+uid  = 1
+gid  = 1
+
+374-heap space or out of memory
+
+>>video 67 1:00:00
+
+375-is this possible to change the log format in nginx logs 
+
+>>yes you can see video 65 40 mins how to change
+>>vi /etc/nginx/nginx.conf 
+
+log_format main 'remote_addr $time_local $request $status $body_bytes_sent $request_time'  
+>>this format used to collect required information ex: you have send the data elk you can search easily what you want 
+
+376-what is mean by database sharding 
+
+>>video 54 01-03-00 time 
+>>videos 58 32 mins 
+
+377-What is the maximum number of instances allowed in an Amazon DocumentDB cluster?
+
+>>Instances	40
+>>Manual cluster snapshots	100
+>>Read replicas per cluster	15
+>>Subnet groups	50
 
 
+378-what is placement group in ec2 
+
+>>
+
+379-what is desire-capacity in Auto-scaling group 
+
+>>how many system do you want to launch instances in AWS 
+
+380-how role and policy works 
+
+>>first create the role which service like ec2 then attach that poilcy to ec2 then create the policy permission like ssm parameter permission then attach this policy to role then that role attached to ec2 will bring the data from aws what permission you given 
+
+381-how to replace any server ip in route53 using shell script 
+
+IP=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=jenkins"  --query 'Reservations[*].Instances[*].PublicIpAddress' --output text)
+
+echo '
+{
+  "Comment": "CREATE/DELETE/UPSERT a record ",
+  "Changes": [{
+    "Action": "UPSERT",
+    "ResourceRecordSet": {
+      "Name": "jenkins.devopsb70.online",
+      "Type": "A",
+      "TTL": 15,
+      "ResourceRecords": [{ "Value": "IPADDRESS"}]
+    }}]
+}' | sed -e "s/IPADDRESS/${IP}/" >/tmp/jenkins.json
+
+ZONE_ID="Z0366464237Z7LZLZPKFA"
+aws route53 change-resource-record-sets --hosted-zone-id ${ZONE_ID} --change-batch file:///tmp/jenkins.json | jq .
+
+382-what is Amazon landling zone how we can configure 
+
+
+383-is document db and mongodb is same 
+
+>>documnet db is mongodb alternative in aws 
+
+384-how to track or see the login into server using bastion server 
+
+>>using bastillion tool 
+
+385-what is bastillion tool what is the use of it 
+
+>>
+
+386-what is monorepo & multirepo what is the difference between this
+
+>>all the repos is one place or all the state files in one place is called monorepo 
+>>one place to bother
+>>runing multiple modules in order is needed means multiple executions
+>>sharing this someone easy 
+>>terraform apply -target=module.mysql  -->>you can apply single module if you want in terraform 
+
+>>making repos like state files any files in differnet repos is called multirepos  
+>>
+
+387-how to check whether the server is running or not connecting 
+
+1-check the server is runing or not (ps -ef)
+2-check the port is open or not (netstat -lntp)
+3-check the ports open security group or not 
+4-in case if that service is accessed  by another server then you can check the reachability using telnet 14.98.164.230
+5-restart the services or server 
+6-repeat step 4
+7-finally you can check the server 
+
+388-how to do mongodb bindip address to listen the another service while connected to mongodb when we giving mongodb url to any other service 
+
+>>vim /etc/mongod.conf 
+
+net:
+  port: 27017
+  bindIp: 127.0.0.1 ##replace 0.0.0.0 or your web server ip like any public ip or private of your service 
+:wq
+
+>>systemctl restart mongod 
+
+389-what is systemd service file
+
+>>A systemd service file is a configuration file used by the systemd init system in many modern Linux distributions to define and manage services, daemons, and other system tasks. Systemd is a system and service manager that plays a central role in the boot process and service management on Linux systems. The service file specifies how a service should be started, stopped, and managed by systemd.
+
+>>vi /etc/systemd/system/catalogue.service 
+[Unit]
+Description = Catalogue Service
+
+[Service]
+User=roboshop
+Environment=MONGO=true
+Environment=MONGO_URL="mongodb://<MONGODB-SERVER-IPADDRESS>:27017/catalogue"
+ExecStart=/bin/node /app/server.js
+SyslogIdentifier=catalogue
+
+[Install]
+WantedBy=multi-user.target
+:wq
+
+>> for example your installed fornted and mongodb service then that mongod must talk this catalogue service right you need to give endpoint of mongod 
+
+390-create ec2 only view and delete the policy for user in AWS
+
+>>To create an AWS Identity and Access Management (IAM) policy that allows a user to view and delete Amazon Elastic Compute Cloud (EC2) instances, you can use the following JSON policy document as a starting point:
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ec2:Describe*",
+                "ec2:List*",
+                "ec2:TerminateInstances"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+
+391-delete unused ebs volume using lambda
+
+1-Create an IAM Role for Lambda:
+2-Create a Lambda Function:
+3-
+import boto3
+
+def lambda_handler(event, context):
+    ec2 = boto3.client('ec2')
+    response = ec2.describe_volumes()
+
+    for volume in response['Volumes']:
+        if 'Attachments' not in volume:
+            # This volume is not attached to any instance
+            volume_id = volume['VolumeId']
+            print(f"Deleting unattached volume: {volume_id}")
+            ec2.delete_volume(VolumeId=volume_id)
+4-Create a CloudWatch Events Trigger:
+5-Create a CloudWatch Events Trigger:
+6-Test Your Lambda Function:
+7-Schedule the Lambda Function:
+8-Monitor and Logging:
+9-Alerts:
+10-Cleanup Strategy:
+
+392-how to raise a ticket in AWS 
+
+>>
 
