@@ -387,7 +387,9 @@ The Pod wraps these containers and storage resources together as a single manage
 
 27-Is Kubernetes mutable or immutable?
 
-immutable:-If you are using containers or container orchestration tools like Kubernetes, you are already following an immutable model for application deployments.
+>>immutable:-If you are using containers or container orchestration tools like Kubernetes, you are already following an immutable model for application deployments.
+>>if use mutable always take longtime to deploy change the version or OS Anything 
+>>if use immutable always take lesstime to deploy change the version or OS or Anything 
 
 28-What is a multinode cluster and single-node cluster in Kubernetes?
 
@@ -562,6 +564,8 @@ An image is comparable to a snapshot in virtual machine (VM) environments.
 
 48-what is pod in kubernets
 
+>>pod is group of containers 
+>>pod uses shared network and shared stoarge also 
 >>Pods are the smallest deployable units of computing that you can create and manage in Kubernetes.
 >>A pod is samllest unit of compuatation and replication in kubernetes
 >>A Kubernetes pod is a collection of one or more Linux® containers, and is the smallest unit of a Kubernetes application.
@@ -824,7 +828,7 @@ access the pods
 >>Where as if you create a service as type LoadBalancer the cloud control manager creates a external load-balancer-IP using the underlaying cloud provider 
 logic in th C-CM users can access services using the external IP
 
-77- what is NameSpaces and what is use for it
+77-what is NameSpaces and what is use for it
 
 >>NameSpace is just like a workspace
 >>in kubernetes namespace is a logical isolation of resources network policies rbac and everything  
@@ -1572,7 +1576,7 @@ find the pod delete the pod-
 
 >>keycloak is an open-source software solution designed to provide single sign-on access to applications and services. It allows users to authenticate once and access multiple 
 applications without needing to re-enter their credentials.
-<<it will provide tight level identity access management
+>>it will provide tight level identity access management
 
 137-How can containers within a pod communicate with each other
 
@@ -1855,7 +1859,6 @@ ifconfig
 >>helm package anji/
 >>helm install anji
 
-
 158-what are the priciples of GitOps
 
 1-Declartive:- A System managed by GitOps must have its described state expressed declaratively
@@ -2134,7 +2137,7 @@ bughunteranji.xyz
 
 >>Ans: yes
 
-174-101-what needs to create an ingress
+174-what needs to create an ingress
 
 1-namespace
 2-serviceAccount
@@ -2605,7 +2608,7 @@ the compatibility matrix, testing updates, and performing rolling updates of the
 >>complex networking
 >>Control and Customization
 
-220what is the Advanatges of EKS
+220-what is the Advanatges of EKS
 
 >>managed service
 >>Global Reach
@@ -2668,14 +2671,504 @@ spec:
 >>sudo eksctl create cluster --name anji --region ap-south-1 --node-type t2.micro --nodes-min 1
 >>aws eks update-kubeconfig --name anji --region ap-south-1    -->update the kubeconfig file
 
+226-how to create helm charts how to pass the values or data 
 
+>>cloudwithsiva session 75 45 mins time 
+>>create chart folder 
+>>mkdir chart 
+>>cd chart
+>>mkdir templates
+>>vi charts.yaml 
+apiVersion: v2
+name: roboshop
+version: 1.0
+:wq
 
+>>cd templates 
+>>vi pods.yaml 
+>>vi service.yaml  
+>>helm install anji ./charts  --set component=cart  -->we are passing the variable to pods and service yaml why because if you eant excute 10 service no need to change everytime you cna send like this values  
+>>cd ../..
+>>vi frontend.yaml 
+>>vi catalogue.yaml 
+>>vi cart.yaml 
+>>cd ..
+>>helm install cart ./charts -f cart.yaml 
+>>helm install frontend ./charts -f frontend.yaml 
+>>helm upgrade -i anji  ./charts -f cart.yaml 
+cart.yaml inside have variable that will point pod or service.yaml if you use single pod or service file then we pass the -f  cart.yaml have cart image if you use frontend.yaml then have frontend image or port 
 
+>>helm create anji   -->it will create the anji helm inside the files wil create automcatically
 
+227-if you have situvation like your need to expose the data into password or username like into pod  
 
+>>you can use init container then you mount emptydir volumes then you then create one file store then another pod will use that data dont use EBS volumes it will not transfer or not good once you can check 
 
+vi run.sh 
+set -e
 
+aws ssm describe-parameters --region us-east-1 --query "Parameters[*].Name" | xargs -n1  |sed -e 's/,//' | grep ${ENV}.${COMPONENT} >/parameter-store/names
 
+rm -f /parameter-store/params
 
+for param in `cat /parameter-store/names`; do
+  VALUE=$(aws ssm get-parameters --region us-east-1 --names $param  --with-decryption --query Parameters[0].Value | sed 's/"//g'  )
+  KEY=$(echo $param | awk -F . '{print $NF}')
+  echo export $KEY=\"$VALUE\" >>/parameter-store/params
+  cat /parameter-store/params
+done
+:wq   ##it will fetch the parameter store to collect the values ex: name=prod.catalogue.MONGO_URL value=mongo:hjahbjkhbj:ddjh
+so if use the script it will collect the name filed MONGO_URL only then export the value MONGO_URL=value then teh value taken by that pod 
+vi Dockerfile 
 
+FROM amazonlinux/aws-cli  #this will install aws cli this have aws access with kubernetes server  
+COPY          run.sh /
+ENTRYPOINT    [ "bash", "/run.sh" ]
+
+>>docker build -t anji .
+>>then using this image you can do init container then it wil fetch that image one condition you need to pass the env and componnet variable if you use helm this is the command
+stage('Helm Deploy') {
+      steps {
+        sh 'helm upgrade -i ${COMPONENT} ./HELM -f APP/values.yaml --set-string image.tag="${APP_VERSION},ENV=prod,COMPONENT=${COMPONENT}"'
+      }
+}
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+      - name: main-container
+        image: nginx:tag
+        # Main application container configuration goes here
+      initContainers:
+      - name: init-container
+        image: anji 
+        commad: sleep ["10000"]
+        env:
+          - name: ENV 
+            value: ENV
+          - name: Component 
+            value: Component
+
+228-can i add multiple init containers in deployment or pod 
+
+>>yes you can add multiple init containers the use case if you want execute the some schemas in database and pass the passwords like this you can use this  
+
+229-explian this helm
+
+>>helm init anji 
+>>ls
+templates -->diretory
+deployment.yaml
+hpa.yaml 
+ingress.yaml
+notes.txt 
+service.yaml
+serviceaccount.yaml
+>>cd ../..
+
+>>git clone https://github.com/teamall574/cart.git 
+>>cd cart 
+>>ls
+values.yaml 
+>>cd ..
+>>mkdir app  -->for example you think cart inside app folder under values.yaml is there 
+dir('APP') {
+  git branch: 'main', url: 'https://github.com/raghudevopsb70/${COMPONENT}.git'
+}
+>>helm upgrade -i cart -f app/values.yaml --set-string=image.tag=${APP_Version}-->it wil replace anji helm chart under values.yaml 
+parameters {
+    string(name: 'COMPONENT', defaultValue: '', description: 'Component')
+    string(name: 'APP_VERSION', defaultValue: '', description: 'App Version')
+}   -->this replacing in APP_Version and tag in jenkins you giving either cart image or catalogue image like this many what you want 
+>>if you want where the helm repository you wnat execute that means you can choose like this  
+steps {
+        dir('APP') {
+          git branch: 'main', url: 'https://github.com/raghudevopsb70/${COMPONENT}.git'
+        }
+        dir('HELM') {
+          git branch: 'main', url: 'https://github.com/raghudevopsb70/roboshop-helm-chart'
+        }
+      }
+stage('Helm Deploy') {
+      steps {
+        sh 'helm upgrade -i ${COMPONENT} ./HELM -f APP/values.yaml --set-string image.tag="${APP_VERSION},ENV=prod,COMPONENT=${COMPONENT}"'
+      }
+
+    }
+
+230-if you have two container how you can exec into first second like this 
+
+apiVersion: v1 
+kind: pod 
+metadata:
+  name: anji 
+spec:
+  containers:
+  - image: nginx 
+    name: nginx 
+    volumeMounts:
+    - mountPath: /cache 
+      name: cache-volume 
+  - image: centos:8
+    name: centos 
+    command: ["sleep", "10000"]     
+    - mountPath: /cache 
+      name: cache-volume 
+  volumes:
+  - name: cache-volume
+    emptyDir:
+      sizelimit: 500Mi
+
+>>kubectl get pods
+anji 
+>>kubectl exec -it anji -c nginx -- bash  -->it will go into nginx 
+>>kubectl exec -it anji -c centos -- bash  -->it will go into centos  
+
+231-how to pass the passwords to kuberneets pods from AWS accounts
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cart
+spec:
+  initContainers:
+  - name: init-container
+    image: amazonlinux:latest  # You can use an image that includes the AWS CLI
+    env:
+    - name: URL
+      valueFrom:
+        secretKeyRef:
+          name: aws-ssm-secret
+          key: url
+    - name: PORT
+      valueFrom:
+        secretKeyRef:
+          name: aws-ssm-secret
+          key: port
+    command: ["/bin/sh", "-c"]
+    args:
+    - |
+      export URL=$(aws ssm get-parameter --name "/path/to/url" --query "Parameter.Value" --output text)
+      export PORT=$(aws ssm get-parameter --name "/path/to/port" --query "Parameter.Value" --output text)
+  containers:
+  - name: cart-container
+    image: your-cart-image
+    env:
+    - name: URL
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.annotations['url']
+    - name: PORT
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.annotations['port']
+
+232-what is OIDC 
+
+>>video 79 26 mins 
+
+233-what is RTO and RPO 
+
+81 session 51 mins 
+>>Recover Point:- 
+>>Recover Time:-
+
+234-how to add shortcuts or alias in permanent in linux 
+
+vi .bash_profile
+
+alias  ku="kubectl"
+alias  ta="terrfform apply"
+:wq
+>>ku will use like this instead of kubectl we can use like this 
+ku apply -f anji.yaml 
+like this terrafrom 
+ta -auto-approve 
+
+235-what is epoch converter
+
+>>it is database or any server will give you like this 1677718193 then you can convert normal time epoch converter using  
+
+236-IF prometheus goes down how to montior the k8s
+
+>>If the Prometheus monitoring system goes down in a Kubernetes cluster, there are alternative ways to monitor the cluster.
+1-Grafana: Grafana is a popular open-source visualization and monitoring tool that can be integrated with various data sources, including Prometheus. You can set up Grafana to directly scrape metrics from Kubernetes components and display them in customizable dashboards.
+2-Kubernetes Dashboard: Kubernetes provides a built-in web-based dashboard that allows you to view and manage cluster resources. It provides basic monitoring capabilities, such as displaying the status of pods, nodes, and deployments.
+3-Heapster: Heapster is an older monitoring tool for Kubernetes that has been replaced by the Kubernetes Metrics Server. However, if Prometheus is down, you can still use Heapster as a fallback option. Heapster collects metrics from various sources and can be integrated with Grafana for visualization.
+4-External Monitoring Services: You can also consider using external monitoring services like Datadog, New Relic, or Sysdig. These services provide comprehensive monitoring solutions and can integrate with Kubernetes to collect and display metrics.
+>>you can use thanos or any external tools like elk like this 
+
+237-what are the build issue will face in production environment in ci cd process
+
+1-Dependency conflicts: When different components of an application have conflicting dependencies, it can lead to build failures or runtime errors. This can happen when different teams or individuals use different versions of libraries or frameworks.
+2-Environment inconsistencies: Build issues can occur if the development and production environments are not aligned. For example, if the production environment lacks necessary system libraries, configurations, or environment variables, the build may fail.
+3-Resource limitations: In some cases, the production environment may have limited resources such as memory, CPU, or disk space. This can cause build failures if the build process exceeds the available resources.
+4-Network connectivity issues: If the build process relies on external services or dependencies, network connectivity problems can cause failures. This can happen if the network is slow, unstable, or if the external services are down.
+5-Security restrictions: Production environments often have stricter security measures in place compared to development environments. Build processes that require elevated privileges, access to specific resources, or external network access may be blocked or restricted, leading to build failures.
+6-Environment Discrepancies:
+Operating System Differences: Development and production environments may use different operating systems.
+Library/Dependency Versions: Discrepancies in library or dependency versions can lead to unexpected behavior.
+Configuration Management:
+Misconfigured Environment Variables: Inconsistent or missing environment variables can cause the application to behave differently.
+Incorrect Configuration Files: Issues with configuration files, such as pointing to the wrong databases or API endpoints, can occur.
+Database Migrations:
+Data Schema Changes: Changes in the database schema that are not properly handled can cause data inconsistencies or application failures.
+Resource Limitations:
+Insufficient Resources: Production environments might have different resource constraints compared to development environments, leading to performance issues or crashes.
+Security Considerations:
+Security Configuration: Misconfigurations related to security settings, permissions, or firewall rules can compromise the application's security.
+Networking Issues:
+Firewall and Port Configuration: Firewalls or network policies might block the necessary ports, leading to connectivity issues between services.
+DNS Resolution: Problems with domain name resolution can affect service discovery and communication.
+Build Tool and Dependency Management:
+Artifact Compatibility: Ensure that the artifacts generated in the CI process are compatible with the production environment.
+Artifact Storage and Retrieval: Issues related to storing and retrieving artifacts from a repository can occur.
+Versioning:
+Inconsistent Versioning: Ensure that the versioning of the application, libraries, and dependencies is consistent across environments.
+Rollback Mechanism:
+Failure to Rollback: In the event of a deployment failure, having a robust rollback mechanism is crucial. Failing to rollback successfully can lead to downtime.
+Monitoring and Logging:
+Inadequate Monitoring: Lack of proper monitoring and logging can make it challenging to identify and troubleshoot issues quickly.
+Scaling Challenges:
+Auto-Scaling Issues: If the application relies on auto-scaling, ensure that it can scale up and down seamlessly based on demand.
+
+238-elk have three component
+
+>>elasticsearch uses KQL language:-Kibana Query Language (KQL) is a powerful tool to explore your data and discover patterns, identify anomalies and outliers, create statistical modeling, and more. 
+1-kibana:-it is dashboard. It is a UI for users search the data in Elastisearch 
+2-elastisearch:-it is database. It is a Database, Creates and index of words and allows users to retrive information over HTTP   
+3-logstash:-it log-aggreator.logstash It is used converts the unstructured data to structured data  
+4-beats:-it is used install in each and every system collect teh logs . filebeats collects the data and it can send it to either logstash or directly to elastic seatch 
+
+filebeast-->logstash-->elastisearch-->kibana-->users we can acccess from ui through dashboard 
+
+>> two type of data 
+1-structured data:-
+{
+  "level": "INFO"
+  "message": "Hello World"
+  "date": "2020-10-05"
+}
+2-unstructured data:- 
+2020-10-05 - INFO - Helllo World 
+
+239-what is drokdebugger
+
+>>video 65 32 mins see how create search for keywords in elasticsearch
+>>it is used convert Elastisearch to easy way using some patterns you need add this pattern in 
+>>vi /etc/logstash/conf.d/logstash.conf 
+
+>>this apptern using you can easily understand teh data from elasticsearch dashboard if you cant added this elasticsearch you difficult understand teh data 
+fileter {
+  grok {
+    match => { "message" => "%{IP:Source_IP}%{SPACE}-%{SPACE}\[%{HTTPDATE}\]%{GREEDYDDATA:all_data}" }
+  }
+}
+
+240-is this possible to change the log format in nginx logs 
+
+>>yes you can see video 65 40 mins how to change
+>>vi /etc/nginx/nginx.conf 
+
+log_format main 'remote_addr $time_local $request $status $body_bytes_sent $request_time'  
+>>this format used to collect required information ex: you have send the data elk you can search easily what you want 
+
+241-what is elk slove 
+
+>>errors and traffic add also logs will store and also you can see the latency using visualize llibrary 
+>>how muh traffic is comming 
+
+242-what are best practice for deploying monothic application 
+
+#>>so if you have 15 service divided your application use each microservice as one server ex: 15 micro service then use 15ec2 
+#>>use private ips for internal communcation dont use private ips it will change
+#>>developers choose application stack(whether to use java or nodejs or golang)
+#>>developers chooses which version of software to be used 
+
+243-what are the best practice for deploying microservice in kubernetes 
+
+>>Deploying microservices in Kubernetes involves various considerations to ensure scalability, reliability, and maintainability. Here are some best practices for deploying microservices in Kubernetes:
+
+Containerization:
+
+Use containerization (e.g., Docker) to package your microservices along with their dependencies, making it easier to deploy and manage in Kubernetes.
+Single Responsibility Principle:
+
+Follow the Single Responsibility Principle for microservices. Each microservice should have a specific business function and should be responsible for a well-defined set of tasks.
+Decomposition:
+
+Break down your application into smaller, manageable microservices. Avoid creating overly large microservices that defeat the purpose of the microservices architecture.
+Service Discovery:
+
+Use Kubernetes service discovery mechanisms (e.g., Kubernetes Services or ExternalName Services) to allow microservices to discover and communicate with each other.
+Configurations:
+
+Externalize configuration settings using ConfigMaps or Secrets in Kubernetes. Avoid hardcoding configurations within the microservices.
+Health Checks and Readiness Probes:
+
+Implement health checks and readiness probes to help Kubernetes manage the lifecycle of your microservices. This ensures that only healthy instances receive traffic.
+Secrets Management:
+
+Manage sensitive information such as passwords and API keys using Kubernetes Secrets. Avoid storing sensitive information directly in your application code or configuration files.
+Resource Requests and Limits:
+
+Define resource requests and limits for CPU and memory in your Kubernetes Deployment or Pod specifications. This helps Kubernetes scheduler make better decisions about where to place your microservices and prevents resource contention.
+Horizontal Scaling:
+
+Leverage Kubernetes Horizontal Pod Autoscaling to automatically adjust the number of replicas based on metrics such as CPU utilization or custom metrics.
+Logging and Monitoring:
+
+Implement centralized logging and monitoring using tools like Prometheus, Grafana, or ELK stack. This facilitates easy debugging, performance analysis, and issue resolution.
+Rolling Updates:
+
+Use rolling updates for deploying new versions of your microservices to ensure zero downtime. Kubernetes allows you to gradually replace old instances with new ones.
+Load Balancing:
+
+Use Kubernetes Services for load balancing across instances of your microservices. This helps distribute traffic evenly and ensures high availability.
+Namespace Isolation:
+
+Consider using Kubernetes namespaces to isolate and organize resources. This is especially useful in multi-tenant environments.
+Backup and Restore:
+
+Regularly back up your application data, and have a strategy for restoring data in case of failures. Kubernetes Persistent Volumes (PVs) and Persistent Volume Claims (PVCs) can be used for stateful applications.
+Security Policies:
+
+Implement Kubernetes Network Policies to control the communication between microservices and enhance the security of your application.
+Immutable Infrastructure:
+
+Treat your infrastructure as immutable. Avoid making changes directly to running instances; instead, redeploy with the desired changes.
+
+244-whar are the big challenges in micro-services
+
+1-networking 
+2-load-balancing
+3-Identity of services 
+4-
+246-is there any dashboard tool availble for kubernetes 
+
+>>yes there is tool called octant install this or see cloudwithsiva 73 session 9 mins
+https://github.com/vmware-archive/octant/releases
+sudo mv /path/to/downloaded/octant /usr/local/bin/octant
+sudo chmod +x /usr/local/bin/octant
+octant
+octant --listener-addr 0.0.0.0:7777
+>>nohup octant --listener-addr 0.0.0.0:7777 &  -->this will run background 
+then add this into nginx reverse proxy nginx.conf file then you can access  
+
+and one more is k9s and k8s dashboard and lens tool also 
+
+247-how to download and configure kubeconfig file into windows 
+
+>>this for linux 
+>>scp ec2-user@12.76.78.89:/home/ec2-user/kubeconfig  ~/.kube/config   -->this will copy the config kubernetes system into linux 
+>>copy the config file into windows vi config and paste it here and save 
+>>then go to environment variables select the variable in first box KUBECONFIG then secondbox c:\anji\config then save. then you can acces 
+>>kubectl get pods or nodes -->you can get  
+or else you can use like this 
+kubectl --kubeconfig=c:\anji\config get pods 
+
+248-what is Ephermal containers
+
+>>a special type of container that runs temporarily in an existing Pod to accomplish user-initiated actions such as troubleshooting. You use ephemeral containers to inspect services rather than to build applications.
+
+249-what is status: {}  in kubernetes yaml file 
+
+>>The status section is where the Kubernetes system provides the current observed state of the resource.
+
+250-what is containerd in kubernetes 
+
+>>containerd is an industry-standard core container runtime used in various container orchestration platforms, including Kubernetes. It is designed to be a lightweight and focused container runtime, providing the essential functionality needed to run containers. containerd is part of the larger container ecosystem and serves as a building block for container platforms.
+>>containerd is a container runtime, responsible for the execution of containers on a host system.
+>>container runtime use containerd to run the containers 
+
+251-what is cluster 
+
+>>a group of similar things or service is called cluster 
+
+252-what are the policies you need to give eks cluster 
+
+1-AWSCloudFormationFullAccess 
+2-IAM Access 
+3-Ec2 Full Access (load-balacing,cloudwatch,autoscaling,ec2 )
+4-EksAllAccess
+kops S3 access (if you use kops IAM,S3,EC2,Route53 )
+
+253-how to pass the secret manager credential to jenkins pipeline 
+
+>>
+
+254-how to check the pod logs of kubernets using grafana dashboard 
+
+>>Configure Data Source in Grafana:
+
+Access your Grafana dashboard and configure Loki as a data source.
+Go to Configuration -> Data Sources -> Add data source.
+Choose Loki from the list of available data sources and provide the necessary connection information (Loki URL, etc.).
+Querying Logs:
+
+Once Loki is configured as a data source, go to the Explore section in Grafana.
+In Explore, you can write PromQL (Prometheus Query Language) or LogQL (Loki Query Language) queries to filter and search for logs.
+For example, to view logs from a specific pod, you can use a query like:
+plaintext
+Copy code
+{namespace="your-namespace",pod="your-pod-name"}
+Modify the query based on your specific criteria such as namespace, pod name, time range, etc.
+Visualize Logs:
+
+Grafana allows you to create visualizations and dashboards based on the logs you've queried. You can create panels that display log lines, count log entries, visualize trends, and more.
+Create a new dashboard, add a panel, and configure the panel to display the log data obtained from Loki queries.
+Save and Monitor:
+
+Save your Grafana dashboard with the configured panels for future reference.
+You can set up alerts and notifications based on log data, allowing you to monitor specific events or patterns in your pods' logs.
+
+255-how to find out the DNS name in svc or deployment in kubernetes
+
+>>kubectl get service <service-name> -n <namespace> -o=jsonpath='{.status.loadBalancer.ingress[0].hostname}'
+>>kubectl get service <service-name> -n <namespace> -o=jsonpath='{.status.loadBalancer.ingress[0].ip}'
+
+>>kubectl get pod -l app=<deployment-label> -o=jsonpath='{.items[0].spec.hostname}' -n <namespace>
+
+256-what is mean by -it in docker or kubernetes
+
+>>it is like it-->means interactive 
+>>docker exec -it xxxxxx or kubectl exec -it xxxx 
+
+257-what are the servics in kubernetes
+
+1-clusterIp
+2-NodePort
+3-Load-blancer
+4-ExternalName 
+
+258-what are security standards in deploying application 
+
+1-Run application as normal user 
+2-Never login as root user 
+3-authentication and authrizations will be give properly
+4-Data Encryption 
+5-secure code and check vulnerability scaning 
+6-secure APIS 
+7-logging and monitoring
+8-patch regularly 
+9-Disaster Recovery and backups 
+10-secure deployment pipelines 
+
+259-how we can assign the values to pod mb cpu calculation
+
+1000  = 1 cpu
+1000  = 1gb memory
+in request means you requested 100m cpu then definetly you will get. like this if you given limit 500m menas if will not gurante if the cpu is available then it will give otherwise dont give 
 
