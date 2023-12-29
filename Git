@@ -1,698 +1,1087 @@
-1-Types of git version control tools
+nexusArtifactUploader
+pipeline utiltysteps
+maven
+docker plugin
+rbac
+git
+publish over ssh
+deploy to containers
+credentials binding plugin
+aws
+azure
+amazonECR
+active directory
+docker build setup 
+nexus
+sonarqube 
+docker-swam
+kubeconfig
+kubernets pipeline
+kubernetes cli
 
-1-git
-2-SubVersion
-3-CVS
-4-perforce
+pipeline {
+    agent {
+        lable "Anji"  ##need to give slave name slave name is Anji
+    }
+    environment {
+        registryCredential = "anjitest"
+        dockerimagename = "anji1592/kubetest"
+        dockerImage = " "
+    } //or use this
+    environment {
+        app_name = "zomato-app"
+        release = "1.0.0"
+        image_name = "${anji1592}" + "/" + "${app_name}"
+        iamge_tag = "${release}-${BUILD_NUMBER}" 
 
-2-What is Git?
+    }
+    stages {
+        stage("clean workspace"){
+            steps {
+                cleanWS()  ##it will clear the workspace every build
+            }
+        }
+        stage('checkout source') {
+                steps {
+                    git 'https://github.com/teamall574/test.git'   ##it is public repository
+                }
+            }
+        stage (clone) {
+            steps{     ##if it is private repository if not then not need credentials
+                git credentialsId: 'git_credentials', url: 'https://github.com/teamall574/test.git', branch:'dev'  #if you want add another barnch corner add 
+            }
+        }
+        stage('sonar quality status'){
+            script{
+                withsonarQubeEnv(credentialsId: 'sonar-token') {
+                sh 'mvn sonar:sonar' #it will send the code into the sonarqube
+                sh 'npm run sonar' #It will send the code into the sonarqube you need to set the sonar:sonarqube-scanner in package.json andd version also
+                }
+            }
+        }
+        stage ('push code to sonarqube') { #it will send the code to sonarqube 
+            steps { #-Dsonar.java.binaries=./target this tell where the target and need to take that and test  
+                sh 'sonar-scanner -Dsonar.hot.url=http://172.17.23.89:9000 -Dsonar.projectkey=cart -Dsonar.login=admin -Dsonar.passwd=admin123 -Dsonar.qualitygate.wait=true -Dsonar.java.binaries=./target'
+            }
+        }
+        stage('quality gate staus') {
+            steps {
+                script{
+                waitForQualityGate abortPipeline: false, credentialsId: 'sonar-token'
+                }
+            }
+        }
+        stage (maven build##need to install maven and configure in jenkins system) {
+            steps{
+		        sh 'mvn versions:set -DnewVersion=1.0.0${BUILD_NUMBER}'
+                sh 'mvn clean package'
+            }
+        }
+        stage (maven build##need to install maven and configure in jenkins system) {
+            steps{
+                sh 'mvn test'
+            }
+        }
+        stage('push code into s3'){
+	        steps {
+	            sh 'aws s3 cp $WORKSPACE/target/anji/*.war s3://anji1592'
+	            sh 'aws s3 cp $WORKSPACE/pom.xml s3://anji1592/pom'   -->you need to create the folder pom in s3 bucket it will copy pom.xml in s3 bucket
+	        }
+	    }
+        stage('OWASP-CHECK'){  ##it will check owasp top 10 issues in jar file or package application
+            steps {
+                sh "dependencyCheck additionalArgumnets: '--scan target/', odcInstallation: 'owasp' dependencyCheckPublisher pattern: '**/dependency-check-report.xml'"
+            }
+        }
+        stage {
+            steps{ ##this using pom.xml configuartion in add ip add or else you can use the pipeline syntax to create the syntax and add username and password also 
+            sh 'mvn deploy' ##this will copy your artifacts into nexus repository
+            }
+        }
+        stage (tomcat server##need ssh key to connect the tomcat server and the code push tomcat server) {
+            steps{
+                scp webapp/target/webapp.war ec2-user@25..15.25.24:/opt/tomcat/webapps
+            }
+        }
+        stage('build image') {
+            steps {
+                script {
+                    dockerImage = docker.build dockerimagename
+                }
+            }
+        }
+        stage('push image') {
+            steps {
+                script {
+                    docker.withRegistry( 'https://registry.hub.docker.com', registryCredential) {
+                        dockerImage.push("latest")
+                    }
+                }
+            }
+        }
+        stage('get cedentials'){  ##need to add first vault plugin url and then add username and password of vault
+            withVault(configuration: [timeout: 60, vaultCredentialId: 'vaultId', vaultUrl: 'https://172.65.45.3.anji.com'], valueSecret: [path: 'secret/dockercred'], secretValues: [valuekey: 'username'], [valuekey: 'password']) 
+            sh 'echo $username' 
+        }   
+        stage('Docker Build & Push') {  ##this second method 
+            steps {
+                script{
+                    withDockerRegistry(credentialsId: '2fe19d8a-3d12-4b82-ba20-9d22e6bf1672', toolName: 'docker') {
+                        
+                        sh "docker build -t anji ."
+                        sh "docker tag  anji anji1592/kubetest:latest"
+                        sh "docker push anji1592/kubetest:latest"
+                    }
+                }
+            }
+        }
+        stage ('docker build'){ 
+            steps {
+                docker_image = docker.build "${image_name}"
+            }
+        }
+        stage ('push docker image') {
+            steps {
+                script {
+                    withDockerRegistry(credentialsId: '2fe19d8a-3d12-4b82-ba20-9d22e6bf1672', toolName: 'docker') {
+                        docker_image.push("${image_tag}")
+                        docker_image.push('latest')
+                    }
+                }
+            }
+        }
+        stage('test docker image') {
+            steps {
+                sh "trivy --version"  
+                sh "trivy image anji1592/kubetes"
+                sh "bash anji.sh"
+            }
+        }
+        stage('k8s deploy') {
+        steps{
+            withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'k8s', namespace: '', restrictKubeConfigAccess: false, serverUrl: '') {
+		sh "sed -i '/^\\s*image:/ s|.*|  image: ${image_name}|' ${deployment.yml}"  //it will replace the docker image tag or build number everytime in deployment file
+                sh 'kubectl get pods'
+                sh 'kubectl create -f deployment.yml'
+            }
+          }
+        }
+        post {
+            success {
+                slackSend "Build deployed successfully - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
+            }
+        }
+        post {
+            failure {
+              slackSend failOnError:true message:"Build failed  - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
+            }
+        }
+        //or else you can send the mail also
+        post {
+            
+        }
+    }
+}
 
->>Git is a DevOps tool used for source code management. It is a free and open-source distributed version control system used to handle small to very large projects efficiently. 
-Git is used to tracking changes in the source code, enabling multiple developers to work together on non-linear development.
->>While Git is a tool that's used to manage multiple versions of source code edits that are then transferred to files in a Git repository,
+1-what is Jenkins
 
-git config:-
-=========
->>git config --global user.name "VmTutes"
->>git config --global user.email "vmtutes@gmail.com
->>git config --list   -->it will show the details
->>git remote add origin https://github.com/testing5413/test.git
->>git push -u origin master    -->then it will ask username and password in password place paste a token
->>git config --global core.sshCommand "ssh -i ~/.ssh/id_rsa"   -->it will add ssh keys into your private repository 
+>>Jenkins version 2.375.2 
+>>jenkins is open-source and it is used to continous integration(CI)/continoud deployment(CD) tools. Jenkins is used to build and test your 
+software projects continuously making it easier for developers to integrate changes to the project, and making it easier for users to obtain a fresh build.
+>>you can integrate the plugins to jenkins without plugins you can do anything
 
-3-What is GitHub?
+highly available jenkins:-
+>>All Jenkins instances within the Region can access the Amazon EFS file system and data durably stored in multiple Availability Zones. 
+If a single Availability Zone experiences an outage, the Jenkins file system is still accessible from other Availability Zones providing HA for the storage laye
 
->>GitHub serves as a location for uploading copies of a Git repository.
->>To provide Internet hosting for version control and software development, GitHub makes use of Git.
+Why Jenkins is important?
+>>Jenkins is used today along the entire software development lifecycle, enabling the integration and automation of different processes, including building, testing, 
+and deployment. Jenkins creates 'pipelines', which define the series of steps that the server will take to perform the required tasks.
 
-4-What’s the difference between Git and GitHub?
+>>open source
+>>continuous integration
+>>continuous deployment
+>>jenkins has thousands of plugins which is used to connect to other tools also
+>>jenkins is  a frame work( you chose what process you want and ask jenkins to do)
+>>crontab(jobs), job schedules.
 
-Git:-
-1-Git is a software
-2-git is command line tool
-3-Git can be installed locally on the system
-4-git mainatained by linux foundation
-5-git is focused on version control and code sharing
-6-It does not support user management features
+2-Types of CI/CD Tools
 
-github:-
-1-GitHub is a service
-2-github is graphical user interface
-3-GitHub is hosted on the web
-4-github maintained by microsoft
-5-github is centrailzed source hosting
-6-Provides built-in user management
+1-Teamcity
+2-Bamboo
+3-Travis ci
+4-Jenkins
+5-Go Ci
 
-5-git features compare to other tools:-
+3--what language is used in jenkins pipeline
 
-1. Speed
-2. Support for non-linear development(thounds of branches, for parallel development)
-3. Able to handle large-scale projects.
-4. distributed version control system
+>>Groovy programming language
+>>Pipelines are Jenkins jobs enabled by the Pipeline (formerly called “workflow”) plugin and built with simple text scripts that use a Pipeline DSL (domain-specific
+language) based on the Groovy programming language
 
-6-Is git Distributed or Centralizes version control system? what is the differnce between them
+4-what are the Prerequisites:
 
->>git is distributed version control system the major difference is that in centralized version control system you have the client and server architecture and 
-server is a remote repository has all the copies of your code like all the version of the code are only availble with server whereas in the distributed version control
-system every developer has all the versions of the code like all the copies of code are which and every and every developer who has cloned the remote repository 
-so thats why this called distibued version control system
+>>Java openjdk 11 or 17 should be installed
 
-7-Different types of version control systems
+5-How to change default port in jenkins
 
->>Local version control systems have a database that stores all file changes under revision control on disc in a special format.
->>Centralized version control systems have a single repository, from which each user receives their working copy.
->>Distributed version control systems contain multiple repositories, and different users can access each one with their working copy.
+>>lib/systemd/system/jenkins.service
+in this path you can change the port number 
+>>cd /usr/lib/systemd/system
+>>ls *jenkins*
+>>sudo vi jenkins.service
+Environment="JENKINS_PORT=8585"
+>>sudo systemctl restart jenkins.service
+>>sudo systemctl daemon-reload
+>>sudo systemctl restart jenkins
 
-8-what are 4 stages in git
+6-How to recover password in jenkins
 
-1-creation
-2-modification
-3-refactoring
-4-deletion
+Go to
+>>cd /var/lib/jenkins
+>>sudo vi config.xml
+change false in <userSecurity>True</userSecurity>
+>>sudo systemctl restart jenkins
+login to jenkins
 
-9-what are the git commands that you use to commit changes to you remote repository
+7-what is the use of jenkins slave or node
 
->>git add, git commit, git push
+>>the main purpose of jenkins slaves or nodes came into the picture the master will distribute the lot of jobs then it will excute so amny things
+it will take lot of CPU/Memory/Network utilization it will increase so if your using slaves then it will distribute the traffic to slaves
+>>The Jenkins master acts to schedule the jobs, assign slaves, and send builds to slaves to execute the jobs. It will also monitor the slave state (offline or online) 
+and get back the build result responses from slaves and the display build results on the console output.
 
-10-What is a Git repository?
+8 - what is on-demand-slave in jenkins
 
->>Git repository refers to a place where all the Git files are stored. These files can either be stored on the local repository or on the remote repository.
+>>Slaves are Jenkins agents it's used to execute jobs scheduled by the master. But there we need lots of different slaves with their respective tools. 
+For example, one slave is configured for maven to run a java application, one is for docker, and so on
 
-11-what is Git Branch. and how to create a branch and how to change one branch to another branch
+9 - How many slaves can Jenkins have?
 
->>A branch is a way to isolate development work on a particular aspect of a project. When a branch is created, it diverges from the primary branch. It allows 
-developers to work on a new feature or bug fix without affecting the main codebase.
->>In Git, a branch is a new/separate version of the main repository.
->>git branch hello   -->it will create the hello branch
->>git checkout master   -->it will change the hello to master branch
->>git checkout -b anji   -->it will create anji branch and move to anji branch
->>git switch anji   -->it will move to anji branch
->>git branch -d anji           -->delete the anji branch
->>git branch   -->it will show the git branches
+>>1-200 is the range you can get to without having to *heavily* tune GC or change some Jenkins hidden properties
 
-12-how to clone private repository in local machine
+10-what is role-based-access-control in jenkins
 
->>first create the ssh keys using this commands 
-ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
-cat ~/.ssh/id_rsa.pub    -->addd public key into github account
-git config --global user.name "anji"
-git config --global user.email "anji@anji.com"
-git config --global core.sshCommand "ssh -i ~/.ssh/id_rsa"
-then clone your private repository
+>>The Role Strategy plugin is meant to be used from Jenkins to add a new role-based mechanism to manage users' permissions. Supported features. Creating global roles, 
+such as admin, job creator, anonymous, etc., allowing to set Overall, Agent, Job, Run, View and SCM permissions on a global basis
 
-13-what are the git stages
+11 - what is jenkins pipeline and types of pipeline
 
-1-Working directory/space:- where we work perform differnet action on files
-2-staging/index Area:- it helps to create commit id(it is virtual area, here workspace dont know which one existing and modifeied area)
-3-commit area:- where changes commits permanently and generates commit id's
+>>pipeline is collection of events. pipeline is a set of codes and stages and stage contains steps and steps will execute your script
+>>In Jenkins, a pipeline is a collection of events or jobs which are interlinked with one another in a sequence. 
+It is a combination of plugins that support the integration and implementation of continuous delivery pipelines using Jenkins
+this is written groovy sccript
 
-14-what are the Types of Git Repository
+Types:-
+1-declartive
+2-scripted
 
-1. bare repo: is the centrailized repository which is used to store and share the changes, but we cannot view the data.
->>git init --bare central.git
->>cd central.git
-you can see below files
-branches config description HEAD hooks info objects refs
-2. non-bare repo: user (or) workspace (or) local repository whih is used to modify,del,create the changes.
-			(OR)
-1-Local Repository:
+12-what is the differnce between scripted pipeline and declartive pipeline
 
-A local repository is a Git repository stored on your local machine.
-It contains the complete history and version control information of a project.
+>>Scripted pipeline:-
+1-Scripted was the first and traditional implementation of the pipeline as a code in Jenkins. It was designed as a general-purpose DSL
+(Domain Specific Language) built with Groovy
+2-Scripted Pipelines follow a more Imperative Programming Model. In Imperative programming, you specify what you want and how it should be done.
+3-Scripted pipeline provides very few limits, such as structure and syntax are the only limits defined by Groovy itself
+4-In a scripted Pipeline, users can inject a groovy code during declaring. One of the major advantages of scripted pipelines is that they are very flexible 
+and expressive.
+5-The scripted pipeline does not support Environment block but you can define global variables and use credentials in a different way using Groovy.
+6-The scripted pipeline does not support Blue Ocean integration.
 
-2-Remote Repository:
+>>Declartive pipeline:-
+1-Declarative is a more recent and advanced implementation of a pipeline as a code.
+2-Declarative Pipeline encourages a Declarative Programming Model. In declarative programming, you specify what you want. You don’t care how it will get done
+3-Declarative pipeline limits what is available to the user with a more strict and pre-defined structure, making it an ideal choice for simpler CI/CD pipelines.
+4-restart at only one particular stage like which stage is failed
+5-Declarative: Declarative pipeline supports the Environment block. Environment block helps to define global variables and load credentials into the pipeline. 
+6-A declarative pipeline can be integrated with Blue Ocean (Blue Ocean is a new user experience for Jenkins based on a personalizable, modern design that 
+allows users to graphically create, visualize and debug CI/CD Pipelines)
 
-A remote repository is a Git repository hosted on a remote server or service.
-It acts as a centralized location where multiple developers can collaborate on a project.
+13-do you worked on the multi-branch pipeline and use case of multi-branch pipeline
 
-15-what are the commands will do before pushing
+>>yes i worked on multi-branch pipeline we have blue-ocean inplace, we are using blue-ocean  
+so that the blue-ocean give very good graphical representation to manage the multi-branch pipline
+we have like dev-env and prod-env when ever the commit is done it will be build 
+>>What's a Jenkins Multibranch Pipeline? A multibranch job is simply a folder of pipeline jobs. For every branch you have, Jenkins will create a folder.
+So instead of creating a pipeline job for each of the branches you have in a git repository, you could use a multibranch job.
 
->>git status
->>git add .
->>git commit -m "anji"
->>git push origin master 
+>>To create a Multibranch Pipeline in Jenkins, follow the following steps:
 
-16-what is .git and .gitignore
+Open the Jenkins dashboard and create a new item by clicking on 'new item'
+Enter the project name and, from the options, select 'Multibranch pipeline'
+Click on OK
+pipeline
 
->>so .git is everything in git so you know .git folder contains all the information like project details and file information everything present in .git file or
-folder if you should not be delete that file if you delete that file 
->>dot ignore suggest so if you want to ignore anything from dot git 
+Source: https://www.jenkins.io/doc/book/pipeline/multibranch/
 
-17-if your adding your github repository into your system
+Then select the repository location, branch source (GitHub/Bitbucket), and add the branch source credentials.
+Save the project
+Now, Jenkins automatically creates new Multibranch Pipelines for repositories
+Then to connect to the GitHub repo, we need the HookURL
+To get this URL from the repository settings, add this HookURL to the Webhooks section
+Once the jobs are created, Jenkins will automatically trigger the build
 
->>git remote add origin "https://github.com/teamall574/adding.git"
+14- what is the use of active directory in jenkins
 
-18-what is git merge and what is the use
+>>With this plugin, you can configure Jenkins to authenticate the username and the password through Active Directory. 
+This plugin internally uses two very different implementations, depending on whether Jenkins is running on Windows or non-Windows and if you specify a domain.
 
->>merge will help you to combine two branches
->>Git merge is a command used to combine the changes from one branch into another. It integrates the commit history and changes from one branch (source branch) into another branch
-(target branch).
->>git checkout main ##we are going to main branch 
->>git merge feature   ##this going to merge the feature branch into main
-uses:-
-1-combining branches
-2-automatic merging
-3-fast-forward merge
-4-recursive merge
-5-resolving conflicts
-6-commiting the merge
-7-branch management
+15- What is a CI/CD pipeline?
 
-19-how to see the logs in git
+>>CI/CD Pipeline or Continuous Integration/ Continuous Delivery is considered the DevOps approach's backbone. 
+>>The pipeline is responsible for building codes, running tests, and deploying new software versions.
 
->>git log   -->it will show all the logs
->git log -1
->>git log -2    -->it will show only last two logs
->>git log --oneline    -->it will show the logs in online
->>git log --grep "ignore"   -->what you want to see  to grep it you will get
->>git log --graph
->>git log --graph --pretty=oneline
->>git show commit id -->>it will show the commits of the code
->>git log "branch name"   -->if the branch name is anji then it will show the logs of anji branch only
+16- Name some of the useful plugins in Jenkins.
 
-20-what is git init
+Maven 2 project
+Amazon EC2
+Docker
+sonarqube
+nexus
+trivy
+publishoverssh
+deploy container
+HTML publisher
+Green Balls
+kubeconfig
 
->>The git init command is used to initialize a new Git repository in a directory. It sets up the necessary data structures and files that Git uses to manage version control for your project.
-Here are the key aspects of the git init command:
+17-How can you create a backup and copy files in Jenkins?
 
-21-what is git status
+>>Jenkins stores all the settings, builds scripts, and logs in the home directory. 
+>>Then, if you want to create a backup of this Jenkins set up all you have to do is copy this directory. 
+>>The job directory may also be copied to clone a job or rename the directory.
 
->>The git status command is helpful for understanding the current state of your Git repository and determining which files have been modified, staged, or are untracked
+18-Assume that you have a pipeline. The first job that you performed was successful, but the second one failed.  What would you do now?
 
-22-what is git add 
+>>You don't have to worry, and you just have to restart the pipeline from the point where it failed by doing 'restart from stage.'
 
->>The git add command is used to stage changes in your working directory and prepare them for a commit. It allows you to select specific files or parts of files to be included in the next
-commit. Here's how the git add command works:
+19- Explain the process in which Jenkins works?
 
-23-what is git commit
+>>Jenkins checks changes in repositories regularly, and developers must secure their code regularly. 
+>>Once the changes are defined, Jenkins detects them and uses them to prepare a new build.
+>>After that, Jenkins will transverse through various stages in its usual pipeline. As one stage completes, the process will move further on to the next stage.
+>>If a stage fails, the Jenkins build will stop there, and the software will email the team using it. When completed successfully, 
+the code implements itself in the proper server so that testing begins.
+>>After the successful testing phase, Jenkins shares the results with the team using it.
 
->>A commit is a way to save changes to a branch. When a commit is made, a snapshot of the current state of the branch is created. 
-This snapshot can be used to revert the branch to that state if necessary.
+20-What is Jenkinsfile? 
 
-24-what is git push 
+>>Jenkinsfile is a groovy file where the syntax is human-understandable
+>>With a Jenkinsfile, you can define a pipeline as code, enabling you to version control and manage your build pipeline along with your source code.
+It provides a way to describe and automate the continuous integration and continuous delivery (CI/CD) process for your software projects.
+>>A Jenkinsfile typically consists of a series of stages, each representing a step in the build pipeline. Within each stage, you define the tasks or operations to be performed, 
+such as compiling the code, running tests, packaging the application, or deploying it to a server. You can also define conditions and triggers to control when each stage should run,
+allowing for parallel or sequential execution of tasks.
+>>Jenkins file is a text file that has a definition of a Jenkins pipeline and is checked into the source control repository.
+It enables code review and iteration on the pipeline. It also permits an audit trail for the pipeline.
 
->>The Git push command is used to push the content in a local repository to a remote repository. After a local repository has been modified,
-a push is executed to share the modifications with remote team members.
+21-Differentiate between Maven, Ant, and Jenkins.
 
-25-what is git clone
+Maven:-
+Build tool
+Perform build operations 
 
->>cloneing is nothing copying of the file into remote to local
+ANT:-
+Build tool
+Perform build operations 
 
-26-how many ways to clone the git repo into the local system
+Jenkins:-
+Continuous Integration tool
+Jenkins may run unit tests and deploy applications
 
-1-Using the Command Line.
-2-Using the Git GUI.
-3-Using Visual Studio.
+22- Why is Jenkins used with Selenium?
 
-27-What is git pull
+>>Using Selenium allows Jenkins’s testing whenever there are any software changes or any changes in the environment. 
+When the Selenium test suite is integrated with Jenkins, the testing part is also automated as part of the build process.
 
->>The git pull command is used to fetch and download content from a remote repository and immediately update the local repository to match that content.
+23-what is jenkins agent
 
-28-what is the differnce between git pull and fetch 
+>>The agent section specifies where the entire Pipeline, or a specific stage, will execute in the Jenkins environment depending on where the agent section is placed
+                  (or)
+>>An agent is typically a machine, or container, which connects to a Jenkins controller and executes tasks when directed by the controller.
+Artifact. An immutable file generated during a Build or Pipeline run which is archived onto the Jenkins Controller for later retrieval by users.
 
->>Both of these commands will fetch any new commits from the remote repository, but they differ in how they handle these commits.
->>if you want use git fetch you need to enter first git fetch then you need to use git merge then new commits will come into your local repository
->>if you git pull automatically uses this git pull=git merge+git fetch
->>git pull directly code from github there is a disadvantage is there like some is pushed the code but the code is wrong if you pull directly 
-pull the code grom github to your local system directly
->>same scenraio in git fetch if you git fetch it will pull the code but will not merge into local code it will goto staging area then you can review and 
-then you can git merge then it will meege into local code there is disadvantage is that need to review your code and again you can merge the code 
->>the advantage is that to you can review your code bfore merging locally
+24-what is stash and unstash in jenkins
 
-29-what is git revert 
+>>stash:-stash using when your building pipeline so many agents. but the configuartion file is stored only one agent you need copy or move that files into remaing agent
+you can use stash(name: 'mystash') this command will use next agent like unstash 'mystash' it will copy that files into first agent to next agent
+you can includes: '**/*.war' this will includes copy to the next agent 
+you can excludes: '**/*.war' this will will not copy that files remaning files will be copy into the agent
+pipeline {
+  agent none 
+  stages {
+    stage ('hello') {
+      agent {label 'linux'}
+      steps {
+        sh '''
+           touch file.txt
+           mkdir -p target
+           touch target/file2.jar
+           touch target/anji.war
+           tree   
+           stash(name: 'mystash')
+      }
+    }
+    stage ('hello') {
+      agent {label 'mac'}
+      steps {
+        unstash 'mystash'
+        sh 'tree'
+      }
+    }
+  }
+}
 
->>This command	helps you in reverting a commit, to a previous version
+==========================================================includes===================================================================================
+pipeline {
+  agent none 
+  stages {
+    stage ('hello') {
+      agent {label 'linux'}
+      steps {
+        sh '''
+           touch file.txt
+           mkdir -p target
+           touch target/file2.jar
+           touch target/anji.war
+           tree   
+           stash(name: 'mystash' includes: '**/*.war')
+      }
+    }
+    stage ('hello') {
+      agent {label 'mac'}
+      steps {
+        unstash 'mystash'
+        sh 'tree'
+      }
+    }
+  }
+}
+
+===================================excludes==============================================================================================================
+pipeline {
+  agent none 
+  stages {
+    stage ('hello') {
+      agent {label 'linux'}
+      steps {
+        sh '''
+           touch file.txt
+           mkdir -p target
+           touch target/file2.jar
+           touch target/anji.war
+           tree   
+           stash(name: 'mystash' excludes: '**/*.war')
+      }
+    }
+    stage ('hello') {
+      agent {label 'mac'}
+      steps {
+        unstash 'mystash'
+        sh 'tree'
+      }
+    }
+  }
+}
+
+25-what is junit plugin
+
+>>The JUnit plugin provides a publisher that consumes XML test reports generated during the builds and provides some graphical visualization of 
+the historical test results (see JUnit graph for a sample) as well as a web UI for viewing test reports, tracking failures, and so on.
+
+26-what is check-style project
+
+>>Checkstyle is a static code analysis tool used in software development for checking if Java source code is compliant with specified coding rules.
+
+27-what is findbugs in jnekins
+
+>>FindBugs is a static analysis tool for Java code that searches for and reports on various code use that may result in bugs. Whilst the tool can be noisy,
+it has detected real issues in plugins that have been reported in the wild
+
+28-what is pmd in jenkins
+
+>>It is a static rule-set based Java source code analyser that identifies potential problems in your source code. There are other static analysers like FindBugs. 
+You can get PMD from here. From our previous AntProject, open the jbuild.xml file
+>>it is deprected
+
+29-what is checkmarx in jenkins
+
+>>Checkmarx CxSAST is a unique source code analysis solution that provides tools for identifying, tracking, and repairing technical and logical flaws in the 
+source code,such as security vulnerabilities, compliance issues, and business logic problems
+
+30-what is deploy-container plugin in jenkins 
+
+>>Jenkins provides many plugins which can be used to transfer the build files to the respective application or web server after a successful build, for example, 
+the "Deploy to container" plugin. This plugin takes a war or ear file and then it deploys to a running remote application server at the end of a build.
+
+31-how to integrate your docker and ansible servers to jenkins
+
+>>using publish over ssh we can connect the docker and ansible servers
+
+32-what is publish over ssh
+
+>>This plugin includes a builder which enables the use of the publisher during the build process. This means that you can send newly created packages 
+to a remote server and install them, start and stop services that the build may depend on and many other use cases.
+
+33-how do you take backup in jenkins
+
+>>using thin-backup and perdioc backup using backup your jobs
+
+34-how many ways to install plugins
+
+the plugin extenstion will be name .hpi ends with .hpi format
+1-availble section in manage jenkins 
+2-upload your own plugin
+3-download the pluginand copy that plugin into jenkis sserver plugin path /var/lib/jenkins/plugin
+
+35-what is label and none and any in pipeline
+
+>>lable used to tell whether you should you master or slave to execute the task or job
+>>any means any one like master or slaves
+>>none means no-one to execute the task or job
+>>docker It is a Jenkins Cloud plugin for Docker. The aim of this docker plugin is to be able to use a Docker host to dynamically provision a docker container as a 
+Jenkins agent node, let that run a single build, then tear-down that node, without the build process (or Jenkins job definition) requiring any awareness of docker
+
+36-how to upgarde your jenkins version 2.9 to 3.5 or any new version
+
+Step 1: Stop The Running Jenkins Server. ...
+Step 2: Take Jenkins Server Backup For Safety. ...
+Step 3: Take The Backup Of Current Jenkins Version Binary. ...
+Step 4: Download The New Jenkins Version. ...
+Step 5: Change The Ownership Of New Jenkins Binary. ...
+Step 6: Start The Jenkins Server.
+
+37-what is upstream and downstream in jenkins and how to select the if the job1 is triggered then automatically execute the job2
+
+>>An upstream job is a configured project that triggers a project as part of its execution. A downstream job is a configured project that is triggered 
+as part of a execution of pipeline.
+>>if job1 na job2 the job2 always checks the job1 .if job1 success then job2 execute  
+Job1----------->Job2-------------->Job2
+
+DownStream:- Job2 is Downstream Job for Job1 and Job3 is DownStream project for Job2
+UpStream:- Job1 is UpStream Job for Job2
+
+>>clikc on job1 >>configure >> Select the post-build actions then select the build other projects select the project job2 if the job1 is executed successfully then automatically execute the 
+job2
+
+38-how can you send the email notifaction without plugin
+
+Step 1: Log in to the Jenkins Homepage. Go to Jenkins homepage.
+Step 2: Configure System. Click on Manage Jenkins->Configure System. ...
+Step 3: Add post-build action in your project. ...
+Step 4: Build the project and check your email.
+
+39-Can you explain the CI/CD process in your current project ? or Can you talk about any CICD process that you have implemented ?
+
+A: In the current project we use the following tools orchestrated with Jenkins to achieve CICD.
+
+Maven, Sonar, AppScan, ArgoCD, and Kubernetes
+Coming to the implementation, the entire process takes place in 8 steps
+
+1. Code Commit: Developers commit code changes to a Git repository hosted on GitHub.
+2. Jenkins Build: Jenkins is triggered to build the code using Maven. Maven builds the code and runs unit tests.
+3. Code Analysis: Sonar is used to perform static code analysis to identify any code quality issues, security vulnerabilities, and bugs.
+4. Security Scan: AppScan is used to perform a security scan on the application to identify any security vulnerabilities.
+5. Deploy to Dev Environment: If the build and scans pass, Jenkins deploys the code to a development environment managed by Kubernetes.
+6. Continuous Deployment: ArgoCD is used to manage continuous deployment. ArgoCD watches the Git repository and automatically deploys new changes to the development
+environment as soon as they are committed.
+7. Promote to Production: When the code is ready for production, it is manually promoted using ArgoCD to the production environment.
+8. Monitoring: The application is monitored for performance and availability using Kubernetes tools and other monitoring tools.
+
+40-What are the different ways to trigger jenkins pipelines ?
+
+A: This can be done in multiple ways, To briefly explain about the different options,
+
+   - Poll SCM: Jenkins can periodically check the repository for changes and automatically build if changes are detected. 
+              This can be configured in the "Build Triggers" section of a job.
+              
+  - Build Triggers: Jenkins can be configured to use the Git plugin, which allows you to specify a Git repository and branch to build. 
+              The plugin can be configured to automatically build when changes are pushed to the repository.
+	(Minutes, Hour, DOM(date of month), Month, DOW(date of week))
+              
+  - Webhooks: A webhook can be created in GitHub to notify Jenkins when changes are pushed to the repository. 
+              Jenkins can then automatically build the updated code. This can be set up in the "Build Triggers" section of a job and in the GitHub repository settings.
+		>>you can select the custom events like (push, pull , merge like this)
+
+  - Upstream:-this will if job1 na job2 the job2 always checks the job1 .if job1 success then job2 execute  
+
+41-How do you store/secure/handle secrets in Jenkins ?
+
+>>Credentials can be stored securely in Jenkins using the Credentials plugin, which stores different types of credentials like - Username with a password, 
+SSH username with the private key, AWS Credentials,Jenkins Build Token, Secret File/Text, X509 & other certificates, Vault related credentials securely 
+with proper encryption & decryption as and when required. 
+>>secrest exist throuhout the delivery lifecycle as application secret credentials and other sensitive information should be secured obfuscated and governed 
+Tools:- Ansible vault and aws system manager or hshicorp  vault
+  
+42-What is shared modules in Jenkins ?
+
+A: Shared modules in Jenkins refer to a collection of reusable code and resources that can be shared across multiple Jenkins jobs. This allows for easier maintenance,
+reduced duplication, and improved consistency across multiple build processes. For example, shared modules can be used in cases like:
+
+>>libraries: Custom Java libraries, shell scripts, and other resources that can be reused across multiple jobs.
+>>Jenkinsfile: A shared Jenkinsfile can be used to define the build process for multiple jobs, reducing duplication and making it easier to manage the
+     build process for multiple projects      
+>>Plugins: Common plugins can be installed once as a shared module and reused across multiple jobs, reducing the overhead of managing plugins on individual jobs.     
+>>Global Variables: Shared global variables can be defined and used across multiple jobs, making it easier to manage common build parame
+     
+>>Jenkins shared libraty is the concept of having a common pipeline code in the version control system that can be used by any number of pipelines just by referencing it.
+in fact multiple teams can use the same liberary for their pipelines
+
+>>for example:- if have a ten micro services pipelines the maven build step will be duplicated in all the 10 pipelines and whenever a new service gets added you will
+copy and paste the pipeline code again. also let say you want to change some parameter in the maven build step you will have to do it all the pipelines manually
+
+43- can you use Jenkins to build applications with multiple programming languages using different agents in different stages ?
+
+>> Yes, Jenkins can be used to build applications with multiple programming languages by using different build agents in different stages of the build process.
+
+>>Jenkins supports multiple build agents, which can be used to run build jobs on different platforms and with different configurations. 
+By using different agents in different stages of the build process, you can build applications with multiple programming languages and ensure that 
+the appropriate tools and libraries are available for each language.
+>>For example, you can use one agent for compiling Java code and another agent for building a Node.js application. The agents can be configured to use different
+operating systems, different versions of programming languages, and different libraries and tools.
+>>Jenkins also provides a wide range of plugins that can be used to support multiple programming languages and build tools, making it easy to integrate different 
+parts of the build process and manage the dependencies required for each stage.
+>>Overall, Jenkins is a flexible and powerful tool that can be used to build applications with multiple programming languages and support different stages of the 
+build process.
+
+44-How to setup auto-scaling group for Jenkins in AWS ?
+
+A: Here is a high-level overview of how to set up an autoscaling group for Jenkins in Amazon Web Services (AWS):
+
+>>Launch EC2 instances: Create an Amazon Elastic Compute Cloud (EC2) instance with the desired configuration and install Jenkins on it. 
+This instance will be used as the base image for the autoscaling group.
+>>Create Launch Configuration: Create a launch configuration in AWS Auto Scaling that specifies the EC2 instance type, the base image (created in step 1), 
+and any additional configuration settings such as storage, security groups, and key pairs.   
+>>Create Autoscaling Group: Create an autoscaling group in AWS Auto Scaling and specify the launch configuration created in step 2. Also, 
+specify the desired number of instances, the minimum number of instances, and the maximum number of instances for the autoscaling group.
+>>Configure Scaling Policy: Configure a scaling policy for the autoscaling group to determine when new instances should be added or removed from the group. 
+This can be based on the average CPU utilization of the instances or other performance metrics.
+>>Load Balancer: Create a load balancer in Amazon Elastic Load Balancer (ELB) and configure it to forward traffic to the autoscaling group.
+>>Connect to Jenkins: Connect to the Jenkins instance using the load balancer endpoint or the public IP address of one of the instances in the autoscaling group.
+>>Monitoring: Monitor the instances in the autoscaling group using Amazon CloudWatch to ensure that they are healthy and that the autoscaling policy is 
+functioning as expected.
+>>By using an autoscaling group for Jenkins, you can ensure that you have the appropriate number of instances available to handle the
  
->>git revert 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
-then push
->>git push -u origin master
+45-How to add a new worker node in Jenkins ?
 
-30-how to see the differnce between commits
+A: Log into the Jenkins master and navigate to Manage Jenkins > Manage Nodes > New Node. Enter a name for the new node and select Permanent Agent. 
+Configure SSH and click on Launch.
 
->>git diff "commit-id 1" "commit-id 2"
+46- How to add a new plugin in Jenkins ?
 
-31-how to retrive deleted data or commit and how to push into the any branch
+A: Using the CLI, java -jar jenkins-cli.jar install-plugin <PLUGIN_NAME>
 
->>git checkout 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
+Using the UI,
 
-then push
+Click on the "Manage Jenkins" link in the left-side menu.
+Click on the "Manage Plugins" link.
 
->>git push origin feature1
+47- What is JNLP and why is it used in Jenkins ?
 
-32-how to see the modification in your file
+>> In Jenkins, JNLP is used to allow agents (also known as "slave nodes") to be launched and managed remotely by the Jenkins master instance. 
+This allows Jenkins to distribute build tasks to multiple agents, providing scalability and improving performance.
 
->>git diff HEAD .
+>>When a Jenkins agent is launched using JNLP, it connects to the Jenkins master and receives build tasks, which it then executes. 
+The results of the build are then sent back to the master and displayed in the Jenkins user interface.
 
-33-how to delete the untracked file in git 
+48-Explain your CI/CD setup
 
->>git clean -f
+>>CI/CD is aprocess of continous integartion and continous delivery in the current organization we use githubas a source code repository we have 
+configured github webhook that triggers a jenkisn pipeline on every momment the jenkins pipeline is setup with multiple stages
 
-34-how to add tags in a file
+1-build stage:- takes care of static code analysis, ubit testing and build
+2-test stage:- running smoke and functional tests
 
-if you want to add important file to tag in your commit
+49-Continue Jenkins pipeline past failed stage
 
->>git tag -a important -m "this very important" commit-id
+>>This is now possible. Below is an example of a declarative pipeline, but catchError works for scripted pipelines as well.
 
->>git show important
+50-Jenkins Architecture
 
->>git tag -d important   -->it will delete the file what you tagged important
+>>jenkins is distributed architectue which means that simgle master and multiple salves 
+>>sometime you need several different environments needed like prod,test,stage,dev this cant be done by single jenkins server
+>>if a large project builds a single server cannot handle entire load
 
-35-how to edit the your username and mail in git in your local system
+master:-
+1-scheduling 
+2-communicating with the slaves
+3-monitor the slaves
+4-present the results
+5-master can also execute the build jobs
 
->>git config --edit --global
-then change what you want
+Jenkins-Slave:-
+1-communicates with jenkins master
+2-can run in differnt OS
+3-execute jobs
+4-flexibility
 
-36-can you explain branching strategy what you are using
+51-What happens when a Jenkins agent is offline and what is the best practice in that situation?
 
->>we are feature branching startegy we master development and remaing short-lived branches we are using the developer will commit the code into the short-lived branch 
-the code will review by team head then we can test that ci/cd in every commit if that happiens successfully then we can push into the development testing and q&a then 
-we can push into the master branch
+>>When a job is tied to a specific agent on a specific node, the job can only be run on that agent and no other agents can fulfill the job request. If the target node
+is offline or all the agents on that particular node are busy building other jobs, then the triggered job has to wait until the node comes online or an agent from 
+that node becomes available to execute the triggered build request.
 
->>two types of branching strategy
+52-what is jenkins feature
 
-git model:-
-we have two branches long-lived branches
-1-master
-2-development    -->this not gone delete 
+1-it is an open source automation tool is used to build and automate the tasks
+2-jenkins used to do various tasks like build and deployments of software
+3-it is used the plugins you can develop your own plugins also
+4-jenkins has a web based interface to see build historys and to see the logs 
+5-jenkins can be integrated to testing tool like junit and selenium also
 
->>we are not commiting any code into the git like master and developement branch
->>we use feature branch for if we have release in nest week we can create the feature branch we can develop the code into the feature if the developing code is 
-complted we push into the development branch like first we can pull the code into the local and then we cna push into the code 
->>pull before push that is also we can create the pull request to head of the branch member will review that code and accept the pull request or if any changes 
-then we can do one more changes
->>the source is feature branch to development branch
->>when we push the code into the development then we can do q&a testing and testing and pre-prod testing then we can push into the production and development and 
-then iwe will create next release next month or next week we work together
->>whenever we chnages something the code will be availble in development and master branch
-hotfix:- we can create the one branch we can test the code push into development
+53-How To Trigger Another Job in Jenkins Using Pipeline
 
-3-feature
-4-release
-5-hotfix     -->this can delete any time 
-1-name
-2-long lived short lived 
-3-source and destination
-4-merge how to promte prod
-5-conflicts
+>>in jenkins post build actions in build other jobs and select A job name and configure then if a job is success are stable then B job will execute
 
->>we use this startegy
-feature branching strategy:-
-feature branching strategy:-
+54-how to integrate jenkins to vault
 
->>main branches are master and development remaing all are features or test branches
->>we can push the code into the feature branch whenever the commit happens we are create ci/cd job in jenkins and test if the ci/cd happens perfectly 
-we can push into the development branch. then we can send it into the q&a testing and pre-prod trhen we can push into the release or production directly
->>this happens daily basis or weekly basis if the code corectly working we can release daily basic
->>if another developer working together means they need to pull the code first into the github then he can develop the code 
+>>need to install or run hashicorp vault
+>>need to install vault plugin then provide the url of the vault and then username and pasword
 
-37-what is the differnce between git clone and git fork
-
->>your creating a copy of whatever remote repository that is 
->>where as git fork is that your getting the git repository into your namespace 
-
-38-What do you understand about the Git merge conflict?
-
->>A Git merge conflict is an event that occurs when Git is unable to resolve the differences in code between the two commits automatically. 
-
-Git is capable of automatically merging the changes only if the commits are on different lines or branches.
-
-39-how to solve merge conflicts
-
->>git throughs the conflicts when the differnce content of the same lines both party should work together. and decide which one should be there which 
-one should delete. and they have to merge there codes create merge commit
->>onc we have Identified the merge conflicts we can use this tool ex:- git mergetool
->>merge conflicts occur when we try to merge two branches which we have the same file updated by two differnet developers.
-
-developer finished his code and pushes the changes to master branch
-
-main ()
-{
-function1()
-{
-//intial code
-}
-function2()
-{
-//developer A code
-}
+stage('get cedentials'){
+	withVault(configuration: [timeout: 60, vaultCredentialId: 'vaultId', vaultUrl: 'https://172.65.45.3.anji.com'], valueSecret: [[path: 'secret/dockercred', secretValues: [[valuekey: 'username'], [valuekey: 'password]]]
+	sh 'echo $username'
 }
 
-developerB finished his code and pushes the chnages to master branch
-main ()
-{
-function1()
-{
-//intial code
+55-is it possible to check the owasp depends on the jenkins pipleine
+
+>>yes it possible to check OWASP the tool called DEPENDENCY-CHECK . this tool will be used after build the applications it will check the package file or jar/war file in known vulnerabilites 
+the tool name is owasp Dependency-Check in jenkins plugin and install that in jenkins server then use this 
+
+56-how many wats to install jenkins 
+
+1-using war file
+2-Adding the Jenkins Repository
+3-running through docker container
+
+57-what is the advantages and disadvnatges of installing using war file and jenkins service file
+
+>>The Jenkins Web application ARchive (WAR) file bundles Winstone, a Jetty servlet container wrapper, and can be started on any operating system or platform with a version of Java supported by Jenkins.
+warfile:-
+>>if you use war file need to run the war file everytime
+>>if naything restarted you need go cli restart the command everytime
+
+servicefile:-
+>>if your installing using jenkins servicefile if the server restarted ne need to run the command everytime
+>>
+Advantegs:-
+>>You can easily upgrade Jenkins and its dependencies by installing a new version of the package
+>>It will set up Jenkins as a service that will restart automatically if the server reboots
+
+58-what hapens jenkins agent port changed what can i do
+
+>>Port 50000 allows you to use other JNLP-based Jenkins agents on other machines. This functionality is not required for this example, but is good to know about if you are working with a master-slave system.
+Map host volumes to the container. This means that the container can use, store, and create data on the host.
+>>jenkins agent port number is 50000 for JNLP
+>>What port does Jenkins agent use?
+Agents speak “remoting” from agent to controller. By default they do this over TCP, I believe the default is port 50000 though the default might be random, but you can override that in settings.
+
+59-what is hudson server
+
+>>Hudson is a CI (continuous integration) tool which is written in Java, which runs in a servlet container such as Glassfish or Apache Tomcat application server. 
+It supports SCM tools such as Git, CVS, Perforce, ClearCase and RTC and can execute Apache Maven and Apache Ant-based projects, as well as arbitrary shell scripts and Windows batch commands.
+
+Hudson is open-source and free.
+Ease of installation and use
+You can easily write plugins to support tools/processes in your team. And after you give, they can be used by others as well.
+Distributed build support
+Inter team support
+Extensive control outside Hudson and this is possible because of programmable control interface
+Hudson is used in providing easily readable URLs for most of the pages such as "last successful build" and "promoted build".
+Localization is available in French, English, Germany, Japanese, Russian, Turkish, and Brazilian. Even you can easily create your own localization bundle.
+Hudson builds on general-purpose building blocks.
+
+60-what is the differnce between hudson and jenkins server
+
+Jenkins:-
+>>Jenkins is an extendable open-source continuous integration server.
+>>Jenkins was forked from Hudson.
+>>Jenkins is used by companies Netflix, Facebook, ebay, LinkedIn, Instacart etc.
+>>Jenkins is integrated with Slack, Datadog, BrowserStack, Sauce Labs, JBoss, etc. tools.
+>>Jenkins support a lot of plugins.
+
+Hudson:-
+>>Hudson is Extensible continuous integration server.
+>>Hudson is the CI tool.
+>>Hudson is used by companies Logo Yazilim, TableAir UAB and OptoSweden AB.
+>>Maven is integrated with tools JavaScript, Java, HTML5 and Tuleap.
+>>Hudson support less plugins as compare to Jenkins.
+
+61-How many ways we can connect slaves in Jenkins?
+
+>>There are two ways of authentication for setting up the Linux Jenkins slave agents. 
+Using 1- ssh keys. 2- JNLP 
+
+62-How do you enable the project based authentication to users he can't able to access another project
+
+>>by using the Matrix authorization stargey this plugin Matrix authorization strategy plugin you need to install and then go to the configure global security then select the matrix based
+security then add the users and select the permissions that it then after selecting the project-based matrix authorization strategy and then select or add the users then after go to the required 
+project and select the enable project based security then select or add the user anji1 only that user will able to the activities only anji1 if anji2 will see the project won't able to do
+any activites
+
+63-how to create the Jenkins parameter
+
+>>Need to install project parameterized plugin
+>>create the New item anji and select the free style project and select the project parameterized in this under 
+1-Boolean parameter
+2-Choice parameter
+3-Credentials parameter
+4-Extended choice parameter(need to install plugin)
+5-File parameter
+6-Multi-line parameter
+7-password Parameter
+8-run parameter
+9-string parameter
+you can create the parameters what you want. for example you 3 branches in github you can add the choice parameter name git-branch then add branches then select where your adding git url 
+then it will select the master branch by default then add this */$(git-branch) click on save. then it will ask while build which you want build branch
+
+64-how to build other projects using parameters
+
+>>yes its possible using parameterized plugin and post build actions using build triggred parametrized build projects
+
+65-how to hold the Job or pipeline certain Time
+
+>>create dependency to project1 to project2 like this project2 to project3 this example only
+>>selecct configure for project1 >>general under click on advance >>select quite period >>select the time in seconds 120 seconds means two minutes
+
+66-what is headless mode in jenkins
+
+>> By default when a build with selenium is run in jenkins it uses headless mode. i.e. means GUI or web browser is not displayed. If Gui/web browser 
+is to be displayed then you may need to create Slave node and run the build using it
+
+67-what is throttle builds in jenkins
+
+>>By using throttle build you can restrict the build like perday you can execute 5 build in a day 
+>>you can ratelimit also
+
+68-is it possible to add timestamp when starting the project
+
+>>yes it possible you can select the configure option in project select the add timestamp to the console then it will show when build the project
+
+69-can the jenkinsfile in any location in github
+
+>>yes the file should be any location in github you need to specify te path
+
+70-can the jenkinsfile have different name 
+
+>>yes it can be any name you need to mention that name
+
+71-Is it possible to avoid npm install everytime in Dockerfile
+
+>>yes its possible to avoid until the any update or packages update until it wont be execute everytime it will reduce the time in production to build image
+
+>>npm install -g npm-install-changed
+
+72-what is the agent type used in the jenkins in your project ? 
+
+>>Jenkins supports various agent types for distributing and executing build and deployment tasks. Here are some commonly used agent types in Jenkins:
+1-Jenkins Agent
+2-Docker Agent
+3-SSH Agent
+4-Kubernetes Agent
+5-Cloud-based Agent
+
+73-To change the version in the pom.xml file automatically using the Maven Versions Plugin, 
+
+>>use this command in your pipeline it will help you to change build number in 
+>>mvn versions:set -DnewVersion=1.0.0${BUILD_NUMBER}
+>>mvn clean install
+
+74-what is parallel build in pipeline
+
+>>in single stage we create we execute the multiple stages 
+stage("Build & Push Docker Image") { #it will execute parellel in single build stage 
+            steps {
+                script {
+                    parallel (
+                        docker.withRegistry('',DOCKER_PASS) {
+                            docker_image = docker.build "${IMAGE_NAME}"
+                        },
+                        docker.withRegistry('',DOCKER_PASS) {
+                            docker_image.push("${IMAGE_TAG}")
+                            docker_image.push('latest')
+                        }
+                    )    
+                }
+            }
+        }
+
+75-is it possible to groovy refer to anotger grovvy 
+
+>>vi Jenkinsfile
+
+#here you created shared library name anji 
+@Library('anji') _
+
+env.component = "cart"
+env.app_lang = "nodejs"
+
+ci()  ##here referying ci.groovy file 
+
+>>vi ci.groovy
+def call() {
+   pipeline {
+    agent {
+        label 'jenkins-server'
+    }
+    stages {
+        stage ('build maven ') {
+            script {
+                common.compile()  ##here your refering one more file 
+            }
+        }
+        stage('Unit Tests') {
+        common.unittests()  ##it will take common.groovy under test case unittest case will taken 
+       }
+    }
+   }
 }
-function3()
-{
-//developer B code
+
+>>vi common.groovy
+def compile() {
+  if (app_lang == "nodejs") {
+    sh 'npm install'
+  }
+
+  if (app_lang == "maven") {
+    sh "mvn clean compile package"
+  }
+    sh "docker build -t 633788536644.dkr.ecr.us-east-1.amazonaws.com/${component}:${TAG_NAME} . "
 }
+
+>>true 
+>>echo $?
+0 -->it will give exist status zero means it is suceess
+npm test || true  ##in this place npm test is faile then we use true command to sucessed that pipeline.it will give exist status zero means it is suceess
+
+def unittests() {
+
+  if (app_lang == "nodejs") {
+    // Developer is missing unit test cases in our project, He need to add them as best practice, We are skipping to proceed further
+          sh 'npm test || true'  
+
+  }
+
+  if (app_lang == "maven") {
+    sh 'mvn test'
+  }
+
+  if (app_lang == "python") {
+    sh 'python3 -m unittest'
+  }
 }
 
-when the deleoper B pushes the code we can cause the Merge conflicts problem
+76-if any stage faile then send the mail to the stage is failed 
+
+
+pipeline {
+    agent any
+    
+    stages {
+        stage('Stage 1') {
+            steps {
+                catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
+                    // Your Stage 1 steps here
+                }
+            }
+        }
+        
+        stage('Stage 2') {
+            steps {
+                catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
+                    // Your Stage 2 steps here
+                }
+            }
+        }
+        
+        stage('Stage 3') {
+            steps {
+                catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
+                    // Your Stage 3 steps here
+                }
+            }
+        }
+        
+        stage('Stage 4') {
+            steps {
+                catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
+                    // Your Stage 4 steps here
+                }
+            }
+        }
+        
+        stage('Stage 5') {
+            steps {
+                catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
+                    // Your Stage 5 steps here
+                }
+            }
+        }
+    }
+
+    post {
+        failure {
+            script {
+                // Determine which stage failed and send email notification
+                def failedStage = currentBuild.rawBuild.getCause(hudson.model.Failure.class)?.getDisplayName() ?: 'Unknown Stage'
+                emailext subject: "Pipeline Failed in Stage: ${failedStage}",
+                          body: "The pipeline failed in Stage: ${failedStage}. Please check the Jenkins console output for more details.",
+                          to: 'your@email.com'
+            }
+        }
+    }
+}
+
+77-so we are passing the env variable in jenkins pipeline that is in ci.groovy all the if not then terat has that env is blank then pipeline is not failure 
+
+>>vi Jenkinsfile
+#here you created shared library name anji 
+@Library('anji') _
+
+env.component = "cart"
+env.app_lang = "nodejs"
+env.SONAR_EXTRA_OPTS="-Dsonar.java.binaries=./target"
+
+>>ci .groovy 
+def call() {
+ if(!env.SONAR_EXTRA_OPTS) {
+    env.SONAR_EXTRA_OPTS = " "
+  }
+}
+
+78-what is host key verfiying verfication strategy 
+
+>>when we added the jenkins slave using ssh or username or password. it will prompt the yes or no if your not selecting  Non-verfiying verfication strategy then it will prompt not wil connect the slave 
+>>slave machine must need to install java otherwise wont connect  
+
+79-what is post conditions in Jenkins
+
+>>post can support any of the following post-condition blocks: always , changed , fixed , regression , aborted , failure , success , unstable , unsuccessful , and cleanup . These condition blocks allow the execution of steps inside each condition depending on the completion status of the Pipeline or stage.
+aborted -->stopeed by someone forced to stopeed by someone 
+unstable      -->Its not failure most of the tests are success some of the tests are failed  
+unsuccessful  -->these are same unsuccessful the build 
+cleanup  -->
+Always   -->
+ci  -->github build mavne sonarqube this ci 
+cd  -->docker nexus deployment
+
+80-is it posssible to create the parameter using jenkinsfile 
+
+>>yes you can 
+
+parameters {
+  string(name: 'INFRA_ENV', defaultValue: '', description: 'Enter Env like dev or prod')
+} 
 
-40-what is git merge and rebase
+ it will create the parameter and like dev or prod if you prod or dev it will run otherwise it wont
 
->>Git merge is a command used to combine the changes from one branch into another. It integrates the commit history and changes from one branch (source branch) into another branch
-(target branch).
->>Rebasing is the process of moving or combining a sequence of commits to a new base commit. Rebasing is most useful and easily visualized in the context of a feature branching workflow.
->>git rebase main
+81-how to colour the output in jenkins 
 
-41-what is the differnce between git merge and rebase
+>>using Ansicolor plugin using we can do that
 
->>both of them are actually designed to do same purpose that means if you want bring the code changes from one branch to other branch like you have changes that 
-you want to bring from branch x to branch y you can do either git merge or git rebase both of them does the same purpose but the only differnce is how they are 
-projectig the history
->>if you have x branch and y branch then your merging y to x branch the history and every commit will be there
->>if you have x branch and y branch then your rebaseing y to x branch the y data and commits will be deleted only x branch commits and data will be shown i recomended to use git merge 
->>Merge is best used when the target branch is supposed to be shared. Rebase is best not used in public branches and used when the target branch is private. Merge preserves history. 
-Rebase rewrites history.
+82-how you can give good colour presentation in Jenkins build under report
 
-42-what is git cherry-pick command
+>>we can do that using AnsiColor plugin this will give good presentation
 
->>git cherry-pick command is used to merge the particular one commit only you can do
-like your have 100 of commits in your branch your want mergr that into master or any feature branch if you merge 100 commits will go you dont want that 
-you can do simply git cherry-pick "commit-id" it will merge only onthat commit id data into that branch 
-# switch to main branch
-$ git checkout main
-# cherry-pick the commit
-$ git cherry-pick commit_hash
-
-43-what is the differnce between merge and pull request
-
->>pull request will do happen two different account on the github to merge there is no differencegit merge or pull requst both are mostly same  
->>Then a git merge is executed to merge the remote content refs and heads into a new local merge commit. two different branches combine into pne branch 
-
-44-what is git stash
-
->>git stash temporarily shelves (or stashes) changes you've made to your working copy so you can work on something else, and then come back and re-apply them later on.
->>git stash save "manager call"   -->it will stash the file
->>git stash list   -->it will list stash files and names
-stash@{0}
->>git stash apply stash@{0}   -->it will unstash the file
->>git stash clear   -->it will delete the stash files
->>git stash pop   --> it will apply and remove the last stash array[0]
->>git stash drop  --> it will drop the latest one (or) you can specify perticular one also eg:- git stash drop stash@{3}
-
-45-what is trufflehog and how to use it
-
->>Now, on to the more popularly used scanning tool — truffleHog. This GitHub repository scanner will look into your commit 
-history and spot anything that looks like a password or confidential information using regex and entropy.
-
-46-What is git pull
-
->>The git pull command is used to fetch and download content from a remote repository and immediately update the local repository to match that content.
-
-47-what is pre-commit hooks and post-commit hooks 
-
-Hooks:Git hooks are scripts that run automatically every time a particular event occurs in a Git repository.
-
->>git hooks are allow you to run your own scripts whenever important events occur in the git-life-cycle. like commiting merging and pushing.
->>git hooks run locally. git hooks are built in feature no need to download anything
->>hooks are there in .git/hooks folder
->>pre-commit hooks are the actions that are taken before you do git commit and 
-you can create precommit hooks .git folder under hooks you can create custom scripts if the script satifys you can push the code into github .otherwise you cant push 
-the code into github(ex:-you can create git config.username, git config.gmail like wise your created mail but not gmail configuration you cant push the code into github
->>post commit hooks are the actions that are taken by after git commit
-
-48-what is webhook
-
->>webhook is part of github it is used to trigger or perform action trigger pipeline or python program after your git commit is done you want github to 
-perform actions so simply you can configure a webhook 
-
-49-what is the differnce between git clone and git fork
-
->>your creating a copy of whatever remote repository that is 
->>where as git fork is that your getting the git repository into your namespace 
-
-50-what is github Actions
-
->>GitHub Actions is a continuous integration and continuous delivery (CI/CD) platform that allows you to automate your build, test, and deployment pipeline
-
-51-what is protection in github
-
->>You can protect important branches by setting branch protection rules, which define whether collaborators can delete or force push to the branch and
-set requirements for any pushes to the branch, such as passing status checks or a linear commit history.
->>you can restrict adminstors also need to review some one need to add you can also add how many members need to approve that then if they approve 
-then you can push into the master branch
->>go to settings >>branches >>select branch protection
-
-52-what is git reset hard???
-
->>Summary. To review, git reset is a powerful command that is used to undo local changes to the state of a Git repo. 
-
-three types of git reset
-                or
->>git reset --hard , which will completely destroy any changes and remove them from the local directory.
-
->>git reset --soft , which will keep your files, and stage all changes back automatically
-
->>git reset --mixed, which will keep the files and it will come to the staging back like you will see it commited you can chnage what you want and commit into the directory
-
-53-what are the git commands that you use to commit changes to you remote repository
-
->>git add, git commit, git push
-
-54-types of files in git
-
-1-tracked files
-2-untracked files
-3-ignored files
-
-55-what is git snapshorts
-
->>it store difference between the files in the form of snapshort
-
-56-what is git tags
-
->>to identify/reference for a commitid to quick access/ creating specific point in history for our repository
-git tag -a <tag-name> -m "comment" <commitid> --> annotated tag
-git tag -delete <tag-name>   -->delete the tag
-
-57-what is git reflog
-
->>it shows when we commit,checkout branch, reset....etc
->>git reflog 
->>git reflog show --all
->>git reflog show <branch_name>
->>git reflog master@{1.minute.ago}
->>git reflog show HEAD@{5}
-
-58-What are the benefits of branching?
-
-1-Parallel Development
-2-Feature isloation
-3-Versioning and Release Management
-4-Experimentation and Prototyping:
-5-Code Review and Collaboration
-6-Bug Fixing
-Source control branching saves time and effort in an agile environment while promoting productivity.
->>Branches allow you to develop features, fix bugs, or safely experiment with new ideas in a contained area of your repository. You always create a branch from an existing branch.
-Typically, you might create a new branch from the default branch of your repository.
-
-59-What is origin in Git?
-
->>Origin refers to the remote repository that a project was originally cloned from and is used instead of the original repository’s URL.
-
-60-What is the difference between resetting and reverting?
-
->>git reset changes the state of the branch to a previous one by removing all of the states after the desired commit,
-
->>git revert does it through the creation of new reverting commits and keeping the original one intact.
-
-61-What is ‘staging area’ or ‘index’ in Git?
-
->>Now that our sourcce code files data files configuration files are being tracked by Git we will add the files that we want to 
-commit to the staging area by git add command. this process can be also called indexing we can also that index constitues of files added to the staging area
-
-62-What is Head in Git?
-
->>Git maintains a variable for referencing, called HEAD to the latest commit in the recent checkout branch. So if we make a new commit 
-in the repo then the pointer or HEAD is going to move or change its position to point to a new commit.
-
-63-how to restore the file your already modifed it will show the file how to remove the file or how to remove from untracked-area
-
->>git restore anji.txt   -->your modified the file only it will remove the file from untracked area
->>git add anji.txt   ->your send the file into tracking stage and its then something wrong need to restore from tracked area then use this command below
->>git restore --staged anji.txt
->>git restore anji.txt
-
->>red colour  -->untracked
->>blue colour  -->tracked or staged area       
-
-64-what is git bisect
-
->>the git bisect command helps you to perform a binary search to identify which commit introduced a bug or regression in the codebase
-
-65-how to check the remote repository in git in your local system
-
->>git remote -v how to see the remote repositorys in your local system
->>git push -u origin main  -->master is deprected so use main only
->>git remote set-url origin git@github.com:user/repo.git
->>git push --set-upstream origin anji  -->this will push the code to anji
-
-66-Explain how you would set up a Git repository to run code checks automatically when someone pushes a change.
-
->>This can be done using Git hooks, specifically the pre-receive hook on the server side, or the pre-push hook on the client side. You can also use CI/CD pipelines with GitHub Actions, Jenkins, 
-or other tools to run checks automatically on push.
-
-67-How do you synchronize a forked GitHub repository with the original repository?
-
->>This can be done by adding the original repository as a remote (git remote add upstream <repo-url>), fetching the updates (git fetch upstream), and then merging the updates 
-into your fork (git merge upstream/main).
-
-68-What are some advanced features of GitHub that you find particularly useful and why?
-
->>The answer to this will depend on the individual's experience, but may include features like GitHub Actions, code scanning, security advisories, pull request reviews, the dependency graph, and others.
-
-69-What do you consider best practices for managing branches in Git?
-
->>Always create a new branch for new features or fixes, regularly merge the main branch into your branch to keep it up-to-date, delete branches after their changes have been merged, and use 
-meaningful branch names.
-
-70-How can one revert a pull request in GitHub?
-
->>To revert a pull request in GitHub, you can use the "Revert" button in the GitHub interface. This creates a new pull request that undoes all changes made in the original pull request.
-
-71-What are some strategies you might use to keep the history of a Git repository clean?
-
->>Strategies include interactive rebase to squash or fixup commits, avoiding unnecessary merge commits with rebasing, using git commit --amend for fixing recent mistakes, and using descriptive 
-commit messages to clearly articulate changes.
-
-72-Explain the use and benefit of a Git submodule.
-
->>Submodules allow you to keep another Git repository in a subdirectory of your repository. This lets you clone another repository into your project and keep your commits separate.
-
-73-How do you enforce code quality standards and reviews in GitHub?
-
->>This can be accomplished through a combination of tactics, including pull request templates, code review procedures, continuous integration checks, and using GitHub's built-in "protected branches" 
-feature to require certain checks pass before merging.
-
-74-How would you handle large files or large amounts of binary data in a Git repository?
-
->>Git is not designed to handle large files or large volumes of binary data. The Git LFS (Large File Storage) extension can be used for versioning large files while keeping them out of the actual Git repository.
-
-75-Could you explain how to squash commits in Git?
-
->>Squashing is the process of combining several commits into a single one. This is usually done in the context of cleaning up a feature branch before merging into main. This is typically performed through
-an interactive rebase, for example, git rebase -i HEAD~n (where 'n' is the number of commits to squash from the current HEAD).
-
-"Squashing" in Git is a technique used to clean up your commit history.
-Here's a simple way to understand it:
-
-Imagine that you're working on a big project and you've made a bunch of changes. Each time you make a set of related changes, you "commit" them, which is like saving your work in a special way that 
-Git can keep track of. After a few days, you might have made 10 commits.
-
-But maybe you realize that all these changes were really just about one thing, like "adding a new feature" or "fixing a bug". It's a bit messy to have all these separate commits about the same thing.
-This is where "squashing" comes in.
-
-"Squashing" is like taking a stack of papers, each with different parts of a story written on them, and combining them all onto one page. With squashing in Git, you take all those different commits and 
-combine them into a single commit. This makes your project's history cleaner and easier to understand.
-
-In short, squashing in Git is all about tidying up your project's history by combining multiple commits into one.
-
-76-What's your approach to secure a Git repository?
-
->>This could involve measures such as using SSH keys for authentication, regularly updating and auditing contributor access, implementing commit signing to verify the authenticity of commits,
-using .gitignore to prevent committing sensitive data, and using security tools to automatically scan your repositories for security vulnerabilities or secrets.
-
-77-How do you go about resolving a binary file conflict?
-
->>Binary files cannot be merged like text files, so you have to decide which version to keep. You can do this with git checkout --ours filename or git checkout --theirs filename and then commit the 
-resolved file.
-
-78-What are the steps to perform a rebase in Git?
-
->>A rebase can be performed using the following steps:
-–	Switch to the branch you want to rebase: git checkout feature-branch
-–	Start the rebase process: git rebase master
-–	If there are any conflicts, resolve them. After resolving conflicts, use git add . to stage the resolved files, then continue the rebase with git rebase --continue.
-–	If you want to abort the process at any time, use git rebase --abort.
-
-79-How would you undo the most recent commit in Git?
-
->>You can use the command git reset --soft HEAD~1 to undo the most recent commit, keeping the changes in the staging area, or git reset --hard HEAD~1 to discard the changes completely.
-
-80-Can you describe a typical Git workflow you would use in a collaborative project?
-
->>A common workflow is the feature branch workflow. This involves creating a new branch whenever you want to work on a new feature. The master branch should never contain broken code, 
-it is always production-ready. All development is done in branches and then merged into the master branch once the feature is complete and tested.
-
-81-git remote remove origin what is the command what is the use 
-
->>The command git remote remove origin is used to remove the remote named "origin" from your Git repository.
->>In Git, a remote is a reference to a remote repository, typically on a server or another location. The "origin" remote is often the default name given to the remote repository from which
-your local repository was cloned. It's the default upstream repository for your local repository.
-
-82-what is git branch -a    
-
->>it will list all the branches in local machine  
-
-83-you have hundred branches how to clone specific branch name as anji
-
->>git clone -b anji urlofgit
-
-84-how to change git branch name 
-
->>git branch -m nameofthebranch
-
-85-what is git lock branch
-
->>Locking a branch prevents other users from changing the existing commit history. Locking also blocks any new commits from being added to the branch by others
-
->>git lock <branch-name>
->>git unlock <branch-name>
-
-86-how to give tag in git 
-
->>git tag v2  -->this will help to identify the version instead of remebering commit ids we can use short and identified the tags it will easy to identify and remeber easiely
-like we follow major and minor , Patch  this will like 2.0.0  major micro patch its dependes on the company 
-MAJOR:-Major version when you make incompataible API changes
-MINOR:-Minor when you add functionality in a backwards compatible manner
-PATCH:-Patch version when you make backwards compatible bug fixes 
-
->>git tag --delete "commit-id-or-Tag-id"
-
-87--how to create pull request and merge 
-
->>if you want merge the code you can create the pull request the review that then approve then merge into main or any branch 
-
-88-what are branching strategy
-
->>your developing are follwing trunck based development where we always have short living branches. we will then merge into feature branches  
-
-89-how to clone the code from github 
-
->>git clone https://github.com/teamall574/devops.git 
-
-90-how to pull the code from github any changes happend
-
->>git pull   -->this command is used to pull the code from any changes happen 
-
-91-how cherry pick works with commands  expalin 
-
->>git branch 
-* master 
-  anji 
->>ls  -->your in master branch 
-anji.txt ls.txt sampi.txt  
->>git checkout anji 
->>ls 
-anji.txt ls.txt sampi.txt  
->>touch test.txt 
->>git add .
->>git commit -m "anji added test.txt"
->>touch gampa.txt 
->>git add .
->>git commit -m "anji added gampa.txt"    -->but this was not correct need to copy first one 
->>git log --online  -->select the first commit id 
->>git checkout master 
->>git cherry-pick "commit-id-you copied first commit" 
-
->>git checkout -b ＜new-branch＞  ==>create new branch 
-
-92-
-
-59-Is this possible to ignore .ignore file in git
+83-
 
