@@ -477,6 +477,14 @@ and performance checking quality checking security checking
 >> In shift left we start the testing early in SDLC
 >>since requirements gathering
 >>Delivering Quality software and speed 
+>>In earlire day we are doing CI, Deploymnet, Testing, Scaning in our deploy production then we have tested .in Shift left process we test in devlopment stages like functional testing 
+and perfformance checking and quality checking security checking
+>>we integrated scaning in CI satge before going resume
+>>Shift-left is the practice of moving testing, quality, and performance evaluation early in the development process, often before any code is written. Shift-left testing helps teams anticipate changes
+that arise during the development process that can affect performance or other delivery processes.
+
+>>shift Left is a practice intended to find and prevent defects early in the software delivery process. The idea is to improve quality by moving tasks to the left as early in the lifecycle as possible.
+Shift Left testing means testing earlier in the software development process.
 
 60-what is the shift right
 
@@ -486,6 +494,60 @@ running in production can withstand real user load while ensuring the same high 
 >>In shift right late testing
 >> It is in production only
 >> Better quality software by receiving user feedback
+
+61-what is compile 
+
+>>convert a program into a machine code or low-level code form which the program can be executed 
+>>produce a list of books by assembling information collected from other sources 
+
+java its need to compile and packaging and download dependencies(auto while compileing) and its not download dependencies on server-side 
+golang its need to compile and packaging and download dependencies and its not download dependencies on server-side 
+NodeJs its not need to compile and packaging and download dependencies and its not download dependencies on server-side 
+Python/Ruby its not need to compile and packaging and not download dependencies it will download dependencies on server side 
+PHP  its not need to compile and packaging and not download dependencies it will download dependencies on server side 
+
+62-what is redis 
+
+>>Redis is used for in-memory data storage(Caching) and allows users to access the data of database over API
+>>it will cache your data to improve performance of the appliation for faster . if you open first it will take 30 sec if you using redis the data is cached to redis when you requesting same data next time
+it will be fasater compared to before bo need to go everytime on database it will store because it will be dynamic sometime the data will be  changes 
+>>for example user written the logic like this user deatils stored db we installed cached infront db so when user user request database then first time go to db then come through the redis if you 
+access the second time same data you will not connect the db rather than redis. how much time that data will be stored redis its dependes on the developer logic some big application will 1-min to 
+some application 24 hours also    
+>>why we use redis cache because of the everytime request went DB it will reduce speed of the DB that why we use cache like(Redis) 
+>>if the user came reuests the some produts it went through the db fetch so next user may come search same products then it will not went db servers it went redis or any cache servers it will fast 
+response reduce the db server burden or traffic it will improve your website or db performance  
+
+63-where the war file stored when you build the java using maven
+
+>>if will stored in target directory automcatically created target folder
+>>port number is 6379 
+
+64-what is elasticache and what is the difference between memcahed and elastic cache
+
+65-what is the difference between memcached and redis 
+
+54-what is memcached 
+
+66-Useful-Top-AI uses 
+
+copy.ai 
+chatsonic
+spinbot for grammer 
+https://quillbot.com/ this also grammer
+youchat
+bard.ai
+chatgpt
+Perplexity AI
+claude.ai
+clickup ai 
+getliner
+
+67-what is your view on Certification
+
+>>Coming to certification there is no certification for devops why because devops is not owned by anyone it's completely open source if you want you can do kubernetes or AWS Terraform
+
+
 
 ============================================Maven=============================
 
@@ -797,6 +859,24 @@ server
 	
 	}
 }
+
+47-why we use nexus or jfrog to store the war or compile files 
+
+>>so when you any stage you compiled not stored anything or anywhere then you stored server running server some time that compile code need to run one more server so you need to compile or build everytime 
+if have saved it will be versioned whenever you need to download then you can use if save this will be versioned like one more version come then it will be version which you version you need you can use that 
+if you not version some bad case happines you need to give last 10 back you need to create the code and run that code its TDS task right you can nexus or hfrog to store then it is easy that why we use nexus 
+or jfrog to store the compiled files 
+
+48-what is checksum storage in nexus or jfrog 
+
+>>
+
+49-when developer code commit we build deploy to the dev environment then after it will go the qa environment then go to the non-prod(pre-prod) then it will go to the production  
+>>when we accessing the application through internet it is production or live environment 
+>>when you build nodejs application it will came as nodemodules folder and server.js this need to run the server when we host the nodejs server 
+>>driftctl tool to find terraform changes 
+
+
 
 ===============================================Montoring-Tools========================================
 
