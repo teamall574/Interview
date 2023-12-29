@@ -19,21 +19,7 @@ kubeconfig
 kubernets pipeline
 kubernetes cli
 
-#!/usr/bin/env groovy
 
-@Library('shared-library@master') _ //master or whatever barnch 
-##you need to add first shared library in configure system in global pipeline libraries this another github url  then you specifying in jenkinsfile 
-in another repository this will help you to use this shared library any number of repository
-git repository name anji.groovy
-def call () {
-sh 'apt-get update'
-}
-
->>then go to configure system then create a shared library name "anything" and give branch name and url 
->>then go your jenkins file first line give your shared library name @library(anything) in jenkins what you give then in jenkins file give like this below
-steps{
-    anji() //this shared liberay name what you have to share 
-}
 pipeline {
     agent {
         lable "Anji"  ##need to give slave name slave name is Anji
@@ -56,18 +42,15 @@ pipeline {
                 cleanWS()  ##it will clear the workspace every build
             }
         }
-    
-        stages {
-            stage('checkout source') {
+        stage('checkout source') {
                 steps {
                     git 'https://github.com/teamall574/test.git'   ##it is public repository
                 }
             }
-            stage (clone) {
-                steps{     ##if it is private repository if not then not need credentials
-                    git credentialsId: 'git_credentials', url: 'https://github.com/teamall574/test.git', branch:'dev'  #if you want add another barnch corner add 
-                }
-            } 
+        stage (clone) {
+            steps{     ##if it is private repository if not then not need credentials
+                git credentialsId: 'git_credentials', url: 'https://github.com/teamall574/test.git', branch:'dev'  #if you want add another barnch corner add 
+            }
         }
         stage('sonar quality status'){
             script{
@@ -75,6 +58,11 @@ pipeline {
                 sh 'mvn sonar:sonar' #it will send the code into the sonarqube
                 sh 'npm run sonar' #It will send the code into the sonarqube you need to set the sonar:sonarqube-scanner in package.json andd version also
                 }
+            }
+        }
+        stage ('push code to sonarqube') { #it will send the code to sonarqube 
+            steps { #-Dsonar.java.binaries=./target this tell where the target and need to take that and test  
+                sh 'sonar-scanner -Dsonar.hot.url=http://172.17.23.89:9000 -Dsonar.projectkey=cart -Dsonar.login=admin -Dsonar.passwd=admin123 -Dsonar.qualitygate.wait=true -Dsonar.java.binaries=./target'
             }
         }
         stage('quality gate staus') {
@@ -86,7 +74,7 @@ pipeline {
         }
         stage (maven build##need to install maven and configure in jenkins system) {
             steps{
-		sh 'mvn versions:set -DnewVersion=1.0.0${BUILD_NUMBER}'
+		        sh 'mvn versions:set -DnewVersion=1.0.0${BUILD_NUMBER}'
                 sh 'mvn clean package'
             }
         }
@@ -95,13 +83,12 @@ pipeline {
                 sh 'mvn test'
             }
         }
-	stage('push code into s3'){
-	   steps {
-	    sh 'aws s3 cp $WORKSPACE/target/anji/*.war s3://anji1592'
-	    sh 'aws s3 cp $WORKSPACE/pom.xml s3://anji1592/pom'   -->you need to create the folder pom in s3 bucket it will copy pom.xml in s3 bucket
-	  }
-	}
-
+        stage('push code into s3'){
+	        steps {
+	            sh 'aws s3 cp $WORKSPACE/target/anji/*.war s3://anji1592'
+	            sh 'aws s3 cp $WORKSPACE/pom.xml s3://anji1592/pom'   -->you need to create the folder pom in s3 bucket it will copy pom.xml in s3 bucket
+	        }
+	    }
         stage('OWASP-CHECK'){  ##it will check owasp top 10 issues in jar file or package application
             steps {
                 sh "dependencyCheck additionalArgumnets: '--scan target/', odcInstallation: 'owasp' dependencyCheckPublisher pattern: '**/dependency-check-report.xml'"
@@ -160,6 +147,7 @@ pipeline {
                     withDockerRegistry(credentialsId: '2fe19d8a-3d12-4b82-ba20-9d22e6bf1672', toolName: 'docker') {
                         docker_image.push("${image_tag}")
                         docker_image.push('latest')
+                    }
                 }
             }
         }
@@ -193,6 +181,7 @@ pipeline {
         post {
             
         }
+
     }
 }
 
@@ -240,21 +229,21 @@ language) based on the Groovy programming language
 
 >>lib/systemd/system/jenkins.service
 in this path you can change the port number 
-cd /usr/lib/systemd/system
-ls *jenkins*
-sudo vi jenkins.service
+>>cd /usr/lib/systemd/system
+>>ls *jenkins*
+>>sudo vi jenkins.service
 Environment="JENKINS_PORT=8585"
-sudo systemctl restart jenkins.service
-sudo systemctl daemon-reload
-sudo systemctl restart jenkins
+>>sudo systemctl restart jenkins.service
+>>sudo systemctl daemon-reload
+>>sudo systemctl restart jenkins
 
 6-How to recover password in jenkins
 
 Go to
-cd /var/lib/jenkins
-sudo vi config.xml
+>>cd /var/lib/jenkins
+>>sudo vi config.xml
 change false in <userSecurity>True</userSecurity>
-sudo systemctl restart jenkins
+>>sudo systemctl restart jenkins
 login to jenkins
 
 7-what is the use of jenkins slave or node
@@ -340,11 +329,11 @@ Once the jobs are created, Jenkins will automatically trigger the build
 This plugin internally uses two very different implementations, depending on whether Jenkins is running on Windows or non-Windows and if you specify a domain.
 
 15- What is a CI/CD pipeline?
-CI/CD Pipeline or Continuous Integration/ Continuous Delivery is considered the DevOps approach's backbone. 
-The pipeline is responsible for building codes, running tests, and deploying new software versions.
+
+>>CI/CD Pipeline or Continuous Integration/ Continuous Delivery is considered the DevOps approach's backbone. 
+>>The pipeline is responsible for building codes, running tests, and deploying new software versions.
 
 16- Name some of the useful plugins in Jenkins.
-Some of the plugins in Jenkins include:
 
 Maven 2 project
 Amazon EC2
@@ -360,23 +349,22 @@ kubeconfig
 
 17-How can you create a backup and copy files in Jenkins?
 
-Jenkins stores all the settings, builds scripts, and logs in the home directory. 
-Then, if you want to create a backup of this Jenkins set up all you have to do is copy this directory. 
-The job directory may also be copied to clone a job or rename the directory.
+>>Jenkins stores all the settings, builds scripts, and logs in the home directory. 
+>>Then, if you want to create a backup of this Jenkins set up all you have to do is copy this directory. 
+>>The job directory may also be copied to clone a job or rename the directory.
 
 18-Assume that you have a pipeline. The first job that you performed was successful, but the second one failed.  What would you do now?
 
 >>You don't have to worry, and you just have to restart the pipeline from the point where it failed by doing 'restart from stage.'
 
 19- Explain the process in which Jenkins works?
-Here’s the process in which Jenkins works:
 
-Jenkins checks changes in repositories regularly, and developers must secure their code regularly. 
-Once the changes are defined, Jenkins detects them and uses them to prepare a new build.
-After that, Jenkins will transverse through various stages in its usual pipeline. As one stage completes, the process will move further on to the next stage.
-If a stage fails, the Jenkins build will stop there, and the software will email the team using it. When completed successfully, 
+>>Jenkins checks changes in repositories regularly, and developers must secure their code regularly. 
+>>Once the changes are defined, Jenkins detects them and uses them to prepare a new build.
+>>After that, Jenkins will transverse through various stages in its usual pipeline. As one stage completes, the process will move further on to the next stage.
+>>If a stage fails, the Jenkins build will stop there, and the software will email the team using it. When completed successfully, 
 the code implements itself in the proper server so that testing begins.
-After the successful testing phase, Jenkins shares the results with the team using it.
+>>After the successful testing phase, Jenkins shares the results with the team using it.
 
 20-What is Jenkinsfile? 
 
@@ -919,3 +907,183 @@ stage("Build & Push Docker Image") { #it will execute parellel in single build s
                 }
             }
         }
+
+75-is it possible to groovy refer to anotger grovvy 
+
+>>vi Jenkinsfile
+
+#here you created shared library name anji 
+@Library('anji') _
+
+env.component = "cart"
+env.app_lang = "nodejs"
+
+ci()  ##here referying ci.groovy file 
+
+>>vi ci.groovy
+def call() {
+   pipeline {
+    agent {
+        label 'jenkins-server'
+    }
+    stages {
+        stage ('build maven ') {
+            script {
+                common.compile()  ##here your refering one more file 
+            }
+        }
+        stage('Unit Tests') {
+        common.unittests()  ##it will take common.groovy under test case unittest case will taken 
+       }
+    }
+   }
+}
+
+>>vi common.groovy
+def compile() {
+  if (app_lang == "nodejs") {
+    sh 'npm install'
+  }
+
+  if (app_lang == "maven") {
+    sh "mvn clean compile package"
+  }
+    sh "docker build -t 633788536644.dkr.ecr.us-east-1.amazonaws.com/${component}:${TAG_NAME} . "
+}
+
+>>true 
+>>echo $?
+0 -->it will give exist status zero means it is suceess
+npm test || true  ##in this place npm test is faile then we use true command to sucessed that pipeline.it will give exist status zero means it is suceess
+
+def unittests() {
+
+  if (app_lang == "nodejs") {
+    // Developer is missing unit test cases in our project, He need to add them as best practice, We are skipping to proceed further
+          sh 'npm test || true'  
+
+  }
+
+  if (app_lang == "maven") {
+    sh 'mvn test'
+  }
+
+  if (app_lang == "python") {
+    sh 'python3 -m unittest'
+  }
+}
+
+76-if any stage faile then send the mail to the stage is failed 
+
+
+pipeline {
+    agent any
+    
+    stages {
+        stage('Stage 1') {
+            steps {
+                catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
+                    // Your Stage 1 steps here
+                }
+            }
+        }
+        
+        stage('Stage 2') {
+            steps {
+                catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
+                    // Your Stage 2 steps here
+                }
+            }
+        }
+        
+        stage('Stage 3') {
+            steps {
+                catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
+                    // Your Stage 3 steps here
+                }
+            }
+        }
+        
+        stage('Stage 4') {
+            steps {
+                catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
+                    // Your Stage 4 steps here
+                }
+            }
+        }
+        
+        stage('Stage 5') {
+            steps {
+                catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
+                    // Your Stage 5 steps here
+                }
+            }
+        }
+    }
+
+    post {
+        failure {
+            script {
+                // Determine which stage failed and send email notification
+                def failedStage = currentBuild.rawBuild.getCause(hudson.model.Failure.class)?.getDisplayName() ?: 'Unknown Stage'
+                emailext subject: "Pipeline Failed in Stage: ${failedStage}",
+                          body: "The pipeline failed in Stage: ${failedStage}. Please check the Jenkins console output for more details.",
+                          to: 'your@email.com'
+            }
+        }
+    }
+}
+
+77-so we are passing the env variable in jenkins pipeline that is in ci.groovy all the if not then terat has that env is blank then pipeline is not failure 
+
+>>vi Jenkinsfile
+#here you created shared library name anji 
+@Library('anji') _
+
+env.component = "cart"
+env.app_lang = "nodejs"
+env.SONAR_EXTRA_OPTS="-Dsonar.java.binaries=./target"
+
+>>ci .groovy 
+def call() {
+ if(!env.SONAR_EXTRA_OPTS) {
+    env.SONAR_EXTRA_OPTS = " "
+  }
+}
+
+78-what is host key verfiying verfication strategy 
+
+>>when we added the jenkins slave using ssh or username or password. it will prompt the yes or no if your not selecting  Non-verfiying verfication strategy then it will prompt not wil connect the slave 
+>>slave machine must need to install java otherwise wont connect  
+
+79-what is post conditions in Jenkins
+
+>>post can support any of the following post-condition blocks: always , changed , fixed , regression , aborted , failure , success , unstable , unsuccessful , and cleanup . These condition blocks allow the execution of steps inside each condition depending on the completion status of the Pipeline or stage.
+aborted -->stopeed by someone forced to stopeed by someone 
+unstable      -->Its not failure most of the tests are success some of the tests are failed  
+unsuccessful  -->these are same unsuccessful the build 
+cleanup  -->
+Always   -->
+ci  -->github build mavne sonarqube this ci 
+cd  -->docker nexus deployment
+
+80-is it posssible to create the parameter using jenkinsfile 
+
+>>yes you can 
+
+parameters {
+  string(name: 'INFRA_ENV', defaultValue: '', description: 'Enter Env like dev or prod')
+} 
+
+ it will create the parameter and like dev or prod if you prod or dev it will run otherwise it wont
+
+81-how to colour the output in jenkins 
+
+>>using Ansicolor plugin using we can do that
+
+82-how you can give good colour presentation in Jenkins build under report
+
+>>we can do that using AnsiColor plugin this will give good presentation
+
+83-
+
