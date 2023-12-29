@@ -32,16 +32,16 @@ Dis-Advantages:-
 #>>Terraform is a tool for building, changing and versioning infrastructure safely and efficiently. Terraform can manage existing and popular cloud service providers
 #as well as custom in-house solutions.Configuration files describe to Terraform the components needed to run a single application or your entire datacenter
 
-2 - is it terraform cloud aganstics
+2-is it terraform cloud aganstics
 
 >>terraform is cloud aganstic  -->yes terraform will work every cloud but the code is difference that why we calling cloud aganstics
 
-3 - what is proprietory
+3-what is proprietory
 
 >>it is like not a open-source when you using terraform you advised some code to then can verfiy and give resopnce 
 but in aws your rasing an ticket but its take some time to contact and its not accept your advise this proprietory
 
-4 - what is the differnce between argument refernce and attribute refernce in terraform
+4-what is the differnce between argument refernce and attribute refernce in terraform
 
 >>In Terraform, attributes and arguments are two important concepts used to define and configure resources.
 
@@ -52,14 +52,14 @@ by other resources or modules. For example, an EC2 instance might have attribute
 >>In general, arguments are used to define the desired state of a resource, while attributes are used to retrieve the current state of a resource. By using attributes and arguments in
 Terraform, you can define and manage your infrastructure in a more modular and reusable way.
 
-5 - how to deploy dev environment and prod environment in a single folder 
+5-how to deploy dev environment and prod environment in a single folder 
 
 >>yes you can use workspace usinng you can deploy the devand prod environmet by chnaging code in dev.tfvars and prod.tfvars by chnaging workspace context
 there is chance to overwrite the environmet in case if you do mistake so need to be carefully. either you can seprate folders is good in production environment
 >>terraform apply --var-file prod.tfvars --auto-approve       -->it will execute the prod.tfvars in prod workspace
 >>terraform apply --var-file dev.tfvars --auto-approve        -->it will execute the dev.tfvars in dev workspace
 
-6 - what is splat syntax in terraform and element ,functions,
+6-what is splat syntax in terraform and element ,functions,
 
 >>splat syntax if the resource has a count attributes set you can access individual attributes with a zero-based 
 index such as ${aws_instance.web.0.id} you can also use the splat syntax to get a list of attributes ${aws_instance.web.*.id}
@@ -68,7 +68,7 @@ index such as ${aws_instance.web.0.id} you can also use the splat syntax to get 
 >>element idicates when you give the index in terraform it indicates starts from 0 
 >>index is count
 
-7 -what is concat
+7-what is concat
 
 >>concat takes two or more lists and combines them into a single list.
 
@@ -76,18 +76,37 @@ index such as ${aws_instance.web.0.id} you can also use the splat syntax to get 
 
 >>You can use terraform concat() function to combine multiple lists into a single list. concat() takes two or more lists and combines them into a single list.
 
-8 - Define null resource in Terraform.
+variable "bucket_prefix" {
+  default = "my-bucket-prefix"
+}
+
+variable "dynamic_value" {
+  default = "123"
+}
+
+variable "bucket_suffix" {
+  default = "mysuffix"
+}
+
+resource "aws_s3_bucket" "example_bucket" {
+  bucket = "${concat(var.bucket_prefix, "-", var.dynamic_value, "-", var.bucket_suffix)}"
+
+  acl    = "private"
+  # other AWS S3 bucket configurations...
+}
+
+8-Define null resource in Terraform.
 
 >>null_resource is used to run the resources using which present the resource using we can create the new resouces
 
-9 - what is local-exec and remote-exec
+9-what is local-exec and remote-exec
 
 >>local-exec provisioners. The local-exec using we can retrive or take information from the terraform deployment code and see. where you are executed 
 terraform we can use this in local-exec command and write some details to see without going to aws you can see your system terraform folder
 
 >>remote-exec provisioner is used it will login to your server run your commands inside the server and execute that files inside the server
 
-10- what is for_each and count how to use in terraform and how many types of variables and what is variables 
+10-what is for_each and count how to use in terraform and how many types of variables and what is variables 
 
 >>count is using create multiple resources instances according to the count
 >>The count argument is used to determine the amount of instances to create for a particular resource. The count argument can be used in both a module as well as every resource type
@@ -108,7 +127,7 @@ this can be solved by for_each bcoz it uses key rather than
 
 >>for_each using you can create multiple instances accroding to the map, or set of strings
 
-11 - what is modules in terraform 
+11-what is modules in terraform 
 
 >>A Terraform module is a set of Terraform configuration files in a single directory. Even a simple configuration consisting of a single directory with
 one or more .tf files is a module. When you run Terraform commands directly from such a directory, it is considered the root module.
@@ -126,7 +145,7 @@ source = "./modules/virtual_network"
 }
 
 
-12 -  what is terraform life cycle, Imports , terraform cloud 
+12-what is terraform life cycle, Imports , terraform cloud 
 
 ---Life cycle:-
 >>create_before_destroy
@@ -152,7 +171,7 @@ ignore changes = [
 ]
 }
 
-13 - what is terraform Imports?
+13-what is terraform Imports?
 
 >>terraform Imports:-
 ---when we have mistkaley or already deployed server in ec2 any service you need import that service
@@ -170,7 +189,7 @@ paste that copy that data
 
 }
 
-14 - what is terraform-cloud
+14-what is terraform-cloud
 
 >>What is Terraform Cloud? Terraform Cloud is HashiCorp's managed service offering. It eliminates the need for unnecessary tooling and
 documentation for practitioners, teams, and organizations to use Terraform in production. Provision infrastructure in a remote environment 
@@ -179,18 +198,18 @@ that is optimized for the Terraform workflow.
 What is Terraform cloud used for?
 Terraform Cloud enables infrastructure automation for provisioning, compliance, and management of any cloud, datacenter, and service
 
-15 - what is packer
+15-what is packer
 
 >>packer is used to create only images
 >>Packer is an open-source VM image creation tool from Hashicorp. 
 It helps you automate the process of Virtual machine image creation on the cloud and on-prem virtualized environments.
 
-16 - what is terraform dry-run
+16-what is terraform dry-run
 
 >>Dry runs help you identify trouble spots, discover sections you may not fully understand, and get a better understanding of how everything fits together.
 It's also a good way to find out if you don't fully understand how an activity is supposed to be conducted or how the virtual tools function.
 
-17 - What are the most useful Terraform commands?
+17-What are the most useful Terraform commands?
 
 terraform init - initializes the current directory
 terraform refresh - refreshes the state file
@@ -200,7 +219,7 @@ terraform destroy - destroys what has been built by Terraform
 terraform graph - creates a DOT-formatted graph
 terraform plan - a dry run to see what Terraform will do
 
-18 - What are some of the built-in provisioners available in Terraform?
+18-What are some of the built-in provisioners available in Terraform?
 
 Salt-masterless Provisioner
 Remote-exec Provisioner
@@ -210,7 +229,7 @@ Habitat Provisioner
 File Provisioner
 Chef Provisioner
 
-19 - What is terraform taint and untaint?
+19-What is terraform taint and untaint?
 
 >>the commands comes under terrafomr forcing recreation of resources
 >>terraform taint command manually marks a terraform-managed reosuce as tainted forcing it to be destroyed and recreated on the next apply
@@ -225,16 +244,17 @@ Chef Provisioner
 >>terraform plan
 >>terraform state mv anji.sh sampi.sh
 
-20 - what is the use of provisoners in packer and terraform
+20-what is the use of provisoners in packer and terraform
 
 >>Terraform Provisioners are used for executing scripts or shell commands on a local or remote machine as part of resource creation/deletion. 
 They are similar to “EC2 instance user data” scripts that only run once on the creation and if it fails terraform marks it tainted
 
 21-What is a tuple Terraform?
-A tuple is a strongly typed collection of one or more values. So, for example, we could define a tuple of three values: string , number , number , 
+
+>>A tuple is a strongly typed collection of one or more values. So, for example, we could define a tuple of three values: string , number , number , 
 or two values: string ,string . Once a tuple is defined, it always has to contain the number of values defined in that tuple.
 
-22- what is .tfstate in terraform
+22-what is .tfstate in terraform
 
 >>when your deploying any resources it will save your code in .tfstate file if any changes happen in code it will go and check the .tfstate file and it will change 
 what need to chnage the resources. it will idempotant so it update the resource what changed only that resources change not changed all the rsources
@@ -245,19 +265,19 @@ what need to chnage the resources. it will idempotant so it update the resource 
 so dont use this method you can use the instead of WorkSpaces. if your using workspace but inside prod workspace if your using the dev.tfvars  it will destroy the 
 prod environment so be careful when you using the workspace
 
-24- how you can give to other devlopers terraform.tfstate
+24-how you can give to other devlopers terraform.tfstate
 
 >>when we deploying the code onthat time we saving the terraform.tfstate file in s3 bucket or any version control system then we can give that terraform.tfstae to
 other developer he can easily understand the situvation and he can do chnages then the state file update when we can changes on that time we can use that
 terraform.tfstate to avoid the complications and any errors or misunderstandings. so when the runing the backend it will run first backend so its give an error
 need to add access-key and secret-key in your system. it will not take the access and secret key in your var.tf
 
-25 - what is lookup in terraform
+25-what is lookup in terraform
 
 >>The lookup() function can be used to lookup a particular value inside of a map , given its key and if the given key does not exist, the given default value is 
 returned instead: lookup(map, key, default)
 
-26- what is triggers
+26-what is triggers
 
 >>A map of values which should cause this set of provisioners to re-run values are mean to interpolated refernace varibales to attributes of other resources
 
@@ -375,8 +395,7 @@ variable "ami" {
 
 >>yes it possible to do using variables
 
-40-You have a Terraform configuration file that defines an infrastructure deployment. However, there are multiple instances of the same resource that need to be created.
-How would you modify the configuration file to achieve this..??
+40-You have a Terraform configuration file that defines an infrastructure deployment. However, there are multiple instances of the same resource that need to be created.How would you modify the configuration file to achieve this..??
 
 >>To create multiple instances of the same resource in Terraform, you can utilize the count or for_each meta-arguments in your configuration file.
 
@@ -649,14 +668,12 @@ resource "aws_route53_record" "example" {
   records = [aws_instance.example.public_ip]
 }
 
-63-Imagine you have different variable values for different stages (dev, test, prod) of your infrastructure. How would you structure your Terraform configurations to make it easy to 
-apply changes to a specific stage?
+63-Imagine you have different variable values for different stages (dev, test, prod) of your infrastructure. How would you structure your Terraform configurations to make it easy to apply changes to a specific stage?
 
 >>One common way to handle this is to use separate Terraform workspace for each environment and have a corresponding variable file for each workspace. 
 You can use workspace-specific variable files (dev.tfvars, test.tfvars, etc.) and apply them with the -var-file flag.
 
-64-You are managing a complex infrastructure with many interdependent resources. How would you use output variables to expose necessary data (like IP addresses, DNS names, etc.) 
-for use in other configurations or modules?
+64-You are managing a complex infrastructure with many interdependent resources. How would you use output variables to expose necessary data (like IP addresses, DNS names, etc.) for use in other configurations or modules?
 
 >>Output variables can be used to expose data from one module to another, or to the root module. By using outputs, the necessary data will be displayed in the console after running terraform apply. 
 If the state is stored remotely, the output values can also be queried using terraform output command.
@@ -677,8 +694,7 @@ One way to resolve this is by importing the resource into the current Terraform 
 >>This could be due to some default values in the resource configuration that Terraform doesn't correctly identify as unchanged, or external changes that Terraform picked up during refresh.
 To understand why Terraform wants to recreate the resource, you can use the -detailed-exitcode flag with terraform plan which will provide more information about what's changing.
 
-68-You've made some changes to your Terraform configuration, but when you run terraform plan, it's showing a much larger set of changes than you expected. How would you determine what's causing 
-these extra changes?
+68-You've made some changes to your Terraform configuration, but when you run terraform plan, it's showing a much larger set of changes than you expected. How would you determine what's causing these extra changes?
 
 >>It could be due to a number of factors like implicit dependencies, changes in default values, etc. You could examine the output of terraform plan to see which resources it's intending to change and why.
 You might also find the terraform graph command useful to visualize dependencies between resources.
@@ -756,7 +772,7 @@ resource "aws_instance" "private-instances" {
     ami = "${lookup(var.amis, var.aws_region, "ap-south-1")}"
     instance_type = "t2.micro"
     key_name = "chefkeypair"
-    subnet_id = "${element(aws_subnet.private-subnets.*.id, count.index}"
+    subnet_id = "${element(aws_subnet.private-subnets.*.id, count.index)}"
     vpc_security_group_ids = ["${aws_security_group.allow_all.id}]
     #associate_public_ip_address = true
     tags = {
@@ -786,8 +802,6 @@ depends_on = [aws_instance.public-instances]
     provisioner "local-exec" {
     command = "echo '${aws_instance.foo.public_ip}' > instance_ip.txt"
     }
-
-
     provisioner "remote-exec" {
         inline = [
         "sleep 60",
@@ -840,4 +854,604 @@ egress {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+85-how to configure secuirty group of instance anji system will access the sampi instance using secuirty grup using terrfform
+
+# aws_setup.tf
+
+provider "aws" {
+  region = "your_aws_region"
+}
+
+# Security Group for Anji instance
+resource "aws_security_group" "anji_security_group" {
+  name        = "anji-se"
+  description = "Security group for Anji instance"
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+# EC2 Instance for Anji
+resource "aws_instance" "anji_instance" {
+  ami           = "your_ami_id"  # Specify the AMI ID for your region
+  instance_type = "t2.micro"
+  key_name      = "your_key_pair_name"  # Replace with your key pair name
+
+  security_group = [aws_security_group.anji_security_group.id]
+
+  tags = {
+    Name = "anji-instance"
+  }
+}
+
+# Security Group for Sampi instance
+resource "aws_security_group" "sampi_security_group" {
+  name        = "sampi-se"
+  description = "Security group for Sampi instance"
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    security_groups = [aws_security_group.anji_security_group.id]
+  }
+}
+
+# EC2 Instance for Sampi
+resource "aws_instance" "sampi_instance" {
+  ami           = "your_ami_id"  # Specify the AMI ID for your region
+  instance_type = "t2.micro"
+  key_name      = "your_key_pair_name"  # Replace with your key pair name
+
+  security_group = [aws_security_group.sampi_security_group.id]
+
+  tags = {
+    Name = "sampi-instance"
+  }
+}
+
+86-why IAC  -->Infrastructure As Code 
+
+>>faster time to release 
+>>Improved consistency,less configuration drift
+>>faster, more efficient development
+>>Lower costs and more time developing and fewer operations 
+
+87-what are the terraform module types 
+
+1-root module 
+2-child module 
+3-publish module 
+4-
+
+88-how to attach multiple security groups to ec2 inatnce 
+
+vpc_security_group_ids = [
+    "sg-xxxxxxxxxxxxxxxxx",  # Security Group 1
+    "sg-yyyyyyyyyyyyyyyyy",  # Security Group 2
+    "sg-zzzzzzzzzzzzzzzzz"   # Security Group 3
+]
+
+89-you have three system you need to get the public ip as output 
+
+output "public_ip" {
+  value = aws_instance.web.*.public_ip ##this will print two or three  public ips 
+}
+
+90-you need two instance one is t2micro another is t3.micro this need to execute single code using terraform
+
+resource "aws_instance" "example_instance" {
+  count = length(var.component)
+  ami           = "ami-xxxxxxxxxxxxxxxx" # specify your AMI ID
+  instance_type = "t2.micro"             # specify the instance type
+  security_groups = [var.security_group_id]
+
+  tags = {
+    Name = var.component[count.index]#this will give cart and catalogue as name first one 
+     
+  }
+}
+
+
+variable "component" {
+  value = ["cart", "catalogue"]
+}
+
+
+resource "aws_instance" "web" {
+  for_each  = var.component
+  ami           = "ami-xxxxxxxxxxxxxxxx" # specify your AMI ID
+  instance_type = each.value.instance_type             # specify the instance type
+  security_groups = [var.security_group_id]
+  
+  tags = {
+    Name = each.value["name"]
+  }
+}
+
+variable "component" {
+  default {
+    cart = {
+      name = "cart"
+      instance_type = "t3.micro"
+    }
+    catalogue = {
+      name = "catalogue"
+      instance_type = "t2.micro"
+    }
+  }
+}
+
+output "publicip" {
+  value =aws_instance.web["cart"].public_ip ##this will get only cart public ip 
+}
+
+output "publicip" {
+  value = {
+    for k, v in aws_instance.web : k => v.public_ip  
+    #it wil fecth the aws_instance.web under it will check the k=cart then check the public ip same for k=catalogue will be show the public ip 
+  }
+} 
+
+
+variable "instances" {
+  default = [
+    {
+      name          = "cart"
+      ami           = "xxxxxxxxxxxxxxxxxxxx"
+      instance_type = "t3.micro"
+    },
+    {
+      name          = "catalogue"
+      ami           = "xxxxxxxxxxxxxxxxxxxx"
+      instance_type = "t2.micro"
+    },
+  ]
+}
+
+resource "aws_instance" "web" {
+  for_each =  var.instances
+
+  ami           = each.value.ami
+  instance_type = each.value.instance_type
+
+  tags = {
+    Name = each.key
+  }
+}
+
+if your using modules then like this 
+
+mkdir module 
+cd module 
+vi main.tf 
+
+resource "aws_instance" "web" {
+  ami                = *************************
+  instance_type      = var.instance_type
+
+  tags = {
+    Name = var.name 
+  }
+
+}
+variable instance_type {}
+variable name {}
+
+:wq
+
+cd ..
+vi main.tf 
+
+variable "component" {
+  default = {
+    cart = {
+      name          = "cart"
+      instance_type = "t3.micro"
+    }
+    catalogue = {
+      name          = "catalogue"
+      instance_type = "t2.micro" 
+    }
+  }
+}
+
+module "ec2" {
+  source   = "./module"
+
+  for_each   = var.component
+  instance_type = each.value.instance_type
+  name = each.value.name
+}
+
+output "publicip" {
+  value = {
+    for k, v in module.ec2 : k => v["ec2"].public_ip  
+    #it wil fecth the aws_instance.web under it will check the k=cart then check the public ip same for k=catalogue will be show the public ip 
+  }
+} 
+
+91-what is terraform local 
+
+>>the big expression need to be used in multiple places and locals can help you keeping it one place and you refer with another simple variable 
+
+locals {
+  instance_type  = { for k, v in var.components : k => v.instance_type }
+  name           = { for k, v in var.components : k => v.name }
+}
+
+output "instance_type" {
+  value = local.instance_type
+}
+
+output "name" {
+  value = local.name 
+}
+
+92-how to connect ec2 instance using terraform provisioners
+
+resource "aws_instance" "example_instance" {
+  ami             = "ami-xxxxxxxxxxxxxxxx" # Replace with your AMI ID
+  instance_type   = "t2.micro"
+  key_name        = "your_key_pair_name"   # Replace with your key pair name
+  security_group_ids = ["sg-xxxxxxxxxxxxxxxx"] # Replace with your security group ID
+
+  # Other instance configurations...
+
+  provisioner "remote-exec" {
+
+    inline = [
+      "echo 'Hello, this command is running on the instance.'",
+      "sudo apt-get update",
+      # Add any other commands you want to execute on the instance
+    ]
+
+    connection {
+      type     = "ssh"  ##you can username and password also 
+      user     = "ubuntu" # Replace with your instance's default user
+      private_key = file("path/to/your/private-key.pem") # Replace with the path to your private key
+      host     = self.public_ip # Terraform's self variable to get the public IP of the instance
+    }
+  }
+}
+
+resource "null_resource" "provision" {
+    triggers = {
+      instance_id = aws_instance.example_instance.id  ##this will if the system restart or terminate then it will connect or do it again  
+    }
+      provisioner "remote-exec" {
+
+    inline = [
+      "echo 'Hello, this command is running on the instance.'",
+      "sudo apt-get update",
+      # Add any other commands you want to execute on the instance
+    ]
+
+    connection {
+      type     = "ssh"  ##you can username and password also 
+      user     = "ubuntu" # Replace with your instance's default user
+      private_key = file("path/to/your/private-key.pem") # Replace with the path to your private key
+      host     = self.public_ip # Terraform's self variable to get the public IP of the instance
+    }
+  }
+}  
+
+93-how to configure write a code to two differnet AWS account
+
+aws configure --profile anji(prod)
+access_key: *************************
+secret_key: *************************
+region: *****************
+
+aws configure --profile sampi(dev)
+access_key: *************************
+secret_key: *************************
+region: *****************
+provider "aws" {
+    alias = "prod"
+    region = "us-east-1"  ##it will be first account so 
+    profile = "anji(prod)"
+}
+
+provider "aws" {
+    alias = "dev"  ##you need to give this compulsory with this it cant work 
+    region = ap-south-1
+    profile = sampi(dev)
+}    
+
+resource "aws_instance" "ec2_main" {
+  provider        = aws.prod 
+  ami             = var.ami_apsoutheast
+  instance_type   = "t2.micro"
+  key_name        = "linux-sea-key"
+  security_groups = ["ansible-sg"]
+  tags = {
+    Name    = "account-main",
+    Project = "multiprovider",
+    Region  = "ap-southeast-1"
+  }
+}
+resource "aws_instance" "ec2_dev" {
+  provider        = aws.dev
+  ami             = var.ami_useast
+  instance_type   = "t2.micro"
+  key_name        = "linux-useast-key"
+  security_groups = ["ansible-sg"]
+  tags = {
+    Name    = "account-dev",
+    Project = "multiprovider",
+    Region  = "ap-southeast-1"
+  }
+}
+
+variable "ami_apsoutheast" {
+  type    = string
+  default = "ami-0af2f764c580cc1f9"
+}
+
+variable "ami_useast" {
+  type    = string
+  default = "ami-00c39f71452c08778"
+}
+resource "aws_s3_bucket" {
+    provider = aws.prod 
+    bucket = "anji159258"
+    acl    =  "public-read"
+    lifecycle {
+        prevent_destroy = true 
+    }  
+
+}  ##this is anji account automatically taken 
+
+resource "aws_s3_bucket" {
+    provider = aws.dev 
+    bucket = "anji1592589"
+    acl    =  "public-read"
+    lifecycle {
+        prevent_destroy = true 
+    }  
+
+}  
+
+94-your using modules you need to print the public ip address of all the instances 
+
+#it will print the ip address of all inside ec2 module 
+output "publicip" {
+  value = module.ec2
+}
+
+95-what is terraform locals 
+
+>>
+In Terraform, locals are used to declare variables that are used within a module to simplify expressions or reuse values. Locals are evaluated during the Terraform graph building phase and can be useful for
+making configurations more readable and maintainable. Here's a simple example of using locals in a Terraform configuration.
+>>you can store localy that refer anywhere fro example public_ip printed 10 places rather than you can store in local call that using output 
+
+# main.tf
+
+provider "aws" {
+  region = "us-east-1"
+}
+
+locals {
+  resource_prefix = "myapp"
+}
+
+resource "aws_s3_bucket" "example_bucket" {
+  bucket = "${local.resource_prefix}-s3-bucket"
+  acl    = "private"
+}
+
+resource "aws_dynamodb_table" "example_table" {
+  name           = "${local.resource_prefix}_dynamodb_table"
+  read_capacity  = 5
+  write_capacity = 5
+  hash_key       = "id"
+  attribute {
+    name = "id"
+    type = "N"
+  }
+}
+
+96-can i use inside the aws_instance provision and outside also example 
+
+resource "aws_instance" "web" {
+    ami                   = "xxxxxxxxxxxxxxxxxxxxxx"
+    instance_type         = "t2.micro"
+    #it will create the 2 instance 
+    count                 = 2
+    ##it will create two instances based on the components you mentiod if write frontend in components it will create three   
+    #first way these see below varaibles
+    count                 = lenth(var.components) ## 
+
+    tags = {
+        #it will give the name one instance name is cart another instance name is catalogue  
+        Name = var.components[count.index]
+    }
+
+
+  provisioner "remote-execc" {
+    connection {
+      host        = self.public_ip
+      type        = "ssh"
+      user        = ec2-user  
+      private_key = "${file("test.pem")}" 
+    }
+
+    inline = [
+      "false"
+    ]
+  }
+}    
+
+#outside youcan use null resource outsie of the instance
+
+resource "aws_instance" "web" {
+    ami                   = "xxxxxxxxxxxxxxxxxxxxxx"
+    instance_type         = "t2.micro"
+    #it will create the 2 instance 
+    count                 = 2
+    ##it will create two instances based on the components you mentiod if write frontend in components it will create three   
+    #first way these see below varaibles
+    count                 = lenth(var.components) ## 
+
+    tags = {
+        #it will give the name one instance name is cart another instance name is catalogue  
+        Name = var.components[count.index]
+    }
+}
+
+resource "null_resource" "execute" {
+depends_on = [aws_instance.public-instances]
+    connection {
+        type = "ssh"
+        host = aws_instance.web[1].public_ip  ##it will connect the first system only 
+        user = "ubuntu"
+        private_key = "${file("test.pem")}"
+    }
+    provisioner "file" {
+    source      = "anji.sh"
+    destination = "/tmp/anji.sh"
+  }
+}
+
+97-your created 6 subnets but you want choose only one subnet for ec2 instance
+
+>>using like this 
+subnet_id  = aws_subnet.main.*.id[0] #this will select the first subnet 
+
+98-how you can configure lookup in terraform 
+
+>>see the video of 52 and time 52mins  
+
+99-what is try in terrafrom 
+
+>>see video 60 15 mins  
+
+100-if you use this like this count = var.listerner == ? 1 : 0
+
+1->true
+0->false   -->its basically true or false only if 1 means that condition execute if 0 menas that condition will not execute 
+
+101-how you can install node exporter in any server is created using auto-scaling while using terafrom 
+
+resource "aws_launch_configuration" "example" {
+  name = "example_config"
+
+  image_id = "ami-12345678"  # Replace with your AMI ID
+  instance_type = "t2.micro" # Replace with your instance type
+
+  lifecycle {
+    create_before_destroy = true
+  }
+
+  user_data = <<-EOF
+              #!/bin/bash
+              curl -LO https://example.com/install_node_exporter.sh
+              chmod +x install_node_exporter.sh
+              ./install_node_exporter.sh
+              EOF
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+resource "aws_autoscaling_group" "example" {
+  desired_capacity     = 2
+  max_size             = 4
+  min_size             = 2
+  launch_configuration = aws_launch_configuration.example.id
+
+  # Rest of your autoscaling configuration...
+}
+
+vi install_node_exporter.sh
+
+#!/bin/bash
+
+# Node Exporter version to install (update accordingly)
+NODE_EXPORTER_VERSION="1.2.3"
+
+# Download and install Node Exporter
+curl -LO "https://github.com/prometheus/node_exporter/releases/download/v${NODE_EXPORTER_VERSION}/node_exporter-${NODE_EXPORTER_VERSION}.linux-amd64.tar.gz"
+tar -xvf "node_exporter-${NODE_EXPORTER_VERSION}.linux-amd64.tar.gz"
+sudo mv "node_exporter-${NODE_EXPORTER_VERSION}.linux-amd64/node_exporter" /usr/local/bin/
+
+# Create a non-privileged user for Node Exporter
+sudo useradd -rs /bin/false node_exporter
+
+# Create a systemd service for Node Exporter
+sudo tee /etc/systemd/system/node_exporter.service > /dev/null <<EOF
+[Unit]
+Description=Node Exporter
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=node_exporter
+ExecStart=/usr/local/bin/node_exporter
+
+[Install]
+WantedBy=default.target
+EOF
+
+# Reload systemd and start Node Exporter
+sudo systemctl daemon-reload
+sudo systemctl enable node_exporter
+sudo systemctl start node_exporter
+
+:wq
+
+102-what is tfswitch 
+
+>>tfswitch is a command-line tool that allows you to switch between different versions of Terraform seamlessly. It simplifies managing multiple Terraform versions on your system and ensures that you can easily
+switch between them based on your project requirements.
+>>For example, if you have projects that require Terraform version 0.14 and others that require version 0.15, TFSwitch enables you to switch between these versions effortlessly. By using TFSwitch, 
+you can ensure that you're using the correct Terraform version for each project without the need to uninstall or reinstall different versions manually.
+# Install tfswitch
+brew install warrensbox/tap/tfswitch
+
+# List available Terraform versions
+tfswitch --list
+
+# Switch to a specific version (e.g., 0.14.0)
+tfswitch 0.14.0
+
+# Check the currently active Terraform version
+terraform version
+
+# Run Terraform commands
+terraform init
+terraform plan
+terraform apply
+
+103-what happen if my terraform statefile deleted how to terminate the instance without going to the aws console
+
+>>If your Terraform state file is deleted, it becomes challenging to manage your AWS resources using Terraform because Terraform relies on the state file to understand the current state of your infrastructure.
+However, you can still manually terminate the instances in your AWS account without using the AWS Management Console by following these steps:
+
+aws ec2 describe-instances
+aws ec2 terminate-instances --instance-ids <instance-id>
+aws ec2 delete-security-group --group-id <security-group-id>
+
+104-types of variables in terraform
+
+1-string
+2-number
+3-bool
+4-list
+5-set
+6-map
 
