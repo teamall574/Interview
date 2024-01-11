@@ -693,6 +693,9 @@ anji.txt ls.txt sampi.txt
 >>git checkout -b ＜new-branch＞  ==>create new branch 
 
 92-
+whenever a pull request is created in github and someone comments on the #jira you need to write a python script to lokkat the github.com whenever it finds a comments called #jira python should take
+that information and pass it to a jira ticket it has to create a jira ticket 
+ 
 
 
 
