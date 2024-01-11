@@ -359,5 +359,10 @@ NodeJs its not need to compile and packaging and download dependencies and its n
 Python/Ruby its not need to compile and packaging and not download dependencies it will download dependencies on server side 
 PHP  its not need to compile and packaging and not download dependencies it will download dependencies on server side 
 
-47-
+47-what is JAR or WAR
+
+>>packaged application is called jar or war like source code + dependencies
+if it is a restful api then jar will create
+if it is webapp then war file create 
+
 
