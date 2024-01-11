@@ -1,119 +1,8 @@
 
-9-what is runtime in kubernets
-
->>The container runtime is the software that is responsible for running containers.
->>kubernetes is team manager kubernetes not run a containers. container runtime will run pods or containers.container runtime supports 
-docker, CRI-O, Dockered, CRI -Container Runtime Interface 
-
-10-what is the differnce between monolithic and microservices and advantages and disadvantages
-
-Monolithic application
->>In single application uses all the resources or service in a single application is called monolithic application
->>if all the functionaties of a project exists in a single codebase or application then that application is known as Monolithic appliccation
-all are in one space ex:- In any application have db-servers and payments and refunds, orders this called Monolithic application
-
-Disadvantages:-
-1-all are in application if you want changes code any thing need to redesign are configure the application
-2-it becomes to large diffcult to manage
-3-size of the application is increase deployment times also increase
-4-if any one joined in newly diffcult to understand
-
-Advantages:-
-1-simple to develop the application
-2-easier to deploy
-
-Microservices
->>micro-service is dividing the each layer or each service to and apply each service to db-servers or any resources
-
-Advantges:-
-1-you can update the single service without interputation any other service2
-2-no impact in other services
-
-Dis-advnatges:-
-1-it is diffcult to development
-2-it is much more complex than monolithic application its complexity increase with the increase in number of microservices
-3-skilled developers are required to work with micro-services architecture to undestand and manage micro-services
-
-11-what is Kubernetes Operators
-
->>A Kubernetes operator is a method of packaging, deploying, and managing a Kubernetes application. A Kubernetes application is both deployed on Kubernetes and managed using the 
-Kubernetes API (application programming interface) and kubectl tooling
-
-12-What is Alpine Images 
-
->>The “alpine” image is the light-weighted image that provides a complete package of the index, and the size is around about “5Mbs” only. It is widely used to build and containerize 
-lightweight applications. It is more secure and reliable. It takes less disk space relative to other images.
-
 13-how to see the how much cpu and memory using the pod 
 
 >>kubectl top pods   -->it will show the pods details only
 >>kubecctl top nodes    -->it will show nodes cpu and memory also
-
-14-What are the disadvantages of Kubernetes?
-
-The Kubernetes dashboard isn't nearly as useful as it might be.
-The security system is ineffective.
-It is quite complicated and has the potential to hinder productivity.
-Kubernetes is more expensive than its competitors..
-
-15-How do I build a High Availability (HA) cluster?
-
->>With stacked control plane nodes, where etcd nodes are colocated with control plane nodes. A stacked HA cluster is a topology where the distributed data storage cluster provided
-by etcd is stacked on top of the cluster formed by the nodes managed by kubeadm that run control plane components.
-
->>This topology couples the control planes and etcd members on the same nodes. It is simpler to set up than a cluster with external etcd nodes, and simpler to manage for replication.
-
->>However, a stacked cluster runs the risk of failed coupling. If one node goes down, both an etcd member and a control plane instance are lost, and redundancy is compromised. 
-You can mitigate this risk by adding more control plane nodes.
-
->>With external etcd nodes, where etcd runs on separate nodes from the control plane. An HA cluster with external etcd is a topology where the distributed data storage cluster provided
-by etcd is external to the cluster formed by the nodes that run control plane components.
-
->>This topology decouples the control plane and etcd member. It therefore provides an HA setup where losing a control plane instance or an etcd member has less impact and does not 
-affect the cluster redundancy as much as the stacked HA topology.
-
->>However, this topology requires twice the number of hosts as the stacked HA topology. A minimum of three hosts for control plane nodes and three hosts for etcd nodes are required 
-for an HA cluster with this topology.
-
-16-Why do we need Kubernetes (and other orchestrators) above containers?
-
->>In the quality assurance (QA) environments, we can get away with running containers on a single host to develop and test applications. However, when we go to production,
-we do not have the same liberty, as we need to ensure that our applications:
-
-Are fault-tolerant
-Can scale, and do this on demand
-Use resources optimally
-Can discover other applications automatically, and communicate with each other
-Are accessible from the external world
-Can update/rollback without any downtime.
-
-17-Which problems does a Container Orchestration solve?
-
->>Automated Deployment and Scaling
->>Resource Optimization:
->>Service Discovery
->>Load Balancing
->>Rolling Updates and Rollbacks
-<<Health Monitoring and Self-healing
-<<Security
->>Portability
->>Resource Isolation
-
-18-What happens when a master fails? What happens when a worker fails?
-
->>Kubernetes is designed to be resilient to any individual node failure, master or worker. When a master fails the nodes of the cluster will keep operating, but there can be no changes 
-including pod creation or service member changes until the master is available. When a worker fails, the master stops receiving messages from the worker. If the master does not receive 
-status updates from the worker the node will be marked as NotReady. If a node is NotReady for 5 minutes, the master reschedules all pods that were running on the dead node to other 
-available nodes.
-
-19-Explain when to use Docker vs Docker Compose vs Docker Swarm vs Kubernetes
-
->>Docker is a container engine, it makes you build and run usually no more than one container at most, locally on your PC for development purposes.
->>Docker Compose is a Docker utility to run multiple containers and let them share volumes and networking via the docker engine features, runs locally to emulate service composition and 
-remotely on clusters. Docker Compose is mostly used as a helper when you want to start multiple Docker containers and don't want to start each one separately using docker run ....
->>Docker Swarm is for running and connecting containers on multiple hosts. It does things like scaling, starting a new container when one crashes, networking containers.
->>Kubernetes is a container orchestration platform, it takes care of running containers and enhancing the engine features so that containers can be composed and scaled to serve complex 
-applications (sort of PaaS, managed by you or cloud provider). Kubernetes' goal is very similar to that for Docker Swarm but it's developer by Google.
 
 20-What does it mean that "pods are ephemeral"?
 
@@ -140,61 +29,6 @@ Pods that run multiple containers that need to work together:-Pods with multiple
 These colocated containers might form a single cohesive unit of service—one container serving files from a shared volume while another container refreshes or updates those files. 
 The Pod wraps these containers and storage resources together as a single manageable entity.
 
-23-what is kubernetes distribution types
-
->>this will provide the customer requirments easy way and help you any issues why because this will managed by AWS like EKS
->>why this distribution will popular because they will provide support 
-
-1-EKS
-2-openshift
-3-ranctier
-4-tanzu
-5-AkS
-6-GKE
-7-Kops-->kubernetes operations (Version 1.26.4)
-
-24-what type registry your using
-
->>we are using the private repository to store the docker images
-
-25-what is master-node components
-
-1-API-Server
-2-Controller-manager
->>node-controller
->>replication-controller
->>endponts-controller
->>service-Account & token-controller
-3-ETCD
-4-kube-schedular
-
-26-what is node components
-
-1-kubelet
-2-kube-proxy
-3-container-runtime
-
-27-Is Kubernetes mutable or immutable?
-
->>immutable:-If you are using containers or container orchestration tools like Kubernetes, you are already following an immutable model for application deployments.
->>if use mutable always take longtime to deploy change the version or OS Anything 
->>if use immutable always take lesstime to deploy change the version or OS or Anything 
-
-28-What is a multinode cluster and single-node cluster in Kubernetes?
-
->>A single-node cluster is a Kubernetes cluster that runs on a single machine. It is mostly used for testing and development purposes where a single machine is used to run and manage
-Kubernetes.
->>For example, you can use Minikube to run a single-node Kubernetes cluster on your local machine for testing and development purposes.
-
-On the other hand, a multinode cluster is a Kubernetes cluster that runs on multiple machines or nodes. It is used in production environments where a large number of containerized 
-applications need to be deployed and managed.
->>For example, if you want to deploy a web application that receives a large number of requests, you can use a multinode cluster to distribute the load across multiple nodes, 
-ensuring high availability and scalability.
-
->>In a multinode cluster, the nodes work together as a single entity to manage and run the containerized applications. Each node has its own set of resources, such as CPU, memory, 
-and storage,that can be utilized by the applications running on it. The cluster manager, such as Kubernetes, ensures that the applications are distributed across the nodes in a way
-that maximizes resource utilization and provides high availability and fault tolerance
-
 29-Can you explain the concept of self-healing in Kubernetes and give examples of how it works?
 
 >>Self-healing is an important concept in Kubernetes, which allows the system to automatically detect and recover from failures in the cluster.This ensures that the applications running 
@@ -206,20 +40,6 @@ the failed pod and create a new one to take its place.
 correctly. If a pod fails a probe, Kubernetes can automatically terminate the pod and create a new one to take its place.
 >>In addition, Kubernetes also provides a feature called liveness and readiness probes, which allows you to define custom checks to ensure that your application is running correctly.
 For example, you can define a liveness probe to check if your application is able to connect to a database, and a readiness probe to ensure that your application is ready to receive traffic.
-
-30-Can you give an example of how Kubernetes can be used to deploy a highly available application?
-
-1-First, create a Docker image of your web application and push it to a container registry like Docker Hub.
-2-Create a Kubernetes Deployment object that defines the desired state of your application, including the number of replicas, the container image to use, 
-and any environment variables or other configuration.
-3-Create a Kubernetes Service object that provides a stable, load-balanced IP address for your application. This ensures that traffic is distributed evenly across all 
-replicas of your application.
-4-Set up a Kubernetes Ingress object to expose your application to the internet. This allows external traffic to access your application through a single entry point, 
-while also providing SSL termination, load balancing, and other advanced features.
-5-Configure Kubernetes to automatically scale your application up or down based on resource utilization, using Horizontal Pod Autoscaling (HPA). 
-This ensures that your application can handle sudden spikes in traffic without going down.
-6-Use Kubernetes rolling updates to deploy new versions of your application without any downtime. This ensures that your users always have access to the latest features and bug fixes,
-while also minimizing the risk of service disruption.
 
 31-Difference between create and apply in kubernetes?
 
@@ -235,92 +55,9 @@ manages the performance of a pod.
 
 >>What is kubectl delete? kubectl delete offers you a way to gracefully shut down and terminate Kubernetes resources by their filenames or specific resource names.
 
-34-what is production level cluster
-
->>we are 3 master 10 worker nodes 
->>if the master down your worker cant down but your not able to connect the master so you need to use odd numbers 1,3,5,7,9 .this will sync automatically 
-using raft consequence alogirthum.etcd written in go and uses the raft consensus algorithm to manage a highly availble relicated log
->>it uses leader state or candiate state or follower state
->>either leader must be followed by follower state if the leader down then must be candiate state must be leader state
-
->>kubectl describe ep -n kube-system kube-controller-manger
-it will show leader of the kubernes
-
-35-how many masters are allwoed to fail. how many needed in order cluster to work
-
->>N-1/2  5-1/2   -->2 fails  
->>N/2+1  5/2+1   -->3 must 
-
 36-how to backup your cluster and nodes
 
 >>using velero tool to backup and create snapshots create backup of your cluster
-
-37-what is kubernetes features
-
->>Auto-scaling. Automatically scale containerized applications and their resources up or down based on usage.
-Lifecycle management. Automate deployments and updates with the ability to: ...
-Declarative model. ...
-Resilience and self-healing. ...
-Persistent storage. ...
-Load balancing. ...
-DevSecOps support.
-Automatic-rollouts
-Storage-orchestation
-Service Discovery
-Deployment
-Replicasets-replicas and persistent stoarges
-cronjobs
-rbac
-
-40-what is etcd in kubernets
-
->>etcd is an open source distributed key-value store used to hold and manage the critical information that distributed systems need to keep running.
-Most notably, it manages the configuration data, state data, and metadata for Kubernetes, the popular container orchestration platform.
->>etcd it is a type of database. etcd is encrypted database only kube-api-server will connect to the etcd service to save the data or to bring the data
-etcd is key-value pair database. it takes from your yaml to take data and store the data
-
-41-what is kube proxy what is the work on kube proxy
-
->>Kube-proxy is a network proxy that runs each node in your cluster, implementing part of the kubernetes service concepts
->>kube-proxy is used to open the ports in  you firewall server or service
-
->>kube proxy works by maintaing a set of network rules on each node in the cluster which updated dynamically as services are added or removed.
->>kube proxy essentical component of a kubernets cluster as it ensures that service can communicate with each other
-
-42-what is kube schedular and what is the work on kube schedular
-
->>schedular is used to schedule the pods where to deploy the nodes in 
->>kube-schedular is used to divide the pods or balance the pods to deploy the nodes tell to kube-api-server
->>kube-schedulat allocates the pods to deploy the nodes 
->>when we deploying the 10 pods using yaml file then the kube-api-server will sent to the etcd server then the etcd server will sent the configuartion file and
-it will send kube-schedular and it will deivide the pods where to deploy or allocate the pods to node send the requiremnet or configuartion file into kube-api-server
-then the kube-api-server will sent the kubelet to deploy pods in each node to divide the pods 
-
-43-what is kube controller manager 
-
->>The Kubernetes controller manager is used to control this things 
-1-node-controller:- responsible for noticing and responding when nodes go down
-2-Replication-controller:- responsible for maintaining the corecct number of pods for every replication controller
-3-Endpoint-controller:- populates the Endpoint objects (that is Json Services&Pods)
-4-ServiceAccounts & Token controller:- create the default accounts and API access tokens for new namespaces
-
-44-what is kube-api-server
-
->The kube-api server is the central hub of the Kubernetes cluster that exposes the Kubernetes API.
->>End users, and other cluster components, talk to the cluster via the API server. Very rarely monitoring systems and third-party services may talk to API servers to interact with the cluster.
->>So when you use kubectl to manage the cluster, at the backend you are actually communicating with the API server through HTTP REST APIs. However, the internal cluster components like the scheduler, 
-controller,etc talk to the API server using gRPC.
->>The communication between the API server and other components in the cluster happens over TLS to prevent unauthorized access to the cluster.
->>kube-api-server you can use multiple servers need fault-tolerance
->>kube-api-server must be running in every-time if any time kube-api-server we are using only if that one is failed how to connect the nodes, so thats why 
->>we use minimum 3 kube-api-server use only odd numbers
-
-45-what is kubelet 
-
->>kubelet is an agent of kubernets 
->>kubelet is used deploy the pods using nodes
->>kubelet is availble in each node then go to kube-api-server take the configuration and deploy the pods
->>each node have kubelet
 
 46-what is registry
 
