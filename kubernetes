@@ -4,109 +4,9 @@
 >>kubectl top pods   -->it will show the pods details only
 >>kubecctl top nodes    -->it will show nodes cpu and memory also
 
-20-What does it mean that "pods are ephemeral"?
-
->>Pods are ephemeral. They are not designed to run forever, and when a Pod is terminated it cannot be brought back. In general, Pods do not disappear until they are deleted by a user 
-or by a controller.
-
->>Pods do not "heal" or repair themselves. For example, if a Pod is scheduled on a node which later fails, the Pod is deleted. Similarly, if a Pod is evicted from a node for any reason,
-the Pod does not replace itself.
-
-21-What does a Pod do
-
->>Pods represent the processes running on a cluster. By limiting pods to a single process, Kubernetes can report on the health of each process running in the cluster. Pods have:
-
-a unique IP address (which allows them to communicate with each other)
-persistent storage volumes (as required)
-configuration information that determine how a container should run.
-Although most pods contain a single container, many will have a few containers that work closely together to execute a desired function.
-
-22-Explain what are some Pods usage patterns.
-
->>Pods that run a single container:- The simplest and most common Pod pattern is a single container per pod, where the single container represents an entire application.
-In this case, you can think of a Pod as a wrapper.
-Pods that run multiple containers that need to work together:-Pods with multiple containers are primarily used to support colocated, co-managed programs that need to share resources. 
-These colocated containers might form a single cohesive unit of service—one container serving files from a shared volume while another container refreshes or updates those files. 
-The Pod wraps these containers and storage resources together as a single manageable entity.
-
-29-Can you explain the concept of self-healing in Kubernetes and give examples of how it works?
-
->>Self-healing is an important concept in Kubernetes, which allows the system to automatically detect and recover from failures in the cluster.This ensures that the applications running 
-in the cluster are always available and responsive to user requests.
->>One of the ways in which Kubernetes achieves self-healing is through replication. By creating multiple replicas of a pod, Kubernetes can ensure that if one replica fails, 
-the other replicas can continue to serve traffic without interruption. When Kubernetes detects that a pod is no longer running or responding to requests, it will automatically terminate 
-the failed pod and create a new one to take its place.
->>Another way in which Kubernetes achieves self-healing is through probes. Probes are used to periodically check the health of a pod by sending requests to it and verifying that it responds
-correctly. If a pod fails a probe, Kubernetes can automatically terminate the pod and create a new one to take its place.
->>In addition, Kubernetes also provides a feature called liveness and readiness probes, which allows you to define custom checks to ensure that your application is running correctly.
-For example, you can define a liveness probe to check if your application is able to connect to a database, and a readiness probe to ensure that your application is ready to receive traffic.
-
-31-Difference between create and apply in kubernetes?
-
->> create will always create a new resource, even if a resource with the same name already exists in the cluster
->>On the other hand, apply will create a new resource if it does not exist, but will modify an existing resource if it does
-
-32-What is diff between pod and deployment?
-
->>As we now know, a pod is the smallest unit of Kubernetes used to house one or more containers and run applications in a cluster, while deployment is a tool that
-manages the performance of a pod.
- 
-33-What does Kubernetes delete do?
-
->>What is kubectl delete? kubectl delete offers you a way to gracefully shut down and terminate Kubernetes resources by their filenames or specific resource names.
-
 36-how to backup your cluster and nodes
 
 >>using velero tool to backup and create snapshots create backup of your cluster
-
-46-what is registry
-
->>A registry is a storage and content delivery system, holding named Docker images, available in different tagged versions. 
-Example: the image distribution/registry , with tags 2.0 and 2.1 . Users interact with a registry by using docker push and pull commands.
-types:
-1-DockerHub
-2-Google GCR
-3-AWS ECR
-4-AZURE ACR
-
-47-what is docker images 
-
->>Docker images act as a set of instructions to build a Docker container, like a template. Docker images also act as the starting point when using Docker. 
-An image is comparable to a snapshot in virtual machine (VM) environments.
-
-48-what is pod in kubernets
-
->>pod is group of containers 
->>pod uses shared network and shared stoarge also 
->>Pods are the smallest deployable units of computing that you can create and manage in Kubernetes.
->>A pod is samllest unit of compuatation and replication in kubernetes
->>A Kubernetes pod is a collection of one or more Linux® containers, and is the smallest unit of a Kubernetes application.
->>pod is single entity
->>pod will run only one node
->>pod can have multiple containers or multiple volumes this called pods
->>pod is a not container .
->>pod inside if have multiple containers but pod have only one ip address
-
-49-what is kubernets CNI container network interafce
-
->>Container Network Interface (CNI) is a framework for dynamically configuring networking resources. It uses a group of libraries and specifications written in Go. 
-The plugin specification defines an interface for configuring the network, provisioning IP addresses, and maintaining connectivity with multiple hosts
-
-50-how to connect your pods local
-
->>using port forwarding or using services
-
-51-what is kubenet limitions
-
->>kubenet - a simple /24 IP address range can support up to 5000 nodes in the cluster (each Azure virtual network subnet reserves the 
-first three IP addresses for management operations)
-This node count could support up to 27,610 pods (with a default maximum of 100 pods per node with Kubernetes)
-
-52-what is pod security policy
-
->>A Pod Security Policy is a cluster-level resource that controls security sensitive aspects of the pod specification. 
-The PodSecurityPolicy objects define a set of conditions 
-that a pod must run with in order to be accepted into the system, as well as defaults for the related fields.
 
 53-what is the differnece between lables and annonations
 
@@ -122,15 +22,6 @@ but which store arbitrary non-identifying data. For instance, you can keep the c
 >>Kubernetes labels are key-value pairs that can connect identifying metadata with Kubernetes objects. 
 Kubernetes offers integrated support for using these labels to query objects and perform bulk operations on selected subsets
 
-55-what are the pods  present in the kube-system
-
-1-codedns
-2-kube-proxy
-3-nodes
-4-kubernetes dashboard
-5-heapster 
-6-ingress
-
 56-what is kubernetes security mechnisam
 
 >>kubernets by default you can create secrtes in kubectl or yaml file using .but the disadvnatges the secret is non-encrypted method it uses 
@@ -141,126 +32,6 @@ by base64 any one can decrypt and the data is displayed in plan text
 
 >>Vault is tool for securely accessing secrets 
 >>you can create the policys to update or delete the screts of the vault anyone can access the authorization 
-
-58-write syntax of kubernetes
-
-apiVersion:
-kind:
-metadata:
-spec:                 --->this is the kubernets syntax nned to write everytime it will there any manifest file
-
-59-what is replication-controller
-
->>replication-controller is used to increase or decrease the pods.
->>A ReplicationController ensures that a specified number of pod replicas are running at any one time. In other words, a ReplicationController makes sure that 
-a pod or a homogeneous set of pods is always up and available
->>kubectl run anji --image=index.docker.io/sreeharshav/rollingupdate:v3 --replicas=5
-
-60-what is metadata
-
->>Metadata makes finding and working with data easier – allowing the user to sort or locate specific documents. Some examples of basic metadata are author, date created, date modified, and file size. 
-Metadata is also used for unstructured data such as images, video, web pages, spreadsheets, etc.
-
-61-how to remove pods and how to add pods into replicas
-
->>First, confirm the name of the node you want to remove using kubectl get nodes , and make sure that all of the pods on the node can be safely terminated without any special procedures. 
-Next, use the kubectl drain command to evict all user pods from the node
->>kubectl run anji --image=index.docker.io/sreeharshav/rollingupdate:v3 --replicas=2  first in this palce 5 replicas is there 
-
-62-what is replication-set
-
->>The ReplicaSet configuration defines a number of identical pods required, and if a pod is evicted or fails, creates more pods to compensate for the loss.
-
-63-what is the differnce between replication controller and replication set and what is replication controller
-
->>replication-controller is used to increase or decrease the pods
->>it is old version it doesnt accept multiple labels that why we use replication-set
->>if your runing an image in pods but your suddenly changing into image but it will not change or update immediately . the pods need to chnage 
-old to new pods then you will get . you should delete the pods or remove the pods and add the pods into replication-controller or replication-set
-
->>The major difference between a replication controller and replica set is that the rolling-update command works with Replication Controllers, 
-but won't work with a Replica Set.replication set you can give match labels and match expresssions you can't give in replication controller
-
-64-what is rolling update in kubernets and disadvantages
-
->>Rolling updates incrementally replace your resource's Pods with new ones, which are then scheduled on nodes with available resources. 
-Rolling updates are designed to update your workloads without downtime. The following objects represent Kubernetes workloads
-
-disadvantages:-
-1 - it will be a manual update from one image to other image
-2 - new replication-controller will be created and old replication-controller will be deleted
-3 - roll back needs to change again to the old image
-4 - Overall manual process and replication-controller update is deprecated
-
-65-what is deployments what is the use of deployments
-
->>A Kubernetes deployment is a higher-level resource that provides a declarative way to manage adn update set of replicas of an application .A deployment allows you to describe an 
-application’s life cycle, such as which images to use for the app, the number of pods there should be, and the way in which they should be updated
->>Deployment is used to create the multiple pods and distribute the pods to multiple hosts
->>Deployment have inbuild replicasets and roll-in and roll-out availble it will maintain self-helaing in deployment if any replica goes down automatically create one more replicas
-and we can use rolling updates using Deployment. and it will maintian the correcct number of replicas we can use liveness and readyness we can pasue and resume the deployment by using
-canary deployment also
->>Deployment is stateless only if the pod deleted it will add pod but not same specification
-
->>kubectl rollut history deploymnet/nginx-deployment   -->to see the records what changes happines 
->>kubectl set image deployment/nginx-deployent anji=anji1592/test1  --record=true  -->it will maintain record what command you used
->>kubectl rollout undo deployment/nginx-deployment --to-revision=2   -->it will set your changed second time image right that image will bring back to deployment
->>kubectl rollout status deploymnet/nginx-deployment   -->to see the status
-
-Advantages:-
-1 - it uses replicasets and replicasets automatically performs the rollingupdates.
-2 - Rollback is easy as we can record the deployments
-3 - we can use liveness and readyness probes to improve application availibility
-4 - we can pause & resume the deployment which us usefull for canary updates
-
-66-how you can update your pods or services
-
->>we can use deployments to update the but we don't use replication-controller
->>we use manifest files to version control. then we can see the versioning if we kubectl 
-but after week we come what command we used we don't remeber and there is no version control right
-
-67-what is stateful-set and advantages and dis-advantages
-
->>StatefulSet is an API object that manages the deployment and scaling of a set of stateful pods. It is used when you need to maintain state or provide stable network identities to your pods.
-
->>when you creating replicas in statefulsets it will sync first pod is master it will sync to second slave it will sync then the slave will sync to another slave it will repeat everytime
->>when you creating pod using stateful-set when the pod is delete then the next pod will come same configuartion and same ip
->>when you creating replicas in stateful-set the master will have read and write permsiion remaing slaves only have read permissions if we allow all the pods
-we will get an error inconsistent data over here
->>if we creating replicas is easy in stateless or deployment but comming to stateful set it easy but it will give unique name
->>if your using replica set or replication controller using create 4 pods it will give proper name and id but comming to deployment it will give random hash its
-not permenaent when the pod deleted the hash will be removed
-
->>create the EFS volume 
->>craete the cluster role, clusterrolebinding,role, rolebinding
->>create stotage class
->>create configmap
->>create create 2 0r3 service,stataefulset,persistentvolumecliam
-
-68-what is the difference between stateful-set and deployment
-
->>deployment:-
-1-. A Deployment manages multiple pods by automating the creation, updating, and deletion of ReplicaSets
-2-if the pod deleted the data will not retrive the ip will not come
-3-All replicas share a PVC and a volume
-4-ReadWriteMany and ReadOnlyMany
-5-Pods are created and deleted randomly
-6-it is stateless
-
->>stateful-set
-1-StatefulSet helps orchestrate stateful pods by guaranteeing the ordering and uniqueness of pod replicas. when the pod delete the old name and ip will come
-2-if the pod deleted the data will store in the persistent volume and the same name will come and ip also same came
-3-Each pod gets a unique volume and PVC
-4-ReadWriteOnce
-5-Pods are created in a strict sequence and cann't be deleted randomly
-6-it is stateful
-
-69-Deployment stargies benfites
-
->>reduced time-to-market
->>customers can take advantage of features faster
->>customers feedback flows back into the product team faster
->>higher developer morale
 
 70-what is liveness probe and readiness probe
 
@@ -3766,10 +3537,6 @@ octant --listener-addr 0.0.0.0:7777
 then add this into nginx reverse proxy nginx.conf file then you can access  
 
 and one more is k9s and k8s dashboard and lens tool also 
-
-248-what is Ephermal containers
-
->>a special type of container that runs temporarily in an existing Pod to accomplish user-initiated actions such as troubleshooting. You use ephemeral containers to inspect services rather than to build applications.
 
 249-what is status: {}  in kubernetes yaml file 
 
