@@ -1833,16 +1833,38 @@ this is the reason GitOps come into picture you can use GitOps git tracking your
 >>if anyone tries modify the kubernetes cluster will not accept you need to modify through only git version through only
 >>GitOps always takes Git as a single source of truth if any one pushed wrong code then automcatically or blindly deploy by GitOps
 >>it will sync Github and deploy into kubernetes
+>>GitOps is Operational framework that applies the best practices of devops such as stoaring infrastructure and configuration code in github and having collaboration and code reviews and applies the best
+practices of the CI/CD pipelines
+Why-GitOps:-
+1-Versioned infrastructure in git 
+2-Collaboration by code reviews
+3-CI:Automated validation and tests 
+4-CD:Automated deployment
 
 156-what problem will solve GitOps
 
 >>GitOps solving the problem  of you dont have tracking deployments
 >>GitOps is not about application delivery and also infrastructure delivery 
+use-case:-
+1-Improved Security 
+2-Rollbacks
+3-we are versioning everything we change any time
+4-it have push model and pull model 
 
 157-What is ArgoCD
 
 >>Argo CD is an open-source GitOps continuous delivery tool. It monitors your cluster and your declaratively-defined infrastructure stored in a Git repository and resolves differences between
 the two — effectively automating an application deployment
+>>ArgoCD is a gitops continuous delivery tool for Kubernetes
+>>ArgoCD is a not CI tool 
+>>ArgoCD is a GitOps based CD with pull model or any CD tool uses push model 
+>>you can create always sync you can specify sometime like 3 minutes or 5 minutes or manual sync the repositories 
+>>ArgoCD automatically refreshes every 3 minutes 
+>>if any changs happen manually in kubernets cluster ArgoCD server will go your application out of sync it will give an error
+>>ArgoCD basically come two major model
+1-Hub-Spoke model:-you have three environment each environment have argocd then its Standlone model 
+2-Standlone model:-you have dev-env in that have ArgoCD server remaining qa-env , preprod-env, prod-env dont have any argocd dev-env argocd will execute or deploy the apps into remaning environment 
+this called Hub-Spoke model 
 
 >>kubectl create namespace argocd
 >>kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
@@ -1897,11 +1919,17 @@ ifconfig
 >>kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 >>kubectl get pods -n argocd 
 >>kubectl get svc -n argocd
+>>kubectl get all -n argocd
 >>kubecctl edit argocd-server(change clusterip to NodePort) you can access using https and http to outside of the application or browser
+>>kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}' ##exposing into internet using load-balancer
+>>kubectl port-forward svc/argocd-server -n argocd 8080:443  #port forwading into local 
 >>kubectl get secret -n argocd
+>>kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d  ##get the argocd password
 >>kubectl edit secret argocd-initial-admin-secret -n argocd
 (copy the password it will be base64 convert into plan text)
+>>echo -n "your_argocd_password" | base64  #convert your password into base64 
 >>echo ughdd6456hkjb== | base64 --decode
+>>kubectl get all -n argocd 
 
 163-how many ways to deploy applications in ArgoCD
 
@@ -1911,29 +1939,828 @@ ifconfig
 
 >>you deploy applications using cli method also and also GuI also
 
-164-what is CRD(custom resource defination)
+164-Why ArgoCD:-
+
+1-Git as the source of truth. Developer andd devops engineer will update the git code only 
+2-Keep your Cluster in sync with git 
+3-easy rollbacks 
+4-more security: grant access to argocd 
+5-diaster recovery solution: you can easily deploy the same apps to any k8s cluster 
+
+165-what you will see in ArgoCD State visibility or UI 
+
+1-last sync status
+2-helath status 
+3-Current status 
+4-Real time updates 
+
+166-what are the tools will support ArgoCD
+
+1-helm charts 
+2-kustomize 
+3-Directory of yaml files 
+4-jsonnet 
+
+167-what are the 3 main components in ArgoCD
+
+1-ArgoCD server(API+Web Server):-
+Application management(create,update,delete)
+application operations(ex:-sync, rollback)
+repos and cluster management
+Authentication
+2-ArgoCD Repo Server:-
+>>Its an internal service that is responsible of the cloning remote git repos and generate the needed k8s mainfests 
+-cloning git repos
+-generate k8s mainfests   
+3-ArgoCD Application Controller:-
+>>Its a Kubernetes controller which continuously monitors running applications and compares the current, live state against the desired target state 
+-communicate with repo server to get the generated mainfests
+-communicate with k8s API to get actual cluster state 
+-deploy apps mainfests to destination clusters
+-detects out of sync apps and take corrective actions if needed 
+-invoking user-defined hooks for lifecycle event such as (presync, sync, postsync)
+this three components are main remaining will be there below 
+4-Redis:-used for caching 
+5-Dex:-identify service to integrate with external identify providers 
+6-Application set controller:-it automates the generation of ArgoCD Applications 
+
+168-what are the prerequisite for ArgoCD
+
+>>k8s cluster (ex:- minikube, dockerdesktop,kind, rancher desktop, full cluster)
+
+169-what is ArgoCD-cloning
+
+>>CLI is useful when you need to interact with ArgoCD in CI-pipeline
+>>you can manage application
+>>manage repos
+>>manage clusters
+>>admin tasks
+>>manage project and many more 
+
+--Install ArgoCD-CLI 
+>>sudo curl -sSL -o /usr/local/bin/argocd https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+>>sudo chmod +x /usr/local/bin/argocd
+>>argocd version
+>>argocd login <ARGOCD_SERVER_IP_OR_HOSTNAME>
+>>argocd help
+>>argocd cluster list 
+
+170-how many ways to create the ArgoCD under pods and svc 
+
+>>three ways you can do that 
+1-ArgoCD-CLI
+>>argocd app create app-1 --repo https://github.com/teamall574/test.git --path guestbook --dest-server https://Kubernetes.default.svc --dest-namespace default
+2-using yaml files(this Declartive way)
+vi anji.yaml 
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: guestbook
+  namespace: argocd 
+spec:
+  destination:
+    namespace: guestbook
+    server: "https://Kubernetes.default.svc"
+  project: default
+  source:
+    path: guestbook
+    repoURL: "https://githib.com/teamall574/test.git"
+    targetRevision: master or main 
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true 
+>>kubectl create -f anji.yaml       
+>>argocd app list 
+>>kubectl get application -n argocd  ##you can first command or this command or web-ui you can check 
+
+helm-using:-
+vi anji.yaml 
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: guestbook
+  namespace: argocd 
+spec:
+  destination:
+    namespace: guestbook
+    server: "https://Kubernetes.default.svc"
+  project: default
+  source:
+    path: guestbook #this folder inside that repository
+    repoURL: "https://githib.com/teamall574/test.git"
+    targetRevision: master or main 
+    helm:
+      valuesFiles:
+        - values.yaml #you cna add this values.yaml file or multiple you can override the values using this  
+      paramaters:
+        - name: "service.type"
+          value: "LoadBalancer"
+        - name: "image.tag"
+          value: "v2"              
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true 
+>>kubectl create -f anji.yaml       
+>>argocd app list 
+>>kubectl get application -n argocd  ##you can first command or this command or web-ui you can check 
+
+
+3-using web-UI
+
+171-create a kustomize yaml file 
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# Define the resources
+resources:
+  - deployment.yaml
+  - service.yaml
+
+172-Is it possible to create the multiple repos in single yaml file in ArgoCD
+
+>>yes its possible to create the single yaml file uner many repo files 
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: my-app
+spec:
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: 'my-namespace'
+  project: default
+  source:
+    repoURL: 'https://github.com/your-username/repo1.git'
+    targetRevision: 'main'
+    path: 'path/to/app1'
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: 'my-namespace'
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+  project: default
+  source:
+    repoURL: 'https://github.com/your-username/repo2.git'
+    targetRevision: 'main'
+    path: 'path/to/app2'
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: 'my-namespace'
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+173-what is project in ArgoCD what is the use 
+
+>>projects provides a logical grouping of applications
+>>you can create Access restrictions using project by applications to multiple teams 
+-you can allow specific souree git repos
+-you can allow apps to deployed into specific clusters and namespaces
+-allow specific resource like statefulsets,deployment 
+>>enbales you to create a role with set of policies "permissions" to grant access to a project applications
+>>by default ArgoCD create default project if you want you can create that 
+
+---Create projects 3 types 1-cli 2-yaml 3-web-ui
+
+>>kubectl get appproject -n argocd  ##it will show the project 
+>>argo project list  ##it will show the project 
+yaml:-
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: all-repos-project
+  namespace: argocd 
+spec:
+description: project description ##allow all repos 
+  sourceRepos:
+  - '*'
+  destinations:
+  - namespace: '*'
+    server: '*'
+  clusterResourceWhitelist:
+  - group: '*'
+    kind: '*'
+  namespacesResourceWhitelist:
+  - group: '*'
+    kind: '*'   
+
+##allowing only one repos
+
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: anji-repos-project
+  namespace: argocd
+spec:
+  sourceRepos:
+    - 'https://github.com/teamall574/test.git'
+  sourcePaths:
+    - '*/master'  
+  destinations:
+  - namespace: "ns-1"
+    server: "https://kubernetes.default.svc"
+  clusterResourceWhitelist:
+  - group: ""
+    kind: "Namespace"  ##it will allow namespace only 
+  namespacesResourceWhitelist:
+  - group: "apps"
+    kind: "Deployment"  ##it will allow only deployment only     
+  
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: guestbook
+  namespace: argocd 
+spec:
+  destination:
+    namespace: "ns-1"  ##if you mention any name space it will not sync or execute your allowing only ns1 namespace only 
+    server: "https://Kubernetes.default.svc"
+  project: anji-repos-project
+  source:
+    path: guestbook
+    repoURL: "https://githib.com/teamall574/test.git"
+    targetRevision: master or main 
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true 
+
+174-create a role using argocd project allow only one namespac only 
+
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: example-project
+  namespace: argocd
+spec:
+  sourceRepos:
+    - 'https://github.com/your-username/example-repo.git'
+  destinations:
+    - namespace: 'example-namespace'
+      server: 'https://kubernetes.default.svc'
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  namespacesResourceWhitelist:
+    - group: '*'
+      kind: '*'   
+  roles:
+  - name: app-manager
+    policies:
+    - p, applications, get, applications/example-namespace/*, allow
+    - p, applications, list, applications/example-namespace/*, allow
+    - p, applications, create, applications/example-namespace/*, allow
+    - p, applications, sync, applications/example-namespace/*, allow
+    - p, applications, update, applications/example-namespace/*, allow
+  #  - p, applications, delete, applications/example-namespace/*, allow
+  - name: repo-viewer
+    policies:
+    - p, repositories, get, repositories/*, allow
+    - p, repositories, list, repositories/*, allow
+    - p, repositories, update, repositories/*, allow
+
+>>create a token role to add some action in cli mode 
+>>argocd proj role create-token example-project app-manager
+>>argocd app delete example-project --auth-token ***************************************
+#its not delete because of there no role added to that policyes  
+
+175-how to access the private repos in ArgoCD
+
+>>public repos can be used directly in application
+>>private repos needs to be registered in ArgoCD with proper Authentication before using it in applications
+-HTTPS
+-SSH 
+-Github Enterprise 
+
+yaml for HTTPS
+apiVersion: v1
+kind: Secret 
+metadata:
+  name: private-repo-https
+  namespace: argocd 
+  labels
+    argocd.argoproj.io/secret-type: repository
+stringData:
+  type: git 
+  url: https://github.com/teamall574/test.git 
+  password: ghp_xxkkkj;skjkjlksbhjk;label
+  username: my-token 
+>>kubectl get secret -n argocd 
+secon-type:-
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: my-private-app
+spec:
+  project: default
+  source:
+    repoURL: 'https://<USERNAME>:<ACCESS_TOKEN>@github.com/your-username/private-repo.git'
+    targetRevision: 'main'
+    path: 'path/to/app'
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: 'my-namespace'
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+>>ssh using yaml   
+>>add first public-key into anji-public name 
+
+apiVersion: v1
+kind: Secret 
+metadata:
+  name: private-repo-https
+  namespace: argocd 
+  labels
+    argocd.argoproj.io/secret-type: repository
+stringData:
+  type: git 
+  url: git"github.com:teamll574/test.git 
+  sshPrivateKey:
+    ----------BEGIN OPENSSH PRIVATE KEY--------
+    ghsdjkl780-gus890bsio09in0binks090999909000
+    56jjs8999999999000--------njks;la;ll;;a;;;;
+    89diuij=========
+    ----------END OPENSSH PRIVATE KEY---------- 
+--create a project or deployment 
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: my-ssh-app
+spec:
+  project: default
+  source:
+    repoURL: 'git@github.com:your-username/private-repo.git'
+    targetRevision: 'main'
+    path: 'path/to/app'
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: 'my-namespace'
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+  sourceSecretName: argocd-ssh-server #if you are created secret for private key then pass this if you directly connect by using method ssh key then not necessary   
+
+175-what is credential templates in ArgoCD
+
+>>if you want to use the same credential for multiple repositories in your organization without having to repeat credential configuration
+
+apiVersion: v1
+kind: Secret 
+metadata:
+  name: private-repo-https
+  namespace: argocd 
+  labels
+    argocd.argoproj.io/secret-type: repo-creds
+stringData:
+  type: git 
+  url: https://github.com/teamall574/test.git 
+  password: ghp_xxkkkj;skjkjlksbhjk;label
+  username: my-token 
+
+---project  ##you have already created the repo-creds template before script it will automatically taken that 
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: my-ssh-app
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/teamall574/test.git'
+    targetRevision: 'main'
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: 'my-namespace'
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+176-how to automate sync the apps in using yaml file 
+
+>>sync is used to synce your github to pull the code every commit or nay changes happen then execute automatically
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: my-app
+  namespace: argocd 
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/your-username/your-repo.git'
+    targetRevision: 'main'
+    path: 'path/to/app'
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: 'my-namespace'
+  syncPolicy:
+    #automated: {} use this one or below one also 
+    automated:
+      prune: true
+      selfHeal: true
+  autoSync:
+    enabled: true
+    prune: true
+    timeout: 5m
+
+177-what is automated pruning 
+
+>>default - no prune: when automated sync is enabled, by default for safety automated sync will not delete resources when argocd detects the resource is no longer defined in git 
+>>when your created automatic pruning if nay files deleted automatically delete from argocd app or kubernetes using argocd   
+
+178-what is automated self-helaing
+
+>>Self-healing is an important concept in Kubernetes, which allows the system to automatically detect and recover from failures in the cluster.This ensures that the applications running 
+in the cluster are always available and responsive to user requests.
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: my-app
+  namespace: argocd 
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/your-username/your-repo.git'
+    targetRevision: 'main'
+    path: 'path/to/app'
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: 'my-namespace'
+  syncPolicy:
+    automated:
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true 
+
+179-what are sync options in ArgoCD
+
+1-No prune
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-deployment
+  annotations:
+    argocd.argoproj.io/sync-options: "Prune=false"
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+      - name: my-container
+        image: nginx:latest
+
+2-Automated Sync with Auto-Pruning:
+autoSync:
+  enabled: true
+  prune: true
+  timeout: 5m
+3-Sync Retry:
+syncPolicy:
+  retry:
+    limit: 3
+    backoff:
+      duration: 30s
+      factor: 2
+4-syncTimeout:
+syncPolicy:
+  syncOptions:
+    - CreateNamespace=true
+  syncTimeout: 5m
+5-Sync with Customization:
+syncPolicy:
+  syncOptions:
+    - CreateNamespace=true
+    - AllowEmpty=false
+6-Automated Sync with Pruning and Self-Healing:
+syncPolicy:
+  automated:
+    prune: true
+    selfHeal: true
+7-Automated Sync with Self-Healing:
+syncPolicy:
+  automated:
+    prune: false
+    selfHeal: true
+8-Automated Sync with Pruning:
+syncPolicy:
+  automated:
+    prune: true
+    selfHeal: false
+9-Manual Sync:
+syncPolicy:
+  automated: null
+
+180-what are the tracking strategies in ArgoCD
+
+>>ArgoCD provides several options to track mainfests(sources)whether its in Git repos or helm repos 
+git repos tracking:-
+1-commit SHA(good for production)
+2-Tags(Good for production)
+3-Brancg tracking (ex:- main branch)
+4-symbolic refreshes(HEAD)
+helm repos tracking  
+
+181-is it possible to execute the version in git repos to application or app 
+
+>>yes its possible 
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: my-app
+  namespace: argocd 
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/your-username/your-repo.git'
+    targetRevision: 'tags/v1.0.0'
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: 'my-namespace'
+  syncPolicy:
+    automated:
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true 
+
+182-Install istio using Argocd yaml 
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: istio
+  namespace: argocd
+spec:
+  destination:
+    namespace: istio-system
+    server: 'https://kubernetes.default.svc'
+  project: default
+  source:
+    path: istio
+    repoURL: 'https://github.com/istio/istio.git'
+    repoURL: 'https://istio-release.storage.googleapis.com/charts 
+    chart: istiod
+    targetRevision: 1.11.0  # Replace with the desired Istio version/tag
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - CreateNamespace=true
+==== sidecar injection enable 
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: default
+  labels:
+    istio-injection: enabled
+====
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata: 
+  name: default
+  namespace: istio-system
+spec:
+  mtls: 
+    mode: PERMISSIVE  
+
+183-what is the differnce between sicecar proxy and mtls(PeerAuthentication) in istio 
+
+>>The PeerAuthentication resource controls mTLS settings for a specific namespace or service.
+>>Mutual TLS is a security feature provided by Istio. It ensures that communication between services in the mesh is encrypted and authenticated. With mTLS, both the client and the server 
+(in this case, the Envoy proxies in the sidecars) present certificates to each other, establishing a secure and authenticated communication channel.
+>>Istio can enforce mTLS for communication between services by default or selectively enable it for specific services or namespaces. When mTLS is enabled, only services with valid certificates can 
+communicate, providing a higher level of security for communication within the service mesh.
+
+sidecar Injection:
+>>kubectl label namespace --all istio-injection=enabled is used to enable automatic sidecar injection across namespaces, allowing Istio to manage and control network traffic between services using 
+Envoy proxies.
+>>Istio uses a sidecar proxy, called Envoy, to manage and control the communication between services. Sidecar injection is a feature of Istio that automatically injects the Envoy proxy sidecar containers 
+into your application pods. This injection enables Istio to intercept and manage network traffic between services within the mesh. Sidecar injection is typically controlled using the istio-injection label
+on Kubernetes namespaces or specific pods.
+>>When sidecar injection is enabled for a namespace or specific pods, Istio automatically adds an Envoy proxy container to each pod in that namespace. This proxy intercepts and controls traffic between the
+pods, allowing Istio to implement various features such as traffic management, security, and observability.
+
+>>In summary, sidecar injection is the process of automatically adding Envoy proxy sidecar containers to pods, enabling Istio to manage and control communication between services. Mutual TLS is a security 
+feature that encrypts and authenticates communication between these Envoy proxies, ensuring a secure and authenticated channel within the service mesh. While they are different concepts, 
+sidecar injection is often used to enable features like mutual TLS within Istio.
+
+184-what are the Hooks in ArgoCD
+
+>>Hooks in ArgoCD are pre and post-synchronization actions that allow you to run custom scripts or perform specific actions at different points in the synchronization process. Hooks enable you to extend the
+behavior of ArgoCD and integrate with external systems or custom logic
+
+1-Pre-sync: In this phase, Argo CD performs pre-sync hooks and validates resources before initiating the main sync operation. Pre-sync hooks allow you to run specific tasks or deploy specific resources before
+the main sync operation12.
+
+>>Execute prior to the app manifests 
+apiVersion: batch/v1
+kind: job
+metadata:
+  name: before 
+  annotations:
+    argocd.argoproj.io/hook: presync 
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+spec:
+  template
+    spec:
+      containers:
+      - name: sleep
+        image: alpine:latest 
+        command: ["sleep", "10"]
+      restartpolicy: Never
+  backoffLimit: 0      
+
+2-Sync: This is the main sync phase where Argo CD applies changes to the desired state of your cluster by synchronizing resources from the Git repository. During this phase, Argo CD ensures that the 
+resources are reconciled with the desired state12
+
+>>Executes after all presync hooks successfully completed and healthy 
+apiVersion: batch/v1
+kind: job
+metadata:
+  name: before 
+  annotations:
+    argocd.argoproj.io/hook: Sync 
+spec:
+  template
+    spec:
+      containers:
+      - name: sleep
+        image: alpine:latest 
+        command: ["sleep", "10"]
+      restartpolicy: Never
+  backoffLimit: 0      
+
+3-Post-sync: After the main sync operation is completed, Argo CD performs post-sync hooks. Post-sync hooks allow you to run tasks or deploy resources after the synchronization is done12
+execute after all sync hooks successfully completed and healthy 
+
+apiVersion: batch/v1
+kind: job
+metadata:
+  name: before 
+  annotations:
+    argocd.argoproj.io/hook: postsync 
+    argocd.argoproj.io/hook-delete-policy: HookFailed
+spec:
+  template
+    spec:
+      containers:
+      - name: sleep
+        image: alpine:latest 
+        command: ["sleep", "10"]
+      restartpolicy: Never
+  backoffLimit: 0      
+
+4-Skip 
+
+apiVersion: batch/v1
+kind: job
+metadata:
+  name: before 
+  annotations:
+    argocd.argoproj.io/hook: Skip
+spec:
+  template
+    spec:
+      containers:
+      - name: sleep
+        image: alpine:latest 
+        command: ["sleep", "10"]
+      restartpolicy: Never
+  backoffLimit: 0      
+
+185-what is Sync waves in ArgoCD 
+
+>>A Sync-wave is a way to order how ArgoCD applies the manifests 
+>>All manifests have a wave of zero by default 
+>>if you have frontend and backend and database then you use sync ave sto create by order one by one one after one 
+
+186-is it possible to add multiple kubernetes cluster 
+
+>>yes its possible to connect or add multiple kubernetes cluster into ArgoCD
+>>why its important means you have dev-env, qa-env, pre-pord-env, pro-env and apart from the developers are working new features they asked new feature-env .
+then after the developers released new v2 they need to deploy the version v2 into dev-env, qa-env, and feature-env so you need to go every cluster and activity its ts task 
+instead of that you can create the ArgoCD and connect the this 3 servers-env into ArgoCD you can deploy single Argo-server to all the three-env easily  
+
+>>CLI:-
+>>argocd login 55.35.63.96:30812
+kubectl config get-contexts | grep us-west-1  ##you have multiple cluster you can search like this then copy the name of the cluster  
+argocd cluster add (#contect name of the cluster using context) iam-root-account@spoke-cluster-1.us-west-1.eksctl.io --server 55.35.63.96:30812 #then the cluster added into hub or argocd server like this
+you cna many servers 
+using yaml-file:
+>>your already created kubernetes cluster installed ArgoCD then create one more cluster and download the config file  
+apiVersion: v1
+kind: Secret 
+metadata:
+  name: adding-one-more-kubernetes-cluster 
+  namespace: argocd 
+  labels
+    argocd.argoproj.io/secret-type: cluster
+    environment: "Staging"
+    provider: "AWS"
+type: Opaque
+stringData:
+  name: Staging-cluster
+  server: https://cjkhhjkmah.k8s.us-east-1.com ##the api url of my kubernetes cluster 
+  config:
+  {
+    "bearerToken: "dop_1jkla09abkl;09avbla;bl;lhaarwe",
+    "tlsClientconfig":{
+      "insecure": false
+      "caData": "679vgkacvhjoahjklsdvghjklsvhjjjk89vj"
+    }
+  }
+>>it will create and connect the server then after you deploy you pods using this cluster like this below 
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: istio
+  namespace: argocd
+spec:
+  destination:
+    namespace: staging-cluster-namespac
+    server: 'https://cjkhhjkmah.k8s.us-east-1.com'
+    name: adding-one-more-kubernetes-cluster #use api url or name of the name of the cluster
+  project: default
+  source:
+    path: istio
+    repoURL: 'https://github.com/istio/istio.git'
+    repoURL: 'https://istio-release.storage.googleapis.com/charts 
+    chart: istiod
+    targetRevision: 1.11.0  # Replace with the desired Istio version/tag
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - CreateNamespace=true
+
+187-what is applicationSet in ArgoCD
+
+>>applicationSet is a COntroller and CRD Provides lot of features 
+>>it automates the application generations
+>>Ability to make self-service usage on multitenant clusters 
+>>applicationSet controller only responsible for creating, updating and deleting application in ArgoCD namespace 
+>>applicationSet does not modify k8s resources its application controller responsibility to deploy resources into destination clusters  
+
+Use-Case:-
+1-we can use a single kubernetes manifrst to deploy into multiple kubernetes clusters with ArgoCD
+2-use a single kubernetes manifest to deploy multiple application from one or multiple git repositories with ArgoCD
+3-Multitenancy support improves the ability of individual cluster tenants to deploy applications using ArgoCD
+
+188-what is Generators in ArgoCD
+
+>>Generators are responsible for generating paramaters and are based on the data sources, which can be used to generate paramaters into the application template
+Types of Generators:-
+1-List generators 
+2-Cluster generators
+3-Git generators 
+4-Matrix generators
+5-Merge generators 
+6-SCM provider generators
+7-Pull request generators 
+8-Cluster Decision Resource generators
+
+189-how to change the argocd password 
+
+>>argocd login 56.36.65.76
+>>jknjhks
+>>argocd account update-password   -->You will be prompted to enter the current password and then asked to enter the new password.
+
+190-what is CRD(custom resource defination)
 
 >>CRDs allow users to create new types of resources without adding another API server. You do not need to understand API Aggregation to use CRDs. Regardless of how they are installed,
 the new resources are referred to as Custom Resources to distinguish them from built-in Kubernetes resources (like pods).
 
-165-what is CR (Custom Resource)
+191-what is CR (Custom Resource)
 
 >>A custom resource is an extension of the Kubernetes API that is not necessarily available in a default Kubernetes installation. It represents a customization of a particular Kubernetes
 installation. However, many core Kubernetes functions are now built using custom resources, making Kubernetes more modular
 
-166-what is Custom controller
+192-what is Custom controller
 
 >>Custom controller are the extension to the concept of controller in k8s where we define our own logic of control loop or pattern to watch the state of that particular resource in the
 cluster, then make or request changes wherever needed. Simply terms, when a controller is not part or shipped with the default k8s then we can call it as a custom controller.
 
-167-how to write a custom controller
+193-how to write a custom controller
 
 1-golang
 2-client-go
 3-python
 4-java
 
-168-what is Istio
+194-what is Istio
 
 >>Istio is an open source service mesh that helps organizations run distributed, microservices-based apps anywhere. Why use Istio? Istio enables organizations to secure, connect,
 and monitor microservices, so they can modernize their enterprise apps more swiftly and securely.
@@ -1970,7 +2797,7 @@ Advantages:-
 4-Simplify load balancing with advanced feature
 5-Easily deploy with Kubernetes and virtual machines
 
-169-what is Service mesh
+195-what is Service mesh
 
 >>A Service Mesh is an extra layer of software you deploy alongside your cluster(eg: Kubernetes)
 >>Istio Service Mesh is a network connectivity(i.e mesh) within kubernetes cluster created by Envoy Proxy containers be it a standlone or a sidecar proxy. 
@@ -2001,7 +2828,16 @@ we can use 10% of traffic to version2 if works good then we can deploy in produc
 >> Service mesh is act as a sidecar container or proxy to the pods
 >>kubectl label -n default istio-injection=enabled
 
-170-Why use Istio? 
+196-Install istio
+
+>>curl -L https://istio.io/download/latest | ISTIO_VERSION=1.12.0 sh -
+>>cd istio-1.12.0
+>>export PATH=$PWD/bin:$PATH
+>>istioctl install
+>>istioctl install --set profile=default
+>>kubectl label -n default istio-injection=enabled  ##we are enableing the istio sidecar container default namepace whenever new pod created the sidecar will create
+
+197-Why use Istio? 
 
 >>Istio enables organizations to secure, connect, and monitor microservices, so they can modernize their enterprise apps more swiftly and securely.
 benfites:-
@@ -2022,7 +2858,7 @@ benfites:-
 10-End-to-End authentication and authorization using JWT 
 11-Observability
 
-171-Explain Istio Architecture 
+198-Explain Istio Architecture 
 
 >>The following is an overview of the key components and their roles within the Istio architecture:
 
@@ -2071,12 +2907,12 @@ and enforce encryption between them.
 -Configuration Management:
 >>Custom Resource Definitions (CRDs): Istio extends Kubernetes' API with custom resource definitions to define routing, security, and other service mesh configuration policies.
 
-172-What is the difference between Istio and ingress?
+199-What is the difference between Istio and ingress?
 
 >>Along with support for Kubernetes Ingress , Istio offers another configuration model, Istio Gateway . A Gateway provides more extensive customization and flexibility than Ingress ,
 and allows Istio features such as monitoring and route rules to be applied to traffic entering the cluster
 
-173-what is Ingress
+200-what is Ingress
 
 >>if you want ingress you must deploy the ingress-controller before ingress deploying(like ex:- HA-Proxy,treafik, Istio, Nginx-ingress-controller)
 >>ingress is nothing but set of rules
@@ -2086,8 +2922,7 @@ and allows Istio features such as monitoring and route rules to be applied to tr
 >>Ingress exposes HTTP and HTTPS routes from outside the cluster to services within the cluster. Traffic routing is controlled by rules defined on the Ingress resource. 
 An Ingress may be configured to give Services externally-reachable URLs, load balance traffic, terminate SSL / TLS, and offer name-based virtual hosting
 >>if you use type=loadbalancer you if you created 100 services means you need to create the 100 service rather using load balancer you
->>an ingress does not expose arbitray ports and protocols exposing services other than https and https to the internet typically uses 
-a servicetype load balancer or nodeport
+>>an ingress does not expose arbitray ports and protocols exposing services other than https and https to the internet typically uses a servicetype load balancer or nodeport
 
 >>kubectl create deploy deploy1 --image=index.docker.io/sreeharshav/rollingupdate:v1
 
@@ -2188,8 +3023,6 @@ spec:
           backend:
             serviceName: deploy3
             servicePort: 1000
-            
-
 :wq
 
 >>kubectl create -f dev.yml
@@ -2222,22 +3055,22 @@ spec:
 :wq
 >>now you can route53 bughunteranji.xyz add loadbalancer then you can access directly using bughunteranji.xyz
 
-174-what is Telemetery
+201-what is Telemetery
 
 >>Telemetery is fancy word it is used to gathering the metrics 
 
-175-what is Istiod
+202-what is Istiod
 
 >>Istiod acts as the control plane, distributing the configuration to all sidecar proxies and gateways. It enables intelligent application-aware load balancing from the application layer to other mesh 
 enabled services in the cluster and bypasses the rudimentary kube-proxy load balancing.
 >>Istiod contains Pilot ,Mixer, citidel, galley  this main component in Istiod as control plane 
 
-176-what is the purpose Istio used in Kubernetes
+203-what is the purpose Istio used in Kubernetes
 
 >>Istio makes traffic management transparent to the application, moving this functionality out of the application and into the platform layer as a cloud native infrastructure. 
 Istio complements Kubernetes, by enhancing its traffic management, observability and security for cloud native applications.
 
-177-how to enabled sidecar in Istio
+204-how to enabled sidecar in Istio
 
 >>kubectl label -n default istio-injection=enabled  ##we are enableing the istio sidecar container default namepace whenever new pod created the sidecar will create
 >>istio analyze
@@ -2260,7 +3093,7 @@ spec:
 >>kubectl get crd  -->it will show the peer authentication
 >>kubectl edit pa -n istio-system  -->you can change the peer authentication or mtls 
 
-178-how to set the path of istio or anywhere can access 
+205-how to set the path of istio or anywhere can access 
 
 nano ~/.bashrc
 
@@ -2272,12 +3105,12 @@ export PATH=$PWD/bin:$PATH
 # Apply the changes to your current session.
 source ~/.bashrc
 
-179-how to chnage the service from cluserIp to load-balancer or nodeport
+206-how to change the service from cluserIp to load-balancer or node port
 
 >>kubectl get services
 >>kubectl edit service your-service-name
 
-180-what is HA-Proxy what is exactly ha-proxy will do what is HA-Proxy 
+207-what is HA-Proxy what is exactly ha-proxy will do what is HA-Proxy 
 
 >>HAProxy, which stands for High Availability Proxy, is an open-source software solution that provides high availability, load balancing, and proxying for TCP and HTTP-based applications. 
 It is widely used to ensure the availability, scalability, and reliability of web services and applications.
@@ -2293,7 +3126,7 @@ Here's what HAProxy does
 9-Rate Limiting
 10-Logging and Monitoring:
 
-181-which alogrthum used in ha-proxy
+208-which alogrthum used in ha-proxy
 
 >>HAProxy uses several load-balancing algorithms to distribute traffic among backend servers. The choice of algorithm can significantly impact the performance and behavior of the load balancer.
 HAProxy offers the following load-balancing algorithms
@@ -2306,17 +3139,17 @@ HAProxy offers the following load-balancing algorithms
 7-Least Response Time
 8-Random:
 
-182-in this which one is better 
+209-in this which one is better 
 
 >>it is dependencies up on the server utilization like memory ram cpu and static content like mostly round robin uses if you have 10 servers same configuartion 8gb memory example round robin
 one of my vitual machine good capacity we can create weight sticy to that server sticky alogorithum 
 
-183-what is name space in kubernetes
+210-what is name space in kubernetes
 
 >>it is like divideing into one cluster to many cluster to isloate the workspace 
 >>like we can create the for security namespace and database divide or isolate 
 
-184-how to send the traffic pod-A to pod-B 
+201-how to send the traffic pod-A to pod-B 
 
 >>uisng drain or active command uisng or cordon or uncordon 
 
