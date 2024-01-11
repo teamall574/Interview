@@ -2580,7 +2580,8 @@ performance, and low reminiscence utilization. It is stated as “engine x”.
 
 280-what is webserver
 
->>A web server is a computer that runs websites. It's a computer program that distributes web pages as they are requisitioned. The basic objective of the web server is to store, process and deliver web pages to the users. This intercommunication is done using Hypertext Transfer Protocol (HTTP)
+>>A web server is a computer that runs websites. It's a computer program that distributes web pages as they are requisitioned. The basic objective of the web server is to store, process and deliver 
+web pages to the users. This intercommunication is done using Hypertext Transfer Protocol (HTTP)
 >>webservers serves the static content it acts as reverse proxy to the app-servers 
 ex:-Nginx, Apache, caddy, jetty 
 
@@ -3179,15 +3180,18 @@ Full-Access:-
   ]
 }
 
-338-what is paramter group in mysql or RDS in AWS 
+338-what is the parameter group in MySQL or RDS in AWS 
 
->>if you want modify any setting or any changes then like if you want change the max=connection for example you RDS max connection 20 it small instance but that pods connected 2 pods is okay you used hpa the pods increased to 20 it will not connect because of RDS instance type max connection also you need to change 
+>>If you want to modify any setting or any changes then like if you want to change the max=connection for example your RDS max connection 20 it small instance but that pods connected 2 pods is okay 
+you used hpa the pods increased to 20 it will not connect because of the RDS instance type max connection also you need to change 
 
 339-what is Operating System 
 
->>What is operating system it is combination of software and hardware
+>>What is the operating system it is a combination of software and hardware
 >>Like os will take the instructions from to convert into 0/1 binrays into hardware
->>Like clicking something is convert into 0/1 in software or os in background you will not see that but it will work on that way only computer understand only binaries only we changed that like human readble for understand for example you want run binaries it big headche Or it's tds task so that why operating system this when we run instructions it run in background in binaries so this operating system
+>>Like clicking something converts into 0/1 in software or OS in the background you will not see that but it will work that way only the computer understands binaries we changed that like 
+human-readable for understanding for example you want to run binaries it big headache Or it's tds task so that why the operating system this when we run instructions it runs in the background in binaries 
+so this operating system
 
 340-what is client-server explain day to day also
 
@@ -3210,8 +3214,11 @@ Inlinux
 
 343-what is shared storage and distributed storage
 
-Shared-Stoarge:-Shared storage consolidates files and other information in a central resource that can be accessed or shared among multiple users and data systems simultaneously. Gathering and storing data in a single, shared resource streamlines archive and backup processes, and simplifies information security. Shared storage solutions include network attached storage (NAS), storage area networks (SAN), and redundant arrays of independent disks (RAID), as well as dedicated storage servers and cloud storage.
-Distributed-Storage :-Distributed block storage is a computer data storage architecture that the data is stored in volumes across multiple physical servers, as opposed to other storage architectures like file systems which manages data as a file hierarchy, and object storage which manages data as objects
+Shared-Stoarge:-Shared storage consolidates files and other information in a central resource that can be accessed or shared among multiple users and data systems simultaneously. Gathering and storing
+data in a single, shared resource streamlines archive and backup processes, and simplifies information security. Shared storage solutions include network attached storage (NAS), 
+storage area networks (SAN), and redundant arrays of independent disks (RAID), as well as dedicated storage servers and cloud storage.
+Distributed Storage:-Distributed block storage is a computer data storage architecture which the data is stored in volumes across multiple physical servers, as opposed to other storage architectures
+like file systems which manage data as a file hierarchy, and object storage which manages data as objects
 
 344-can i add the one instance in one load-balancer using anji target group created another target group using same instance is it possible to create that instance in one more load-balancer
 
@@ -3268,7 +3275,8 @@ Use-Cases:-
 Examples:- 	Squid, Proxy, Tor 
 >>Reverse proxy:-  
 1-A reverse proxy sits in front of servers and acts on behalf of those servers to handle incoming client requests.
->>to hide the web appliation so organization puts the web server infront load-balancer then webserver then app-servers then db-servers when user hit the url it will connect the loadBalancer then web-server this act as reverse proxy  
+>>to hide the web appliation so organization puts the web server infront load-balancer then webserver then app-servers then db-servers when user hit the url it will connect the loadBalancer then 
+web-server this act as reverse proxy  
 >>Clients send requests to the reverse proxy, thinking it is the server.
 >>The reverse proxy then forwards the request to the appropriate backend server.
 >>The backend server processes the request, and the reverse proxy sends the response back to the client.
@@ -3348,13 +3356,15 @@ mysql_secure_installation --set-root-pass ${root_mysql_password}  ##like this th
 
 >>you have two aws accounts for example 1st account anji.com 2nd account sales that domain need add this 1st why because takenover by my company how we achive this 
 >>first create the www.anji.com in 1st account then name server you are pasting godday or hostinger right then go the second create sales.anji.com this will give you name servers then paste that 
-servers into 1st account like this create subdomain sales.anji.com select the NS record paste that 2nd account NS record into 1st account then automatically name resloution will happen then you can create the subdomain 2nd account like 
+servers into 1st account like this create subdomain sales.anji.com select the NS record paste that 2nd account NS record into 1st account then automatically name resloution will happen then you can create
+the subdomain 2nd account like 
 sampi.sales.anji.com in 2nd account only . like that you can you can AZURE also    
 
 359-how to build angular application
 
 >>npm install -g @angular/cli    -->Make sure you have the Angular CLI installed globally on your system. If you haven't already installed it, you can do so using the following command
->>ng build   -->command Run the ng build command to build your Angular application. By default, this command will create a dist/ directory with the compiled and optimized application code. You can specify various options and flags with this command, such as the --prod flag for a production build
+>>ng build   -->command Run the ng build command to build your Angular application. By default, this command will create a dist/ directory with the compiled and optimized application code. 
+You can specify various options and flags with this command, such as the --prod flag for a production build
 
 360-what is the difference between SQL or NO-SQL 
 
@@ -3363,11 +3373,13 @@ NO-SQL:-non-relastional database it will store rows and columns and more than th
 
 361-what is rabbitmq 
 
->>RabbitMQ is an open-source message-broker software that originally implemented the Advanced Message Queuing Protocol and has since been extended with a plug-in architecture to support Streaming Text Oriented Messaging Protocol, MQ Telemetry Transport, and other protocols
+>>RabbitMQ is an open-source message-broker software that originally implemented the Advanced Message Queuing Protocol and has since been extended with a plug-in architecture to support Streaming 
+Text Oriented Messaging Protocol, MQ Telemetry Transport, and other protocols
 >>RabbitMQ is a messaging Queue which is used by some components of the applications.
 >>port number of rabbitmq 5672 
->>for example take Whatsapp you send message to your friend how the message will go your friend in the middle their is message streaming platform like rabbitmq or kafka like your friend number always pull the request from rabbitmq your pushing rabbitmq then it will send to friend and their is Queue option if your not online it will be on Queue
-whenever it will be online then that messages will be pulled you from your rabbitmq  
+>>for example take Whatsapp you send message to your friend how the message will go your friend in the middle their is message streaming platform like rabbitmq or kafka like your friend number always
+pull the request from rabbitmq your pushing rabbitmq then it will send to friend and their is Queue option if your not online it will be on Queuewhenever it will be online then that messages will be pulled
+you from your rabbitmq  
 >>your publisher your-friend subscriber to buy something the for ecomerce for example only 
 
 362-use case of rabbitmq
@@ -3386,40 +3398,55 @@ whenever it will be online then that messages will be pulled you from your rabbi
 >>sudo apt install nginx=1.16.* 
 see video of cloudwithsiva video no 10
 
-364-what is the differnce between public and private nat-gateway in aws
+364-what is the difference between public and private nat-gateway in aws
 
 public-nat-gateway:-
 
-Use Case: A public NAT gateway is typically used in a public subnet. Instances in public subnets can have public IP addresses and are intended for resources that need to be directly accessible from the internet. Public NAT gateways allow these instances to initiate outbound traffic to the internet while also providing a level of security.
-
-Configuration: To set up a public NAT gateway, it's placed in a public subnet and associated with an Elastic IP address. The route tables for private subnets are configured to route outbound traffic to the public NAT gateway. Instances in private subnets send their internet-bound traffic to the public NAT gateway, which then performs Network Address Translation (NAT) to make the traffic appear as if it's coming from the public NAT gateway's Elastic IP address.
-
-Security: A public NAT gateway is typically used when you want your private instances to have limited inbound traffic from the internet. In this configuration, the security groups for the private instances should be configured to allow only the necessary outbound traffic.
+>>Use Case: A public NAT gateway is typically used in a public subnet. Instances in public subnets can have public IP addresses and are intended for resources that need to be directly accessible from 
+the internet. Public NAT gateways allow these instances to initiate outbound traffic to the internet while also providing a level of security.
+>>Configuration: To set up a public NAT gateway, it's placed in a public subnet and associated with an Elastic IP address. The route tables for private subnets are configured to route outbound traffic
+to the public NAT gateway. Instances in private subnets send their internet-bound traffic to the public NAT gateway, which then performs Network Address Translation (NAT) to make the traffic appear as
+if it's coming from the public NAT gateway's Elastic IP address.
+>>Security: A public NAT gateway is typically used when you want your private instances to have limited inbound traffic from the internet. In this configuration, the security groups for the private 
+instances should be configured to allow only the necessary outbound traffic.
 
 private-nat-gateway:-
 
-Use Case: A private NAT gateway is used in a private subnet and is designed for resources that should not have direct public internet access. Instead, private NAT gateways are used for outbound traffic from private instances that need to access the internet, such as for software updates or retrieving external data. This approach provides enhanced security for the private instances.
+>>Use Case: A private NAT gateway is used in a private subnet and is designed for resources that should not have direct public internet access. Instead, private NAT gateways are used for outbound traffic
+from private instances that need to access the internet, such as for software updates or retrieving external data. This approach provides enhanced security for the private instances.
+>>Configuration: Similar to a public NAT gateway, a private NAT gateway is placed in a public subnet, but it doesn't have a direct public IP address. Instead, it routes traffic to the internet through a 
+Network Address Translation (NAT) gateway service managed by AWS. The route tables for private subnets are configured to route outbound traffic to the private NAT gateway. The instances in private subnets
+send their internet-bound traffic to the private NAT gateway, which then routes it to the AWS NAT gateway.
+>>Security: Private NAT gateways provide a higher level of security for private instances. Since they don't have a public IP address, they can't receive direct inbound traffic from the internet. 
+This configuration helps to protect sensitive or critical resources.
 
-Configuration: Similar to a public NAT gateway, a private NAT gateway is placed in a public subnet, but it doesn't have a direct public IP address. Instead, it routes traffic to the internet through a Network Address Translation (NAT) gateway service managed by AWS. The route tables for private subnets are configured to route outbound traffic to the private NAT gateway. The instances in private subnets send their internet-bound traffic to the private NAT gateway, which then routes it to the AWS NAT gateway.
+365-what are the load-balancing algorithms in load-balancers
 
-Security: Private NAT gateways provide a higher level of security for private instances. Since they don't have a public IP address, they can't receive direct inbound traffic from the internet. This configuration helps to protect sensitive or critical resources.
-
-365-what are the load-balancing algorithums in load-balacers
-
-1-Round Robin: In Round Robin load balancing, each new connection or request is directed to the next server in a circular order. It evenly distributes traffic among all available servers. It is simple and can be effective, but it doesn't take into account server load or response times.
-2-Least Connections: The Least Connections load balancing method routes traffic to the server with the fewest active connections. This helps in distributing traffic based on server load and ensures that servers are not overwhelmed.
-3-Least Response Time: This method directs traffic to the server with the lowest response time. It is based on the idea that faster-responding servers should receive more traffic. This method can be effective in minimizing response time for end users. 
-4-IP Hash:IP Hash load balancing uses a hash function to map the client's IP address to a specific server. This ensures that a specific client always connects to the same server, which can be useful for session persistence or stateful applications. 
-5-Weighted Round Robin: Weighted Round Robin allows you to assign different weights to servers. Servers with higher weights receive more traffic. This is useful when servers have different capacities or performance levels. 
-6-Weighted Least Connections: Similar to Weighted Round Robin, Weighted Least Connections allows you to assign weights to servers but routes traffic to the server with the fewest connections, taking server load into account. 
-7-Session Persistence (Sticky Sessions): Sticky sessions, also known as session persistence, ensure that a user's requests are always directed to the same server for the duration of their session. This is crucial for stateful applications that rely on a specific server for session data
-8-Content-Based Load Balancing: Content-based load balancing examines the content or characteristics of incoming requests to make routing decisions. For example, it can route traffic based on URL paths or specific HTTP headers.
-9-Geographic Load Balancing: Geographic load balancing directs traffic based on the geographical location of the client, which can be useful for serving content from servers closer to the user, reducing latency, and complying with data sovereignty regulations.
-10-Dynamic Load Balancing: Dynamic load balancing adapts to changing server conditions by continually monitoring server health and traffic conditions. It can automatically adjust the routing decisions to ensure optimal performance and high availability.
+1-Round Robin: In Round Robin load balancing, each new connection or request is directed to the next server in a circular order. It evenly distributes traffic among all available servers. 
+It is simple and can be effective, but it doesn't take into account server load or response times.
+2-Least Connections: The Least Connections load balancing method routes traffic to the server with the fewest active connections. This helps in distributing traffic based on server load and ensures
+that servers are not overwhelmed.
+3-Least Response Time: This method directs traffic to the server with the lowest response time. It is based on the idea that faster-responding servers should receive more traffic. 
+This method can be effective in minimizing response time for end users. 
+4-IP Hash:IP Hash load balancing uses a hash function to map the client's IP address to a specific server. This ensures that a specific client always connects to the same server, which can be useful
+for session persistence or stateful applications. 
+5-Weighted Round Robin: Weighted Round Robin allows you to assign different weights to servers. Servers with higher weights receive more traffic. This is useful when servers have 
+different capacities or performance levels. 
+6-Weighted Least Connections: Similar to Weighted Round Robin, Weighted Least Connections allows you to assign weights to servers but routes traffic to the server with the fewest connections,
+taking server load into account. 
+7-Session Persistence (Sticky Sessions): Sticky sessions, also known as session persistence, ensure that a user's requests are always directed to the same server for the duration of their session.
+This is crucial for stateful applications that rely on a specific server for session data
+8-Content-Based Load Balancing: Content-based load balancing examines the content or characteristics of incoming requests to make routing decisions. For example, it can route traffic based on 
+URL paths or specific HTTP headers.
+9-Geographic Load Balancing: Geographic load balancing directs traffic based on the geographical location of the client, which can be useful for serving content from servers closer to the user,
+reducing latency, and complying with data sovereignty regulations.
+10-Dynamic Load Balancing: Dynamic load balancing adapts to changing server conditions by continually monitoring server health and traffic conditions. It can automatically adjust the 
+routing decisions to ensure optimal performance and high availability.
 
 366-what is instance 
 
->>instance is nothing but server. "instance" typically refers to a virtual machine (VM) that you can run in the cloud. These instances are a fundamental part of AWS's Elastic Compute Cloud (EC2) service, which provides scalable computing capacity in the cloud.
+>>instance is nothing but server. "instance" typically refers to a virtual machine (VM) that you can run in the cloud. These instances are a fundamental part of AWS's Elastic Compute Cloud (EC2) service,
+which provides scalable computing capacity in the cloud.
 >>is is virtual machine 
 
 367-how to login username and password to linux ec2 instance 
@@ -3450,18 +3477,20 @@ Example: Restarting a computer, server, or service involves shutting it down com
 
 371-what is instance refresh in auto-scaling 
 
->>Instance refresh in auto-scaling refers to the process of replacing instances within an auto-scaling group with new instances running the latest version of the application or operating system. This process helps ensure that the auto-scaling group maintains a healthy and up-to-date fleet of instances.
+>>Instance refresh in auto-scaling refers to the process of replacing instances within an auto-scaling group with new instances running the latest version of the application or operating system.
+This process helps ensure that the auto-scaling group maintains a healthy and up-to-date fleet of instances.
 >>video 71 26mins 
 
 372-how to control java memory in java application or package 
 
->>uWSGI is a fast, open-source application server container that is widely used to deploy and run web applications and frameworks written in various programming languages. It acts as a bridge between web servers and web applications, providing a communication interface for handling requests and responses.
->>if using package Running. The most basic way to run uWSGI is to tell it to start an HTTP server and import your application. If you're using the app factory pattern, you'll need to create a small Python file to create the app, then point uWSGI at that.
+>>uWSGI is a fast, open-source application server container that is widely used to deploy and run web applications and frameworks written in various programming languages. It acts as a bridge between
+web servers and web applications, providing a communication interface for handling requests and responses.
+>>if using package Running. The most basic way to run uWSGI is to tell it to start an HTTP server and import your application. If you're using the app factory pattern, you'll need to create a small Python
+file to create the app, then point uWSGI at that.
 ExecStart=/bin/java -XX:MaxRAMPercentage=90 -XX:MinRAMPercentage=50 -XX:InitailRAMPercentage=50 -jar /app/shipping.jar 
 
 373-what is uwsgi configuration
 
->>
 >>vi /app/payment.ini 
 [uwsgi]
 wsgi-file = payment.py
@@ -3512,7 +3541,8 @@ log_format main 'remote_addr $time_local $request $status $body_bytes_sent $requ
 
 380-how role and policy works 
 
->>first create the role which service like ec2 then attach that poilcy to ec2 then create the policy permission like ssm parameter permission then attach this policy to role then that role attached to ec2 will bring the data from aws what permission you given 
+>>first create the role which service like ec2 then attach that poilcy to ec2 then create the policy permission like ssm parameter permission then attach this policy to role then that role attached 
+to ec2 will bring the data from aws what permission you given 
 
 381-how to replace any server ip in route53 using shell script 
 
@@ -3557,33 +3587,34 @@ aws route53 change-resource-record-sets --hosted-zone-id ${ZONE_ID} --change-bat
 >>sharing this someone easy 
 >>terraform apply -target=module.mysql  -->>you can apply single module if you want in terraform 
 
->>making repos like state files any files in differnet repos is called multirepos  
+>>Making repos like state files any files in differnet repos is called multi-repos  
 >>
 
 387-how to check whether the server is running or not connecting 
 
-1-check the server is runing or not (ps -ef)
+1-check the server is running or not (ps -ef)
 2-check the port is open or not (netstat -lntp)
 3-check the ports open security group or not 
-4-in case if that service is accessed  by another server then you can check the reachability using telnet 14.98.164.230
+4-In case that service is accessed  by another server then you can check the reachability using telnet 14.98.164.230
 5-restart the services or server 
 6-repeat step 4
 7-finally you can check the server 
 
-388-how to do mongodb bindip address to listen the another service while connected to mongodb when we giving mongodb url to any other service 
+388-how to do MongoDB bindIp address to listen to another service while connected to MongoDB when we give MongoDB URL to any other service 
 
 >>vim /etc/mongod.conf 
 
 net:
   port: 27017
-  bindIp: 127.0.0.1 ##replace 0.0.0.0 or your web server ip like any public ip or private of your service 
+  bindIp: 127.0.0.1 ##replace 0.0.0.0 or your web server IP like any public IP or private of your service 
 :wq
 
 >>systemctl restart mongod 
 
 389-what is systemd service file
 
->>A systemd service file is a configuration file used by the systemd init system in many modern Linux distributions to define and manage services, daemons, and other system tasks. Systemd is a system and service manager that plays a central role in the boot process and service management on Linux systems. The service file specifies how a service should be started, stopped, and managed by systemd.
+>>A systemd service file is a configuration file used by the system init system in many modern Linux distributions to define and manage services, daemons, and other system tasks. Systemd is a system 
+and service manager that plays a central role in the boot process and service management on Linux systems. The service file specifies how a service should be started, stopped, and managed by systemd.
 
 >>vi /etc/systemd/system/catalogue.service 
 [Unit]
@@ -3600,11 +3631,12 @@ SyslogIdentifier=catalogue
 WantedBy=multi-user.target
 :wq
 
->> for example your installed fornted and mongodb service then that mongod must talk this catalogue service right you need to give endpoint of mongod 
+>>For example, your installed fronted and Mongodb service then mongod must talk this catalog service right you need to give the endpoint of Mongod 
 
-390-create ec2 only view and delete the policy for user in AWS
+390-create ec2 only view and delete the policy for users in AWS
 
->>To create an AWS Identity and Access Management (IAM) policy that allows a user to view and delete Amazon Elastic Compute Cloud (EC2) instances, you can use the following JSON policy document as a starting point:
+>>To create an AWS Identity and Access Management (IAM) policy that allows a user to view and delete Amazon Elastic Compute Cloud (EC2) instances, you can use the following JSON policy document as a
+starting point:
 
 {
     "Version": "2012-10-17",
@@ -3621,7 +3653,7 @@ WantedBy=multi-user.target
     ]
 }
 
-391-delete unused ebs volume using lambda
+391-delete unused EBS volume using lambda
 
 1-Create an IAM Role for Lambda:
 2-Create a Lambda Function:
@@ -3633,7 +3665,7 @@ def lambda_handler(event, context):
     response = ec2.describe_volumes()
 
     for volume in response['Volumes']:
-        if 'Attachments' not in volume:
+        if 'Attachments' are not in volume:
             # This volume is not attached to any instance
             volume_id = volume['VolumeId']
             print(f"Deleting unattached volume: {volume_id}")
@@ -3650,3 +3682,85 @@ def lambda_handler(event, context):
 
 >>
 
+393-what is the difference between SRE and DevOps
+
+SRE:-
+>>A site reliability engineer's job is to ensure the high availability, reliability, and resilience of production systems and services. SRE responsibilities can encompass on-premises, hybrid cloud, and
+public cloud environments in any given system.
+>>Performance tuning and optimization fall on the SRE team, even in complex hybrid and multi-cloud environments. This requires automation and centralized tooling to ensure maximum team productivity.
+The SRE team automates deployment, scaling, monitoring, and related tasks across these environments.
+>>SRE teams also define and maintain customer SLAs within their area of responsibility. In addition, they provide technical and operations support to remediate cases of SLA system violations.
+>>Designing, testing, and implementing disaster recovery plans is also an SRE responsibility. This requires proactivity and ownership by SREs to ensure their team's response to a disaster situation
+is well-rehearsed and on point. Disaster recovery plans aren't meant to be shelfware; SRE teams should constantly test and improve their plans and practices.
+SRE use cases:-
+Proactive monitoring of system health to identify problems before they become significant issues that might impact operations and customer experience.
+Automation of routine site monitoring and related tasks to improve SRE productivity, reduce human error, and free up SREs to work on more strategic tasks to improve site reliability and operations.
+Incident management, which includes both resolving the incident swiftly and putting the tools and playbooks in place to ensure that the incident won't happen again.
+Problems SREs solve:-
+>>SRE teams focus on large-scale problems that could cost organizations money due to system outages. Here are some of the problems they solve:
+>>Service disruptions. SREs have the monitoring, alerting, and incident response tools and playbooks to mitigate problems that disruptions bring.
+>>Scalability challenges. These threaten the operations of commercial and public sector systems. Planning for increased workloads and traffic requires the specialized architectural expertise that
+SREs bring to large-scale enterprise operations.
+>>Slow response time. SREs address bottlenecks, optimize code, and implement caching strategies to improve response times and meet customer expectations.
+SRE-Tools:-
+1-Grafana
+2-Prometheus
+3-Kubernetes
+DevOps:-
+>>DevOps teams implement CI/CD pipelines to manage and maintain their organization's development infrastructure, including public cloud environments.
+>>DevOps is responsible for automating the build, test, and deployment processes to increase the speed and efficiency of application delivery. This isn't a one-and-done task; DevOps teams must approach 
+this task with an eye to continuous improvement.
+>>DevOps teams should aim to continuously improve the deployment process by making it faster, more reliable, and more scalable. This requires the team to document and communicate improvements to the 
+SRE team and other technical stakeholders.
+>>Other DevOps responsibilities include ensuring the high availability and scalability of the systems they develop. DevOps also monitors and troubleshoots technical and security issues in development
+and testing environments.
+DevOps team use cases:-
+>>Use cases for DevOps teams bridge the gap between development and operations, enabling faster software deployment, continuous improvement, and the continuous delivery of services. DevOps teams automate
+repetitive tasks to remove human error and improve the overall efficiency of software development, delivery, and operations. Automation accelerates software delivery velocity, giving organizations a 
+time-to-market advantage.
+>>Another DevOps team use case is software testing -- DevOps teams are responsible for testing software before they deploy it to internal and external customers.
+>>Monitoring and logging are also DevOps responsibilities. DevOps teams must continuously monitor the systems to detect any anomalies or potential issues. As more DevOps teams move to the cloud,
+AI could begin to play a bigger part in data consumption and logging.
+Problems DevOps teams solve:-
+>>DevOps teams are responsible for alleviating and mitigating numerous problems that could crop up across the delivery pipeline. Lack of visibility into the delivery pipeline is one problem that
+DevOps teams rectify. By using observability tools, DevOps teams capture and interpret actionable data on the current state of their development software.
+>>DevOps teams also face problems with the upheaval of waterfall software development. DevOps teams are responsible for pivoting their organization from legacy processes to the agility of DevOps. 
+This pivot improves software delivery velocity, software quality and security.
+>>Lastly, not all the problems that DevOps teams solve deal with technology. DevOps teams must also tackle cultural barriers such as communication silos that stymy collaboration amongst developers
+and stakeholders across their organization.
+DevOps-Tools:-
+1-Jenkins
+2-Git
+3-Docker
+4-Kubernetes
+5-AWS
+6-Terraform
+
+Collaboration points and similarities between SRE and DevOps:-
+
+>>To deliver secure and quality software, SRE and DevOps teams must collaborate on a few essential points.
+>>When the organization launches a new feature or service, SRE teams should collaborate with their DevOps counterparts to ensure the scalability and reliability of the new offerings. 
+This responsibility ties back to site reliability engineers' SLA and performance-tuning work.
+>>SRE and DevOps work together to monitor their areas of responsibility and collaborate on responses when incidents occur. They must also collaborate on incident postmortems and root cause analysis,
+aiming to identify and resolve the underlying causes of the incident so that it won't happen again.
+>>Security throughout the development lifecycle is becoming increasingly critical as teams try to do more with less while facing an ever-evolving cyber threat landscape. Both DevOps and SRE teams 
+can automate and secure toolchains to ensure the organization can deliver new features and bug fixes to its customers continuously and securely.
+>>Configuration management and capacity planning are other areas that require DevOps-SRE collaboration. Each group can suffer if configuration issues arise in an application across their environments.
+Likewise, expertise and data from both groups are necessary to scale software to meet business needs while staying within budget.
+>>Finally, SRE and DevOps can come together to communicate about technical projects outside the IT department. Using shared project management reporting and collaboration tools, DevOps and SRE teams 
+can give executive stakeholders the end-to-end picture of a project's status or an incident in the organization's IT environment.
+
+394-what is EBS-CSI-Driver or plugin
+
+>>The Amazon Elastic Block Store (Amazon EBS) Container Storage Interface (CSI) driver manages the lifecycle of Amazon EBS volumes as storage for the Kubernetes Volumes that you create.
+The Amazon EBS CSI driver makes Amazon EBS volumes for these types of Kubernetes volumes: generic ephemeral volumes and persistent volumes
+this is mostly for EBS volumes only. if you use EFS no need to use 
+>>CSI drivers in Kubernetes are typically deployed with controller and per-node components. The controller plugin is deployed as either a Deployment or a StatefulSet and can be mounted on any node within
+the cluster.
+
+395-what key you need to send the servers to connect 
+
+>>Create public and private keys pass the public key into other servers then connect using the private key 
+>>You need to add public key to any server and then connect by using a private key only 
+
+396-
