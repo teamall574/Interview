@@ -231,5 +231,147 @@ test:
 
 17-
 
->>
- 
+=====================================================AWS-DevOps=================================================================================
+1-What AWS CI/CD
+
+>>AWS provides a comprehensive set of CI/CD(continous Integration/Continous Deployment) service that enable developers to automate
+and streamline their software delivery process
+1-AWS Code commit 
+2-AWS Codepipeline
+3-AWS CodeBuild
+4-AWS CodeDeploy
+
+2-what is Code commit in AWS
+
+>>AWS CodeCommit is a secure, highly scalable, managed source control service that makes it easier for teams to collaborate on code. 
+AWS CodeCommit eliminates the need for you to operate your own source control system or worry about scaling its infrastructure.
+
+3-what is managed Git
+
+>>people they download git they install git in local server or gitlab to host them self
+
+>>AWS CodeCommit is a secure, highly scalable, managed source control service that makes it easier for teams to collaborate on code. 
+AWS CodeCommit eliminates the need for you to operate your own source control system or worry about scaling its infrastructure.
+>>AWS CodeCommit is compettion to who will provide private repos like github enterprise or gitlab 
+>>your not able to clone the code using SSH by using Root account dont use root account dont recomended
+>>it solves the problem of managed git solutions
+
+Advanatges:-
+
+>>This managed AWS Service or Private Repository
+>>It makes private in Enterprise-level
+>>It is Scalability
+>>It is Reliability
+>>Version-Control
+
+Dis-Advantages:-
+
+>>less featurres(code-pilot,like visual-studio,github-Actions,collabration)
+>>AWS Restricted to AWS Service only dont allow multiple third party applications
+>>Less Integrations with services outside AWS
+>>User-Interface not good
+
+4-what are the Code-commit policies you have
+
+>>AWS CodeCommitFull-Access
+>>AWS CodeCommitPowerUser
+>>AWS CodeCommitRead-only
+
+5-what is Code-Pipeline
+
+>>AWS CodePipeline is a continuous delivery service you can use to model, visualize, and automate the steps required to release your software. You can quickly model and configure the different stages of a software release process. CodePipeline automates the steps required to release your software changes continuously.
+>>you can Integrate the code commit and code build you can deploy your code into ECS or Docker or Ec2 like Integrate the GitOps or Ansible or kubernets system deploy your code 
+>>compulsory need appsec.yml if you mention appsec.yaml it will not work use only appsec.yml
+
+6-what is the differnce between Code-Pipeline and Jenkins
+
+>>Code-Pipeline:-AWS CodePipeline is a managed CI/CD tool that provides integrated Amazon cloud DevOps tooling. CodePipeline is actually a suite of services. It combines CodeBuild, CodeDeploy and Git-based source code repository CodeCommit.
+
+>>Even though CodePipeline is an AWS tool, it doesn't limit you to Amazon's cloud. You can use CodeDeploy for on-premises deployment by running agents on your private servers. If you're already running a CI tool inside your AWS environment, or have your code stored in GitHub or GitLab, you can also integrate such tools into CodePipeline and only use what you need. For example, you could use CodeDeploy to publish code onto your EC2 instances or Amazon Elastic Container Service containers.
+
+>>Jenkins:-Jenkins is one of the most popular open source CI/CD tools. Although the project started as an automation server, the Jenkins community has developed more than 1,000 plugins for the tool. Jenkins can integrate with all public cloud providers and many applications that support developer work, such as GitLab, GitHub, Artifactory and HashiCorp Vault.
+
+AWS CodePipeline vs. Jenkins
+
+1-Cost:-
+2-Usability:-
+3-Integration:-
+
+>>if you use jenkins you need to implement the salves that will charge your your slaves need to run everytime when your to build the code you dont
+in this place you can use code build it will help you less cost how much you build that will charge . you have to manage the slaves and nodes 
+you have patching and upgrading need one dedicated AWS person if you use AWS Codepipeline AWS will manage this services it will charge accordingly
+or you can use docker agents as slaves in jenkins and also youe configure auto-scaling and stoarge and load-balancer and cloudwatch this will already managed by default you can setup easy
+if your not managing efffciently the cost will increase
+
+>>The major drawback they very much restricted to AWS Only 
+
+Though we can use all of above then what is the use of code pipeline?
+AWS CodePipeline is a fully managed continuous delivery service that automates the build, test, and deployment of applications. It allows you to create and visualize a pipeline that integrates various tools and services, such as source code management, continuous integration, and deployment.
+
+The main benefit of using AWS CodePipeline is that it provides a centralized way to manage and automate the end-to-end software delivery process. It enables you to configure a pipeline that is tailored to your specific requirements, and automate the testing and deployment of your code changes, ensuring that your application is released with quality and consistency.
+
+By using AWS CodePipeline, you can speed up your software delivery process, reduce manual errors, and increase the overall efficiency and productivity of your development team.
+
+In Code-Deploy what file we used to write the pipeline
+
+>>Buildspec.yml  -->then we can write pipeline how to build the code
+
+##add credentials in systems manager select the parameter store add docker username password and url
+/myapp/docker-credentials/username/
+anji1592
+/myapp/docker-credentials/password/
+test
+/myapp/docker-credentials/docker_url/
+docker.io
+
+
+version: 0.2
+env:
+  parameter-store:
+    docker_registery_username: /myapp/docker-credentials/username/
+    docker_registery_password: /myapp/docker-credentials/password/
+    docker_registery_docker_url: /myapp/docker-credentials/docker_url/
+    LOGIN: /myapp/sonarqube/token/
+    HOST: /myapp/sonarqube/url/
+    PROJECT: /myapp/sonarqube/anji
+    ORGANIZATION: /myapp/sonarqube/test
+phases:
+  install:
+    runtime-versions:
+      java: corretto11
+      docker: 19  
+      python: 3.79
+  pre_build:
+    commands: 
+      - pip install -r requirements.txt   ##it will install before the build
+      - apt-get install -y maven
+      - mvn --version
+      - echo "Installing Trivy..."
+      - wget https://github.com/aquasecurity/trivy/releases/download/v0.20.0/trivy_0.20.0_Linux-64bit.deb
+      - dpkg -i trivy_0.20.0_Linux-64bit.deb
+      - trivy --version
+      - $(aws ecr get-login --no-include-email --region <your-ecr-region>)
+
+  build:
+    commands:
+      - cd day14/anji
+      - mvn clean install
+      - sonar-scanner -Dsonar.login=$LOGIN -Dsonar.host.url=$HOST -Dsonar.projectkey=$PROJECT -Dsonar.organization=$ORGANIZATION
+      - sleep 5
+      - mvn deploy -Dmaven.test.skip=true -Dmaven.deploy.skip=true \
+          -DaltDeploymentRepository=nexus::default::<nexus-repo-url> \
+          -DrepositoryId=nexus-repo -s settings.xml
+      - echo "build docker image"
+      - echo "$docker_registery_username" | docker login -u "$docker_registery_username" --password-stdin "docker_registery_docker_url"
+      - docker build -t "$docker_registery_docker_url/docker_registery_username/test:latest" .
+      - docker build -t "docker.io/anji1592/test:latest" .
+      - docker push "$docker_registery_docker_url/docker_registery_username/test:latest"
+      - trivy anji1592/test:latest
+      - echo "Building Docker image..."
+      - docker build -t <your-ecr-repo-url>/<image-name>:<tag> .
+
+      - echo "Pushing Docker image to ECR..."
+      - docker push <your-ecr-repo-url>/<image-name>:<tag>
+  post-build:
+    commands:
+      echo "build is succesfully" 
