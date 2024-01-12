@@ -1440,6 +1440,7 @@ specific module within the Apache HTTP Server that enables reverse proxy functio
 
 >>Cloud native is the software approach of building, deploying, and managing modern applications in cloud computing environments. Modern companies want to build highly scalable, flexible,
 and resilient applications that they can update quickly to meet customer demands
+>>Cloud-Native means using cloud resources all the services entirely managed by AWS no downtime no manual intervention 
 
 Benefits
 >>Increase efficiency
@@ -1449,7 +1450,27 @@ Benefits
 >>Platform independence
 >>Cost-effective operations
 
-EX:-Docker kubernetes
+EX:-AWS:-
+1-lambda
+2-AWS Fargate
+3-AWS ECS
+4-AWS EKS
+5-AWS S3
+6-EBS 
+7-AWS Auoura
+8-DynmoDB
+9-VPC
+10-CloudFront
+11-API-Gateway
+12-AWS Cloudwatch
+13-AWS WAF
+14-AWS IAM
+15-AWS RDS
+16-SQS
+17-SNS
+18-Docker
+19-Kubernetes
+
 
 135-what is firewall
 
