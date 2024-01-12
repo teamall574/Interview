@@ -1979,6 +1979,9 @@ global acclerator is basically global load balancer which load balancing the reg
 
 >>New Flow Logs will appear in the Flow Logs tab of the VPC dashboard. The Flow Logs are saved into log groups in CloudWatch Logs. The log group will be created
 approximately 15 minutes after you create a new Flow Log. You can access them via the CloudWatch Logs dashboard.
+>>Amazon VPC Flow Logs is a feature in AWS that allows to capture information about the IP traffic going to and from network interfaces in vpc
+>>VPC Flow Logs provide detailed information about the traffic, including source and destination IP addresses, ports, protocol, and more. 
+This information is valuable for network monitoring, troubleshooting, security analysis, and compliance checks.
 
 200-how to port forwarding in linux or ec2
 
@@ -3907,29 +3910,40 @@ cost will be high . what i can do whenever my client access my application the s
 AWS provider 
 >>lambda , SNS, SQS it is for application more robust 
 
-Serverless computing is a cloud computing execution model that enables developers to build and run applications without provisioning or managing servers. It's essentially a way to offload the operational burden of managing infrastructure to the cloud provider, allowing you to focus on writing code and building your application logic.
+Serverless computing is a cloud computing execution model that enables developers to build and run applications without provisioning or managing servers. It's essentially a way to offload the operational
+burden of managing infrastructure to the cloud provider, allowing you to focus on writing code and building your application logic.
 
-Here are some key aspects of serverless computing:
-
-Focus on code: You write code in the form of "functions" that are triggered by events, like user interactions, API calls, or scheduled tasks. You don't worry about servers, operating systems, or patching software.
-
-Pay-per-use: You only pay for the execution time of your code, not for idle servers. This makes serverless ideal for applications with variable workloads and can lead to significant cost savings compared to traditional server architectures.
-
-Automatic scaling: The cloud provider automatically scales your functions up and down based on demand, ensuring optimal resource utilization and avoiding performance bottlenecks.
-
-Faster development: By eliminating server management tasks, serverless frees you to focus on writing and deploying code, potentially leading to faster development cycles.
-
-High availability: Cloud providers typically offer high availability guarantees for serverless functions, ensuring your application is always accessible.
+1-Focus on code: You write code in the form of "functions" that are triggered by events, like user interactions, API calls, or scheduled tasks. You don't worry about servers, operating systems, 
+or patching software.
+2-Pay-per-use: You only pay for the execution time of your code, not for idle servers. This makes serverless ideal for applications with variable workloads and can lead to significant cost savings compared
+to traditional server architectures.
+3-Automatic scaling: The cloud provider automatically scales your functions up and down based on demand, ensuring optimal resource utilization and avoiding performance bottlenecks.
+4-Faster development: By eliminating server management tasks, serverless frees you to focus on writing and deploying code, potentially leading to faster development cycles.
+5-High availability: Cloud providers typically offer high availability guarantees for serverless functions, ensuring your application is always accessible.
 
 Here are some examples of use cases for serverless computing:
 
-Backend logic for web and mobile applications
-Processing data streams from IoT devices
-Triggering automated workflows based on events
-Building serverless API gateways
-Running scheduled tasks
-However, serverless computing also has some limitations:
+>>Backend logic for web and mobile applications
+>>Processing data streams from IoT devices
+>>Triggering automated workflows based on events
+>>Building serverless API gateways
+>>Running scheduled tasks
+>>However, serverless computing also has some limitations:
 
-Vendor lock-in: You can become dependent on the specific cloud provider's offering, making it difficult to switch providers later.
-Cold start latency: The first time a function is invoked, there can be a slight delay while the cloud provider spins up resources.
-Limited debugging and logging: Debugging and logging can be more challenging in serverless environments due to the ephemeral nature of functions.
+1-Vendor lock-in: You can become dependent on the specific cloud provider's offering, making it difficult to switch providers later.
+2-Cold start latency: The first time a function is invoked, there can be a slight delay while the cloud provider spins up resources.
+3-Limited debugging and logging: Debugging and logging can be more challenging in serverless environments due to the ephemeral nature of functions.
+
+405-can we change the IP range of an existing VPC?
+
+>>* It’s not possible if we need to change ip address range we need to create new vpc then we need to migrate all resources from old vpc to new vpc
+
+406-How you can secure communication between your vpc and on-premises infrastructure?
+
+>>communication between VPC in the cloud and  on-premises infrastructure is crucial for maintaining a secure and reliable network environment.
+There are several methods are there to achieve secure communication
+a.Virtual Private Network (VPN)
+b.AWS Direct Connect
+c.Internet Protocol Security
+
+407-
