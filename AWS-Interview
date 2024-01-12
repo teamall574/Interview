@@ -3774,4 +3774,9 @@ the cluster.
 >>Create public and private keys pass the public key into other servers then connect using the private key 
 >>You need to add public key to any server and then connect by using a private key only 
 
-396-
+396-What is a meaning of archive files?
+
+>>An archive is a collection of data moved to a repository for long-term retention, to be kept separate for compliance reasons or for moving off primary storage media. 
+It can include a simple list of files or files organized under a directory or catalog structure, depending on how a particular program supports archiving.
+
+397-
