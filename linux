@@ -748,7 +748,7 @@ first 7 user/owner second 6 group last 4 others
 77-what is chown command in linux
 
 >>The chown command changes the owner of the file or directory specified by the File or Directory parameter to the user specified by the Owner parameter. 
-
+>>chown  --->change ownership
 >>chown john:john anji.txt         -->this file Owner of john user transfering ownership 
 
 78-how to create a user and create a password and also group and add that group into user
