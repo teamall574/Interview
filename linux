@@ -533,6 +533,8 @@ software packages in these distributions
 
 >>Services are programs or processes that run on your server at all times, usually from the time a server boots up. They are used to provide persistent support for requests and monitoring,
 from other processes or external clients.
+>>systemd is a system and service manager for Linux operating systems. systemctl is a command to introspect and control the state of the systemd system and
+service manager. Not to be confused with sysctl.
 
 >>systemctl start nginx   -->this will start the service
 >>systemctl status nginx  -->this can check the status
@@ -3137,6 +3139,168 @@ net:
 >>ps -e  -->it will show the process
 >>free -m  how much MEMORY free 
 >>uptime    -->it will show SYSTEMLOAD
+
+259-what is shell-script
+
+>>shell scripting is best way to automate repetitive tasks in our linux/unix environment
+>>shell script is a sequence of system commands pasted in a text file
+>>shell scripting is not a dynamic language
+>>shell scripting is static language
+
+we can enhance use this shell concepts
+1-varibales
+2-loops
+3-functions
+4-job scdeuling manymore
+5-conditonal statements
+6-filters like grep, sed, awk, cut
+
+260-what is /etc/sysctl.conf
+
+>>The sysctl command is used to modify kernel parameters at runtime. /etc/sysctl.conf is a text file containing sysctl values to be read in and set by sysct at 
+boot time. To view current values, enter:
+
+261-what command is used to see the diskusage of particular user
+
+>>du -h /home/user/Desktop 
+>>df -h    ->> it will show the space
+
+262-how to check the service is running or not in linux
+
+>>you can ps -ef | grep jenkins  it will proces ids
+
+263-you using one command that got hanged what you can do
+
+>>so if that hanged i can take one more terminal login with same user then i can check this commads using pirocessor id if this hanged then i can kill that process
+>>ps -ef | grep ls
+>>kill -9 "pid"
+>>kill commands 60+ is there 9 is used to kill the service
+
+264-how to check the memory usage of your linux system
+
+>>free -m                     -->it will show the memory and used and free
+>>free -g                     -->it will show  memory in gb
+>>top        -->it will give how many users connected memory and ram and everything will see
+
+265-what is daily activites in shell-script
+
+>>delete old files using shell script
+>>taking inventory files like version and ips and those
+>>monitoring files 
+>>installing packages
+>>to see versions
+>>to see backup
+>>if server stop sending a mail 
+
+266-what is break and continue in shell script or bash scripting
+
+>>break command is used to terminate /exit current loopcompletely before the actual ending of loop
+>>contine command is used in script to skip current iteration of loop & continue to next iteration of the loop
+
+267-what is debug in bash or shell scripting in linux
+
+debugging is determining the cause which fails the script
+why script fails: because of some errors
+this is because of two types of errors
+1-syntax errors
+2-runtime errors
+>>and ther are different commands for debugging and we will work with set command
+set -n   -->you will see the erors of your script
+set -x   -->you will see which line error in your script
+set -e   -->if you get an error in the script will get exit
+set -v   -->verbos of the command
+#!/bin/bash
+set -n
+pwd
+date
+whoami
+user=$(whoami
+echo "this is about debugging a bash shell script"
+echo "this user is: $user"
+
+268-what is the nice command in linux
+
+>>The nice command lets you run a command at a priority lower than the command's normal priority. The Command parameter is the name of any
+executable file on the system. If you do not specify an Increment value the nice command defaults to an increment of 10.
+
+269-what is heredoc command
+
+>>heredoc is very useful to write multi-lines or multiline block
+command << delimeter
+line-1
+line-2
+line-2
+delimeter
+
+270-what is here string
+
+>>here string is like here documnet only but with one line
+
+>>echo "hello anji" | tr [a-z] [A-Z] -->it will show all the letters in captial letters
+
+271-what is case statements
+
+>>The case statement simplifies complex conditions with multiple different choices. This statement is easier to maintain and more readable than nested if statements
+
+272-what is text command
+
+>>it is a command to judge conditions
+Numbers:-
+[[ int1 -eq int2 ]]  -->it return if they are equal else false
+[[int1 -ne int2 ]]   -->it return false if they are not equal to true
+[[init -lt int2 ]]   -->it return true if init1 is less than int2 else false
+[[int1 -le int2 ]]   -->it return true if int1 is less than or equal to int2 else false
+[[int1 -gt int2 ]]   -->it return true if int1 is greate than int2 else false
+[[int1 -ge int2 ]]   -->it return true if int1 is greater than or equal to int2 else false
+[[ !int1 -eq int2 ]] -->it reserve the result
+strings:-
+[[ -z str ]]       -->it return true if the length of the str is zeroo else false
+[[ -n str ]]       -->it return true if the length of the str is no-zero else false
+[[ str1 == str2 ]] -->it return true if both the strings are equal else false
+[[str1 != str2 ]]  -->it return true if both the strings are equal else false
+
+273-what is command chaining operator
+
+>>command chanining operators are useful to combine several commands so that we can write simple and short shell scripts
+the differnet command chaining operators are
+1- ;
+2- &&
+3- ||
+4- && ||
+>>which jenkins; ls 
+it will show the jenkins and ls list
+>>which apache2; ls
+>>it will fail apahe2 and it will show the list ls
+>>which docker && docker -v
+
+274-what is the differnce between [] & [[]]
+
+>>The single bracket is a built-in command that's older than the double bracket. The double bracket is an enhanced version of the single bracket. 
+If we want the portability of scripts, we should prefer single brackets. However, using the double brackets is generally more convenient.
+
+275-what is an arrays
+
+>>an array is the data structure of the bash shell which is used to store multiple data's 
+
+276-what is the differnce between $@ and $*
+
+>>Both the parameters specify the command-line arguments. However, the "$*" special parameter takes the entire list as one argument with spaces 
+between and the "$@" special parameter takes the entire list and separates it into separate arguments.
+
+277-how to delete old files in linux
+
+>>find -mtime +90 exec rm -rf {} \;
+
+278-what is while loop
+
+>>The while loop enables you to execute a set of commands repeatedly until some condition occurs. It is usually used when you need to manipulate 
+the value of a variable repeatedly.
+>>if you want re run your commands again and again n number of times loop concepts while helpful
+
+
+
+
+
 
 259-what is jq command in linux and shell script
 
