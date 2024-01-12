@@ -622,7 +622,6 @@ Ant:-
 3-librarays are part of source code(diffcult to maintain)
 4-Ant are follows you you need to tell how to work
 
-
 Maven:-
 1-Maven say what to do not how to do
 2-How to build is defined maven(life cycle)
@@ -905,6 +904,10 @@ or jfrog to store the compiled files
 >>when we accessing the application through internet it is production or live environment 
 >>when you build nodejs application it will came as nodemodules folder and server.js this need to run the server when we host the nodejs server 
 >>driftctl tool to find terraform changes 
+
+50-why we are using the maven tool
+
+>>maven build tool. it is used to build the file into war or jar file it will convert binary file to small size file gb to mb like that
 
 
 
