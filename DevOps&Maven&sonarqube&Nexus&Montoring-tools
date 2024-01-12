@@ -8,6 +8,12 @@ DEVOPS--------------|
 
 >>DevOps is a methodology in the software development and IT industry. There are so many teams involved like the cloud team, monitoring team, security team, and automation task and testing and so many involved
 and work together this is called DevOps
+>>Devops is process of development and testing and deploying on the same day for better results
+>>It follow best practices and you will get better results
+>> Faster release and better results
+>> Fast and accuracy
+>>Devops is combination of development and operations will work together for better results and faster release for the product or application to internet or production
+>> Devops is improving day by day you will se new features or new tools for better deployment or development for better products and faster release
 
 2-what is RCA
 
@@ -106,6 +112,10 @@ to production with no manual intervention
 >> Continous integration:- is the automated building and testing of your application on every new commit . Continuous Integration (CI) is a software development practice where developers frequently integrate 
 their code changes into a shared repository. Each integration is verified by automated build and test processes to detect and address integration errors early in the development process. The primary goal
 of continuous integration is to improve the quality of software, reduce the time taken to deliver new features, and enhance collaboration among team members
+>>continous integration:- continuous Integartion is the process of continuously compiling and building creating the artifact and storing the artifacts into some location store nexus or jfrog
+is the automated building and testing of your application on every new commit
+>>CI is the practice of frequently merging code changes from multiple developers into a shared repository, where automated builds and tests are run. 
+The goal is to catch and fix integration issues as early as possible, before they cause delays or bugs downstream.
 
 15 - What is the difference between continuous delivery and continuous deployment?
 
@@ -520,7 +530,7 @@ response reduce the db server burden or traffic it will improve your website or 
 
 63-where the war file stored when you build the java using maven
 
->>if will stored in target directory automcatically created target folder
+>>if will stored in /target directory automcatically created target folder
 >>port number is 6379 
 
 64-what is elasticache and what is the difference between memcahed and elastic cache
@@ -552,6 +562,22 @@ getliner
 >>packaged application is called jar or war like source code + dependencies
 if it is a restful api then jar will create
 if it is webapp then war file create 
+
+69-->>when developer code commit we build deploy to the dev environment then after it will go the qa environment then go to the non-prod(pre-prod) then it will go to the production  
+>>when we accessing the application through internet it is production or live environment 
+>>when you build nodejs application it will came as nodemodules folder and server.js this need to run the server when we host the nodejs server 
+>>driftctl tool to find terraform changes 
+
+70-what is checksum storage in nexus or jfrog 
+
+>>
+
+71-why we use nexus or jfrog to store the war or compile files 
+
+>>so when you any stage you compiled not stored anything or anywhere then you stored server running server some time that compile code need to run one more server so you need to compile or build everytime 
+if have saved it will be versioned whenever you need to download then you can use if save this will be versioned like one more version come then it will be version which you version you need you can use that 
+if you not version some bad case happines you need to give last 10 back you need to create the code and run that code its TDS task right you can nexus or hfrog to store then it is easy that why we use
+nexus or jfrog to store the compiled files 
 
 ============================================Maven=============================
 
