@@ -5882,10 +5882,15 @@ spec:
 
 >> Using ingress class you can define watch for ingress resource
 
-250-
-257-
+331-why ALB(Application-Load-Balancer) controller created in kube-system namespace 
+
+>>that is because of ALB is just one instance that watches all the namespaces and the people of alb controller they have decided to ue the kube-system namespace and intiially most of the
+ingress controller were deployed in teh kube system namespace only 
+
 253-how to pass the secret manager credential to jenkins pipeline 
 
 201-what is Telemetery
 
 >>Telemetery is fancy word it is used to gathering the metrics 
+
+
