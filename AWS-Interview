@@ -1871,7 +1871,7 @@ Using simple rules that you can quickly set up, you can match events and route t
 
 >>The essential services that you can use are Amazon CloudWatch Logs, store them in Amazon S3, and then use Amazon Elastic Search to visualize them.
 You can use Amazon Kinesis Firehose to move the data from Amazon S3 to Amazon ElasticSearch.
->>if your service is stopped are anything happen you can create a rule to trigger your script and send the notifications
+>>if your service is stopped are anything happens you can create a rule to trigger your script and send the notifications
 (like if your lamabda function to stop the start and specific time then youy can use the rules it will be changed)
 
 193-How do you set up a system to monitor website metrics in real-time in AWS?
