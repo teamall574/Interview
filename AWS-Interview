@@ -47,6 +47,16 @@ INSpector
 parameterstore
 secret-manager
 
+Byte
+Kilo Byte
+MegaByte
+Giga Byte
+Tera Byte
+Peta Byte
+Exa Byte
+Zetta Byte
+Yotta Byte
+
 APPLICATION-----------------------------------------------| These two is SAAS
 DATA------------------------------------------------------|
 RUNTIME                              |
