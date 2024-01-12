@@ -572,6 +572,13 @@ carried out using hardware accelerators.
 >>Reserved instances, on the other hand, allow you to specify attributes such as instance type, platform, tenancy, region, and availability zone. 
 Reserved instances offer significant reductions and capacity reservations when instances in certain availability zones are used.
 
+On-demand Instance
+It is cheap for a short time but not when taken for the long term
+Spot Instance
+It is less expensive than the on-demand instance and can be bought through bidding. 
+Reserved Instance
+If you are planning to use an instance for a year or more, then this is the right one for you
+
 53-With specified private IP addresses, can an Amazon Elastic Compute Cloud (EC2) instance be launched? If so, which Amazon service makes it possible?
 
 >>Yes. Utilizing VPC makes it possible (Virtual Private Cloud).
@@ -731,6 +738,10 @@ where we can sql databese we can use ebs volumes explaining beloow
 
 61-what is EFS and what is the use case of it
 
+>>Amazon Elastic File System is a cloud storage service provided by Amazon Web Services designed to provide scalable, elastic, concurrent with some restrictions, and encrypted file storage for 
+use with both AWS cloud services and on-premises resources.
+>>After you create an existing file system (EFS), you can't change its encryption setting. This means you can't modify an unencrypted file system to make it encrypted. Instead, you must: 
+Create a new Amazon EFS file system with encryption turned on
 >>Amazon Elastic File System (EFS) is a scalable and fully managed file storage service provided by Amazon Web Services (AWS). It is designed to provide scalable and shared file storage that 
 can be accessed concurrently by multiple Amazon EC2 instances. EFS uses the Network File System version 4 (NFSv4) protocol, making it compatible with a wide range of Linux-based applications and workloads.
 >> The storage limit 8PB
@@ -751,6 +762,14 @@ or Amazon Elastic Kubernetes Service (EKS).
 9-Regional Redundancy:EFS file systems can be configured for regional redundancy, ensuring high availability. This means that your data is stored across multiple Availability Zones within a region.
 10-Cost-Effective:EFS offers a pay-as-you-go pricing model, where you pay only for the storage you use. It eliminates the need for upfront investments in hardware and allows you to scale your storage
 infrastructure based on your actual needs.
+
+Uses cases:-
+>>you can directly mount the system to ec2 instances
+>>it is a share folder for network in a region
+>>it is network file system  
+>>it is unix or linux supported
+>>it can shared between multiple servers and multiple regions
+>>the storage limit 8PB
 
 62-what is the use cases of EFS
 
@@ -2532,6 +2551,7 @@ will lead to an interesting problem, like classes with data and no behavior.
 276-what is YAML
 
 >> Yaml is yet another markup languge.YAML is a human-readable data-serialization language
+>>YAML is a human-readable data-serialization language. It is commonly used for configuration files and in applications where data is being stored or transmitted
 >>xml,json,yaml are DTO  -->data transfer object
 
 first type(key: value or list)
@@ -2646,6 +2666,13 @@ WSGI application servers or Phusion passenger module.
 >>Nginx is also used to serve as a load balancer.
 
 289-What are the difference between Nginx and Apache?
+
+Firstly, Nginx is an event-based web server and Apache is a process-based server.
+Nginx is best known for its speed and Apache is best known for its power.
+Nginx is the best when it comes to memory consumption and connection whereas Apache is not best in this category.
+In Nginx, a single thread is handling all of the requests whereas in Apache single thread handles a single request.
+Nginx is best when you want the load balancing. But Apache will refuse the new connection when traffic reaches the limit of the process.
+Apache provides lots of functionality as compared to Nginx.
 
 >>A web server is a software application that delivers web content, such as web pages, to client computers that request it via the Internet. The server receives and processes HTTP requests
 from clients and responds with HTML documents or other types of content that the client’s web browser can display.
@@ -3779,4 +3806,32 @@ the cluster.
 >>An archive is a collection of data moved to a repository for long-term retention, to be kept separate for compliance reasons or for moving off primary storage media. 
 It can include a simple list of files or files organized under a directory or catalog structure, depending on how a particular program supports archiving.
 
-397-
+397-Is there any other alternative tool to log into the cloud environment other than console?
+
+Putty
+AWS CLI for Linux
+AWS CLI for Windows
+AWS CLI for Windows CMD
+AWS SDK
+Eclipse
+
+398-what is amazon light-sail
+
+>>Amazon Lightsail is a virtual private server (VPS) provider and is the easiest way to get started with AWS for developers, small businesses, students, and other users 
+who need a solution to build and host their applications on cloud.Lightsail provides developers compute, storage, and networking capacity and capabilities to deploy 
+and manage websites and web applications in the cloud. Lightsail includes everything you need to launch your project quickly – virtual machines, containers, databases,
+CDN, load balancers, DNS management etc. – for a low, predictable monthly price.
+
+399-how to check the bucket size in aws
+
+>>you can select the bucket and click on actions and see the bucket size
+
+400-how to restrict specific user in specific region or specific ip range
+
+>>you can create the policy and attach the policy to the user then he can access the only that ip range or that region only user IAM roles
+
+401-it is poosible to chnage dns name in linux
+
+>>nano /etc/resolv.conf   --->change DNS name server in linux
+
+402-
