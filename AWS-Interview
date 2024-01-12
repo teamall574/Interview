@@ -236,7 +236,7 @@ Console or the AWS CLI. If Session Manager is enabled for your instance, you can
 >>To upgrade or downgrade a system with zero downtime, you can use the following steps:
 1-Set up a load balancer in front of your system.
 2-Deploy the new version of your system to a new set of servers.
-3-Add the new servers to the load balancer and verify that they are healthy.
+3-Add the new servers to the load balancer and verify that they are healthy. (here your ading new servers using target group to blue-green deployment sharing the network traffic 10% then 20% like this )
 4-Remove the old servers from the load balancer.
 5-Monitor the system to ensure that everything is running smoothly.
 By following this process, you can ensure that your system remains available throughout the upgrade or downgrade process.
