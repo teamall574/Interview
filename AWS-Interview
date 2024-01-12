@@ -259,6 +259,17 @@ This allows you to control the traffic flow during the upgrade or downgrade proc
 is stateless.
 8-Snapshot and AMI Backup: Before making changes, take snapshots of EBS volumes and create AMIs of instances. This provides a backup in case something goes wrong during the upgrade or downgrade process.
 
+>>You can upgrade or downgrade a system with near-zero downtime using the following steps of migration:
+
+Open EC2 console
+Choose Operating System AMI
+Launch an instance with the new instance type
+Install all the updates
+Install applications
+Test the instance to see if it’s working
+If working, deploy the new instance and replace the older instance
+Once it’s deployed, you can upgrade or downgrade the system with near-zero downtime.
+
 22-what is the secret_key and access_key
 
 >>Access keys consist of an access key ID and secret access key, which are used to sign programmatic requests that you make to AWS. 
