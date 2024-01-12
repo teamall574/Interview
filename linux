@@ -3096,6 +3096,9 @@ line1   line2
 
 >>exit command is used to exit the script 
 >>Also exit staus stop the script and will not execute any other commands
+>echo $?  -->if you getting zero means success
+>>echo $?  -->if you 1-255 means failure
+>>127 command not found
 >>exit 0 -->means its suceess 
 >>exit 1 -->means not sucess 1 after nay value its not success
 
