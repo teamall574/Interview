@@ -692,8 +692,14 @@ anji.txt ls.txt sampi.txt
 
 >>git checkout -b ＜new-branch＞  ==>create new branch 
 
-92-
-whenever a pull request is created in github and someone comments on the #jira you need to write a python script to lokkat the github.com whenever it finds a comments called #jira python should take
+92-how to push the code with proper label 
+
+>>for example your or organization uses jira we have some storie number like AUS1, AUS2, AUS3 so your working AUS2 the push like this 
+>>git add -A ; git commit -m "AUS2 - fixing the deployment" ; git push  
+
+92-what happiens when you pull happiens 
+
+>>Whenever a pull request is created in GitHub and someone comments on the #jira you need to write a python script to look at the github.com whenever it finds a comments called #jira python should take
 that information and pass it to a jira ticket it has to create a jira ticket 
  
 
