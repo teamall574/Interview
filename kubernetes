@@ -3691,7 +3691,7 @@ octant
 octant --listener-addr 0.0.0.0:7777
 >>nohup octant --listener-addr 0.0.0.0:7777 &  -->this will run background 
 then add this into nginx reverse proxy nginx.conf file then you can access  
-
+>> headlamp new one
 and one more is k9s and k8s dashboard and lens tool also 
 
 258-what is status: {}  in kubernetes yaml file 
