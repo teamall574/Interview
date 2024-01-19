@@ -527,11 +527,11 @@ some application 24 hours also
 >>why we use redis cache because of the everytime request went DB it will reduce speed of the DB that why we use cache like(Redis) 
 >>if the user came reuests the some produts it went through the db fetch so next user may come search same products then it will not went db servers it went redis or any cache servers it will fast 
 response reduce the db server burden or traffic it will improve your website or db performance  
+>>port number is 6379 
 
 63-where the war file stored when you build the java using maven
 
 >>if will stored in /target directory automcatically created target folder
->>port number is 6379 
 
 64-what is elasticache and what is the difference between memcahed and elastic cache
 
