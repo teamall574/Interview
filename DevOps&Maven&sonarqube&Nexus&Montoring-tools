@@ -539,6 +539,10 @@ response reduce the db server burden or traffic it will improve your website or 
 
 54-what is memcached 
 
+>>Memcached, a high-performance, distributed memory caching system, typically operates on port 11211 for both TCP and UDP protocols. If you're new to it, this information can be extremely useful in
+understanding and troubleshooting network connections.
+>>port number 11211
+
 66-Useful-Top-AI uses 
 
 generative AI tools
