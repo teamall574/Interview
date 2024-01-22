@@ -1073,6 +1073,8 @@ Kubernetes Volumes ConfigMap.
 >>Ebs is a persistent block storage with a define size (it is possible to chnage later)
 >>mount directly raw volume 
 >>the major drawback is that you can attach for only one pod 
+>>this also means that it can't be shared between multiple pods   
+
 Disadvantages:-
 1-you should give volume id to the developer
 2-the major drawback is that it can be only mounted to one ec2-instance
