@@ -3984,3 +3984,90 @@ c.Internet Protocol Security
 >>Consider using third-party disaster recovery solutions available in the AWS Marketplace for additional features and customization.
 10-Collaboration with AWS Support:
 Engage with AWS Support for guidance and assistance in creating and validating your disaster recovery plan.
+
+408-how we can new servers ip address into prometheus server 
+
+1-Create a CloudWatch Events Rule:
+
+Open the AWS Management Console.
+Navigate to the CloudWatch service.
+In the left sidebar, click on "Rules" under "Events" and then click the "Create rule" button.
+Select "Event Source" as "Event Source Type," and choose "EC2" under "Service Name."
+Select the specific event(s) you want to trigger the Lambda function (e.g., "EC2 Instance Launch Successful").
+Under "Targets," choose "Lambda function" and select your Lambda function.
+Click "Configure details," provide a rule name and description, and click "Create rule."
+
+2-Modify Lambda Function for CloudWatch Event:
+>>Update the Lambda function to handle the CloudWatch event and extract the necessary information.
+import boto3
+import paramiko
+import os
+
+def lambda_handler(event, context):
+    # Extract the instance ID from the CloudWatch event
+    instance_id = event['detail']['EC2InstanceId']
+
+    # Use the EC2 client to get information about the new instance
+    client = boto3.client('ec2')
+    instance_info = client.describe_instances(InstanceIds=[instance_id])['Reservations'][0]['Instances'][0]
+    ip_address = instance_info['PublicIpAddress']
+
+    # Update prometheus.yml with the new target
+    with paramiko.SSHClient() as ssh:
+        ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        ssh.connect(hostname='prometheus_server_ip', username='user', key_filename='/path/to/key.pem')
+        sftp = ssh.open_sftp()
+        with sftp.open('/path/to/prometheus.yml', 'a') as f:
+            f.write('- {target: "%s:9100"}\n' % ip_address)
+
+    # Reload Prometheus configuration (replace with your method)
+    os.system('curl -X POST http://prometheus_server_ip:9090/-/reload')
+
+3-IAM Role Permissions:
+>>Ensure that the IAM role associated with your Lambda function has the necessary permissions to describe EC2 instances and execute SSH commands.
+4-Lambda Trigger Permissions:
+>>If you are using the Lambda console to create the CloudWatch Events trigger, make sure to configure the necessary permissions for CloudWatch Events to invoke your Lambda function.
+
+like this any instance is stoped remove the IP from prometheus server 
+
+import boto3
+import paramiko
+import os
+
+def lambda_handler(event, context):
+    # Extract the instance ID and lifecycle event from the CloudWatch event
+    instance_id = event['detail']['EC2InstanceId']
+    lifecycle_event = event['detail']['LifecycleTransition']
+
+    if lifecycle_event == 'autoscaling:EC2_INSTANCE_LAUNCHING':
+        # Use the EC2 client to get information about the new instance
+        client = boto3.client('ec2')
+        instance_info = client.describe_instances(InstanceIds=[instance_id])['Reservations'][0]['Instances'][0]
+        ip_address = instance_info.get('PublicIpAddress')
+
+        if ip_address:
+            # Update prometheus.yml with the new target
+            with paramiko.SSHClient() as ssh:
+                ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+                ssh.connect(hostname='prometheus_server_ip', username='user', key_filename='/path/to/key.pem')
+                sftp = ssh.open_sftp()
+                with sftp.open('/path/to/prometheus.yml', 'a') as f:
+                    f.write('- {target: "%s:9100"}\n' % ip_address)
+
+    elif lifecycle_event == 'autoscaling:EC2_INSTANCE_TERMINATING':
+        # Remove the target from prometheus.yml
+        with paramiko.SSHClient() as ssh:
+            ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+            ssh.connect(hostname='prometheus_server_ip', username='user', key_filename='/path/to/key.pem')
+            sftp = ssh.open_sftp()
+            with sftp.open('/path/to/prometheus.yml', 'r+') as f:
+                lines = f.readlines()
+                f.seek(0)
+                for line in lines:
+                    if not line.startswith(f'- {{target: "{ip_address}:9100"}}'):
+                        f.write(line)
+                f.truncate()
+
+        # Reload Prometheus configuration (replace with your method)
+        os.system('curl -X POST http://prometheus_server_ip:9090/-/reload')
+
