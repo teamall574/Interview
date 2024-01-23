@@ -4075,3 +4075,18 @@ def lambda_handler(event, context):
         # Reload Prometheus configuration (replace with your method)
         os.system('curl -X POST http://prometheus_server_ip:9090/-/reload')
 
+409-what is Distributed and Centralized database 
+
+Distributed database:-
+1-consists of multiple database files located at different sites 
+2-Allows multiple users to access and manipulate data 
+3-Files delivered quickly from location nearest the user 
+4-If one site fails data is retrievable 
+5-Multiple files from dispersed databases must be synchronized 
+Centralized Database:-
+1-consists of single database files will be central database file 
+2-Bottlenecks when multiple users access same file simultaneously
+3-Files may take longer to deliver to users 
+4-Single site means sowntime in case of system failure  
+5-simpler to upload and manage data in single central system 
+
