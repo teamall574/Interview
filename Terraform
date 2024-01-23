@@ -668,12 +668,14 @@ resource "aws_route53_record" "example" {
   records = [aws_instance.example.public_ip]
 }
 
-63-Imagine you have different variable values for different stages (dev, test, prod) of your infrastructure. How would you structure your Terraform configurations to make it easy to apply changes to a specific stage?
+63-Imagine you have different variable values for different stages (dev, test, prod) of your infrastructure. How would you structure your Terraform configurations to make it easy to apply changes to a
+specific stage?
 
 >>One common way to handle this is to use separate Terraform workspace for each environment and have a corresponding variable file for each workspace. 
 You can use workspace-specific variable files (dev.tfvars, test.tfvars, etc.) and apply them with the -var-file flag.
 
-64-You are managing a complex infrastructure with many interdependent resources. How would you use output variables to expose necessary data (like IP addresses, DNS names, etc.) for use in other configurations or modules?
+64-You are managing a complex infrastructure with many interdependent resources. How would you use output variables to expose necessary data (like IP addresses, DNS names, etc.) for use in other
+configurations or modules?
 
 >>Output variables can be used to expose data from one module to another, or to the root module. By using outputs, the necessary data will be displayed in the console after running terraform apply. 
 If the state is stored remotely, the output values can also be queried using terraform output command.
@@ -1233,8 +1235,7 @@ output "publicip" {
 
 95-what is terraform locals 
 
->>
-In Terraform, locals are used to declare variables that are used within a module to simplify expressions or reuse values. Locals are evaluated during the Terraform graph building phase and can be useful for
+>>In Terraform, locals are used to declare variables that are used within a module to simplify expressions or reuse values. Locals are evaluated during the Terraform graph building phase and can be useful for
 making configurations more readable and maintainable. Here's a simple example of using locals in a Terraform configuration.
 >>you can store localy that refer anywhere fro example public_ip printed 10 places rather than you can store in local call that using output 
 
@@ -1454,4 +1455,11 @@ aws ec2 delete-security-group --group-id <security-group-id>
 4-list
 5-set
 6-map
+
+105-if you lost statefile how we can achive this or recovery this 
+
+>>if you lost the statefile you need to go what are the resource you have created then import command using then import it will create the statefile like what resource you created 
+>>so its headache task instead you can use version control then you can recovery 
+>>when you used backend statefile s3 bucket your executinng terraform using that file it will lock until your script complete and it wont allow the parallel execution
+>>when you created the statefile using s3 and you given terraform code to another one he can terraform init then using that backend file then he can write new code or any changes do in previous code also work 
 
