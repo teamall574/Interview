@@ -3873,12 +3873,79 @@ the destination will be convert binay to Deserialization
 272-what is OIDC 
 
 >>video 79 26 mins 
+>>>>OIDC is similar to SAML both are kind same protocal for its single sign service 
+>>Open ID Connect (OIDC) supports authentication for Amazon Web Services (AWS) Elastic Kubernetes Service (EKS) clusters. You can configure PingOne as an identity provider (IdP) to provide strong user
+authentication to your EKS clusters.
+>>Amazon EKS supports using OpenID Connect (OIDC) identity providers as a method to authenticate users to your cluster. OIDC identity providers can be used with, or as an alternative to 
+AWS Identity and Access Management (IAM). For more information about using IAM, see Enabling IAM principal access to your cluster.
+
+>>if you have parameter store under credentials its not able to access that resource . so you cna create OIDC then attach role you will get that access
+
+### Backend and provider config for reference
+terraform {
+  required_version = "~> 0.12.12"
+backend "remote" {
+    hostname = "app.terraform.io"
+  }
+}
+provider "aws" {
+  assume_role {
+    role_arn     = var.assume_role_arn
+    session_name = "EKS_deployment_session_${var.tags["Environment"]}"
+  }
+version = "~> 2.28.1"
+  region  = var.region
+}
+### EKS cluster config
+resource "aws_eks_cluster" "cluster" {
+  enabled_cluster_log_types = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
+  name                      = "${var.tags["ServiceType"]}-${var.tags["Environment"]}"
+  role_arn                  = aws_iam_role.cluster.arn
+  version                   = "1.14"
+vpc_config {
+    subnet_ids              = flatten([module.vpc.public_subnets, module.vpc.private_subnets])
+    security_group_ids      = [aws_security_group.cluster.id]
+    endpoint_private_access = "true"
+    endpoint_public_access  = "true"
+  }
+}
+### OIDC config
+resource "aws_iam_openid_connect_provider" "cluster" {
+  client_id_list  = ["sts.amazonaws.com"]
+  thumbprint_list = []
+  url             = aws_eks_cluster.cluster.identity.0.oidc.0.issuer
+}
+refer this for more config is balance
+https://marcincuber.medium.com/amazon-eks-with-oidc-provider-iam-roles-for-kubernetes-services-accounts-59015d15cb0c
+
+273-what is the differnce while using persistent volumes in EBS vs EFS
+
+EBS:-
+1-Amazone EBS is a cloud block stoarge service that provides diret access from a single ec2 instance to a dedicated storage volume 
+2-Application that require persistent dedicated block access for a single host can use EBS as a high available and low-latency block storage solution
+3-EBS PV Provide readwriteonce access mode 
+4-EBS can be accessed by host it is connected within the zones .EBS volume is automatically replicated within its Availibility zone to protect rom component failure, offers high availability and durabality 
+5-Automatic scaling is not available in EBS but can scaled up down based on the need 
+6-cost efficent 
+7-can support all type of application 
+8-EBs on the other hand provides point-in-time   
+EFS:-
+1-Amazon EFS provides a shared file stoarge for use with compute instance in the AWS Cloud and on premise servers
+2-Applicatios that reuire shared file access you can use Amazon EFS for reliable file stoarge delivering high aggregate throughput to thousands of clients simultaneously
+3-EFS PV Provide readwritemany access mode 
+4-An EFS file system can be accessed froom multiple availabilty zones and it is the valuable for multi-AZ cluster 
+5-it is betetr to choose EFS when it is difficult to estimate the amount of stoareg the application will use because EFS is buit to elastically scale 
+6-Costly than EBS
+7-EFS is a file system hence it wont support some application such as database which require block storage 
+8-EFS doesn't support any backup 
 
 274-what is RTO and RPO 
 
-81 session 51 mins 
->>Recover Point:- 
->>Recover Time:-
+>>81 session 51 mins 
+RTO(Recover Point):-The Maximum acceptable delay between the interruption of service and restoration of service. This determines an acceptable length of time for service downtime
+>>The recovery time objective (RTO) is the targeted duration of time between the event of failure and the point where operations resume
+RPO(Recover Time):-The maximum acceptable amount of time since the last data recovery point. this determines what is considered an acceptable loss of data 
+>>A recovery point objective (RPO) is the maximum length of time permitted that data can be restored from, which may or may not mean data loss.
 
 275--what is Telemetery
 
