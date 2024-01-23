@@ -685,8 +685,18 @@ but after week we come what command we used we don't remeber and there is no ver
 >>when you creating replicas in stateful-set the master will have read and write permsiion remaing slaves only have read permissions if we allow all the pods
 we will get an error inconsistent data over here
 >>if we creating replicas is easy in stateless or deployment but comming to stateful set it easy but it will give unique name
->>if your using replica set or replication controller using create 4 pods it will give proper name and id but comming to deployment it will give random hash its
+>>if your using a replica set or replication controller using create 4 pods it will give proper name and id but comming to deployment it will give random hash its
 not permenaent when the pod deleted the hash will be removed
+
+if you used statefulset 3 replicas name mysql and service name mysql 
+nslookup mysql-0.mysql   -->it will first of the mysql 
+headless service for stable DNS entries of StatefulSet members.
+we will use mostly headless service with statefulset not for deployment mostly will not use deployment
+>>if you use headless service internally connect the master to the slaves will connect to master and copy or sync the data. mysql-read is used to connec the clients  
+kubectl expose deployment nginx-deployment --target-port=80 --type=ClusterIp 
+for example you have 3 pods in the deployment you used clusterip if you do nslookup nginx-deployment  you will get only one ip or one service like nginx-deployment.default.svc.cluster.local 
+kubectl expose deployment nginx-deployment --target-port=80 --type=ClusterIp --cluster-ip=None --name headless  
+for example you use 3 pods in the deployment you used None as headless servcie nslookup headless you will see the every pod name like this headless.deffault.svc.cluster.local and ip you will get like 3 pods 
 
 >>create the EFS volume 
 >>craete the cluster role, clusterrolebinding,role, rolebinding
@@ -1325,6 +1335,73 @@ a is the current or actual number of replicas
 c is the current value of metric
 t is the target value
 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: php-apache
+spec:
+  selector:
+    matchLabels:
+      run: php-apache
+  template:
+    metadata:
+      labels:
+        run: php-apache
+    spec:
+      containers:
+      - name: php-apache
+        image: registry.k8s.io/hpa-example
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            cpu: 500m
+          requests:
+            cpu: 200m
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: php-apache
+  labels:
+    run: php-apache
+spec:
+  ports:
+  - port: 80
+  selector:
+    run: php-apache
+
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: php-apache
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: php-apache
+  minReplicas: 1
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 50
+status:
+  observedGeneration: 1
+  lastScaleTime: <some-time>
+  currentReplicas: 1
+  desiredReplicas: 1
+  currentMetrics:
+  - type: Resource
+    resource:
+      name: cpu
+      current:
+        averageUtilization: 0
+        averageValue: 0
+
 3-Cluster Autoscaler:- this for cluster level if any time nodes need to increase using this automatically increase
 
 >>it will delete unwanted resources
@@ -1342,6 +1419,12 @@ identifies unschedulable pods and simulates scheduling for each node group. Know
 ConfigMaps can be used to update an application’s configuration without redeploying the entire application.
 >>A ConfigMap is an API object that lets you store configuration for other objects to use. Unlike most Kubernetes objects that have a spec, a ConfigMap has data 
 and binaryData fields.These fields accept key-value pairs as their values. Both the data field and the binaryData are optional. 
+
+what is immutable in configmap 
+
+>>for any security reason any one dont update this file just add 
+immutable = true # if you add no one can't edit this file . it can obly be deleted no one can't update if its false then he can edit that ' u 
+>>configmap is 1 mb more that you can't use that it will not work if more then 1 mb 
 
 110-What are the type of secrets in Kubernetes?
 
@@ -4359,7 +4442,8 @@ hostname anji.com then create that alb loadbalancer to to route53 anji.com
 >>eksctl create cluster --name my-eks-cluster --version 1.21 --region your-region
 >>helm repo add eks https://aws.github.io/eks-charts
 >>helm repo update
->>helm upgrade -i aws-load-balancer-controller eks/aws-load-balancer-controller -n kube-system --set clusterName=<your-cluster-name> --set serviceAccount.create=false --set serviceAccount.name=aws-load-balancer-controller
+>>helm upgrade -i aws-load-balancer-controller eks/aws-load-balancer-controller -n kube-system --set clusterName=<your-cluster-name> --set serviceAccount.create=false 
+--set serviceAccount.name=aws-load-balancer-controller
 >>curl -L https://istio.io/downloadIstio | sh -
 cd istio-<version>
 export PATH=$PWD/bin:$PATH
@@ -4421,6 +4505,137 @@ spec:
           number: 8080
         host: nginx-deployment
 EOF
+
+>>second-type to install yaml to install istio then configure the routes
+---  once you installed this istioOperator no need install everytime
+apiVersion: install.istio.io/v1alpha1
+kind: IstioOperator
+metadata:
+  namespace: istio-system
+  name: istiocontrolplane
+spec:
+  profile: default
+  components:
+    ingressGateways:
+    - name: istio-ingressgateway
+      enabled: true
+      k8s:
+        serviceAnnotations:
+          service.beta.kubernetes.io/aws-load-balancer-internal: "false"
+          service.beta.kubernetes.io/aws-load-balancer-type: "alb"
+          service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
+  resources:
+    istiod:
+      requests:
+        memory: "4Gi"
+        cpu: "2"
+      limits:
+        memory: "8Gi"
+        cpu: "4"
+  istiod:
+    # Configure istio auth mode:
+    auth:
+      policy: MTLSStrict
+---
+==== sidecar injection enable 
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: default
+  labels:
+    istio-injection: enabled
+---
+#=== enable mtls 
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata: 
+  name: default
+  namespace: istio-system
+spec:
+  mtls: 
+    mode: PERMISSIVE              
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: your-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: your-app
+  template:
+    metadata:
+      labels:
+        app: your-app
+    spec:
+      containers:
+      - name: your-app-container
+        image: your-container-image
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: your-app-service
+spec:
+  selector:
+    app: your-app
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: anji-ingress
+  annotations:
+    kubernetes.io/ingress.class: "istio"
+spec:
+  rules:
+  - host: anji.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: your-app-service
+            port:
+              number: 80
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: istio-gateway
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - hosts:
+    - "anji.com"
+    port:
+      number: 80
+      name: http
+      protocol: HTTP
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: istio-virtualservice
+spec:
+  hosts:
+  - "anji.com"
+  gateways:
+  - istio-gateway
+  http:
+  - route:
+    - destination:
+        host: your-app-service
+        port:
+          number: 80
 
 305-I have anji image as anji port 80 anji.com and sampi image as sampi 81 sampi.com gampa image and port 82 as gampa.com create istio gateway ingress and virtual service
 
@@ -5888,6 +6103,543 @@ spec:
 
 >>that is because of ALB is just one instance that watches all the namespaces and the people of alb controller they have decided to ue the kube-system namespace and intiially most of the
 ingress controller were deployed in teh kube system namespace only 
+
+332-you have configure elk cluster outside and install filebeat in kops or eks  
+
+kibana 
+elasticsearch
+logstash:-  convert unstructred data into structured data 
+beats 
+
+>>if you have elk server outside of kubernetes then use filebeat or fluentd but the ip of the filebeat or fluentd 
+>>then while installing filebeat modify the ip and deploy using helm 
+>>if elk is installed based on yum repos then modify logstash file below 
+
+#!/bin/bash
+
+# Install prerequisite packages
+apt-get update
+apt-get install -y openjdk-11-jre
+
+# Install Elasticsearch
+wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo gpg --dearmor -o /usr/share/keyrings/elasticsearch-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/elasticsearch-archive-keyring.gpg] https://artifacts.elastic.co/packages/8.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic.list > /dev/null
+apt-get update
+apt-get install -y elasticsearch
+
+# Enable and start Elasticsearch service
+systemctl enable elasticsearch
+systemctl start elasticsearch
+sleep 10 # Wait for Elasticsearch to start
+
+# Install Kibana
+apt-get install -y kibana
+
+# Enable and start Kibana service
+systemctl enable kibana
+systemctl start kibana
+
+# Install Logstash
+apt-get install -y logstash
+
+# Configure Logstash
+echo 'input {
+  beats {
+    port => 5044
+  }
+}
+
+output {
+  elasticsearch {
+    hosts => ["http://localhost:9200"]
+    index => "%{[@metadata][beat]}-%{[@metadata][version]}"
+    user => "elastic"
+    password => "REPLACE-YOUR_PASSWORD"
+  }
+}' > /etc/logstash/conf.d/logstash.conf
+
+# Enable and start Logstash service
+systemctl enable logstash
+systemctl start logstash
+
+# Install Nginx
+apt-get install -y nginx
+
+# Configure Nginx as a reverse proxy for Kibana
+echo 'server {
+    listen 80;
+
+    server_name your_server_ip_or_domain;
+
+    location / {
+        proxy_pass http://localhost:5601;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}' > /etc/nginx/sites-available/kibana
+
+ln -s /etc/nginx/sites-available/kibana /etc/nginx/sites-enabled/
+nginx -t
+systemctl restart nginx
+
+echo "ELK Stack installation completed."
+
+# Access Kibana
+echo "Access Kibana at: http://your_server_ip_or_domain"
+
+>>installation is complete use logstash.conf below and upper one 
+>>then if you have filebeat installed in kubernetes changes values.yaml file or filebeat.yaml file under add logstash ip:5044 port number private or public if your same vpc then private  
+-------------------
+
+>>elk and access through browser 
+>>logstash.conf 
+# logstash.conf
+
+# Input Configuration - Example using a file input
+input {
+  file {
+    path => "/path/to/your/logfile.log"
+    start_position => "beginning"
+  }
+}
+
+# Filter Configuration - Example using a simple filter
+filter {
+  grok {
+    match => { "message" => "%{COMBINEDAPACHELOG}" }
+  }
+}
+
+# Output Configuration - Sending data to Elasticsearch
+output {
+  elasticsearch {
+    hosts => ["elasticsearch:9200"]
+    index => "your_index_name"
+  }
+}
+
+>>then paste this Ip address of logstash the this IP into the filebeat if you used that one kubernetes
+>>logstash and elasticsearch and kibana will be installed in same server  
+>>helm repo add elastic https://helm.elastic.co 
+>>wget https://helm.elastic.co   -->it will download the file 
+>>then modify the filebeat.yml file your kibana ip or logsatsh ip with port number 5044 
+>>then execute this command below 
+>>helm install filebeat elastic/filebeat -f filebeat-values.yaml   --?it will override the values.yaml file in filebeat 
+
+>>if you want add the helm do this 
+>>helm repo list
+>>helm search prometheus fluentd
+>>helm repo add elastic https://helm.elastic.co 
+>>helm inspect value stable/fluentd  > /tmp/fluentd.values  -->you can modify you want 
+>>wget https://helm.elastic.co   -->it will download the file 
+
+
+how to create the graphs in elk 
+
+>>see video 66 21mins 
+latency
+>>go to visulaize library >>create the visualizations >>select the lines or what you want >>select frontend or your components side of the search paina >>select the line >>select the horizontal 
+date histgram @timestamp verticalaxis alstminute = responce_time click on ok 
+>>go to dashboard >>click on add from library >>select that anji-latency >>click on save 
+traffic 
+>>go to visulaize library >>create the visualizations >>select the lines or what you want >>select frontend or your components side of the search paina >>select the line >>select the horizontal 
+date histgram @timestamp verticalaxis count = records  click on ok 
+>>go to dashboard >>click on add from library >>select that anji-latency >>click on save 
+error 
+>>go to visulaize library >>create the visualizations >>select the lines or what you want >>select frontend or your components side of the search paina >>select the line >>select the horizontal 
+date histgram @timestamp verticalaxis count = records click on advance options add this http_status > 400 >> click on ok 
+>>go to dashboard >>click on add from library >>select that anji-latency >>click on save 
+>>if you want add the count of the each value error trafic latency then go the visualize library select the trafic what you select the count below and the click on new visualization  -->repeat
+it same for three times change the board name  
+>>and add this dashboard
+>>like this if you want to add the endponits same dashboard 
+>>go to visualization library select the error click on breakdown click on filters http_path://api/shipping name shipping like cart and catalogue and users and click on new visualization
+>>go to visualization library select the traffic click on breakdown click on filters http_path://api/shipping name shipping like cart and catalogue and users and click on new visualization
+>>go to visualization library select the latency click on breakdown click on filters http_path://api/shipping name shipping like cart and catalogue and users and click on new visualization
+
+333-what is the use of K8s in production 
+
+1-high availability
+2-scalibility
+3-Fault tolerant
+4-elasticity or auto-scaling 
+5-self healing 
+
+334-how to create the users in k8s 
+
+where we can assign roles service account and users then we can rolebinding 
+k8s dont have any user management authentication by default 
+>>cat .kube/config 
+>>kubectl config view  -->it will show the 
+>>create anji.key and anji.csr and sign the cert with K8s cluster CA Authority 
+>>kubectl api-resource 
+role for only one namespace then rolebinding
+
+i have one user anji he needs anji-dev namespace access to create deployment and apps delete create 
+you need to create role anji and then role-binding if you want add one more namespace then create role and rolebinding  instead of this craete clusterrole and the rolebinding you can mention anji-dev 
+and one ore name space like anji-prod like this how many you want you can craete createing one clusterrole then createing multiple rolebbining for multiple namespace  then give config file 
+if you dont want give single namespace the cluserrole and clusterrolebinding 
+in cluserrole and role we can mention what he cna do 
+
+>>you have use kops then you can copy this keys into ca.key and ca.crt into kops cluster then do this commands 
+>>openssl genrsa -out anji.key 2048
+>>openssl req -new -key anji.key -out anji.csr -subj "/CN=anji/o=development"
+>>ls 
+anji.key 
+anji.csr
+ca.key
+ca.crt 
+>>kubectl config view 
+>>openssl x509 -req -in anji.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out anji.crt -days 500 
+>>kubectl config set-credentials anji --client-certificate anji.crt --client-key anji.key 
+>>kubectl config view 
+>>kubectl create namespace anji-test 
+>>kubectl config set-context anji-context --cluster=anji-cluster --namespace=anji-test --user=anji 
+>>now you can create role and rolebinding 
+>>cat ./kube/config  >anji_config 
+>>mkdir anji 
+>>cd ..
+>>mv anji_config anji.crt anji.csr anji.key /anji/
+>>vi anji_config
+
+apiVersion: v1
+cluster:
+- cluster:
+    certificate-authority-data: hka07809n09snshn990nsn9j9no90--
+    server: https://api.anji-cluster.xyz
+  name: anji-cluster.xyz
+contexts:
+- context:
+    cluster: anji-cluster.xyz 
+    namespace: anji-test  ##if you given clusterrole then remove this if its there no probelam also 
+    user: anji 
+  name: anji-context 
+current-context: anji-context 
+kind: config 
+preferences: {}
+users:
+- name: anji 
+  user: 
+    client-certificate: anji.crt 
+    client-key: anji.key 
+
+>>then cteate the service account and role and rolebinding if he need clusterrole and clusterrolebinding
+>>zip anji.zip anji_config anji.key anji.csr anji.crt   -->give this zip file to ani when he can 
+install kubectl and set the path he can get accees what are the permission he have   
+
+==================================AWS-EKS ==========================
+
+>>In AWS-EKS create user and give access to eks cluster 
+
+>>you have cluster in eks 
+>>create user anji dont give any roles or permission 
+>>then create the policy select the eks list and read the cluster and click on next if you have multiple cluser then selecct the cluster you want give access paste the ARN then attach this policy to anji user 
+>>go to anji user create access key and secret key 
+>>aws config 
+access_key = ccccccccccccccccccccccc
+secret_key = ccccccccccccccccccccccc
+region     = us-east-1
+>>install kubectl 
+>>install eksctl 
+>>aws eks list-clusters 
+>>aws eks update-kubeconfig --name anji-cluster --region us-east-1  
+>>kubectl get nodes  -->you will get an error you dont have access 
+>>kubectl get pods   -->you will get an error you dont have access 
+>>go the eks cluster 
+>>kubectl get configmap -n kube-system   -->you will see aws-auth  this file used by aws for eks authenticate purpose 
+>>kubectl edit configmap aws-auth -n kube-system   -->add anji user and arn 
+
+apiVersion: v1 
+data:
+  mapRoles: |
+    - groups:
+      - system:bootstrappers
+      - system:nodes
+      rolearn: arn:aws:iam:8679089768:role/EKS_Node_Role
+      username: system:node:{{EC2PrivateDNSName}}
+  mapUsers: |   ##here only your adding anji user if you have multiple users tehn you can add 
+    - userarn: arn:aws:iam:8679089768:user/anji 
+      username: anji      
+kind:
+metadata:
+  creationTimestamp: "2022-11-23TO1:54:16Z"
+  name: aws-auth
+  namespace: kube-system
+  resourceVersion: "6493"
+  selfLink: /api/v1/namespace/kube-system/configmaps/aws-auth 
+  uid: aae78ab-f809-5uboab0-n78-sjkba80blap
+
+>>now go the anji system 
+>>kubectl get nodes   -->you will get an eror 
+>>kubectl get pods    -->you will get error 
+>>now go the admin user system of eks 
+
+>>create role this only for single namesapce if you want multiple namesapce then you need create same like this many roles if you dont want use many roles then create clusterrole then craeted rolbinding 
+everyname space 
+ex: you created cluserrole tehn rolbinding anji namespace and sampi namespace like this many namespace instead of create cluserrole and cluster rolebinding he can all the namesapce with clsuerrole and
+clusterrolebinding  
+
+apiVerison: rbac.authorization.k8s.io/v1beta1
+kind: Role 
+metadata:
+  name: anji-role
+  namespace: anji  #he will get only anji namespace
+rules:
+  - apiGroup: [""]  ##user get pods and replicationcontroller and deployment fill access 
+    resource: ["pods","apps","replicationcontroller"]
+    verbs: ["get","update","list","create","delete"]  
+  - apiGroup: [""]  ##he can get the service access but not to delete the service 
+    resource: ["servcie"]  
+    verbs: ["get","update","list","create"]
+    - apiGroup: [""]  ##he can get the stateful access but not to delete the service 
+    resource: ["statefulset"]  
+    verbs: ["get","update","list","create","watch"]
+
+then we can role binding that user to anji namespace only 
+apiVerison: rbac.authorization.k8s.io/v1beta1
+kind: RoleBinding   
+metadata:
+  name: anji-role-binding 
+  namespace: anji  #he will get only anji namespace
+subjects:
+- kind: user 
+  name: anji 
+  apiGroup: rbac.authorization.k8s.io 
+roleRef:
+  kind: Role
+  name: anji-role 
+  apiGroup: rbac.authorization.k8s.io 
+
+apiVerison: rbac.authorization.k8s.io/v1beta1
+kind: Role 
+metadata:
+  name: anji-dev
+  namespace: anji-dev  #he will get only anji-dev namespace
+rules:
+  - apiGroup: [""]  ##user get pods and replicationcontroller and deployment fill access 
+    resource: ["pods","apps","replicationcontroller"]
+    verbs: ["get","update","list","create","delete"]  
+  - apiGroup: [""]  ##he can get the service access but not to delete the service 
+    resource: ["servcie"]  
+    verbs: ["get","update","list","create"]
+    - apiGroup: [""]  ##he can get the stateful access but not to delete the service 
+    resource: ["statefulset"]  
+    verbs: ["get","update","list","create","watch"]
+
+then we can role binding that user to anji-dev namespace only 
+apiVerison: rbac.authorization.k8s.io/v1beta1
+kind: RoleBinding   
+metadata:
+  name: anji-dev-binding 
+  namespace: anji-dev  #he will get only anji-dev namespace
+subjects:
+- kind: user 
+  name: anji 
+  apiGroup: rbac.authorization.k8s.io 
+roleRef:
+  kind: Role
+  name: anji-role 
+  apiGroup: rbac.authorization.k8s.io 
+
+apiVerison: rbac.authorization.k8s.io/v1beta1
+kind: Role 
+metadata:
+  name: anji-prod
+  namespace: anji-prod  #he will get only anji-prod namespace
+rules:
+  - apiGroup: [""]  ##user get pods and replicationcontroller and deployment fill access 
+    resource: ["pods","apps","replicationcontroller"]
+    verbs: ["get","update","list","create","delete"]  
+  - apiGroup: [""]  ##he can get the service access but not to delete the service 
+    resource: ["servcie"]  
+    verbs: ["get","update","list","create"]
+    - apiGroup: [""]  ##he can get the stateful access but not to delete the service 
+    resource: ["statefulset"]  
+    verbs: ["get","update","list","create","watch"]
+
+then we can role binding that user to anji namespace only 
+apiVerison: rbac.authorization.k8s.io/v1beta1
+kind: RoleBinding   
+metadata:
+  name: anji-prod-binding 
+  namespace: anji-prod  #he will get only anji-prod namespace
+subjects:
+- kind: user 
+  name: anji 
+  apiGroup: rbac.authorization.k8s.io 
+roleRef:
+  kind: Role
+  name: anji-prod 
+  apiGroup: rbac.authorization.k8s.io 
+
+>>you can go and check anji user sysetm 
+>>kubectl get pods -n anji  -->he will get he have permission
+>>kubectl get services -n anji anji-dev anji-prod   -->like this what he have  
+
+------------------cluserrole and rolebinding 
+>>you will create the clusterrole for all the namespace but controlling through rolebinding
+
+apiVerison: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRole 
+metadata:
+  name: anji-cluster
+rules:
+  - apiGroup: [""]  ##user get pods and replicationcontroller and deployment fill access 
+    resource: ["pods","apps","replicationcontroller"]
+    verbs: ["get","update","list","create","delete"]  
+  - apiGroup: [""]  ##he can get the service access but not to delete the service 
+    resource: ["servcie"]  
+    verbs: ["get","update","list","create"]
+    - apiGroup: [""]  ##he can get the stateful access but not to delete the service 
+    resource: ["statefulset"]  
+    verbs: ["get","update","list","create","watch"]
+
+then we can role binding that user to anji namespace only 
+apiVerison: rbac.authorization.k8s.io/v1beta1
+kind: RoleBinding   
+metadata:
+  name: anji-role-binding 
+  namespace: anji  #he will get only anji namespace
+subjects:
+- kind: user 
+  name: anji 
+  apiGroup: rbac.authorization.k8s.io 
+roleRef:
+  kind: ClusterRole
+  name: anji-cluster
+  apiGroup: rbac.authorization.k8s.io 
+
+then we can role binding that user to anji-dev namespace only . like this we are giving what namespace he want access we are controlling through the rolebinding 
+apiVerison: rbac.authorization.k8s.io/v1beta1
+kind: RoleBinding   
+metadata:
+  name: anji-dev-binding 
+  namespace: anji-dev  #he will get only anji namespace
+subjects:
+- kind: user 
+  name: anji 
+  apiGroup: rbac.authorization.k8s.io 
+roleRef:
+  kind: ClusterRole
+  name: anji-cluster
+  apiGroup: rbac.authorization.k8s.io 
+
+---------------------clusterrole and clusterrolebinding --------all the namesapce 
+
+>>he will get clusterrole to all namespaces but only you mention permission only if you want you can add then you enabling clusterrolebinding tehn he will get all the namespace  
+apiVerison: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRole 
+metadata:
+  name: anji-cluster ##he will get all the namesapce with this permissions only  
+rules:
+  - apiGroup: [""]  ##user get pods and replicationcontroller and deployment fill access 
+    resource: ["pods","apps","replicationcontroller"]
+    verbs: ["get","update","list","create","delete"]  
+  - apiGroup: [""]  ##he can get the service access but not to delete the service 
+    resource: ["servcie"]  
+    verbs: ["get","update","list","create"]
+    - apiGroup: [""]  ##he can get the stateful access but not to delete the service 
+    resource: ["statefulset"]  
+    verbs: ["get","update","list","create","watch"]
+
+apiVerison: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRole   
+metadata:
+  name: anji-ClusterRole  
+subjects:
+- kind: user 
+  name: anji 
+  apiGroup: rbac.authorization.k8s.io 
+roleRef:
+  kind: ClusterRole
+  name: anji-cluster
+  apiGroup: rbac.authorization.k8s.io 
+
+334-how to assign ssl certificate using yaml in ingress 
+
+>>if you have doubt see the sree harsha video of GKE in GCP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+      - name: my-app-container
+        image: your-docker-image:tag
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-app-service
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+spec:
+  selector:
+    app: my-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080  # Assuming your application runs on port 8080
+  type: LoadBalancer
+
+kubectl create secret tls anji-tls-key-crt --key="tls.key" --cert="tls.crt"
+
+apiVersion: networking.k8s.io/v1 
+kind: Ingress
+metadata: vote-ingress
+  name: 
+spec:
+  ingressClassName: nginx 
+  tls:
+  - hosts:
+    - www.anji.com 
+    secretName: anji-tls-key-crt
+  rules:
+  - host: www.anji.com 
+    http:
+      paths:
+      - paths: /
+        pathType: Prefix 
+        backend:
+          service:
+            name: anji-service ###it will represent anji-service what you deployed as  service   
+            port:
+              number: 80 
+---
+apiVersion: networking.k8s.io/v1 
+kind: Ingress
+metadata: vote-ingress
+  name: 
+spec:
+  ingressClassName: nginx 
+  tls:
+  - hosts:
+    - www.anji.com 
+    secretName: anji-tls-key-crt
+  rules:
+  - host: result.anji.com 
+    http:
+      paths:
+      - paths: /
+        pathType: Prefix 
+        backend:
+          service:
+            name: anji-service ###it will represent anji-service what you deployed as  service   
+            port:
+              number: 80 
 
 253-how to pass the secret manager credential to jenkins pipeline 
 
