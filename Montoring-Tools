@@ -491,4 +491,575 @@ with ec2-read-only-access is enough attach that role Prometheus server
 3-Alerting 
 4-Graphing / Trends 
 
-51-
+51-what is the difference logging and montoring 
+
+
+
+===============================================Datadog============================================== 
+1-what is Datadog 
+
+>>Datadog is multi-cloud and k8s and serverless solution for montoring metrics and events, aggregating logs, visualizing data in dashboard and alerting 
+>>Datadog have many pre-build dashboard you can us that like AWS overview it will show the AWS all components you connected are integration accepted 
+>>Datado have many Features
+1-Integrations
+2-Dashboards
+3-infrastructure montoring 
+4-Log management
+5-APM(Application performance montoring)
+6-Continous profiles(application performance how much latency)
+7-synthetic montoring 
+8-network montoring
+9-security Monitoring
+10-alerts 
+11-error tracking 
+12-incident management
+13-database montoring
+14-cloud-montior 
+
+2-what is Integration in Datadog 
+
+>>Integration is used to Integrate with cloud providers for their infra metris (i.e EC2,ELB,DynmoDB,RDS Metrics) or any linux servers 
+Integration To AWS :-
+- Open the Datadog AWS integration tile. Click the Install button to install this integration.
+- Under the Configuration tab, choose Automatically Using CloudFormation. If you already have an attached AWS account, click Add another account first. - If you add another account, give it a different name than the IAM Role you have already registered, because specifying the same name results in access denial.
+- Login to the AWS console.
+- On the CloudFormation page:
+    - Provide your Datadog API key.
+    - If you would like to enable Resource Collection (required for some products and features), you must set the CloudSecurityPostureManagementPermissions parameter to “true”.
+    - Check the two acknowledgement boxes at the bottom
+    - Create a new stack
+- Update the Datadog AWS integration tile with the IAM role name and account ID used to create the CloudFormation stack.
+
+3-what are the Integration will support in aws Resources
+
+1-API-Gateway 
+2-APP Runner
+3-APPStream
+4-APPSync
+5-Athena
+6-Billing
+7-Auto-scaling
+8-CloudFront
+9-Billing 
+10-CloudTrail
+11-EC2
+12-ELB 
+13-Elastic Search 
+14-EKS 
+15-VPC 
+16-Stoarge(S3) 
+17-Route53
+18-WAF 
+19-SNS
+20-SQS
+
+3-what is Dashboard in Datadog
+
+>>we can create the Dashboard for live and high-resolution dashboard for metrics(CPU & Memory & disk utilization) and events (docker & K8s evenets etc) synchronous mousing across all graphs   
+>>Dashboards > Dashboards list
+
+4-what is infrastructure in Datadog
+
+>>infrastructure contain track hosts, containers, pods and serverless functions. quickly visualize your environment, identify outliers, detect usage patterns 
+
+5-what is Infra list Datadog 
+
+>>Infrastructure list shows all of your hosts monitored by Datadog with activity during the last 2 hours(default) and up to 1 week. Search your hosts, or group them by tags
+
+6-what is hostmap in Datadog in Infrastructure
+
+>>Host Maps visualize hosts together on one screen, with metrics made comprehensible through color and shape:
+>>Host maap using you can see the how much instance or pods using te cpu or memory usage 
+
+- Host maps enable you to see __distributions of machines in each of your availability zones__ (AZ)
+- color of each host is set to represent the percentage of __CPU usage__ on that host, where the color ranges from green (0% utilized) to __orange__ (100% utilized)
+__Filter by__ limits the Host Map to a specific subset of an infrastructure. The filter input bar in the top left enables filtering of the Host Map by tags as well as Datadog-provided attributes.
+
+7-what is Configure map in Datadog infrastructure
+
+>>You can see all of your containers together on one screen with customized groupings and filters, as well as metrics made instantly comprehensible through color and shape.
+
+8-what is Live container in datadog under conatiners
+
+>>Datadog Live Containers enables real-time visibility into all containers across your environment.
+
+- monitor the state of pods, deployments
+- view resource specifications
+- correlate node activity with related logs
+
+9-what is conatiners view in Infrastructure
+
+>>The Containers view includes Scatter Plot and Timeseries views, and a table to better organize your container data by fields such as container name, status, and start time.
+
+10-is it possible to store the logs form datadog to S3 bucket 
+
+>>yes read this article 
+https://docs.datadoghq.com/logs/log_configuration/archives/?tab=awss3
+
+5-what is log management in Datadog 
+
+>>in datadog there option availbile log management and aggreagator and visualize logs you can search date and string its very helpful you can check the pod logs and everything 
+>>it will provide time series incident also like cloud CloudWatch. you can also patterns  
+>>You can collect, analyze, and explore logs from everywhere (service, container, cloud) and can view them in one dashboard.
+>>Also, you can __correlate__ logs with metrics (CPU, memory, disk, network etc) and tracing. (AWS Cloud Watch Logs and Metrics can __NOT__ correlate each other)
+
+6-how to Enable Kubernetes Log Collection in Datadog
+
+>>The Datadog Agent can collect logs directly from __container stdout/stderr__ without using a logging driver. 
+
+Datadog Agent deployed by Helm chart can collect logs from containers, and config can be set in yaml.
+datadog:
+  ## @param logs - object - required
+  ## Enable logs agent and provide custom configs
+  #
+  logs:
+    ## @param enabled - boolean - optional - default: false
+    ## Enables this to activate Datadog Agent log collection.
+    #
+    enabled: true
+
+    ## @param containerCollectAll - boolean - optional - default: false
+    ## Enable this to allow log collection for all containers.
+    #
+    containerCollectAll: true
+```
+
+Upgrade the chart
+```sh
+helm upgrade datadog \
+  -f overrides.yaml \
+  datadog/datadog \
+  --set datadog.apiKey=YOUR_API_KEY
+```
+
+7-how to Filter, Aggregate, Visualize Logs
+
+>>You can filter by K8s service name, name space, pod name, status, etc from left pane (facets panel, more on later).
+>>Based on this, you want to search logs with `Incrementing metric` but want to exclude `acceptance-test`
+
+8-what is Scrub Sensitive Info in Logs before Pushed to Datadog
+
+You can use regex to find patterns (email, credit card, social security #, etc) and srub them from logs.
+
+You specify Datadog log config as k8s annotations at `spec.template.medatada.annotations`:
+
+```yaml
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: cardpayment
+spec:
+  selector:
+    matchLabels:
+      app: cardpayment
+  template:
+    metadata:
+      annotations: # <----- spec.template.medatada.annotations
+        ad.datadoghq.com/cardpayment.logs: >-
+          [{
+            "source": "java",
+            "service": "cardpayment",
+            "log_processing_rules": [{
+              "type": "mask_sequences",
+              "name": "mask_credit_cards",
+              "replace_placeholder": "[masked_credit_card]",
+              "pattern" : "(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\\d{3})\\d{11})"   // <---- Regex pattern
+            }]
+          }]          
+      labels:
+        app: cardpayment
+      name: cardpayment
+    spec:
+      containers:
+        - name: cardpayment
+          image: cardpayment:latest
+```
+
+9-what is log pipeline and how to configure 
+
+>>Pipelines take logs from a wide variety of formats and translate them into a common format in Datadog. Implementing a log pipelines and processing strategy is beneficial as it introduces an attribute naming convention for your organization.
+
+>>With __pipelines__, logs are __parsed and enriched__ by chaining them sequentially through processors. This __extracts__ meaningful __attributes__ from semi-structured text to reuse as __facet__. 
+>>Preprocessing of JSON logs__ occurs before logs enter pipeline processing. Preprocessing runs a series of operations based on reserved attributes, such as timestamp, status, host, service, and message.
+
+10-What is Log Index
+
+>>Log Indexes provide fine-grained control over your Log Management budget by allowing you to segment data into value groups for differing retention, quotas, usage monitoring, and billing
+>>Index config is about how long to retain what kind of logs based on tags and attributes (i.e. you want to keep logs with `status:error` for 15 days)
+>>you can also exclude something 
+>>It's critical to exclude some unimportant logs. 
+>>For example, if you are using Istio service mesh in K8s cluster, then all the traffic going in and out of pods are intercepted by istio sidecar proxy container. Those istio proxy logs can grow gigantic, so it's important to exclude logs from `service:proxyv2` when indexing.
+
+11-what is Archive Logs
+
+>>Configure your Datadog account to __forward all the logs ingested - whether indexed or not - to a cloud storage__. Keep your logs in a storage-optimized archive for longer periods of time and meet __compliance requirements__ while also keeping __auditability__ for ad hoc investigations, with Rehydration.
+>>you can store the logs from datadog to S3 is possible 
+
+12-What is Facets
+
+>>Facets__ are __user-defined tags and attributes__ from your __indexed logs__ to:
+- Search upon your logs
+- Define log patterns
+- Perform Log analytics 
+>>The easiest way to create a facet is to add it from the __log side panel__, where most of the facet details—such as the field name or the underlying type of data—are pre-filled and it’s only a matter of double-checking:
+
+6-what is events in Datadog 
+
+>>you can montior evnets from AWS and GCP , AZure ,Docker, K8s and etc. you can filter by user, source, tags, host , status ,protity, and incident 
+>>There are more than 100 Datadog integrations support events collection, including Kubernetes, Docker, Jenkins, Chef, Puppet, AWS ECS or Autoscaling, Sentry, and Nagios.
+>>For example, if a __docker container__ exits with error, or __K8s pod__ gets terminated due to an error, Datadog will pick up those as events.
+>>ec2 terminated
+>>helath check failed event in load balancer
+>>auto-scaling scaled or scaled in is one event 
+>>pod is created is also event 
+>>pod is terminated is also event 
+>>Kubernetes events are beginning to flow into your Datadog account, and relevant metrics collected by your Agents are tagged with their corresponding cluster level metadata.
+
+7-what is Event Streams
+
+>>The Datadog Events Stream shows an instant view of your infrastructure and services events, to help you troubleshoot issues happening now or in the past.
+
+8-What is StatsD?
+
+>>The easiest way to get your custom application metrics into Datadog is to send them to DogStatsD, a metrics aggregation service bundled with the Datadog Agent
+Enable StatsD to collect custom metrics:-
+Configure Datadog Helm chart's overrides.yaml:
+```sh
+dogstatsd:
+    port: 8125
+    useHostPort: true
+    nonLocalTraffic: true
+```
+
+Then helm upgrade.
+
+You need to install DogStatsD client library to your code (python, Java, .Net, Go, PHP, etc)
+
+For Python,
+```sh
+pip install datadog
+```
+
+Then
+```py
+from datadog import initialize, statsd
+
+options = {
+    'statsd_host':'127.0.0.1',
+    'statsd_port':8125
+}
+
+initialize(**options)
+```
+
+
+For [Nodejs](https://docs.datadoghq.com/integrations/node/),
+```sh
+npm install hot-shots
+```
+
+Then in app code,
+```js
+var StatsD = require('hot-shots');
+var dogstatsd = new StatsD();
+
+// Increment a counter.
+dogstatsd.increment('page.views')
+```
+
+9-What Metrics in K8s Cluster to Monitor?
+
+- https://www.datadoghq.com/blog/monitoring-101-collecting-data/
+- https://www.datadoghq.com/blog/eks-cluster-metrics/
+- https://www.datadoghq.com/blog/monitoring-kubernetes-performance-metrics/#toc-resource-utilization6
+
+  - node status
+    - OutOfDisk
+    - Ready
+    - MemoryPressure (node memory is too low)
+    - PIDPressure (too many running processes)
+    - DiskPressure (remaining disk capacity is too low)
+    - NetworkUnavailable
+  - Desired Pods
+  - Current Pods
+  - Pod capacity
+  - Available Pods
+  - Unavailable Pods
+- Container and node resource metrics
+  ![alt text](../imgs/resource_metrics.png "")
+  - Memory requests	
+  - Memory limits	
+  - Allocatable memory	
+  - Memory utilization	
+  - CPU requests	
+  - CPU limits
+  - Allocatable CPU
+  - CPU utilization	
+  - Disk utilization		
+- AWS service metrics
+
+10-- Service Level Indicator (SLI)
+- Service Level Objective (SLO)
+- Service Level Agreement (SLA)
+- Error Budget
+
+7-what is Montiro and alerts 
+
+>>in Datadog alerts based on custom metrics(# of k8s host and pods resource utilization , existance/absense of certain key words in logs or metrics) 
+>>you can montior k8s if any usgae happiens we can get the notification you can configure as you want 
+>>Metrics can be fetched from existing Dashboard's widgets, or Datadog integration documents (`Data collected` section lists all kinds of metrics)
+
+11-what is Tags
+
+>>Tags are a way of adding dimensions to Datadog telemetries so they can be filtered, aggregated, and compared in Datadog visualizations.
+>>The Agent can create and assign tags to all metrics, traces, and logs emitted by a Pod, based on its labels or annotations
+
+Some reserved tags are:
+- __host__:	Correlation between metrics, traces, processes, and logs
+- __device__:	Segregation of metrics, traces, processes, and logs by device or disk
+- __source__:	Span filtering and automated pipeline creation for log management
+- __service__:	Scoping of application specific data across metrics, traces, and logs
+- __env__:	Scoping of application specific data across metrics, traces, and logs
+- __version__:	Scoping of application specific data across metrics, traces, and logs
+
+Why Tags?
+
+> it’s more helpful to look at CPU usage across a __collection of hosts__ that represents a service, rather than CPU usage for __server A or server B__ separately.
+
+12-what are Default Out-of-the-Box Tags Created by Datadog Agent
+
+- __container_id__
+- __display_container_name__
+- __pod_name__
+- __kube_ownerref_name__
+- __kube_job__
+- __kube_replica_set__
+- __kube_service__
+- __kube_daemon_set__
+- __kube_container_name__
+- __kube_namespace__
+- __kube_app_name__
+- __kube_app_instance__
+- __kube_app_version__
+- __kube_app_component__
+- __kube_app_part_of__
+- __kube_app_managed_by__
+- __pod_phase__
+- __environment__
+- __kube_ownerref_kind__
+- __kube_deployment__
+- __kube_stateful_set__
+- __persistentvolumeclaim__
+- __kube_cronjob__
+- __image_name__
+- __short_image__
+- __image_tag__
+
+13-what is Unified Service Tagging
+
+>>ties all Datadog telemetry together (hence `unified`), including logs, metrics, infra, through the use of three standard tags: `env`, `service`, and `version`. 
+>>With __Unified Service Tagging__, you can 
+> View service data __based on environment or version__ in a __unified fashion__ within the Datadog site. Also navigate seamlessly across traces, metrics, and logs with consistent tags
+>>This means you can visualize data based on env or version value without switching views. And __correlating metrics, logs, and traces__ are as easy as __clicking tabs on dashboard or right clicking the value__.
+
+--like this you can add tags 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    # this part is for Kubernetes State Metrics
+    tags.datadoghq.com/env: "<ENV>"  # <---------- three tags as labels
+    tags.datadoghq.com/service: "<SERVICE>"
+    tags.datadoghq.com/version: "<VERSION>"
+
+8-what is APM (application performance Monitoring)
+
+>>APM stands for application performance Monitoring and tracing you can scan and monitor application performance(latency, error rates,etc ) by tracing request 
+>>you can tarce the status code and http requests and you can see the logs 
+>>if you use APM you can see the pod logs and metrics and as wll as tags and network and processes 
+>>you can use in kiali and jaeguer in istio like it wil free in k8s when you install  
+>>End-to-end request tracing from frontend to database for errors and latency.
+>>Notice the use of tags (`service`, `env`, `version`) as labels in K8s deployment yaml (Refer to ch9.3 How to Enable Unified Service Tagging)
+
+There are two ways:
+- automatically with the __Datadog Admission Controller__, or
+- manually; the application container needs the `DD_AGENT_HOST` environment variable that points to `status.hostIP`
+
+
+__Automatically__ let [Datadog Admission Controller](https://docs.datadoghq.com/agent/cluster_agent/admission_controller/) inject `DD_AGENT_HOST` and `DD_ENTITY_ID` envs to container to configure DogStatsD and APM tracer libraries into the user’s application containers.
+
+DAC will also inject Datadog standard tags or unified service tags (`env`, `service`, `version`) from application labels into the container environment variables.
+
+```yaml
+clusterAgent:
+[...]
+  ## @param admissionController - object - required
+  ## Enable the admissionController to automatically inject APM and
+  ## DogStatsD config and standard tags (env, service, version) into
+  ## your pods
+  #
+  admissionController:
+    enabled: true # <---------
+
+    ## @param mutateUnlabelled - boolean - optional
+    ## Enable injecting config without having the pod label:
+    ## admission.datadoghq.com/enabled="true"
+    #
+    mutateUnlabelled: true  # <---------
+```
+
+10-what is live search 
+
+With the __APM Live Search__ you can:
+- Monitor that a new deployment went smoothly by filtering on `version_id` of all tags.
+- View outage-related information in real time by searching 100% of ingested traces for a particular org_id or customer_id that is associated with a problematic child span.
+- Check if a process has correctly started by typing process_id and autocompleting the new process ID as a tag on child spans.
+- Monitor load test and performance impact on your endpoints by filtering on the duration of a child resource.
+- Run one-click search queries on any span or tag directly from the trace panel view.
+- Add, remove, and sort columns from span tags for a customized view.
+
+11-what is Create Custom Retention Filter
+
+>>Ingested and kept for __15 mins__ for live search > Indexed using custom tags in retention filter for __15 days__
+>>To ensure all __production errors__ are retained and available for search and analytics for 15 days, create a 100 percent retention filter scoped to `env:prod` and `status:error`:
+>>For 30 days, intelligent retention retains:
+- A representative selection of __errors__, ensuring error diversity (for example, response code 400s, 500s).
+- __High Latency__ in the different quartiles p75, p90, p95.
+- All Resources with any traffic will have associated Traces in the past for any time window selection.
+- True maximum duration trace for each time window.
+
+12-How to Connect Logs and Traces side-by-side
+
+>>Correlation between Datadog APM and Datadog Log Management is improved by the injection of __trace IDs, span IDs__, env, service, and version as attributes in your logs.
+
+Enable injection with the environment variable `DD_LOGS_INJECTION=true` in k8s deployment yaml
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    tags.datadoghq.com/env: "<environment>"
+    tags.datadoghq.com/service: "<service>"
+    tags.datadoghq.com/version: "<version>"
+spec:
+  template:
+    metadata:
+      labels:
+        tags.datadoghq.com/env: "<environment>"
+        tags.datadoghq.com/service: "<service>"
+        tags.datadoghq.com/version: "<version>"
+    spec:
+      containers:
+        - env:
+            - name: DD_AGENT_HOST
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: DD_ENV
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.labels['tags.datadoghq.com/env']
+            - name: DD_VERSION
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.labels['tags.datadoghq.com/version']
+            - name: DD_LOGS_INJECTION  # <--- set this env to inject trace & span IDs to container. Ref: https://docs.datadoghq.com/tracing/connect_logs_and_traces/nodejs/
+              value: "true"
+```
+9-what is synthetic in Datadog
+
+>>Monitor and test endpoints (HTTP, SSL, DNS, TCP, and ICMP) for SLAs and track performance issues
+>>it is like Monitor and test public endpoints SLAs and track performance issues 
+>>you can create like acceptance test and endpoint testing and you can cutomize the frequency testing 
+>>you can see the uptime and server Responce and helath check and you can breaddkdown latency breakdwon  
+>>Synthetic tests allow you to observe how your systems and applications are performing using simulated requests and actions from around the globe. Datadog tracks the performance of your webpages and APIs from the backend to the frontend, and at various network levels (HTTP, TCP, SSL, DNS, and ICMP) in a controlled and stable way,
+
+10-what is network monitoring 
+
+>>you can visualize network traffic flow like kiali dashboard 
+>>where one application pod sending another pod 
+>>you can see the latency error rate and request persecond
+
+11-how to setup the Datadog in kubernetes cluster
+
+>>when you go the datadog dashboard it will give helm you can insatll then install 
+>>when you configure datadog it will configure the demaonset in k8s and it will eploys kube-state-metrics and cluster agent is also added 
+
+helm repo add datadog https://helm.datdoghq.com 
+helm repo add stable https://charts.helm.sh/stable 
+helm repo update 
+helm show values datadog/datadog > overrides.yaml 
+helm install datadog -f override.yaml --set datadog.apikey='hjgp0a09a8vb0h8' datadog/datadog 
+>>if you want change something in override.yaml then upgarde command you need to execute 
+helm upgrade datadog -f  override.yaml --set datadog.apikey='hjgp0a09a8vb0h8' datadog/datadog
+
+>>then go to datadog install kueernetes 
+>>then do to dashboard list you will see the kubernetes dashboard you can select all types of dashboard availble 
+>>its premade dashboards you can use that kubernetes overview it is very helpful it will show the clusters namespaces nodes service deployments pods containers deamonsets 
+>>
+
+12-what is data collected by Datadog Agent 
+
+1-CPU             - System  - All Platforms 
+2-Disk            - Disk    - All Platforms
+3-Docker          - Docker  - Docker  
+4-File Handle     - System  - All Except MAC
+5-IO              - System  - All Platforms
+6-Load            - System  - All except winodws 
+7-Memory          - System  - All Platforms
+8-Network         - Network - All Platforms 
+9-Uptime          - System  - All Platforms
+
+13-what are the Agents Architecture or Two main components 
+
+>>The two main components to the agent process is 
+1-Collector: Collect and checks metrics every 15 seconds 
+2-Forwarder: Send payload over Https to Datadog 
+thre are two more optional agents that can be enables (this will be insatlled in as side car in datadog angent inside 3/3 pods in single pod )
+APM Agnet or (process Agnet): it is a process to collect the traces 
+Process Agent: its a process to collect live process information. By default it only collects availbile containers otherwise it is disabled  
+
+14-how much memory and disk or anything will use datadog agent 
+
+>>in Agent test version 
+CPU: 0.12 of the CPU used on average 
+Memory: 60MB of RAM used 
+Network Bandwidth: 86B/s | 260 B/S
+Disk: linux 350MB to 400MB depending on the distribution 
+      Windows: 260MB  
+
+15-how to save cost in the production avoid collecting logs 
+
+>>Datadog Agent auto-discovers all containers availbile by default. To restrict its discovery permieter and limit data collection to subset of conatiners only include or exclude them through a dedicated configuration
+>>you might want to avoid logs from irrelevent containers such as coredns  , efs-csi-node, kube-proxy, and metrics-server in kube-system to save cost 
+>>you definitely want to avoid collecting logs rom istio proxy container to save cost 
+>>to exclude containers you can use these envs:-
+vi override.yaml 
+env:   --under you can add exclude or include 
+  #- name: DD_CONTAINER_EXCLUDE
+   # value: "image:docker.io/istio/proxyv2 kube_namespace:kube-system kuber_namespace:istio-system kube_namespace:prometheus 
+  - name: DD_CONTAINER_EXCLUDE_LOGS
+    value: "image:docker.io/istio/proxyv2 kube_namespace:kube-system kube_namespace:istio-system kube_namespace:prometheus kube_namespace:grafana kube_namespace:kubernetes-dashboard kube_namespace:jenkins kube_namespace:kube-node-lease kube_namespace:kube-public image:gcr.io/datadoghq/agent image:gcr.io/datadoghq/cluster-agent"
+  - name: DD_CONTAINER_INCLUDE_LOGS
+    value: "image:us.gcr.io/k8s-artifacts-prod/autoscaling/cluster-autoscaler"
+
+kubectl get po -n kube-system  -->this things i dont need to montior 
+
+https://www.cloudzero.com/blog/datadog-cost-optimization/   -->read this better understanding 
+
+16-what is the use of agent in datadog installed in k8s 
+
+>>before agent we install datadog in k8s if you 4 server four deaonsets installed in each node if nodes increase deamonsets wil increase this all deamonsets will report to the k8s API-Server it will increase the server load of API-Server 
+>>Previously, every worker node in the cluster ran a Datadog Agent (__decentralized__) that collected data from two sources:- kubelet, a local daemon that creates the workload on a node - cluster’s control plane, which consists of the API server, the scheduler, the controller manager, and etcd
+>>This led to __increased load__ for API server and etcd when more and more k8s nodes join the cluster.
+
+>>after agent arrival in k8s we install deamonsets and agent all the demaonset report the agnet teh agent report the API-Server it will reduces the burden or traffic of API-server in K8s 
+>>Cluster Agent provides a streamlined, __centralized__ approach to collecting cluster level monitoring data. By acting as a __proxy__ between the API server and node-based Agents, the Cluster Agent helps to alleviate server load. It also relays cluster level metadata to node-based Agents, allowing them to enrich the metadata of locally collected metrics.
+>>You can see that cluster agent pod is proxying on behalf of other datadog agent pods:
+
+- Alleviate the impact of Agents on API server.
+- Isolate node-based Agents to their respective nodes, reducing RBAC rules to solely read metrics and metadata from the kubelet.
+- Provide __cluster level metadata that can only be found in the API server__ to the Node Agents, in order for them to enrich the metadata of the locally collected metrics.
+- Enable the collection of cluster level data, such as the monitoring of services or SPOF and events.
+- Leverage horizontal pod autoscaling with custom Kubernetes metrics. See the guide for more details about this feature.
+
