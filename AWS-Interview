@@ -3584,7 +3584,9 @@ gid  = 1
 
 374-heap space or out of memory
 
->>video 67 1:00:00
+>>The Java heap is the area of memory used to store objects instantiated by applications running on the JVM. When the JVM is started, heap memory is created and any objects in the heap can be shared between
+threads as long as the application is running.
+>>your not mentioning how much memory to consume you need to mention if your not mention by default it will consume more memory
 
 375-is this possible to change the log format in nginx logs 
 
@@ -3596,6 +3598,8 @@ log_format main 'remote_addr $time_local $request $status $body_bytes_sent $requ
 
 376-what is mean by database sharding 
 
+>>sharding helps you to keeping data is highly available
+>>you have two mongo primary servers then secondary replicas each primary that will help you to make highly availble
 >>video 54 01-03-00 time 
 >>videos 58 32 mins 
 
