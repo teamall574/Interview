@@ -3300,7 +3300,17 @@ between and the "$@" special parameter takes the entire list and separates it in
 the value of a variable repeatedly.
 >>if you want re run your commands again and again n number of times loop concepts while helpful
 
+279-shell script use while loop and for loop 
 
+while true 
+do 
+curl -sL http://53.65.36.96 | grep -i '\-inst'
+done   -->this unlimited time execute until you stop 
+
+for i in cart app yellow shipping login ( or use this ) "cart" "app" "yellow" "shipping" "login"
+do 
+docker push anji1592/$i
+done  -->this is limited because you mention i value 
 
 
 
