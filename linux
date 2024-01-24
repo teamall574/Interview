@@ -139,11 +139,11 @@ $  -->normal user
 >>cat /etc/os-release   -->it will show the relases of your server
 >>cat /proc/cpuinfo   -->To check the CPU information
 >>cat /proc/meminfo    -->To check the memory information
->>uname   -->it will show operating system using
+>>uname   -->it will show which operating system you are using
 >>uname -a  -->it will show linux details
 >>uname -r  -->it will show releases
 >>uname --all  -->it will show linux details
->>uname --help  -->it will show details how to use
+>>uname --help  --> It will show details how to use
 >>man uname  -->it will show details how to use or manually how to use
 >>uname -i   -->To check the architecture whether it is 32bit or 64bit
 
