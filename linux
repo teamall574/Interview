@@ -3311,7 +3311,17 @@ do
 docker push anji1592/$i
 done  -->this is limited because you mention i value 
 
+280-most asked commands
 
+>>lsblk  -->hard drives and partitions
+>>ps -ef        -->it is like task manager in linux
+>>cat /proc/cpuinfo   -->cpuinfo 
+>>top          -->it will show the cpu utilization ram and memory and it will show how many service runing in background
+>>free -m 
+>>cat /proc/meminfo  -->to see memory info linux
+>>View memory usage: free -h
+>>df -h -->The df command displays information about total space and available space on a file system.
+>>df -hT    -->it will show the type of harddisk
 
 
 259-what is jq command in linux and shell script
