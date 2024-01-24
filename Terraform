@@ -125,6 +125,55 @@ resource "aws_subnet" "public-subnets" {
     }
 }
 
+ex;-
+docdb = {
+  main = {
+    vpc_name            = "main"
+    subnets_name        = "db"
+    engine_version      = "4.0.0"
+    number_of_instances = 1
+    instance_class      = "db.t3.medium"
+  }
+}
+
+rds = {
+  main = {
+    vpc_name            = "main"
+    subnets_name        = "db"
+    engine              = "aurora-mysql"
+    engine_version      = "5.7.mysql_aurora.2.11.1"
+    number_of_instances = 1
+    instance_class      = "db.t3.small"
+  }
+}
+
+module "docdb" {
+  source = "github.com/raghudevopsb70/tf-module-docdb"
+  env    = var.env
+
+  for_each            = var.docdb
+  subnet_ids          = lookup(lookup(lookup(lookup(module.vpc, each.value.vpc_name, null), "private_subnet_ids", null), each.value.subnets_name, null), "subnet_ids", null)
+  vpc_id              = lookup(lookup(module.vpc, each.value.vpc_name, null), "vpc_id", null)
+  allow_cidr          = lookup(lookup(lookup(lookup(var.vpc, each.value.vpc_name, null), "private_subnets", null), "app", null), "cidr_block", null)
+  engine_version      = each.value.engine_version
+  number_of_instances = each.value.number_of_instances
+  instance_class      = each.value.instance_class
+}
+
+module "rds" {
+  source = "github.com/raghudevopsb70/tf-module-rds"
+  env    = var.env
+
+  for_each            = var.rds
+  subnet_ids          = lookup(lookup(lookup(lookup(module.vpc, each.value.vpc_name, null), "private_subnet_ids", null), each.value.subnets_name, null), "subnet_ids", null)
+  vpc_id              = lookup(lookup(module.vpc, each.value.vpc_name, null), "vpc_id", null)
+  allow_cidr          = lookup(lookup(lookup(lookup(var.vpc, each.value.vpc_name, null), "private_subnets", null), "app", null), "cidr_block", null)
+  engine              = each.value.engine
+  engine_version      = each.value.engine_version
+  number_of_instances = each.value.number_of_instances
+  instance_class      = each.value.instance_class
+}
+
 this can be solved by for_each bcoz it uses key rather than
 
 >>for_each using you can create multiple instances accroding to the map, or set of strings
