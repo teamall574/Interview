@@ -4,6 +4,11 @@ DEVOPS--------------|
 		    |-->C Delivery/deployment  --->Docker/K8S (openshift)
 		    |-->C Monitoring            --->Grafana/Newrelic,Prometheus
 
+1-what is CI-CD
+
+>>CI/CD or CICD is the combined practices of continuous integration and continuous delivery or, less often, continuous deployment. 
+They are sometimes referred to collectively as continuous development or continuous software development.
+
 1-what is DevOps 
 
 >>DevOps is continous evolution process its day by day improbing the process. it is a cluture 
