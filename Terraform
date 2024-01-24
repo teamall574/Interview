@@ -63,6 +63,8 @@ there is chance to overwrite the environmet in case if you do mistake so need to
 
 >>splat syntax if the resource has a count attributes set you can access individual attributes with a zero-based 
 index such as ${aws_instance.web.0.id} you can also use the splat syntax to get a list of attributes ${aws_instance.web.*.id}
+
+>>if you want use subnet_id = aws_subnet.public-subnets[0].id   first subnets then like this it will satrt 0 until you mention like this ${count.index +1}" it will start 1 then 2 then 3 
  
 >>functions using we can do duplicate the code
 >>element idicates when you give the index in terraform it indicates starts from 0 
