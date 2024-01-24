@@ -121,7 +121,8 @@ pipeline {
             }
         }
         stage('get cedentials'){  ##need to add first vault plugin url and then add username and password of vault
-            withVault(configuration: [timeout: 60, vaultCredentialId: 'vaultId', vaultUrl: 'https://172.65.45.3.anji.com'], valueSecret: [path: 'secret/dockercred'], secretValues: [valuekey: 'username'], [valuekey: 'password']) 
+            withVault(configuration: [timeout: 60, vaultCredentialId: 'vaultId', vaultUrl: 'https://172.65.45.3.anji.com'], valueSecret: [path: 'secret/dockercred'], secretValues: [valuekey: 'username'],
+		[valuekey: 'password']) 
             sh 'echo $username' 
         }   
         stage('Docker Build & Push') {  ##this second method 
@@ -741,7 +742,8 @@ that node becomes available to execute the triggered build request.
 >>need to install vault plugin then provide the url of the vault and then username and pasword
 
 stage('get cedentials'){
-	withVault(configuration: [timeout: 60, vaultCredentialId: 'vaultId', vaultUrl: 'https://172.65.45.3.anji.com'], valueSecret: [[path: 'secret/dockercred', secretValues: [[valuekey: 'username'], [valuekey: 'password]]]
+	withVault(configuration: [timeout: 60, vaultCredentialId: 'vaultId', vaultUrl: 'https://172.65.45.3.anji.com'], valueSecret: [[path: 'secret/dockercred', secretValues: [[valuekey: 'username'], 
+	[valuekey: 'password]]]
 	sh 'echo $username'
 }
 
@@ -1058,7 +1060,8 @@ def call() {
 
 79-what is post conditions in Jenkins
 
->>post can support any of the following post-condition blocks: always , changed , fixed , regression , aborted , failure , success , unstable , unsuccessful , and cleanup . These condition blocks allow the execution of steps inside each condition depending on the completion status of the Pipeline or stage.
+>>post can support any of the following post-condition blocks: always , changed , fixed , regression , aborted , failure , success , unstable , unsuccessful , and cleanup . These condition blocks allow the 
+execution of steps inside each condition depending on the completion status of the Pipeline or stage.
 aborted -->stopeed by someone forced to stopeed by someone 
 unstable      -->Its not failure most of the tests are success some of the tests are failed  
 unsuccessful  -->these are same unsuccessful the build 
@@ -1164,25 +1167,31 @@ send_slack_notification:
 
 1-What is Gitlab
 
->>GitLab is a web tool to assist with visualizing and managing your git projects. GitLab includes Git repository management, code reviews, issue tracking, wikis, and more. Collaborate with your team using issues, milestones, and line-by-line code review or view activity streams of projects or the people you work with.
+>>GitLab is a web tool to assist with visualizing and managing your git projects. GitLab includes Git repository management, code reviews, issue tracking, wikis, and more. Collaborate with your team using
+issues, milestones, and line-by-line code review or view activity streams of projects or the people you work with.
 
->>Git and GitLab are here to help with managing projects, merging development between different people, with different time zones, and giving Sealed Air the ability to manage all of its source code in 1 location.
+>>Git and GitLab are here to help with managing projects, merging development between different people, with different time zones, and giving Sealed Air the ability to manage all of its 
+source code in 1 location.
 
 2-When Should I Consider Gitlab?
 
->>Version control software, like Git, allows you to have “versions” of a project, which show the changes that were made to code, or text files, over time, and allows you to backtrack if necessary and undo those changes or merge your code with others, line by line.
+>>Version control software, like Git, allows you to have “versions” of a project, which show the changes that were made to code, or text files, over time, and allows you to backtrack if necessary and undo
+those changes or merge your code with others, line by line.
 
 3-Is it possible to Host the Gitlab in local environment
 
->>You should manually download the GitLab package and relevant dependencies using a server of the same operating system type that has access to the Internet. If your offline environment has no local network access, you must manually transport the relevant package through physical media, such as a USB drive.
+>>You should manually download the GitLab package and relevant dependencies using a server of the same operating system type that has access to the Internet. If your offline environment has no local network
+access, you must manually transport the relevant package through physical media, such as a USB drive.
 
 4-What is the minimum RAM for GitLab?
 
->>Memory. You need at least 2GB of addressable memory (RAM + swap) to install and use GitLab! With less memory GitLab will give strange errors during the reconfigure run and 500 errors during usage. 512MB RAM + 1.5GB of swap is the absolute minimum but we strongly advise against this amount of memory.
+>>Memory. You need at least 2GB of addressable memory (RAM + swap) to install and use GitLab! With less memory GitLab will give strange errors during the reconfigure run and 500 errors during usage.
+512MB RAM + 1.5GB of swap is the absolute minimum but we strongly advise against this amount of memory.
 
 5-Disadvantages of Gitlab
 
->>Even if GitLab is simple to use, it’s a big piece of software that can sometimes become slow on the web user interface. Moreover, the review system is sometimes not so easy to use compared to other competitors.
+>>Even if GitLab is simple to use, it’s a big piece of software that can sometimes become slow on the web user interface. Moreover, the review system is sometimes not so easy to use compared to other 
+competitors.
 
 6-What is GitLab used for?
 
@@ -1190,7 +1199,8 @@ send_slack_notification:
 
 7-Advantages of Gitlab
 
->>The significant advantage of GitLab is it is available for free and easy to manage and configure it. it enables only a limited number of private repository, integrate several API and third-party server and consume only a reliable uptime. The code reviews and pulls up requests made it more compact and user-friendly.
+>>The significant advantage of GitLab is it is available for free and easy to manage and configure it. it enables only a limited number of private repository, integrate several API and third-party servers
+and consume only a reliable uptime. The code reviews and pulls up requests made it more compact and user-friendly.
 1-Manage
 2-plan
 3-Create
@@ -1368,17 +1378,22 @@ Dis-Advantages:-
 
 5-what is Code-Pipeline
 
->>AWS CodePipeline is a continuous delivery service you can use to model, visualize, and automate the steps required to release your software. You can quickly model and configure the different stages of a software release process. CodePipeline automates the steps required to release your software changes continuously.
+>>AWS CodePipeline is a continuous delivery service you can use to model, visualize, and automate the steps required to release your software. You can quickly model and configure the different stages of
+a software release process. CodePipeline automates the steps required to release your software changes continuously.
 >>you can Integrate the code commit and code build you can deploy your code into ECS or Docker or Ec2 like Integrate the GitOps or Ansible or kubernets system deploy your code 
 >>compulsory need appsec.yml if you mention appsec.yaml it will not work use only appsec.yml
 
 6-what is the differnce between Code-Pipeline and Jenkins
 
->>Code-Pipeline:-AWS CodePipeline is a managed CI/CD tool that provides integrated Amazon cloud DevOps tooling. CodePipeline is actually a suite of services. It combines CodeBuild, CodeDeploy and Git-based source code repository CodeCommit.
+>>Code-Pipeline:-AWS CodePipeline is a managed CI/CD tool that provides integrated Amazon cloud DevOps tooling. CodePipeline is actually a suite of services. It combines CodeBuild, CodeDeploy and Git-based 
+source code repository CodeCommit.
 
->>Even though CodePipeline is an AWS tool, it doesn't limit you to Amazon's cloud. You can use CodeDeploy for on-premises deployment by running agents on your private servers. If you're already running a CI tool inside your AWS environment, or have your code stored in GitHub or GitLab, you can also integrate such tools into CodePipeline and only use what you need. For example, you could use CodeDeploy to publish code onto your EC2 instances or Amazon Elastic Container Service containers.
+>>Even though CodePipeline is an AWS tool, it doesn't limit you to Amazon's cloud. You can use CodeDeploy for on-premises deployment by running agents on your private servers. If you're already running a
+CI tool inside your AWS environment, or have your code stored in GitHub or GitLab, you can also integrate such tools into CodePipeline and only use what you need. For example, you could use CodeDeploy to
+publish code onto your EC2 instances or Amazon Elastic Container Service containers.
 
->>Jenkins:-Jenkins is one of the most popular open source CI/CD tools. Although the project started as an automation server, the Jenkins community has developed more than 1,000 plugins for the tool. Jenkins can integrate with all public cloud providers and many applications that support developer work, such as GitLab, GitHub, Artifactory and HashiCorp Vault.
+>>Jenkins:-Jenkins is one of the most popular open source CI/CD tools. Although the project started as an automation server, the Jenkins community has developed more than 1,000 plugins for the tool.
+Jenkins can integrate with all public cloud providers and many applications that support developer work, such as GitLab, GitHub, Artifactory and HashiCorp Vault.
 
 AWS CodePipeline vs. Jenkins
 
@@ -1395,9 +1410,11 @@ if your not managing efffciently the cost will increase
 >>The major drawback they very much restricted to AWS Only 
 
 Though we can use all of above then what is the use of code pipeline?
-AWS CodePipeline is a fully managed continuous delivery service that automates the build, test, and deployment of applications. It allows you to create and visualize a pipeline that integrates various tools and services, such as source code management, continuous integration, and deployment.
+AWS CodePipeline is a fully managed continuous delivery service that automates the build, test, and deployment of applications. It allows you to create and visualize a pipeline that integrates various tools
+and services, such as source code management, continuous integration, and deployment.
 
-The main benefit of using AWS CodePipeline is that it provides a centralized way to manage and automate the end-to-end software delivery process. It enables you to configure a pipeline that is tailored to your specific requirements, and automate the testing and deployment of your code changes, ensuring that your application is released with quality and consistency.
+The main benefit of using AWS CodePipeline is that it provides a centralized way to manage and automate the end-to-end software delivery process. It enables you to configure a pipeline that is tailored to 
+your specific requirements, and automate the testing and deployment of your code changes, ensuring that your application is released with quality and consistency.
 
 By using AWS CodePipeline, you can speed up your software delivery process, reduce manual errors, and increase the overall efficiency and productivity of your development team.
 
