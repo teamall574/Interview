@@ -211,8 +211,7 @@ hi anji  then exist use control+d
 >>mkdir anji sampi  -->it will create the anji and sampi directory 
 >>mkdir -p anji/sampi   -->it will create anji under sampi folder 
 >>mkdir /anji  -->it will create the anji folder 
-suppose you have given this command but the folder is already there you need to skip that command
->>mkdir -p /anji 
+>>mkdir -p /anji   -->suppose you have given this command but the folder is already there you need to skip that command
 
 21-how to copy the files in linux
 
