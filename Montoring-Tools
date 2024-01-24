@@ -1,5 +1,7 @@
 1-what is Montoring 
 
+>>Monitoring is the systematic and continuous collection and analysis of information about the progress of a development intervention. Monitoring is done to ensure that all the people who need 
+to know about an intervention are properly informed, and so that decisions can be taken in a timely manner.
 >>Collecting, processing, aggregating, and displaying real-time quantitative data about a system, such as query counts and types, error counts and types, processing times, and server lifetimes.
 >>The Periodic tracking (for example, daily, weekly, monthly, quarterly, annually) of any activity's progress by systematically gathering and analyzing data and 
 information is called Monitoring. like RAM , CPU , Memory , Network satistics or alerts 
@@ -15,7 +17,8 @@ Why Montoring:-
 
 2-types of montoring 
 
-1-white box montoring:-Monitoring based on metrics exposed by the internals of the system, including logs, interfaces like the Java Virtual Machine Profiling Interface, or an HTTP handler that emits internal statistics.
+1-white box montoring:-Monitoring based on metrics exposed by the internals of the system, including logs, interfaces like the Java Virtual Machine Profiling Interface, or an HTTP handler that emits 
+internal statistics.
 >>white box monitoring is the monitoring of application running on the server. monitoring based on exposed by the internals of the system including logs interface
 http handler that emits internal statists
 2-Block box>>most of the people will focus on black box monitor.block box monitoring refers to the monitoring of server with a focus an area like disk space, memeory usage, 
@@ -24,11 +27,23 @@ load average, cpu utilization etc
 
 3-what are the four golden things to monitor 
 
-1-Latency:-The time it takes to service a request. It’s important to distinguish between the latency of successful requests and the latency of failed requests. For example, an HTTP 500 error triggered due to loss of connection to a database or other critical backend might be served very quickly; however, as an HTTP 500 error indicates a failed request, factoring 500s into your overall latency might result in misleading calculations. On the other hand, a slow error is even worse than a fast error! Therefore, it’s important to track error latency, as opposed to just filtering out errors 
-2-Traffic:-A measure of how much demand is being placed on your system, measured in a high-level system-specific metric. For a web service, this measurement is usually HTTP requests per second, perhaps broken out by the nature of the requests (e.g., static versus dynamic content). For an audio streaming system, this measurement might focus on network I/O rate or concurrent sessions. For a key-value storage system, this measurement might be transactions and retrievals per second.
-3-Errors:-The rate of requests that fail, either explicitly (e.g., HTTP 500s), implicitly (for example, an HTTP 200 success response, but coupled with the wrong content), or by policy (for example, "If you committed to one-second response times, any request over one second is an error"). Where protocol response codes are insufficient to express all failure conditions, secondary (internal) protocols may be necessary to track partial failure modes. Monitoring these cases can be drastically different: catching HTTP 500s at your load balancer can do a decent job of catching all completely failed requests, while only end-to-end system tests can detect that you’re serving the wrong content
-4-Saturation:-How "full" your service is. A measure of your system fraction, emphasizing the resources that are most constrained (e.g., in a memory-constrained system, show memory; in an I/O-constrained system, show I/O). Note that many systems degrade in performance before they achieve 100% utilization, so having a utilization target is essential.
-In complex systems, saturation can be supplemented with higher-level load measurement: can your service properly handle double the traffic, handle only 10% more traffic, or handle even less traffic than it currently receives? For very simple services that have no parameters that alter the complexity of the request (e.g., "Give me a nonce" or "I need a globally unique monotonic integer") that rarely change configuration, a static value from a load test might be adequate. As discussed in the previous paragraph, however, most services need to use indirect signals like CPU utilization or network bandwidth that have a known upper bound. Latency increases are often a leading indicator of saturation. Measuring your 99th percentile response time over some small window (e.g., one minute) can give a very early signal of saturation.
+1-Latency:-The time it takes to service a request. It’s important to distinguish between the latency of successful requests and the latency of failed requests. For example, an HTTP 500 error triggered due
+to loss of connection to a database or other critical backend might be served very quickly; however, as an HTTP 500 error indicates a failed request, factoring 500s into your overall latency might result 
+in misleading calculations. On the other hand, a slow error is even worse than a fast error! Therefore, it’s important to track error latency, as opposed to just filtering out errors 
+2-Traffic:-A measure of how much demand is being placed on your system, measured in a high-level system-specific metric. For a web service, this measurement is usually HTTP requests per second, perhaps 
+broken out by the nature of the requests (e.g., static versus dynamic content). For an audio streaming system, this measurement might focus on network I/O rate or concurrent sessions. For a key-value 
+storage system, this measurement might be transactions and retrievals per second.
+3-Errors:-The rate of requests that fail, either explicitly (e.g., HTTP 500s), implicitly (for example, an HTTP 200 success response, but coupled with the wrong content), or by policy (for example,
+"If you committed to one-second response times, any request over one second is an error"). Where protocol response codes are insufficient to express all failure conditions, secondary (internal) protocols 
+may be necessary to track partial failure modes. Monitoring these cases can be drastically different: catching HTTP 500s at your load balancer can do a decent job of catching all completely failed requests,
+while only end-to-end system tests can detect that you’re serving the wrong content
+4-Saturation:-How "full" your service is. A measure of your system fraction, emphasizing the resources that are most constrained (e.g., in a memory-constrained system, show memory; in an I/O-constrained system,
+show I/O). Note that many systems degrade in performance before they achieve 100% utilization, so having a utilization target is essential.
+In complex systems, saturation can be supplemented with higher-level load measurement: can your service properly handle double the traffic, handle only 10% more traffic, or handle even less traffic than
+it currently receives? For very simple services that have no parameters that alter the complexity of the request (e.g., "Give me a nonce" or "I need a globally unique monotonic integer") that rarely change 
+configuration, a static value from a load test might be adequate. As discussed in the previous paragraph, however, most services need to use indirect signals like CPU utilization or network bandwidth that
+have a known upper bound. Latency increases are often a leading indicator of saturation. Measuring your 99th percentile response time over some small window (e.g., one minute) can give a very early signal 
+of saturation.
 Finally, saturation is also concerned with predictions of impending saturation, such as "It looks like your database will fill its hard drive in 4 hours."
 
 4-What is Prometheus
@@ -93,7 +108,8 @@ tools:-
 
 11-what is telemetry
 
->>Telemetry automatically collects, transmits and measures data from remote sources, using sensors and other devices to collect data. It uses communication systems to transmit the data back to a central location. Subsequently, the data is analyzed to monitor and control the remote system.
+>>Telemetry automatically collects, transmits and measures data from remote sources, using sensors and other devices to collect data. It uses communication systems to transmit the data back to a central 
+location. Subsequently, the data is analyzed to monitor and control the remote system.
 >>tel menas remote
 >>metron means measure
 
@@ -550,7 +566,8 @@ Monitoring: Provides a real-time view of the system's current state and performa
 >>Integration is used to Integrate with cloud providers for their infra metris (i.e EC2,ELB,DynmoDB,RDS Metrics) or any linux servers 
 Integration To AWS :-
 - Open the Datadog AWS integration tile. Click the Install button to install this integration.
-- Under the Configuration tab, choose Automatically Using CloudFormation. If you already have an attached AWS account, click Add another account first. - If you add another account, give it a different name than the IAM Role you have already registered, because specifying the same name results in access denial.
+- Under the Configuration tab, choose Automatically Using CloudFormation. If you already have an attached AWS account, click Add another account first. - If you add another account, give it a different
+name than the IAM Role you have already registered, because specifying the same name results in access denial.
 - Login to the AWS console.
 - On the CloudFormation page:
     - Provide your Datadog API key.
@@ -706,7 +723,8 @@ spec:
 
 9-what is log pipeline and how to configure 
 
->>Pipelines take logs from a wide variety of formats and translate them into a common format in Datadog. Implementing a log pipelines and processing strategy is beneficial as it introduces an attribute naming convention for your organization.
+>>Pipelines take logs from a wide variety of formats and translate them into a common format in Datadog. Implementing a log pipelines and processing strategy is beneficial as it introduces an attribute 
+naming convention for your organization.
 
 >>With __pipelines__, logs are __parsed and enriched__ by chaining them sequentially through processors. This __extracts__ meaningful __attributes__ from semi-structured text to reuse as __facet__. 
 >>Preprocessing of JSON logs__ occurs before logs enter pipeline processing. Preprocessing runs a series of operations based on reserved attributes, such as timestamp, status, host, service, and message.
@@ -717,11 +735,13 @@ spec:
 >>Index config is about how long to retain what kind of logs based on tags and attributes (i.e. you want to keep logs with `status:error` for 15 days)
 >>you can also exclude something 
 >>It's critical to exclude some unimportant logs. 
->>For example, if you are using Istio service mesh in K8s cluster, then all the traffic going in and out of pods are intercepted by istio sidecar proxy container. Those istio proxy logs can grow gigantic, so it's important to exclude logs from `service:proxyv2` when indexing.
+>>For example, if you are using Istio service mesh in K8s cluster, then all the traffic going in and out of pods are intercepted by istio sidecar proxy container. Those istio proxy logs can grow gigantic, 
+so it's important to exclude logs from `service:proxyv2` when indexing.
 
 11-what is Archive Logs
 
->>Configure your Datadog account to __forward all the logs ingested - whether indexed or not - to a cloud storage__. Keep your logs in a storage-optimized archive for longer periods of time and meet __compliance requirements__ while also keeping __auditability__ for ad hoc investigations, with Rehydration.
+>>Configure your Datadog account to __forward all the logs ingested - whether indexed or not - to a cloud storage__. Keep your logs in a storage-optimized archive for longer periods of time and 
+meet __compliance requirements__ while also keeping __auditability__ for ad hoc investigations, with Rehydration.
 >>you can store the logs from datadog to S3 is possible 
 
 12-What is Facets
@@ -730,7 +750,8 @@ spec:
 - Search upon your logs
 - Define log patterns
 - Perform Log analytics 
->>The easiest way to create a facet is to add it from the __log side panel__, where most of the facet details—such as the field name or the underlying type of data—are pre-filled and it’s only a matter of double-checking:
+>>The easiest way to create a facet is to add it from the __log side panel__, where most of the facet details—such as the field name or the underlying type of data—are pre-filled and it’s only a matter of 
+double-checking:
 
 6-what is events in Datadog 
 
@@ -889,7 +910,8 @@ Why Tags?
 >>ties all Datadog telemetry together (hence `unified`), including logs, metrics, infra, through the use of three standard tags: `env`, `service`, and `version`. 
 >>With __Unified Service Tagging__, you can 
 > View service data __based on environment or version__ in a __unified fashion__ within the Datadog site. Also navigate seamlessly across traces, metrics, and logs with consistent tags
->>This means you can visualize data based on env or version value without switching views. And __correlating metrics, logs, and traces__ are as easy as __clicking tabs on dashboard or right clicking the value__.
+>>This means you can visualize data based on env or version value without switching views. And __correlating metrics, logs, and traces__ are as easy as __clicking tabs on dashboard or right clicking 
+the value__.
 
 --like this you can add tags 
 apiVersion: apps/v1
@@ -915,7 +937,8 @@ There are two ways:
 - manually; the application container needs the `DD_AGENT_HOST` environment variable that points to `status.hostIP`
 
 
-__Automatically__ let [Datadog Admission Controller](https://docs.datadoghq.com/agent/cluster_agent/admission_controller/) inject `DD_AGENT_HOST` and `DD_ENTITY_ID` envs to container to configure DogStatsD and APM tracer libraries into the user’s application containers.
+__Automatically__ let [Datadog Admission Controller](https://docs.datadoghq.com/agent/cluster_agent/admission_controller/) inject `DD_AGENT_HOST` and `DD_ENTITY_ID` envs to container to configure
+DogStatsD and APM tracer libraries into the user’s application containers.
 
 DAC will also inject Datadog standard tags or unified service tags (`env`, `service`, `version`) from application labels into the container environment variables.
 
@@ -1001,7 +1024,8 @@ spec:
 >>it is like Monitor and test public endpoints SLAs and track performance issues 
 >>you can create like acceptance test and endpoint testing and you can cutomize the frequency testing 
 >>you can see the uptime and server Responce and helath check and you can breaddkdown latency breakdwon  
->>Synthetic tests allow you to observe how your systems and applications are performing using simulated requests and actions from around the globe. Datadog tracks the performance of your webpages and APIs from the backend to the frontend, and at various network levels (HTTP, TCP, SSL, DNS, and ICMP) in a controlled and stable way,
+>>Synthetic tests allow you to observe how your systems and applications are performing using simulated requests and actions from around the globe. Datadog tracks the performance of your webpages 
+and APIs from the backend to the frontend, and at various network levels (HTTP, TCP, SSL, DNS, and ICMP) in a controlled and stable way,
 
 10-what is network monitoring 
 
@@ -1059,7 +1083,8 @@ Disk: linux 350MB to 400MB depending on the distribution
 
 15-how to save cost in the production avoid collecting logs 
 
->>Datadog Agent auto-discovers all containers availbile by default. To restrict its discovery permieter and limit data collection to subset of conatiners only include or exclude them through a dedicated configuration
+>>Datadog Agent auto-discovers all containers availbile by default. To restrict its discovery permieter and limit data collection to subset of conatiners only include or exclude them through a 
+dedicated configuration
 >>you might want to avoid logs from irrelevent containers such as coredns  , efs-csi-node, kube-proxy, and metrics-server in kube-system to save cost 
 >>you definitely want to avoid collecting logs rom istio proxy container to save cost 
 >>to exclude containers you can use these envs:-
@@ -1068,7 +1093,8 @@ env:   --under you can add exclude or include
   #- name: DD_CONTAINER_EXCLUDE
    # value: "image:docker.io/istio/proxyv2 kube_namespace:kube-system kuber_namespace:istio-system kube_namespace:prometheus 
   - name: DD_CONTAINER_EXCLUDE_LOGS
-    value: "image:docker.io/istio/proxyv2 kube_namespace:kube-system kube_namespace:istio-system kube_namespace:prometheus kube_namespace:grafana kube_namespace:kubernetes-dashboard kube_namespace:jenkins kube_namespace:kube-node-lease kube_namespace:kube-public image:gcr.io/datadoghq/agent image:gcr.io/datadoghq/cluster-agent"
+    value: "image:docker.io/istio/proxyv2 kube_namespace:kube-system kube_namespace:istio-system kube_namespace:prometheus kube_namespace:grafana kube_namespace:kubernetes-dashboard
+kube_namespace:jenkins kube_namespace:kube-node-lease kube_namespace:kube-public image:gcr.io/datadoghq/agent image:gcr.io/datadoghq/cluster-agent"
   - name: DD_CONTAINER_INCLUDE_LOGS
     value: "image:us.gcr.io/k8s-artifacts-prod/autoscaling/cluster-autoscaler"
 
@@ -1078,12 +1104,15 @@ https://www.cloudzero.com/blog/datadog-cost-optimization/   -->read this better 
 
 16-what is the use of agent in datadog installed in k8s 
 
->>before agent we install datadog in k8s if you 4 server four deaonsets installed in each node if nodes increase deamonsets wil increase this all deamonsets will report to the k8s API-Server it will increase the server load of API-Server 
->>Previously, every worker node in the cluster ran a Datadog Agent (__decentralized__) that collected data from two sources:- kubelet, a local daemon that creates the workload on a node - cluster’s control plane, which consists of the API server, the scheduler, the controller manager, and etcd
+>>before agent we install datadog in k8s if you 4 server four deaonsets installed in each node if nodes increase deamonsets wil increase this all deamonsets will report to the k8s API-Server it will
+increase the server load of API-Server 
+>>Previously, every worker node in the cluster ran a Datadog Agent (__decentralized__) that collected data from two sources:- kubelet, a local daemon that creates the workload on a node - cluster’s 
+control plane, which consists of the API server, the scheduler, the controller manager, and etcd
 >>This led to __increased load__ for API server and etcd when more and more k8s nodes join the cluster.
 
 >>after agent arrival in k8s we install deamonsets and agent all the demaonset report the agnet teh agent report the API-Server it will reduces the burden or traffic of API-server in K8s 
->>Cluster Agent provides a streamlined, __centralized__ approach to collecting cluster level monitoring data. By acting as a __proxy__ between the API server and node-based Agents, the Cluster Agent helps to alleviate server load. It also relays cluster level metadata to node-based Agents, allowing them to enrich the metadata of locally collected metrics.
+>>Cluster Agent provides a streamlined, __centralized__ approach to collecting cluster level monitoring data. By acting as a __proxy__ between the API server and node-based Agents, the Cluster Agent helps
+to alleviate server load. It also relays cluster level metadata to node-based Agents, allowing them to enrich the metadata of locally collected metrics.
 >>You can see that cluster agent pod is proxying on behalf of other datadog agent pods:
 
 - Alleviate the impact of Agents on API server.
