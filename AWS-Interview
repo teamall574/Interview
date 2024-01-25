@@ -4091,3 +4091,19 @@ Centralized Database:-
 4-Single site means sowntime in case of system failure  
 5-simpler to upload and manage data in single central system 
 
+410-highly availble Architecture in AWsor any Cloud 
+
+>>Create a VPC 
+>>then create multiple subnets with multiple avaailbilty zones 
+>>then create the load balancer 
+>>then create the auto-scaling 
+>>then create route53 with failover for (disaster recovery)
+>>and take backup of each and every snapshot to store s3(disaster recovery)
+
+High-Level Architecture:
+Incoming traffic hits Route 53, which directs it to the ALB.
+ALB distributes traffic across instances in multiple AZs.
+Auto Scaling ensures that the desired capacity is maintained.
+Instances store static assets in S3, and shared files may be stored in EFS.
+The database (if applicable) is configured for high availability and is preferably managed by Amazon RDS.
+
