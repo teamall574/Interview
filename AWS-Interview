@@ -336,6 +336,7 @@ define network addresses, providing a more flexible and efficient way to allocat
 
 29-what is VPC
 
+>>Amazon VPC lets you provision a logically isolated section of the Amazon Web Services (AWS) cloud where you can launch AWS resources in a virtual network that you define.
 >>Amazon Virtual Private Cloud (Amazon VPC) gives you full control over your virtual networking environment, including resource placement, connectivity, and security. 
 
 >>It is a region-dependent
@@ -346,9 +347,9 @@ define network addresses, providing a more flexible and efficient way to allocat
 30-what is Subnet
 
 >>A subnet is a range of IP addresses in your VPC. You launch AWS resources, such as Amazon EC2 instances, into your subnets. You can connect a subnet to the internet, other VPCs,
-and your own data centers, and route traffic to and from your subnets using route tables.
+and your data centers, and route traffic to and from your subnets using route tables.
 
-31-what is Route tables in AWS
+31-what are Route tables in AWS
 
 >>A Route table defines how the communication should happen within the subnet and outside of the subnet
 >> We can create custom route tables per each subnet design for the network traffic
@@ -411,7 +412,7 @@ NAT-Instance
 4 - NAT instance bandwidth depends on instance bandwidth
 5 - NAT instance performance compared to NAT gateway is average
 
-36-what is the Vpc End-point
+36-what is the VPC end-point
 
 >>A VPC endpoint enables you to privately connect your VPC to supported AWS services and VPC endpoint services. instance in your VPC does not require a public IP address to communicate the AWS resources
 >>S3
@@ -451,7 +452,7 @@ Amazon AppStream
 Amazon APP Mesh 
 >>Support most of the AWS Services 
 >>It is ENI(Elastic Network Interface) which is attached with a security group 
->>use a private IP address from your VPC to s3 
+>> Use a private IP address from your VPC to s3 
 >>Requires endpoint specific S3 DNS names
 >>Allow access from on-premise 
 >>Allow cross-region access through VPC peering or Tranist gateway 
