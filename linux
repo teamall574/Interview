@@ -3317,6 +3317,7 @@ done  -->this is limited because you mention i value
 >>ps -ef        -->it is like task manager in linux
 >>cat /proc/cpuinfo   -->cpuinfo 
 >>top          -->it will show the cpu utilization ram and memory and it will show how many service runing in background
+>>View CPU usage: top or htop
 >>free -m 
 >>cat /proc/meminfo  -->to see memory info linux
 >>View memory usage: free -h
