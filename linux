@@ -1599,6 +1599,21 @@ cat /etc/paswd | grep root
 >>mkdir 2018-12-24 2018-12-25 2018-12-26 2018-12-27 2018-12-28 2018-12-29 2018-12-30 2018-12-31 2019-01-01
 >>ls-ltr
 vi test.sh
+#!/bin/bash
+
+# Define the base directory where daily directories will be created
+base_directory="/path/to/base_directory"
+
+# Create a new directory with the current date as the name
+new_directory="$base_directory/$(date +'%Y%m%d')"
+mkdir -p "$new_directory"
+
+# Delete directories older than two days
+find "$base_directory" -type d -ctime +2 -exec rm -r {} \;
+
+# Note: Use -ctime +2 to find directories that are older than two days.
+# Adjust the paths and date format according to your requirements.
+:wq
 
 174-Is it possible to change file date and time
 
