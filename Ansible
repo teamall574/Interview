@@ -593,17 +593,13 @@ in a playbook
 >>Ansible Playbooks are sets of 'plays' or 'tasks' used to define automation jobs in Ansible, they are written in YAML format.
 >>Ansible Playbooks are lists of tasks that automatically execute against hosts. Groups of hosts form your Ansible inventory. 
 >>ansible is text file written in yaml format and normal saved as .yaml
->>playbooks are nothing but whatever the individual task your going to execute your going to get with adhoc commands those adhoc commands going to written in a playbook
->>Ansible Playbooks are sets of 'plays' or 'tasks' used to define automation jobs in Ansible, they are written in YAML format.
->>Ansible Playbooks are lists of tasks that automatically execute against hosts. Groups of hosts form your Ansible inventory. 
->>ansible is text file written in yaml format and normal saved as .yaml
 >>playbook has multiple plays 
 >>playbook file itself is a list
 
 17- What exactly is a configuration management tool?
 
->>Configuartion management is tool is a helps adminstarotrs to mainstain system consistency and it is known as configuartion neforcemnt. it is used to deploy
-your software packages and applications adn updates and patches and installtion and deploymeny
+>> Configuration management is a tool is that helps administrators to maintain system consistency and it is known as configuration enforcement. it is used to deploy
+your software packages and applications and updates and patches and installation and deployment
 >>>>Configuration management tools help keep a system running within the desired parameters. They help reduce deployment time and substantially 
 reduce the effort required to perform repetitive tasks. Popular configuration management tools on the market today include Chef, Puppet, Salt, 
 and of course, Ansible.
