@@ -3322,7 +3322,9 @@ done  -->this is limited because you mention i value
 >>View memory usage: free -h
 >>df -h -->The df command displays information about total space and available space on a file system.
 >>df -hT    -->it will show the type of harddisk
-
+>>nproc -->it will show how many processor list
+>>ps -->process from your terminal
+>>ps -e  -->it will show the process
 
 259-what is jq command in linux and shell script
 
