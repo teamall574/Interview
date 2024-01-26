@@ -104,7 +104,8 @@ interact with the Docker daemon.
 >>We define the application in a YAML file using Docker Compose syntax, specifying the frontend and backend containers along with their respective configurations.
 >>We use the Docker CLI to build the Docker images for the frontend and backend containers and push them to the Docker Registry.
 >>We use Docker Compose to spin up the containers and start the application. Docker Compose creates a network and attaches the containers to it, allowing them to communicate with each other.
->>Users access the application through a web browser, sending requests to the frontend container, which forwards them to the backend container. The containers communicate over the network created by Docker Compose.
+>>Users access the application through a web browser, sending requests to the frontend container, which forwards them to the backend container. The containers communicate over the network created by Docker 
+Compose.
 >>If we need to scale the application, we can use Docker Swarm to manage a cluster of nodes running Docker Engine and deploy multiple instances of the frontend and backend containers.
 
 4-why everyone using production environment in kubernets and why not using docker and docker swarm
@@ -258,7 +259,8 @@ docker service ps my-webapp   -->Monitor the status of the service
 
 17-what is docker swarm is quoram 
 
->>In a swarm of N managers, a quorum (a majority) of manager nodes must always be available. For example, in a swarm with five managers, a minimum of three must be operational and in communication with each other
+>>In a swarm of N managers, a quorum (a majority) of manager nodes must always be available. For example, in a swarm with five managers, a minimum of three must be operational and in communication with
+each other
 
 18-why quoram needs an odd number
 
@@ -287,7 +289,8 @@ docker service ps my-webapp   -->Monitor the status of the service
 
 23-what is resource managment 
 
->>resource managment is nothing but how much cpu utilization and memory utilization docker container. container consume the total memory you can specify the docker container how much need to use the cpu or memory utilization it will reduce java memory leaks
+>>resource managment is nothing but how much cpu utilization and memory utilization docker container. container consume the total memory you can specify the docker container how much need to use 
+the cpu or memory utilization it will reduce java memory leaks
 
 >>docker service create --name limittest --reserve-memory 100M --reserve-cpu .25 --limit-cpu 1 --limit-memory 300M --repicas 3 --publish 3000:80 sreeharshav/rollingupdate:v3
 
@@ -348,7 +351,8 @@ app3.bughunteranji.xyz
 
 28-what is docker swarm secrets
 
->>In terms of Docker Swarm services, a secret is a blob of data, such as a password, SSH private key, SSL certificate, or another piece of data that should not be transmitted over a network or stored unencrypted in a Dockerfile or in your application's source code
+>>In terms of Docker Swarm services, a secret is a blob of data, such as a password, SSH private key, SSL certificate, or another piece of data that should not be transmitted over a network or 
+stored unencrypted in a Dockerfile or in your application's source code
 
 29-what is docker swarm helath checks
 
@@ -381,7 +385,8 @@ app3.bughunteranji.xyz
 
 34-what is the problems in persistent storage in docker
 
->>In docker, the persistent storage is dealt with the volume concept. Persistent storage is means when we are stopping or removing the container the data should be persistent.It will not delete automatically once the docker container is not available.
+>>In docker, the persistent storage is dealt with the volume concept. Persistent storage is means when we are stopping or removing the container the data should be persistent.It will not delete automatically
+once the docker container is not available.
 
 1-Storage:-when application shutdown data gone loose
 2-Container mobility:- Containers are meant to be small and lightweight, quickly spinning up and down and moving around the cluster.
@@ -392,11 +397,13 @@ Your data on the other hand is large and difficult to move around.
 
 35-What is the container instance?
 
->>Azure Container Instances is a solution for any scenario that can operate in isolated containers, without orchestration. Run event-driven applications, quickly deploy from your container development pipelines, and run data processing and build jobs.
+>>Azure Container Instances is a solution for any scenario that can operate in isolated containers, without orchestration. Run event-driven applications, quickly deploy from your container development pipelines,
+and run data processing and build jobs.
 
 36-What does Container Insights provide?
 
->>Container Insights also provides diagnostic information, such as container restart failures, to help you isolate issues and resolve them quickly. You can also set CloudWatch alarms on metrics that Container Insights collects. Container Insights collects data as performance log events using embedded metric format
+>>Container Insights also provides diagnostic information, such as container restart failures, to help you isolate issues and resolve them quickly. You can also set CloudWatch alarms on metrics that Container
+Insights collects. Container Insights collects data as performance log events using embedded metric format
 
 37-what is continer as a service
 
@@ -536,7 +543,8 @@ create a new network in docker using docker network create anji something like t
 
 50-what is distro-less images in docker
 
->>distroless images contains only your application and runtime dependencies with very minimum operating system libearies they do noyt contain package managers shells or any other programs you would expect to find a standard linux distribution .they are very small and lightweight images 
+>>distroless images contains only your application and runtime dependencies with very minimum operating system libearies they do noyt contain package managers shells or any other programs you would expect 
+to find a standard linux distribution .they are very small and lightweight images 
 
 51-Realtime challenges with docker
 
@@ -578,15 +586,19 @@ docker container prune -f
 
 55-What are dangling images in docker and why you need to remove them?
 
->>Dangling images are Docker images that are not associated with any tagged images or containers. They are usually created when you build a new version of an image, but the old, untagged layers are still stored locally. Removing dangling images helps you reclaim disk space and keeps your Docker environment clean.
+>>Dangling images are Docker images that are not associated with any tagged images or containers. They are usually created when you build a new version of an image, but the old, untagged layers are still 
+stored locally. Removing dangling images helps you reclaim disk space and keeps your Docker environment clean.
 
 56-Why it is important to remove dangling images? and how it helps you? how you see this in your environment?
 
->>During development: As you iterate on your application and build new versions of your container image, you may accumulate several dangling images, consuming unnecessary disk space. Periodically cleaning up these images can help you free up space and maintain a clean environment.
+>>During development: As you iterate on your application and build new versions of your container image, you may accumulate several dangling images, consuming unnecessary disk space. Periodically cleaning up
+these images can help you free up space and maintain a clean environment.
 
->>In CI/CD pipelines: Continuous Integration and Deployment pipelines often involve building and testing container images. Over time, these pipelines can generate many dangling images on the build server. Regularly pruning these images can prevent the build server from running out of disk space and improve overall pipeline performance.
+>>In CI/CD pipelines: Continuous Integration and Deployment pipelines often involve building and testing container images. Over time, these pipelines can generate many dangling images on the build server.
+Regularly pruning these images can prevent the build server from running out of disk space and improve overall pipeline performance.
 
-57-Docker Containers are restarting frequently and how you troubleshoot this issue?, what might be the reasons ? or You have a Docker container running in production that suddenly starts behaving unusually. How would you debug this container without affecting its service?
+57-Docker Containers are restarting frequently and how you troubleshoot this issue?, what might be the reasons ? or You have a Docker container running in production that suddenly starts behaving unusually.
+How would you debug this container without affecting its service?
 
 >>Check container logs: Inspect the logs of the problematic container to identify any error messages or application-specific issues.
 >>docker logs "container-id" Check container status: Use the docker ps command to see the status and restart count of the container.
@@ -693,7 +705,7 @@ Docker provides various namespaces, such as PID (process IDs), Network, Mount, U
 >>For example, consider a scenario where two containers running on the same host system require the same port number to be exposed. Using namespaces, 
 Docker can isolate the network namespace for each container and assign the same port number to both containers. This allows both containers to use the same port number without any conflict.
 
-68-what is the differnce between RUN and CMD
+68-what is the difference between RUN and CMD
 
 >>CMD:-CMD is used to specify the default command that should be executed when a container is started from an image. It is not executed during the building of the image, 
 but rather when the container is run. The CMD command is generally used to specify the main application that should be run inside the container.
@@ -851,9 +863,9 @@ include the changes you’d like to make from the original Compose file.
 
 However, for startup Compose does not wait until a container is “ready” (whatever that means for your particular application) - only until it’s running. There’s a good reason for this:
 
-The problem of waiting for a database (for example) to be ready is really just a subset of a much larger problem of distributed systems. In production, your database could become unavailable or move hosts at any time.
-Your application needs to be resilient to these types of failures.To handle this, design your application to attempt to re-establish a connection to the database after a failure. If the application retries the 
-connection, it can eventually connect to the database.The best solution is to perform this check in your application code, both at startup and whenever a connection is lost for any reason.
+The problem of waiting for a database (for example) to be ready is really just a subset of a much larger problem of distributed systems. In production, your database could become unavailable or move hosts
+at any time.Your application needs to be resilient to these types of failures.To handle this, design your application to attempt to re-establish a connection to the database after a failure. If the application
+retries the connection, it can eventually connect to the database.The best solution is to perform this check in your application code, both at startup and whenever a connection is lost for any reason.
 
 87-how to debug the container
 
@@ -888,15 +900,18 @@ connection, it can eventually connect to the database.The best solution is to pe
 
 92-How would you go about setting up a CI/CD pipeline with Docker?
 
->>Docker integrates well with most of the CI/CD tools like Jenkins, GitLab CI, Travis CI, etc. You can create a Docker image of your application, push it to Docker Hub or a private registry as part of your build stage, and pull and run the image in the deployment stage.
+>>Docker integrates well with most of the CI/CD tools like Jenkins, GitLab CI, Travis CI, etc. You can create a Docker image of your application, push it to Docker Hub or a private registry as part of your
+build stage, and pull and run the image in the deployment stage.
 
 93-What if a Docker container is not able to communicate with another service running on the same host?
 
->>Docker containers are isolated and they have their own network interface by default. You need to ensure proper network configuration is done for inter-service communication.  Docker networking options like bridge, host, or overlay networks can be utilized for this.
+>>Docker containers are isolated and they have their own network interface by default. You need to ensure proper network configuration is done for inter-service communication.  Docker networking options 
+like bridge, host, or overlay networks can be utilized for this.
 
 94-How can you handle persistence in Docker?
 
->>Docker volumes can be used to persist data generated by and used by Docker containers. Docker volumes are managed by Docker and a directory is set up within the Docker host which is then linked to the directory in the container.
+>>Docker volumes can be used to persist data generated by and used by Docker containers. Docker volumes are managed by Docker and a directory is set up within the Docker host which is then linked to
+the directory in the container.
 
 95-What would you do if Docker starts to consume a lot of CPU?
 
@@ -910,7 +925,8 @@ connection, it can eventually connect to the database.The best solution is to pe
 
 97-If you wanted to run multiple services (like an app server and a database server) on a single host with Docker, how would you manage it?
 
->>Docker Compose is a great tool for this purpose. It allows you to define and run multi-container Docker applications. You can create a docker-compose.yml file that defines your services, and then bring up your entire app with just one command docker-compose up.
+>>Docker Compose is a great tool for this purpose. It allows you to define and run multi-container Docker applications. You can create a docker-compose.yml file that defines your services, and then 
+bring up your entire app with just one command docker-compose up.
 
 98-How would you ensure that a group of inter-dependent containers always run on the same Docker host?
 
@@ -964,7 +980,8 @@ from the image, and cleaning up the cache after installing packages.
 
 109-You are running a containerized database, and it seems to be responding slower than usual. How would you investigate this?
 
->>You can use docker stats to monitor the resource usage of your Docker container. If the database is consuming too many resources, you might need to allocate more resources to the container or optimize your database.
+>>You can use docker stats to monitor the resource usage of your Docker container. If the database is consuming too many resources, you might need to allocate more resources to the container or optimize 
+your database.
 
 110-You've noticed that your Docker image takes a long time to build. How can you speed up the build process?
 
@@ -1050,7 +1067,8 @@ sudo docker service restart
 
 125-write a multistage docker file how to copy the file first stage another stage
 
->>A multi-stage Dockerfile is useful for building smaller and more efficient Docker images by using separate stages for building and packaging your application. Here's an example of a multi-stage Dockerfile that demonstrates how to copy files from one stage to another
+>>A multi-stage Dockerfile is useful for building smaller and more efficient Docker images by using separate stages for building and packaging your application. Here's an example of a multi-stage Dockerfile
+that demonstrates how to copy files from one stage to another
 >>COPY --from=build /app/build /usr/share/nginx/html    -->this command will copy 
 
 # Stage 1: Build the application
@@ -1082,7 +1100,6 @@ EXPOSE 80
 
 # Start the nginx server
 CMD ["nginx", "-g", "daemon off;"]
-
 
 126-write docker file and build the image should run as non root user how we can write 
 
@@ -1137,7 +1154,8 @@ CMD ["./your_app_executable"]
 
 128-we are docker swarm with 5 worker nodes i need to deploy only app in node4 only how we can achive this
 
->>In Docker Swarm, you can deploy a service to a specific node or a set of nodes by using node constraints. To deploy your app to node4 (assuming that node4 is one of your worker nodes), you can use the node.labels constraint to target that specific node. Here's how to achieve this:
+>>In Docker Swarm, you can deploy a service to a specific node or a set of nodes by using node constraints. To deploy your app to node4 (assuming that node4 is one of your worker nodes), you can use the node.
+labels constraint to target that specific node. Here's how to achieve this:
 
 >>docker node update --label-add mynode=4 node4
 version: '3'
@@ -1172,7 +1190,8 @@ docker stack deploy -c docker-compose.yml my_stack
 
 129-ow you are going to specify the resource limit in docker-compose
 
->>In a Docker Compose file, you can specify resource limits for containers using the resources section within the services section of your docker-compose.yml file. Resource limits include options like cpus for CPU limits and memory for memory limits. Here's how you can specify resource limits for a container:
+>>In a Docker Compose file, you can specify resource limits for containers using the resources section within the services section of your docker-compose.yml file. Resource limits include options 
+like cpus for CPU limits and memory for memory limits. Here's how you can specify resource limits for a container:
 
 version: '3'
 services:
@@ -1331,9 +1350,3 @@ VOLUME /data
 RUN apt-get -y update
 RUN groupadd -r user && useradd -r -g user user
 USER user
-
-
-
-
-
-
