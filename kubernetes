@@ -6708,125 +6708,12 @@ spec:
             port:
               number: 80 
 
-335-how many ways to install istio and configure along with ALb load balancer 
+335-how to see api-resources
 
->>curl -L https://istio.io/download/latest | ISTIO_VERSION=1.12.0 sh -
->>cd istio-1.12.0
->>export PATH=$PWD/bin:$PATH
->>istioctl install
->>istioctl install --set profile=default
->>kubectl label -n default istio-injection=enabled  ##we are enableing the istio sidecar container default namepace whenever new pod created the sidecar will create
+>>kubectl get pods 
 
->>first install Istiocli then create a name space 
-kubectl create namespace istio-system
-then install means curl using Istio then export the path 
-echo "export PATH=$PWD/bin:$PATH" >> ~/.bash_profile
->>istioctl install --set profile=demo -y
->>istioctl profile dump demo >profile_demo_config.yaml   -->this will help to store the demo profile configuration 
-kubectl label namespace default istio-injection=enabled
->>istioctl    -->you can check the istio correct or not 
->>istioctl profile list   -->it will show the profile list  
->>istioctl analyze --all-namespaces
->>kubectl get pod,svc -n istio-system 
 
-apiVersion: install.istio.io/v1alpha1
-kind: IstioOperator
-metadata:
-  namespace: istio-system
-  name: istiocontrolplane
-spec:
-  profile: default
-  components:
-    ingressGateways:
-    - name: istio-ingressgateway
-      enabled: true
-      k8s:
-        serviceAnnotations:
-          service.beta.kubernetes.io/aws-load-balancer-internal: "false"
-          service.beta.kubernetes.io/aws-load-balancer-type: "alb"
-          service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: nginx-deployment
-spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      app: nginx
-  template:
-    metadata:
-      labels:
-        app: nginx
-    spec:
-      containers:
-      - name: nginx
-        image: nginx:latest
-        ports:
-        - containerPort: 80
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: nginx-service
-spec:
-  selector:
-    app: nginx
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 80
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: anji-ingress
-  annotations:
-    kubernetes.io/ingress.class: "istio"
-spec:
-  rules:
-  - host: anji.com
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: nginx-service
-            port:
-              number: 80
----
-apiVersion: networking.istio.io/v1alpha3
-kind: Gateway
-metadata:
-  name: istio-gateway
-spec:
-  selector:
-    istio: ingressgateway
-  servers:
-  - hosts:
-    - "anji.com"
-    port:
-      number: 80
-      name: http
-      protocol: HTTP
----
-apiVersion: networking.istio.io/v1alpha3
-kind: VirtualService
-metadata:
-  name: istio-virtualservice
-spec:
-  hosts:
-  - "anji.com"
-  gateways:
-  - istio-gateway
-  http:
-  - route:
-    - destination:
-        host: nginx-service
-        port:
-          number: 80
+kubectl get api-resource
 
 
 
