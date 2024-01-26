@@ -3711,7 +3711,7 @@ log_format main 'remote_addr $time_local $request $status $body_bytes_sent $requ
 
 254-what are best practice for deploying monothic application 
 
-#>>so if you have 15 service divided your application use each microservice as one server ex: 15 micro service then use 15ec2 
+#>>so if you have 15 service divided your application use each microservice as one server 
 #>>use private ips for internal communcation dont use private ips it will change
 #>>developers choose application stack(whether to use java or nodejs or golang)
 #>>developers chooses which version of software to be used 
