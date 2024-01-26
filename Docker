@@ -2,6 +2,7 @@
 virtual machines-->infrastructure->hypersvisior->guest os->librays->app1,app2,app3
 containers-->infrastructure->operating system->container engine->librays->app1,app2,app3
 
+>>curl https://get.docker.com  | bash 
 how to backup andd restoe docker volume
 
 sudo apt update
