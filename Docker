@@ -79,9 +79,9 @@ Advantages:-
 
 3-Explain the Docker components and how they interact with each other..?
 
->>Docker is a containerization technology that allows developers to package an application along with its dependencies, libraries, and configuration files into a 
-single package called a container. Containers provide a consistent and isolated runtime environment, making it easy to deploy applications across different environments without worrying 
-about compatibility issues.
+>>Docker is a containerization technology.A Docker container image is a lightweight, standalone, executable package. this package or Technology allows to developers to package a single application run
+in any environment that includes everything to run like code, runtime, system tools, system libraries and  dependencies,and configuration files and settings in a single package is called a container.
+container provides a consistent and isolated runtime environment, making it easy to deploy applications across different environments without worrying 
 
 >>The Docker ecosystem consists of several components that work together to manage containers and containerized applications. Here are the main components:
 
@@ -118,8 +118,8 @@ Compose.
 
 5-what is docker storage
 
->>docker has come to used in first stateless applications later it come to used  stateful applications also.stateless applications means
-is no need to save the data or stateful applications is storing the data
+>>docker has come to used in first stateless applications later it come to used  stateful applications also.
+stateless applications means is no need to save the data or stateful applications is storing the data
 >>you need to store the data then we can use docker volumes so if the container stopped the data not gone loose
 >>you need persistent storage if the container deleted the data should be store 
 >>docker volume create anji
@@ -128,8 +128,9 @@ is no need to save the data or stateful applications is storing the data
 
 6-What is a container?
 
->>A Docker container image is a lightweight, standalone, executable package of software that includes everything needed to run an application:
-code, runtime, system tools, system libraries and settings
+>>Docker is a containerization technology.A Docker container image is a lightweight, standalone, executable package. this package or Technology allows to developers to package a single application run in 
+any environment that includes everything to run like code, runtime, system tools, system libraries and  dependencies,and configuration files and settings in a single package is called a container. 
+container provides a consistent and isolated runtime environment, making it easy to deploy applications across different environments without worrying 
 >>container is combination of linux features which is namespace->its like virtual spaces and cgroups
 >>containers is microservices container is process
 >>container doesn't need any (opearting system)
