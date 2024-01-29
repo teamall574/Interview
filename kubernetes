@@ -2642,6 +2642,10 @@ spec:
 
 183-what is the differnce between sicecar proxy and mtls(PeerAuthentication) in istio 
 
+kubectl get ns --show-labels   -->it will show the injection labels while you using namespace 
+>>kubectl label ns anji istio-injection=enabled   -->like this you can enable all namespace if you wnat or single liek anji you can enable single namespace like samppi or gampa 
+>>kubectl label ns --all istio-injection=enabled  -->it will enable all namesapces by default
+
 >>The PeerAuthentication resource controls mTLS settings for a specific namespace or service.
 >>Mutual TLS is a security feature provided by Istio. It ensures that communication between services in the mesh is encrypted and authenticated. With mTLS, both the client and the server 
 (in this case, the Envoy proxies in the sidecars) present certificates to each other, establishing a secure and authenticated communication channel.
@@ -4103,6 +4107,7 @@ Envoy proxy will do
 -Rate-limiting  
 -TLS Termination
 >>Ingress traffic and Egress traffic will also there in Data-Plane 
+
 2-Control Plane: this all comes under Istiod the version After v1.5
 >>control plane is going to make sure provide certicates authority for tls connection of pods. pods will use envoy proxy to talk to each other with ssl certicates 
 >>Pilot: This component is responsible for configuring the Envoy proxies in the data plane. It maintains the service registry, manages routing rules, and ensures that each proxy has the appropriate 
@@ -4149,6 +4154,7 @@ Istio complements Kubernetes, by enhancing its traffic management, observability
 284-how to enabled sidecar in Istio
 
 >>kubectl label -n default istio-injection=enabled  ##we are enableing the istio sidecar container default namepace whenever new pod created the sidecar will create
+>>>>if your set the profile demo and then injection enabled there is no need to enble peer-authentication by default it will came 
 >>istio analyze
 >>kubectl describe ns default  ##it will show the label injection details 
 >>peerauthentication is that you can enable or disable the mtls connection pod to pod connection or network by using peerauthentication
@@ -4170,6 +4176,8 @@ spec:
 >>kubectl edit pa -n istio-system  -->you can change the peer authentication or mtls 
 >>kubectl edit pa -n istio-system  -->you can change the peer authentication or mtls 
 >>kubectl delete pa default -n istio-system  ##it will delete the peerauthentication
+>>kubectl get pa -n istio-system
+>>like this tool ksniff or wireshark 
 >>single namespace:-
 
 apiVersion: security.istio.io/v1beta1
@@ -4261,7 +4269,7 @@ one of my vitual machine good capacity we can create weight sticy to that server
 >>ENVOY is and opensource edge and service proxy designed for cloud native applications 
 >>Envoy proxy is a high-performance proxy developed in C++ to mediate all inbound and outbound traffic for all servicesin the service mesh. envoy proxies are the only Istion complements that are interact 
 with data plane traffic   
-features of ENVOY:-
+Control plane:-
 1-Traffic control 
 -A different load-balancing policy to traffic for partcular subset of service instances
 -Stageed rollouts with % based traffic split 
@@ -4272,18 +4280,22 @@ features of ENVOY:-
 >>Gateways
 >>Service entries
 >>Sidecars 
-
 2-Network Resilency
 -Fault Injection
 -Retries
 -circuit breakers
 -Failovers
 -Health checks 
-
 3-Security and Authentication
 -Rate-limiting  
 -TLS Termination
-
+Data plane:-
+>>Dynamic service discovery in order to direct traffic within your mesh istio needs to know where all your endpoints are 
+Pilot:-the core data plane config (xDS) server
+Galley:configuration watching validation, forwarding
+Citadel: Certificate signing, secret genertaion, integration with CAs etc  
+Telemetry: a mixer component responsible for aggergating and syncicating telemetry to various backends 
+policy:- is a request-path "mixer" components responsible for enforcemnet policy 
 293-why not use envoy instead of Istio
 
 >>Envoy and Istio serve complementary but different purposes in the world of microservices and service mesh architectures. Envoy is a high-performance proxy designed for network communication and is often
@@ -6732,12 +6744,22 @@ spec:
 335-how to see api-resources
 
 >>kubectl get pods 
+>>kubectl get api-resource
 
+336-if  you two conatiners in sinble pod how we can see
 
-kubectl get api-resource
+if you have two containers inside that 
+kubectl logs prometheus-logs-xhjhjd -n motoring 
+>>when you use this command it will give error like use conatiner name you can choose the conatiner name 
+>>kubectl logs prometheus-logs -n motoring -c prometheus-logs  -->like this 
 
+337-how to restart the pods using rollout 
 
+if your deployed the pods you need to restart the pods then you can use rollouts 
+kubectl -n anji rollout -h  -->it will show the deatils 
+kubectl -n anji rollout restart deploy anji-deploy  -->it will restart anji-deploy pods restart
 
+338-
 
 253-how to pass the secret manager credential to jenkins pipeline 
 
