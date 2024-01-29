@@ -4423,13 +4423,17 @@ spec:
 
 299-what are the profiles availble in Istio by defaults
 
-1-demo
+1-demo  >>istioctl install --set profile=demo -y
+istio-egressgateway
+istio-ingressgateway
+istiod  -->this components availble mostly we use demo only
 2-empty
 3-minimal
 4-preview
 5-remote
 6-default  this all are come when you will install choose what ever you want and install   
->>istioctl install --set profile=demo -y
+istio-ingressgateway
+istiod
 
 300-how to disable the istio-injection 
 
