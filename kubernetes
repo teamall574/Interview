@@ -4047,7 +4047,7 @@ kubectl label namespace default istio-injection=enabled
 >>istioctl analyze --all-namespaces
 >>kubectl get pod,svc -n istio-system 
 
-279-Why use Istio? what include Istio
+279-Why to use Istio? what include Istio
 
 >>Istio enables organizations to secure, connect, and monitor microservices, so they can modernize their enterprise apps more swiftly and securely.
 benfites:-
