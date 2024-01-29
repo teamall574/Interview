@@ -3994,39 +3994,7 @@ Advantages:-
 4-Simplify load balancing with advanced feature
 5-Easily deploy with Kubernetes and virtual machines
 
-277-what is Service mesh
-
->>A Service Mesh is an extra layer of software you deploy alongside your cluster(eg: Kubernetes)
->>Istio Service Mesh is a network connectivity(i.e mesh) within kubernetes cluster created by Envoy Proxy containers be it a standlone or a sidecar proxy. 
-another huge advantage of using service mesh by default it uses mutual-TLS . if your not using istio you need to configure ingress-controller under TLS-Termination at ingree-controller pod 
-1-Traffic control:-
->>A differnet load balancing policy to traffic for a particular subset of service instaces 
->>Staged rollouts with %-based traffic split
->>HTTP/2 and gPRC proxies
->>weighted and leas request 
-2-Network Resiliency
->>Timeouts
->>Retries
->>Circuit breakers 
->>Fault Injection 
-3-Security Authentication
->>Rate limiting 
->>TLS Termination
-this thing can solve the service mesh
->> Communication controller
->> Metrics collection and tracing
->> Security logic
->> Retry logic   --> This thing can be added apart from the business logic
->> If I add this thing to the business logic of the pod the size will increase which will add the complexity
-
->>which is used to manage communication between microservices in an environment securely and also do traffic splitting this service mesh will be added to the control plane
-The proxy will be a part of control plane this will be automatically injected into application i dont  want chane or modify instead of using service mesh it will help you using
-and one more advantage is that traffic splitting it used in canary deployments. if you version1 payment gateway the version2 is available you can split the 90% traffic to version1
-we can use 10% of traffic to version2 if works good then we can deploy in production. by using service mesh like Istio uses ex:Istio, Linkerd
->> Service mesh is act as a sidecar container or proxy to the pods
->>kubectl label -n default istio-injection=enabled
-
-278-Install istio
+277-278-Install istio
 
 >>curl -L https://istio.io/download/latest | ISTIO_VERSION=1.12.0 sh -
 >>cd istio-1.12.0
@@ -4046,8 +4014,100 @@ kubectl label namespace default istio-injection=enabled
 >>istioctl profile list   -->it will show the profile list  
 >>istioctl analyze --all-namespaces
 >>kubectl get pod,svc -n istio-system 
+>>When installing istio using `demo` profile, it installed monitoring tools such as `grafana`, `prometheus`, `kiali`, `jaeger`.
+>>when you installing ingressgateway automatically created by loadbalancer in aws 
 
-279-Why to use Istio? what include Istio
+278-how to set the path of istio or anywhere can access 
+
+nano ~/.bashrc
+
+# Add the following line to the end of the file:
+export PATH=$PWD/bin:$PATH
+
+# Save and exit the file.
+
+# Apply the changes to your current session.
+source ~/.bashrc
+
+279-what are the profiles availble in Istio by defaults
+
+1-demo  >>istioctl install --set profile=demo -y
+istio-egressgateway
+istio-ingressgateway
+istiod  -->this components availble mostly we use demo only
+2-empty
+3-minimal
+4-preview
+5-remote
+6-default  this all are come when you will install choose what ever you want and install   
+istio-ingressgateway
+istiod
+
+280-how to disable the istio-injection 
+
+>>kubectl label namespace default istio-injection-   -->this is used to disable the sidecar proxies 
+>>kubectl describe ns default   -->it will show enabled or disabled 
+
+281-how to enabled sidecar in Istio
+
+>>kubectl label -n default istio-injection=enabled  ##we are enableing the istio sidecar container default namepace whenever new pod created the sidecar will create
+>>>>if your set the profile demo and then injection enabled there is no need to enble peer-authentication by default it will came 
+>>istio analyze
+>>kubectl describe ns default  ##it will show the label injection details 
+>>peerauthentication is that you can enable or disable the mtls connection pod to pod connection or network by using peerauthentication
+>>STRICT
+>>DISABLE
+>>PERMISSIVE
+
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata: 
+  name: default
+  namespace: istio-system
+spec:
+  mtls:  ##by default automcatically came if you want disable you can create 
+    mode: PERMISSIVE  #if your using permissive this any pod created in the istio-system the pod will go onto the mtls mutual-tls if you DISABLE it will go plan text 
+          ##if you use the STRICT mode the communcation will stop why because the pod will not allow without tls certicates
+          
+>>kubectl get crd  -->it will show the peer authentication
+>>kubectl edit pa -n istio-system  -->you can change the peer authentication or mtls 
+>>kubectl edit pa -n istio-system  -->you can change the peer authentication or mtls 
+>>kubectl delete pa default -n istio-system  ##it will delete the peerauthentication
+>>kubectl get pa -n istio-system
+>>like this tool ksniff or wireshark 
+>>single namespace:-
+
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata: 
+  name: default
+  namespace: anji 
+spec:
+  mtls:
+    mode: STRICT  ##this only for anji namespace the traffic will not go through anji because you mention STRICT
+
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: enable-mtls
+spec:
+  host: anji.default      ##anji is pod name default namespace   you need to use destinationRule also 
+  trafficPolicy:
+    tls:
+      mode: ISTIO_MUTUAL   #this is STRICT Only 
+      mode: PERMISSIVE
+      mode: DISABLE
+
+>>kubectl label namespace istio-enabled istio-injection=enabled  ##you can do this type also 
+
+282-how to open grafana or kiali
+
+>>kubectl get pods -n istio-system 
+>>istioctl dashboard grafana 
+>>istioctl dashboard kiali
+
+283-Why to use Istio? 
 
 >>Istio enables organizations to secure, connect, and monitor microservices, so they can modernize their enterprise apps more swiftly and securely.
 benfites:-
@@ -4067,20 +4127,23 @@ benfites:-
 9-Security:- transparent security traffic behind the firewall(Auto mutual TLS among backend service, which doubles the latency at max or max 10ms)
 10-End-to-End authentication and authorization using JWT 
 11-Observability
->>Include either read this or that
+
+284-what include Istio
+
+>>Include Istio
 1-Discovery
 2-Load-Balancing
 3-Failure-Recovery
 4-Metrics, and Montoring 
 Istio can also handle more complex operational requirments 
-1-A/B Testing (
+1-A/B Testing 
 2-canary releases
 3-rate-limiting 
 4-dark launches
 5-access control and 
 6-end-to-end authentication
 
-280-Explain Istio Architecture 
+285-Explain Istio Architecture 
 
 >>The following is an overview of the key components and their roles within the Istio architecture:
 
@@ -4135,125 +4198,26 @@ and enforce encryption between them.
 -Configuration Management:
 >>Custom Resource Definitions (CRDs): Istio extends Kubernetes' API with custom resource definitions to define routing, security, and other service mesh configuration policies.
 
-281-What is the difference between Istio and ingress?
+286-What is the difference between Istio and ingress?
 
 >>Along with support for Kubernetes Ingress , Istio offers another configuration model, Istio Gateway . A Gateway provides more extensive customization and flexibility than Ingress ,
 and allows Istio features such as monitoring and route rules to be applied to traffic entering the cluster
 
-282-what is Istiod
+287-what is Istiod
 
 >>Istiod acts as the control plane, distributing the configuration to all sidecar proxies and gateways. It enables intelligent application-aware load balancing from the application layer to other mesh 
 enabled services in the cluster and bypasses the rudimentary kube-proxy load balancing.
 >>Istiod contains Pilot ,Mixer, citidel, galley  this main component in Istiod as control plane 
 
-283-what is the purpose Istio used in Kubernetes
+288-what is the purpose Istio used in Kubernetes
 
 >>Istio makes traffic management transparent to the application, moving this functionality out of the application and into the platform layer as a cloud native infrastructure. 
 Istio complements Kubernetes, by enhancing its traffic management, observability and security for cloud native applications.
 
-284-how to enabled sidecar in Istio
-
->>kubectl label -n default istio-injection=enabled  ##we are enableing the istio sidecar container default namepace whenever new pod created the sidecar will create
->>>>if your set the profile demo and then injection enabled there is no need to enble peer-authentication by default it will came 
->>istio analyze
->>kubectl describe ns default  ##it will show the label injection details 
->>peerauthentication is that you can enable or disable the mtls connection pod to pod connection or network by using peerauthentication
->>STRICT
->>DISABLE
->>PERMISSIVE
-
-apiVersion: security.istio.io/v1beta1
-kind: PeerAuthentication
-metadata: 
-  name: default
-  namespace: istio-system
-spec:
-  mtls:  ##by default automcatically came if you want disable you can create 
-    mode: PERMISSIVE  #if your using permissive this any pod created in the istio-system the pod will go onto the mtls mutual-tls if you DISABLE it will go plan text 
-          ##if you use the STRICT mode the communcation will stop why because the pod will not allow without tls certicates
-          
->>kubectl get crd  -->it will show the peer authentication
->>kubectl edit pa -n istio-system  -->you can change the peer authentication or mtls 
->>kubectl edit pa -n istio-system  -->you can change the peer authentication or mtls 
->>kubectl delete pa default -n istio-system  ##it will delete the peerauthentication
->>kubectl get pa -n istio-system
->>like this tool ksniff or wireshark 
->>single namespace:-
-
-apiVersion: security.istio.io/v1beta1
-kind: PeerAuthentication
-metadata: 
-  name: default
-  namespace: anji 
-spec:
-  mtls:
-    mode: STRICT  ##this only for anji namespace the traffic will not go through anji because you mention STRICT
-
----
-apiVersion: networking.istio.io/v1alpha3
-kind: DestinationRule
-metadata:
-  name: enable-mtls
-spec:
-  host: anji.default      ##anji is pod name default namespace   you need to use destinationRule also 
-  trafficPolicy:
-    tls:
-      mode: ISTIO_MUTUAL   #this is STRICT Only 
-      mode: PERMISSIVE
-      mode: DISABLE
-
->>kubectl label namespace istio-enabled istio-injection=enabled  ##you can do this type also 
-
-285-how to set the path of istio or anywhere can access 
-
-nano ~/.bashrc
-
-# Add the following line to the end of the file:
-export PATH=$PWD/bin:$PATH
-
-# Save and exit the file.
-
-# Apply the changes to your current session.
-source ~/.bashrc
-
-286-how to change the service from cluserIp to load-balancer or node port
+289-how to change the service from cluserIp to load-balancer or node port
 
 >>kubectl get services
 >>kubectl edit service your-service-name
-
-287-what is HA-Proxy what is exactly ha-proxy will do what is HA-Proxy 
-
->>HAProxy, which stands for High Availability Proxy, is an open-source software solution that provides high availability, load balancing, and proxying for TCP and HTTP-based applications. 
-It is widely used to ensure the availability, scalability, and reliability of web services and applications.
-Here's what HAProxy does
-1-Load Balancing:
-2-High Availability
-3-Proxying
-4-Health Checks
-5-Layer 4 and Layer 7 Load Balancing
-6-SSL/TLS Offloading
-7-Content Switching
-8-Session Persistence
-9-Rate Limiting
-10-Logging and Monitoring:
-
-288-which algorithm used in ha-proxy
-
->>HAProxy uses several load-balancing algorithms to distribute traffic among backend servers. The choice of algorithm can significantly impact the performance and behavior of the load balancer.
-HAProxy offers the following load-balancing algorithms
-1-Round Robin (default):
-2-Least Connections:
-3-Source IP Hash:
-4-URI Hash:
-5-URL Parameter Hash:
-6-Static-RR (Static Round Robin):
-7-Least Response Time
-8-Random:
-
-289-in this which one is better in Alogorithum
-
->>it is dependencies up on the server utilization like memory ram cpu and static content like mostly round robin uses if you have 10 servers same configuartion 8gb memory example round robin
-one of my vitual machine good capacity we can create weight sticy to that server sticky alogorithum 
 
 290-how to send the traffic pod-A to pod-B 
 
@@ -4264,7 +4228,40 @@ one of my vitual machine good capacity we can create weight sticy to that server
 >>beta means testing
 >>stable means release
 
-292-what is Envoy proxy
+292-what is Service mesh
+
+>>A Service Mesh is an extra layer of software you deploy alongside your cluster(eg: Kubernetes)
+>>Istio Service Mesh is a network connectivity(i.e mesh) within kubernetes cluster created by Envoy Proxy containers be it a standlone or a sidecar proxy. 
+another huge advantage of using service mesh by default it uses mutual-TLS . if your not using istio you need to configure ingress-controller under TLS-Termination at ingree-controller pod 
+>>A service mesh is a dedicated infrastructure layer that you can add to your applications. It allows you to transparently add capabilities like observability, traffic management, and security, without adding them to your own code.
+1-Traffic control:-
+>>A differnet load balancing policy to traffic for a particular subset of service instaces 
+>>Staged rollouts with %-based traffic split
+>>HTTP/2 and gPRC proxies
+>>weighted and leas request 
+2-Network Resiliency
+>>Timeouts
+>>Retries
+>>Circuit breakers 
+>>Fault Injection 
+3-Security Authentication
+>>Rate limiting 
+>>TLS Termination
+this thing can solve the service mesh
+>> Communication controller
+>> Metrics collection and tracing
+>> Security logic
+>> Retry logic   --> This thing can be added apart from the business logic
+>> If I add this thing to the business logic of the pod the size will increase which will add the complexity
+
+>>which is used to manage communication between microservices in an environment securely and also do traffic splitting this service mesh will be added to the control plane
+The proxy will be a part of control plane this will be automatically injected into application i dont  want chane or modify instead of using service mesh it will help you using
+and one more advantage is that traffic splitting it used in canary deployments. if you version1 payment gateway the version2 is available you can split the 90% traffic to version1
+we can use 10% of traffic to version2 if works good then we can deploy in production. by using service mesh like Istio uses ex:Istio, Linkerd
+>> Service mesh is act as a sidecar container or proxy to the pods
+>>kubectl label -n default istio-injection=enabled
+
+293-what is Envoy proxy
 
 >>ENVOY is and opensource edge and service proxy designed for cloud native applications 
 >>Envoy proxy is a high-performance proxy developed in C++ to mediate all inbound and outbound traffic for all servicesin the service mesh. envoy proxies are the only Istion complements that are interact 
@@ -4296,7 +4293,8 @@ Galley:configuration watching validation, forwarding
 Citadel: Certificate signing, secret genertaion, integration with CAs etc  
 Telemetry: a mixer component responsible for aggergating and syncicating telemetry to various backends 
 policy:- is a request-path "mixer" components responsible for enforcemnet policy 
-293-why not use envoy instead of Istio
+
+294-why not use envoy instead of Istio
 
 >>Envoy and Istio serve complementary but different purposes in the world of microservices and service mesh architectures. Envoy is a high-performance proxy designed for network communication and is often
 used as the data plane component within service mesh architectures. Istio, on the other hand, is a comprehensive service mesh platform that includes Envoy proxies but also offers a control plane for 
@@ -4319,7 +4317,462 @@ and observability without requiring in-depth knowledge of Envoy proxy configurat
 7-Community and Support:-Istio has a vibrant open-source community and is backed by major organizations, including Google, IBM, and Red Hat. This provides a level of support and development resources that 
 may be challenging to replicate when using Envoy directly.
 
-294-what is the difference between virtual service and gateway in istio
+295-what is Ingress
+
+>>if you want ingress you must deploy the ingress-controller before ingress deploying(like ex:- HA-Proxy,treafik, Istio, Nginx-ingress-controller)
+>>ingress is nothing but set of rules
+>>ingres is used for only web-application purpose it supports path based also
+>>ingress controller using you can create a single loadbalancer using create multiple services. ingress controller is nothing bt set of rules
+>>ingress may provide load balancing ssl termination and name based virtual hosting
+>>Ingress exposes HTTP and HTTPS routes from outside the cluster to services within the cluster. Traffic routing is controlled by rules defined on the Ingress resource. 
+An Ingress may be configured to give Services externally-reachable URLs, load balance traffic, terminate SSL / TLS, and offer name-based virtual hosting
+>>if you use type=loadbalancer you if you created 100 services means you need to create the 100 service rather using load balancer you
+>>an ingress does not expose arbitray ports and protocols exposing services other than https and https to the internet typically uses a servicetype load balancer or nodeport
+
+>>kubectl create deploy deploy1 --image=index.docker.io/sreeharshav/rollingupdate:v1
+
+>>kubectl create deploy deploy2 --image=index.docker.io/sreeharshav/rollingupdate:v3
+
+>>kubectl create deploy deploy3 --image=index.docker.io/sreeharshav/testcontainer:v1
+
+>>kubectl expose deploy deploy1 --ports=5000 --target-port=80
+
+>>kubectl expose deploy deploy2 --ports=8000 --target-port=80
+
+>>kubectl expose deploy deploy3 --ports=9000 --target-port=80
+
+>>kubectl get all
+
+>>you need to set an ingress
+
+>>kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-0.32.0/deploy/static/provider/aws/deploy.yaml
+
+>>kubectl get pods
+
+>>kubectl get pods -A
+
+>>kubectl get deploy -A
+
+>>kubectl describe deploy ingress-nginx-controller -n ingress-nginx
+
+>>kubectl edit deploy ingress-nginx-controller -n ingress-nginx
+
+>>kubectl get ingress
+
+>>vi ing.yml
+
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: example-ingress
+  annotations:
+    ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: www.bughunteranji.xyz
+    http:
+      paths:
+        - path: /
+          backend:
+            serviceName: deploy1
+            servicePort: 5000
+
+:wq
+
+>>kubectl create -f ing.yml
+
+>>kubectl get ingress
+
+>>vi app.yml
+
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: example-ingress2
+  annotations:
+    ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: app.bughunteranji.xyz
+    http:
+      paths:
+        - path: /
+          backend:
+            serviceName: deploy2
+            servicePort: 8000
+
+:wq
+
+>>kubectl create -f app.yml
+
+>>kubectl get ingress
+
+>>vi dev.yml
+
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: example-ingress3
+  annotations:
+    ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: dev.bughunteranji.xyz
+    http:
+      paths:
+        - path: sampi
+          backend:
+            serviceName: deploy3
+            servicePort: 9000
+        - path: anji
+          backend:
+            serviceName: deploy3
+            servicePort: 1000
+:wq
+
+>>kubectl create -f dev.yml
+
+>>kubectl get ingress
+
+>>now you can go and create using route 53 to www.bughunteranji.xyz and add loadbalancer
+>>now you can go and create using route 53 to app.bughunteranji.xyz and add loadbalancer
+>>now you can go and create using route 53 to dev.bughunteranji.xyz and add loadbalancer
+
+>>now you can access using web www.bughunteranji.xyz or app.bughunteranji.xyz or dev.bughunteranji.xyz
+>>vi bug.yml
+
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: example-ingress4
+  annotations:
+    ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: bughunteranji.xyz
+    http:
+      paths:
+        - path: /
+          backend:
+            serviceName: deploy1
+            servicePort: 5000
+
+:wq
+>>now you can route53 bughunteranji.xyz add loadbalancer then you can access directly using bughunteranji.xyz
+
+296-what layer will be used in ingress kubernetes
+
+>>Ingress controllers support routing through both the transport layer (OSI – Layer 4) and the application layer (OSI – Layer 7)
+
+297-is this podssible to create one ingree controller inside one more ingress
+
+>>Ans: yes
+
+298-what needs to create an ingress
+
+1-namespace
+2-serviceAccount
+3-configmap
+4-clusterrole
+5-clusterrolebinding
+6-role
+7-rolebinding
+8-service
+9-service(twotimes)
+10-deployment
+11-ValidatingWebhookConfiguration
+
+299-how would you create the DNS in Kubernetes in private using
+
+>> Using ingress you can create the DNS locally using you can apply these domains using Route53 to make it public
+
+300-types of Ingress-controller
+
+1-Nginx-ingress
+2-HA-Proxy 
+3-Envoy-proxy
+4-Istio
+5-TrefiK
+6-F5 conatiner ingress
+7-GCp ingress
+8-Ambassador
+ 
+301-what is Ingress class
+
+>> Using ingress class you can define watch for ingress resource
+
+302-How ingress helps in Kubernetes?
+
+1-Routing
+2-Load balancing
+3-Access control
+4-TLS Termination        
+
+303-how to edit the service in kubernetes from clusterip to nodeport 
+
+>>kubectl patch service your-service-name -p '{"spec": {"type": "LoadBalancer"}}'
+>>kubectl patch service your-service-name -p '{"spec": {"type": "NodePort"}}'
+>>kubectl get svc servicename 
+>>kubectl edit svc servicename -n namespace
+
+304-how to filter and get the only load-balancer url in kubernetes svc using kubectl command
+
+>>echo $(kubectl get svc guestbook | awk '{ print $4 }' | tail -1):$(kubectl get svc guestbook | awk '{ print $5 }' | tail -1 cut -d ":" -f 1 3000)
+
+305-what is Gateway in Istio 
+
+>>Instead of using nginx-ingress controler we use Gateway in Istio 
+>>Gateway describes a load balancer operating at the edge of the mesh receiving incoming or outgoing HTTP/TCP connections. The specification describes a set of ports that should be exposed, the type of
+protocol to use, SNI configuration for the load balancer, etc.
+>>gateway is like load-balancer using you can create the gateway to create the host or your domain like anji.com 
+>>In Istio, a Gateway is a Kubernetes custom resource (CRD) used to configure and manage the entry points for traffic into the Istio service mesh. Gateways allow you to define how traffic should be 
+exposed to the Istio service mesh, and they play a critical role in managing external traffic and routing it to the appropriate services within the mesh.
+what will be features in gateway 
+1-Entry Points
+2-Hosts and Routes
+3-TLS Termination
+4-Load Balancing
+5-Customization
+6-Ingress and Egress
+
+>>kubectl get pod -n istio-system istio=ingressgateway  -->to see the ingress gateway 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  selector:
+    app: nginx
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: nginx-gateway
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "nginx.example.com"
+    tls:
+      httpsRedirect: true
+
+306-what is Virtual service in Istio 
+
+>>In Istio, a VirtualService is a custom resource definition (CRD) that allows you to configure how traffic should be routed to different destinations within the service mesh. VirtualServices are an
+integral part of Istio's traffic management capabilities, and they provide fine-grained control over how requests are directed to different services based on various conditions, including hostnames,
+paths, headers, and more. 
+>>A VirtualService defines a set of traffic routing rules to apply when a host is addressed. Each routing rule defines matching criteria for traffic of a specific protocol. If the traffic is matched,
+then it is sent to a named destination service (or subset/version of it) defined in the registry.
+>>virtual service using we can routes or routing rules like destination rules and like you can enbale endpoint also if you want hide you can disable that endpoints also 
+
+>>first have internet gateway along with domain then we install the istio have ingress gateway then setuping the gateway then we can choose the virtual service then select the service of deployment
+or statefulsets 
+>>install pods and service simplifying that like anji.com is there then we have internet gateway opened then we have installed istio in kubernetes on that time istion nginx controller is installed 
+then we setup the yaml file gateway we can select the istio: ingressgateway for selector is nginx controller pre-installed then in the gateway we select the port number and host as well anji.com and
+protocal http or https then after create virtual service with host anji.com and select the gateway name before you created and then select the service name for routing purpose deployment or replicas
+service you need to select then if you wnat you can addd weight like where traffic should go    
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+---
+kubectl apply -f nginx-deployment.yaml
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  selector:
+    app: nginx
+  ports:
+  - protocol: TCP
+    port: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: http-service
+spec:
+  selector:
+    app: http
+  ports:
+  - protocol: TCP
+    port: 80
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: my-virtual-service
+spec:
+  hosts:
+  - "example.com"
+  gateways:
+  - my-gateway
+  http:
+  - match:
+    - uri:
+        exact: /productpage
+    - uri:
+        Prefix: /static 
+    - uri:
+        exact: /login 
+    - uri:
+        exact: /logout    
+    - uri:
+        prefix: /api/v1/products  ##you can add your paths here     
+  - route:
+    - destination:
+        host: nginx-service
+        port:
+          number: 80
+      weight: 80
+
+307-create anji deployment and anji service and sampi deployment and sampi service tehn create gateay for anji.com tehn create virtual servcie anji.com and anji service weight 80 and sampi service weight 20 
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: anji-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: anji
+  template:
+    metadata:
+      labels:
+        app: anji
+    spec:
+      containers:
+      - name: anji-container
+        image: your-anji-image:tag
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: anji-service
+spec:
+  selector:
+    app: anji
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sampi-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sampi
+  template:
+    metadata:
+      labels:
+        app: sampi
+    spec:
+      containers:
+      - name: sampi-container
+        image: your-sampi-image:tag
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sampi-service
+spec:
+  selector:
+    app: sampi
+  ports:
+    - protocol: TCP
+      port: 81
+      targetPort: 81
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: anji-gateway
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "anji.com"
+    tls:
+      httpsRedirect: true
+
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: anji-virtualservice
+spec:
+  hosts:
+  - "anji.com"
+  http:
+  - route:
+    - destination:
+        host: anji-service
+        port:
+          number: 80
+      weight: 80
+    - destination:
+        host: sampi-service
+        port:
+          number: 81
+      weight: 20
+
+308-what is the difference between virtual service and gateway in istio
 
 In Istio, both VirtualServices and Gateways are important resources used for managing and controlling traffic within a service mesh, but they serve different purposes. Here's a breakdown of the differences 
 between VirtualServices and Gateways:
@@ -4345,124 +4798,7 @@ traffic to services within the mesh.
 Ingress and Egress:Gateways are commonly used for configuring ingress (incoming traffic from external sources) and egress (outgoing traffic to external destinations) traffic control. 
 They allow you to manage how external clients access services inside the mesh and how services in the mesh access external resources.
 
-295-what is ServiceEntry in Istio 
-
->>In Istio, a ServiceEntry is a Kubernetes Custom Resource Definition (CRD) used to define how traffic should be routed to external services or services that are not part of the Istio service mesh. 
-ServiceEntries provide Istio with information about how to reach these external services, including details such as endpoints, ports, and authentication requirements. They are a crucial component for
-configuring egress traffic and securely connecting Istio services to external resources.
->>>>In Istio, a service entry is a configuration object that defines how traffic should be routed to services outside of the mesh. It allows Istio to manage traffic to and from services that are not part of
-the Kubernetes cluster or services that are running on different clusters.
-
-1-Host 
-2-ports
-3-Endpoints
-4-location(MESH_INTERNAL)
-5-Resolution
-6-TLS Settings 
-7-Access controls
-
-apiVersion: networking.istio.io/v1alpha3
-kind: ServiceEntry
-metadata:
-  name: external-svc
-spec:
-  hosts:
-  - external-service.com
-  ports:
-  - number: 80
-    name: http
-    protocol: HTTP
-  location: MESH_EXTERNAL
-  resolution: DNS
-
-296-what is destinationRule in Istio
-
->>In Istio, a DestinationRule is a resource that allows you to configure policies for the traffic of a service, specifically how the traffic is handled at the destination (service) level. 
-DestinationRule defines rules and settings for how Istio should manage connections to a particular service version.
-
-apiVersion: networking.istio.io/v1alpha3
-kind: DestinationRule
-metadata:
-  name: my-destination-rule
-spec:
-  host: my-service
-  subsets:
-  - name: v1
-    labels:
-      version: "v1"
-  - name: v2
-    labels:
-      version: "v2"
-  trafficPolicy:
-    loadBalancer:
-      simple: RANDOM
-
-297-what are the traffic managements or networking paths in Istio
-
-1-Destination rules :-you can use load-balancer like roundrobin or simple 
-apiVersion: networking.istio.io/v1alpha3
-kind: DestinationRule
-metadata:
-  name: bookinfo-ratings-port
-spec:
-  host: ratings.prod.svc.cluster.local
-  trafficPolicy: # Apply to all ports
-    portLevelSettings:
-    - port:
-        number: 80
-      loadBalancer:
-        simple: LEAST_REQUEST
-    - port:
-        number: 9080
-      loadBalancer:
-        simple: ROUND_ROBIN
-
-2-ProxyConfig
-3-VirtualService:-
-4-Workload entry
-5-Service Entry 
-6-Envoy filter
-7-Gateway
-8-sidecar
-9-Workload group
-
-298-How ingress helps in Kubernetes?
-
-1-Routing
-2-Load balancing
-3-Access control
-4-TLS Termination        
-
-299-what are the profiles availble in Istio by defaults
-
-1-demo  >>istioctl install --set profile=demo -y
-istio-egressgateway
-istio-ingressgateway
-istiod  -->this components availble mostly we use demo only
-2-empty
-3-minimal
-4-preview
-5-remote
-6-default  this all are come when you will install choose what ever you want and install   
-istio-ingressgateway
-istiod
-
-300-how to disable the istio-injection 
-
->>kubectl label namespace default istio-injection-   -->this is used to disable the sidecar proxies 
-
-301-how to edit the service in kubernetes from clusterip to nodeport 
-
->>kubectl patch service your-service-name -p '{"spec": {"type": "LoadBalancer"}}'
->>kubectl patch service your-service-name -p '{"spec": {"type": "NodePort"}}'
->>kubectl get svc servicename 
->>kubectl edit svc servicename -n namespace
-
-302-how to filter and get the only load-balancer url in kubernetes svc using kubectl command
-
->>echo $(kubectl get svc guestbook | awk '{ print $4 }' | tail -1):$(kubectl get svc guestbook | awk '{ print $5 }' | tail -1 cut -d ":" -f 1 3000)
-
-303-is it possible to create classic load balancer instead of alb or nlb using service in kubernetes 
+309-is it possible to create classic load balancer instead of alb or nlb using service in kubernetes 
 
 >>yes its possible you can annontations 
 apiVersion: v1
@@ -4536,7 +4872,7 @@ spec:
     selector:
       istio: ingressgateway
 
-304-install alb controller in eks cluster then install istio in eks cluster create deployment of nginx port number 8080 and also create service then  use the alb controller using istio and 
+310-install alb controller in eks cluster then install istio in eks cluster create deployment of nginx port number 8080 and also create service then  use the alb controller using istio and 
 hostname anji.com then create that alb loadbalancer to to route53 anji.com 
 
 >>eksctl create cluster --name my-eks-cluster --version 1.21 --region your-region
@@ -4607,6 +4943,7 @@ spec:
 EOF
 
 >>second-type to install yaml to install istio then configure the routes
+>>istio operator is not recomended why because need to configure lot of things in yaml file this short yaml for your refernce this type is also there to install this type 
 ---  once you installed this istioOperator no need install everytime
 apiVersion: install.istio.io/v1alpha1
 kind: IstioOperator
@@ -4737,7 +5074,7 @@ spec:
         port:
           number: 80
 
-305-I have anji image as anji port 80 anji.com and sampi image as sampi 81 sampi.com gampa image and port 82 as gampa.com create istio gateway ingress and virtual service
+311-I have anji image as anji port 80 anji.com and sampi image as sampi 81 sampi.com gampa image and port 82 as gampa.com create istio gateway ingress and virtual service
 
 apiVersion: apps/v1
 kind: Deployment
@@ -4845,7 +5182,7 @@ spec:
     tls:
       mode: PASSTHROUGH
 ---
-apiVersion: networking.k8s.io/v1
+apiVersion: networking.istio.io/v1alpha3
 kind: Ingress
 metadata:
   name: anji-ingress
@@ -4924,231 +5261,107 @@ spec:
       loadBalancer:
         simple: ROUND_ROBIN            
 
-306-what is Gateway in Istio 
+312-what is destinationRule in Istio
 
->>Instead of using nginx-ingress controler we use Gateway in Istio 
->>Gateway describes a load balancer operating at the edge of the mesh receiving incoming or outgoing HTTP/TCP connections. The specification describes a set of ports that should be exposed, the type of
-protocol to use, SNI configuration for the load balancer, etc.
->>In Istio, a Gateway is a Kubernetes custom resource (CRD) used to configure and manage the entry points for traffic into the Istio service mesh. Gateways allow you to define how traffic should be 
-exposed to the Istio service mesh, and they play a critical role in managing external traffic and routing it to the appropriate services within the mesh.
-what will be features in gateway 
-1-Entry Points
-2-Hosts and Routes
-3-TLS Termination
-4-Load Balancing
-5-Customization
-6-Ingress and Egress
-
-307-deploy the nginx pod along with servie use gateway and virtual service in istio 
-
->>apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: nginx-deployment
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: nginx
-  template:
-    metadata:
-      labels:
-        app: nginx
-    spec:
-      containers:
-        - name: nginx
-          image: nginx:latest
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: nginx-service
-spec:
-  selector:
-    app: nginx
-  ports:
-    - name: http
-      port: 80
-------------
+>>In Istio, a DestinationRule is a resource that allows you to configure policies for the traffic of a service, specifically how the traffic is handled at the destination (service) level. 
+DestinationRule defines rules and settings for how Istio should manage connections to a particular service version.
 
 apiVersion: networking.istio.io/v1alpha3
-kind: Gateway
+kind: DestinationRule
 metadata:
-  name: anji-gateway
+  name: my-destination-rule
 spec:
-  selector:
-    istio: ingressgateway
-  servers:
+  host: my-service
+  subsets:
+  - name: v1
+    labels:
+      version: "v1"
+  - name: v2
+    labels:
+      version: "v2"
+  trafficPolicy:
+    loadBalancer:
+      simple: RANDOM
+
+313-in this which one is better in Alogorithum
+
+>>it is dependencies up on the server utilization like memory ram cpu and static content like mostly round robin uses if you have 10 servers same configuartion 8gb memory example round robin
+one of my vitual machine good capacity we can create weight sticy to that server sticky alogorithum 
+
+314-what is HA-Proxy what is exactly ha-proxy will do what is HA-Proxy 
+
+>>HAProxy, which stands for High Availability Proxy, is an open-source software solution that provides high availability, load balancing, and proxying for TCP and HTTP-based applications. 
+It is widely used to ensure the availability, scalability, and reliability of web services and applications.
+Here's what HAProxy does
+1-Load Balancing:
+2-High Availability
+3-Proxying
+4-Health Checks
+5-Layer 4 and Layer 7 Load Balancing
+6-SSL/TLS Offloading
+7-Content Switching
+8-Session Persistence
+9-Rate Limiting
+10-Logging and Monitoring:
+
+315-which algorithm used in ha-proxy
+
+>>HAProxy uses several load-balancing algorithms to distribute traffic among backend servers. The choice of algorithm can significantly impact the performance and behavior of the load balancer.
+HAProxy offers the following load-balancing algorithms
+1-Round Robin (default):
+2-Least Connections:
+3-Source IP Hash:
+4-URI Hash:
+5-URL Parameter Hash:
+6-Static-RR (Static Round Robin):
+7-Least Response Time
+8-Random:
+
+316-what are the traffic managements or networking paths in Istio
+
+1-Destination rules :-you can use load-balancer like roundrobin or simple 
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: bookinfo-ratings-port
+spec:
+  host: ratings.prod.svc.cluster.local
+  trafficPolicy: # Apply to all ports
+    portLevelSettings:
     - port:
         number: 80
-        name: http
-        protocol: HTTP
-      hosts:
-        - "anji.com"
----
-apiVersion: networking.istio.io/v1alpha3
-kind: VirtualService
-metadata:
-  name: anji-virtual-service
-spec:
-  hosts:
-    - "anji.com"
-  gateways:
-    - anji-gateway
-  http:
-    - route:
-        - destination:
-            host: nginx-service
-            port:
-              number: 80
----
-apiVersion: networking.istio.io/v1alpha3
-kind: VirtualService
-metadata:
-  name: my-virtualservice
-spec:
-  hosts:
-    - "example.com"
-  http:
-    - route:
-        - destination:
-            host: service-a
-            port:
-              number: 80
-            subset: v1
-          weight: 80
-        - destination:
-            host: service-b
-            port:
-              number: 80
-            subset: v2
-          weight: 20
+      loadBalancer:
+        simple: LEAST_REQUEST
+    - port:
+        number: 9080
+      loadBalancer:
+        simple: ROUND_ROBIN
 
-308-what is Virtual service in Istio 
+2-ProxyConfig
+3-VirtualService:-
+4-Workload entry
+5-Service Entry 
+6-Envoy filter
+7-Gateway
+8-sidecar
+9-Workload group
 
->>In Istio, a VirtualService is a custom resource definition (CRD) that allows you to configure how traffic should be routed to different destinations within the service mesh. VirtualServices are an
-integral part of Istio's traffic management capabilities, and they provide fine-grained control over how requests are directed to different services based on various conditions, including hostnames,
-paths, headers, and more. 
->>A VirtualService defines a set of traffic routing rules to apply when a host is addressed. Each routing rule defines matching criteria for traffic of a specific protocol. If the traffic is matched,
-then it is sent to a named destination service (or subset/version of it) defined in the registry.
+317-what is traffic management in istio
 
->>first have internet gateway along with domain then we install the istio have ingress gateway then setuping the gateway then we can choose the virtual service then select the service of deployment
-or statefulsets 
->>install pods and service simplifying that like anji.com is there then we have internet gateway opened then we have installed istio in kubernetes on that time istion nginx controller is installed 
-then we setup the yaml file gateway we can select the istio: ingressgateway for selector is nginx controller pre-installed then in the gateway we select the port number and host as well anji.com and
-protocal http or https then after create virtual service with host anji.com and select the gateway name before you created and then select the service name for routing purpose deployment or replicas
-service you need to select then if you wnat you can addd weight like where traffic should go    
+>>Traffic management in Istio refers to the ability to control and manipulate the flow of network traffic within a microservices architecture. Istio provides powerful features for traffic management, helping you to control how requests are routed, load balanced, secured, and monitored within your service mesh. Some key aspects of traffic management in Istio include:
+1-Routing Rules
+2-Load Balancing
+3-Timeouts and Retries
+4-Fault Injection
+5-Traffic Shifting 
+6-Circuit Breaking 
+7-Retries and Timeouts
+8-Request Mirroring
+9-Header Manipulation
 
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: nginx-deployment
-spec:
-  replicas: 2
-  selector:
-    matchLabels:
-      app: nginx
-  template:
-    metadata:
-      labels:
-        app: nginx
-    spec:
-      containers:
-      - name: nginx
-        image: nginx:latest
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: http-deployment
-spec:
-  replicas: 2
-  selector:
-    matchLabels:
-      app: http
-  template:
-    metadata:
-      labels:
-        app: http
-    spec:
-      containers:
-      - name: http
-        image: httpd:latest
----
-kubectl apply -f nginx-deployment.yaml
-kubectl apply -f http-deployment.yaml
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: nginx-service
-spec:
-  selector:
-    app: nginx
-  ports:
-  - protocol: TCP
-    port: 80
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: http-service
-spec:
-  selector:
-    app: http
-  ports:
-  - protocol: TCP
-    port: 80
----
-apiVersion: networking.istio.io/v1alpha3
-kind: Gateway
-metadata:
-  name: my-gateway
-spec:
-  selector:
-    istio: ingressgateway
-  servers:
-  - port:
-      number: 80
-      name: http
-      protocol: HTTP
-    hosts:
-    - "example.com"
----
-apiVersion: networking.istio.io/v1alpha3
-kind: VirtualService
-metadata:
-  name: my-virtual-service
-spec:
-  hosts:
-  - "example.com"
-  gateways:
-  - my-gateway
-  http:
-  - match:
-    - uri:
-        exact: /productpage
-    - uri:
-        Prefix: /static 
-    - uri:
-        exact: /login 
-    - uri:
-        exact: /logout    
-    - uri:
-        prefix: /api/v1/products  ##you can add your paths here     
-  - route:
-    - destination:
-        host: nginx-service
-        port:
-          number: 80
-      weight: 80
-    - destination:
-        host: http-service
-        port:
-          number: 80
-      weight: 20
+318-how you can traffic splitting  in Istio  (or) create any traffic splitting in using Istio 
 
-309-how you can traffic splitting  in Istio 
+how you can traffic splitting  in Istio 
 
 >>you can Traffic based on (canary, weighted-based routing using  ) 
 like you need to create gateway then virtual service then after destinationRule then the traffic will be splitted based you mentioned like v1-80% or v2-20% on the weight like 80 or 20
@@ -5281,14 +5494,17 @@ spec:
     labels:
       version: v2
 
-310-how to see the estination rule & virtul service in kubernetes
+319-how to create the identity based routing 
 
->>kubectl get dr   -->it will show destination rule 
->>kubectl get vs   -->it will show the virtual service 
+>>you can create that using virtual service header condition using like if header and route your mention if header matches then pass to that route or else pass routes another differnet routes like this you can use 
 
-311-how to create the identity based routing 
+this can so many types you can mention 
+1-Http headers 
+2-path matching 
+3-request Parameter
+4-hostnames
+5-source IP Address 
 
->>you can create that using virtual service header condition using 
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
@@ -5317,7 +5533,7 @@ spec:
         subset: v2
       weight: 10
 
-312-is this possible to create query string condition routing in istio 
+320-is this possible to create query string condition routing in istio 
 
 >>Query string parameter routing in Istio allows you to route traffic based on the values of query parameters in the URL. This is helpful when you want to direct requests to different services or versions
 based on specific query parameters. Here's how you can deploy a simple query parameter routing example in Istio
@@ -5343,7 +5559,7 @@ spec:
         subset: v1
       weight: 80
 
-313-what is URI http path condition routing in istio 
+321-what is URI http path condition routing in istio 
 
 >>URI path condition routing in Istio involves routing traffic based on the URL path of incoming HTTP requests. It allows you to direct requests to different services or versions based on the path 
 specified in the URL. Here's how it works:
@@ -5379,8 +5595,10 @@ spec:
       - destination:
           host: your-service-default
 
-314-what is injection latency dealy in Istio 
+322-what is injection latency dealy in Istio 
 
+>>your adding latency to your microservice how this will work you can see 
+>>like you can mention your website reload must be 10 seconds after load like this you can create fixed delay of your application . you can see this in network under chrome or mozila browser in inspect page 
 >>Delays are timing failures they mimic increased network latency or an overloaded upstream service 
 >>Injection latency delay in Istio is a feature that allows you to introduce artificial delays or latency into the traffic flowing through your service mesh. This can be useful for testing and simulating
 various real-world conditions and scenarios, such as network latency, slow services, or handling performance-related edge cases.
@@ -5415,9 +5633,10 @@ spec:
             value: 100.0
           fixedDelay: 5s
 
-315-if the service is not responding is it possible to timeout the request 
+323-if the service is not responding is it possible to timeout the request 
 
 >>yes its possible using Istion virtual service 
+>>if your server is not responding 15 second or you mention time this will configured as session timeout or not resoponding the server 
 >>also you can configure retry timeout and retry how many times you can login access this 
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
@@ -5439,41 +5658,182 @@ spec:
           fixedDelay: 10s
     route:     
 
-316-what is mirror live traffic in istio virtual service
+324-what is mirror live traffic in istio virtual service
 
+>>Traffic mirroring, also called shadowing, is a powerful concept that allows feature teams to bring changes to production with as little risk as possible. Mirroring sends a copy of live traffic to a mirrored service. The mirrored traffic happens out of band of the critical request path for the primary service.
 >>Mirroring live traffic in Istio Virtual Service is a technique that allows you to send a copy of all or a portion of your production traffic to another service. This can be useful for a variety of 
 purposes, such as:
 
 Testing a new version of a service in production without affecting your users.
 Troubleshooting problems with a service by sending traffic to a different version or to a different environment.
 Collecting data about your traffic for analysis or debugging purposes.
+>>for suppose your testing a new application you dont wnat that traffic you can craete the mirrir live traffic you can use that 
 
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: httpbin-v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: httpbin
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: httpbin
+        version: v1
+    spec:
+      containers:
+      - image: docker.io/kennethreitz/httpbin
+        imagePullPolicy: IfNotPresent
+        name: httpbin
+        command: ["gunicorn", "--access-logfile", "-", "-b", "0.0.0.0:80", "httpbin:app"]
+        ports:
+        - containerPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: httpbin-v2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: httpbin
+      version: v2
+  template:
+    metadata:
+      labels:
+        app: httpbin
+        version: v2
+    spec:
+      containers:
+      - image: docker.io/kennethreitz/httpbin
+        imagePullPolicy: IfNotPresent
+        name: httpbin
+        command: ["gunicorn", "--access-logfile", "-", "-b", "0.0.0.0:80", "httpbin:app"]
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: httpbin
+  labels:
+    app: httpbin
+spec:
+  ports:
+  - name: http
+    port: 8000
+    targetPort: 80
+  selector:
+    app: httpbin
+---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: my-service-mirror
+  name: httpbin
 spec:
   hosts:
-  - my-service
+    - httpbin
   http:
-  - match:
-    - uri: /
-    route:
+  - route:
     - destination:
-        host: my-service-mirror
-        subset: v1
-      mirror:
-        destination:
-          host: my-service-mirror
-          subset: v2
-        percent: 100
+        host: httpbin
+        subset: v1    ##the traffic is going only v1 version 
+      weight: 100
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: httpbin
+spec:
+  host: httpbin
+  subsets:
+  - name: v1
+    labels:
+      version: v1
+  - name: v2
+    labels:
+      version: v2            
 
-317-what is load-Balancing in Istio how may types you can load-balancing in Istio 
+325-what is load-Balancing in Istio how may types you can load-balancing in Istio 
 
 >>In Istio, you can configure load balancing for your services using the loadBalancer option within a VirtualService. Istio provides several load balancing algorithms to distribute traffic among the
 available service instances. Here's how you can configure load balancing in an Istio VirtualService:
+
 1-Round Robin Load Balancing:Round-robin load balancing is the default and simplest load balancing strategy. It evenly distributes traffic among all available service instances.
 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-service-v1
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-service
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: my-service
+        version: v1
+    spec:
+      containers:
+      - name: my-service-container
+        image: your-my-service-image:v1
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-service-v2
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-service
+      version: v2
+  template:
+    metadata:
+      labels:
+        app: my-service
+        version: v2
+    spec:
+      containers:
+      - name: my-service-container
+        image: your-my-service-image:v2
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+spec:
+  selector:
+    app: my-service
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: my-service-gateway
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "my-service.local"
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
@@ -5501,6 +5861,7 @@ spec:
       weight: 50
       loadBalancer:
         simple: ROUND_ROBIN
+
 2-Random Load Balancing:
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
@@ -5550,7 +5911,7 @@ spec:
 5-Locality-Aware Load Balancing (LocalityLB):
 6-Failover:
 
-318-how to create a sticky session in virtual service in load balacning in IStio 
+326-how to create a sticky session in virtual service in load balacning in IStio 
 
 >>Istio does not have built-in support for sticky sessions in the same way that traditional load balancers do. Sticky sessions typically involve directing a user's traffic to the same backend server
 for the duration of their session, which can be challenging to implement in a microservices environment like Istio.
@@ -5585,9 +5946,10 @@ spec:
         host: my-service
         subset: v1
 
-319-what is rate-limiting and how to configure rate-limiting in istio
+327-what is rate-limiting and how to configure rate-limiting in istio
 
 >>rate limiting is used to control the amount of incomming and outgoing traffic to from network
+>>if anyone triggred minimum amount of request then he will get error to until wait for rate-limiting like this  
 bypass methods
 >>X-remote address=127.0.0.1
 >>X-Forwarded-ip=169.254.169.254
@@ -5653,7 +6015,10 @@ spec:
         host: my-service
         subset: v1
 
-320-what is circuit breaker in Istio 
+328-what is circuit breaker in Istio 
+
+>>HTTP services :-hosts that continually return 5xx errors for API calls are ejected from the pool for a pre-defined period of time
+>>TCP services:-connection __timeouts__ or connection __failures__ to a given host counts as an error when measuring the consecutive errors metric
 
 >>Circuit breaking in Istio is a feature that helps you improve the reliability and resiliency of your microservices by preventing cascading failures and overloading of downstream services. 
 Circuit breaking is a pattern often used in distributed systems to maintain service availability and prevent excessive resource consumption. Istio enables circuit breaking through the Envoy 
@@ -5713,8 +6078,9 @@ spec:
         host: my-service
         subset: v1
 
-321-what is TLS Termination at loadBalancer in Istio 
+329-what is TLS Termination at loadBalancer in Istio 
 
+>>adding TLS and SSL certificate into your domain 
 >>Enabling HTTPS TLS termination in Istio involves securing the communication between clients and the Istio Ingress Gateway or other Istio services by configuring TLS (Transport Layer Security) certificates.
 Here's a step-by-step guide on how to set up TLS termination in Istio:
 
@@ -5763,8 +6129,9 @@ spec:
     - destination:
         host: your-service
 
-322-what is SNI in IStio and you can configure two subdomain or multiple subdomain routing 
+330-what is SNI in IStio and you can configure two subdomain or multiple subdomain routing 
 
+>>we are enabling multiple domian like not only anji.com like sampi.com also 
 >>Server Name Indication (SNI) is an extension of the TLS (Transport Layer Security) protocol that allows clients to indicate the hostname they are trying to connect to during the TLS handshake process.
 It's crucial when a server hosts multiple SSL/TLS-secured websites on a single IP address, as it helps the server identify which website's SSL/TLS certificate to present to the client based on the hostname.
 
@@ -5829,7 +6196,7 @@ spec:
         port:
           number: 80
 
-323-how to enable end-user authentication using JWT Token for Entire gateway in IStio 
+331-how to enable end-user authentication using JWT Token for Entire gateway in IStio 
 
 >>To enable end-user authentication using JWT (JSON Web Tokens) for the entire Istio gateway, you need to set up a series of Istio resources, including a Gateway, VirtualService, and Policy.
 Here's a step-by-step guide on how to achieve this:
@@ -5978,7 +6345,7 @@ spec:
   - key: request.auth.claims[claim_name]
     values: ["expected_claim_value"]
 
-324-what is Egress security in Istio serviceEntry
+332-what is Egress security in Istio serviceEntry
 
 >>In Istio, Egress security is the practice of securing outbound traffic from your service mesh to external services or resources. This includes ensuring that outbound requests to external endpoints
 are compliant with security policies and are subject to the necessary access controls and authentication mechanisms.
@@ -6015,196 +6382,42 @@ spec:
   endpoints:
   - address: 203.0.113.10  # Replace with the actual IP address
 
-325-what is Ingress
+333-what is ServiceEntry in Istio 
 
->>if you want ingress you must deploy the ingress-controller before ingress deploying(like ex:- HA-Proxy,treafik, Istio, Nginx-ingress-controller)
->>ingress is nothing but set of rules
->>ingres is used for only web-application purpose it supports path based also
->>ingress controller using you can create a single loadbalancer using create multiple services. ingress controller is nothing bt set of rules
->>ingress may provide load balancing ssl termination and name based virtual hosting
->>Ingress exposes HTTP and HTTPS routes from outside the cluster to services within the cluster. Traffic routing is controlled by rules defined on the Ingress resource. 
-An Ingress may be configured to give Services externally-reachable URLs, load balance traffic, terminate SSL / TLS, and offer name-based virtual hosting
->>if you use type=loadbalancer you if you created 100 services means you need to create the 100 service rather using load balancer you
->>an ingress does not expose arbitray ports and protocols exposing services other than https and https to the internet typically uses a servicetype load balancer or nodeport
+>>In Istio, a ServiceEntry is a Kubernetes Custom Resource Definition (CRD) used to define how traffic should be routed to external services or services that are not part of the Istio service mesh. 
+ServiceEntries provide Istio with information about how to reach these external services, including details such as endpoints, ports, and authentication requirements. They are a crucial component for
+configuring egress traffic and securely connecting Istio services to external resources.
+>>>>In Istio, a service entry is a configuration object that defines how traffic should be routed to services outside of the mesh. It allows Istio to manage traffic to and from services that are not part of
+the Kubernetes cluster or services that are running on different clusters.
 
->>kubectl create deploy deploy1 --image=index.docker.io/sreeharshav/rollingupdate:v1
+1-Host 
+2-ports
+3-Endpoints
+4-location(MESH_INTERNAL)
+5-Resolution
+6-TLS Settings 
+7-Access controls
 
->>kubectl create deploy deploy2 --image=index.docker.io/sreeharshav/rollingupdate:v3
-
->>kubectl create deploy deploy3 --image=index.docker.io/sreeharshav/testcontainer:v1
-
->>kubectl expose deploy deploy1 --ports=5000 --target-port=80
-
->>kubectl expose deploy deploy2 --ports=8000 --target-port=80
-
->>kubectl expose deploy deploy3 --ports=9000 --target-port=80
-
->>kubectl get all
-
->>you need to set an ingress
-
->>kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-0.32.0/deploy/static/provider/aws/deploy.yaml
-
->>kubectl get pods
-
->>kubectl get pods -A
-
->>kubectl get deploy -A
-
->>kubectl describe deploy ingress-nginx-controller -n ingress-nginx
-
->>kubectl edit deploy ingress-nginx-controller -n ingress-nginx
-
->>kubectl get ingress
-
->>vi ing.yml
-
-apiVersion: extensions/v1beta1
-kind: Ingress
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
 metadata:
-  name: example-ingress
-  annotations:
-    ingress.kubernetes.io/rewrite-target: /
+  name: external-svc
 spec:
-  rules:
-  - host: www.bughunteranji.xyz
-    http:
-      paths:
-        - path: /
-          backend:
-            serviceName: deploy1
-            servicePort: 5000
+  hosts:
+  - external-service.com
+  ports:
+  - number: 80
+    name: http
+    protocol: HTTP
+  location: MESH_EXTERNAL
+  resolution: DNS
 
-:wq
-
->>kubectl create -f ing.yml
-
->>kubectl get ingress
-
->>vi app.yml
-
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: example-ingress2
-  annotations:
-    ingress.kubernetes.io/rewrite-target: /
-spec:
-  rules:
-  - host: app.bughunteranji.xyz
-    http:
-      paths:
-        - path: /
-          backend:
-            serviceName: deploy2
-            servicePort: 8000
-
-:wq
-
->>kubectl create -f app.yml
-
->>kubectl get ingress
-
->>vi dev.yml
-
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: example-ingress3
-  annotations:
-    ingress.kubernetes.io/rewrite-target: /
-spec:
-  rules:
-  - host: dev.bughunteranji.xyz
-    http:
-      paths:
-        - path: sampi
-          backend:
-            serviceName: deploy3
-            servicePort: 9000
-        - path: anji
-          backend:
-            serviceName: deploy3
-            servicePort: 1000
-:wq
-
->>kubectl create -f dev.yml
-
->>kubectl get ingress
-
->>now you can go and create using route 53 to www.bughunteranji.xyz and add loadbalancer
->>now you can go and create using route 53 to app.bughunteranji.xyz and add loadbalancer
->>now you can go and create using route 53 to dev.bughunteranji.xyz and add loadbalancer
-
->>now you can access using web www.bughunteranji.xyz or app.bughunteranji.xyz or dev.bughunteranji.xyz
->>vi bug.yml
-
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: example-ingress4
-  annotations:
-    ingress.kubernetes.io/rewrite-target: /
-spec:
-  rules:
-  - host: bughunteranji.xyz
-    http:
-      paths:
-        - path: /
-          backend:
-            serviceName: deploy1
-            servicePort: 5000
-
-:wq
->>now you can route53 bughunteranji.xyz add loadbalancer then you can access directly using bughunteranji.xyz
-
-325-what layer will be used in ingress kubernetes
-
->>Ingress controllers support routing through both the transport layer (OSI – Layer 4) and the application layer (OSI – Layer 7)
-
-326-is this podssible to create one ingree controller inside one more ingress
-
->>Ans: yes
-
-327-what needs to create an ingress
-
-1-namespace
-2-serviceAccount
-3-configmap
-4-clusterrole
-5-clusterrolebinding
-6-role
-7-rolebinding
-8-service
-9-service(twotimes)
-10-deployment
-11-ValidatingWebhookConfiguration
-
-328-how would you create the DNS in Kubernetes in private using
-
->> Using ingress you can create the DNS locally using you can apply these domains using Route53 to make it public
-
-329-types of Ingress-controller
-
-1-Nginx-ingress
-2-HA-Proxy 
-3-Envoy-proxy
-4-Istio
-5-TrefiK
-6-F5 conatiner ingress
-7-GCp ingress
-8-Ambassador
- 
-330-what is Ingress class
-
->> Using ingress class you can define watch for ingress resource
-
-331-why ALB(Application-Load-Balancer) controller created in kube-system namespace 
+334-why ALB(Application-Load-Balancer) controller created in kube-system namespace 
 
 >>that is because of ALB is just one instance that watches all the namespaces and the people of alb controller they have decided to ue the kube-system namespace and intiially most of the
 ingress controller were deployed in teh kube system namespace only 
 
-332-you have configure elk cluster outside and install filebeat in kops or eks  
+335-you have configure elk cluster outside and install filebeat in kops or eks  
 
 kibana 
 elasticsearch
@@ -6360,7 +6573,7 @@ it same for three times change the board name
 >>go to visualization library select the traffic click on breakdown click on filters http_path://api/shipping name shipping like cart and catalogue and users and click on new visualization
 >>go to visualization library select the latency click on breakdown click on filters http_path://api/shipping name shipping like cart and catalogue and users and click on new visualization
 
-333-what is the use of K8s in production 
+336-what is the use of K8s in production 
 
 1-high availability
 2-scalibility
@@ -6368,7 +6581,7 @@ it same for three times change the board name
 4-elasticity or auto-scaling 
 5-self healing 
 
-334-how to create the users in k8s 
+337-how to create the users in k8s 
 
 where we can assign roles service account and users then we can rolebinding 
 k8s dont have any user management authentication by default 
@@ -6658,7 +6871,7 @@ roleRef:
   name: anji-cluster
   apiGroup: rbac.authorization.k8s.io 
 
-334-how to assign ssl certificate using yaml in ingress 
+338-how to assign ssl certificate using yaml in ingress 
 
 >>if you have doubt see the sree harsha video of GKE in GCP
 ---
@@ -6741,28 +6954,26 @@ spec:
             port:
               number: 80 
 
-335-how to see api-resources
+339-how to see api-resources
 
 >>kubectl get pods 
 >>kubectl get api-resource
 
-336-if  you two conatiners in sinble pod how we can see
+340-if  you two conatiners in sinble pod how we can see
 
 if you have two containers inside that 
 kubectl logs prometheus-logs-xhjhjd -n motoring 
 >>when you use this command it will give error like use conatiner name you can choose the conatiner name 
 >>kubectl logs prometheus-logs -n motoring -c prometheus-logs  -->like this 
 
-337-how to restart the pods using rollout 
+341-how to restart the pods using rollout 
 
 if your deployed the pods you need to restart the pods then you can use rollouts 
 kubectl -n anji rollout -h  -->it will show the deatils 
 kubectl -n anji rollout restart deploy anji-deploy  -->it will restart anji-deploy pods restart
 
-338-
+342-how to see the estination rule & virtul service in kubernetes
 
-253-how to pass the secret manager credential to jenkins pipeline 
-
-
-
+>>kubectl get dr   -->it will show destination rule 
+>>kubectl get vs   -->it will show the virtual service 
 
