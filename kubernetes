@@ -4042,7 +4042,7 @@ kubectl label namespace default istio-injection=enabled
 >>istioctl analyze --all-namespaces
 >>kubectl get pod,svc -n istio-system 
 
-279-Why use Istio? 
+279-Why use Istio? what include Istio
 
 >>Istio enables organizations to secure, connect, and monitor microservices, so they can modernize their enterprise apps more swiftly and securely.
 benfites:-
@@ -4062,6 +4062,18 @@ benfites:-
 9-Security:- transparent security traffic behind the firewall(Auto mutual TLS among backend service, which doubles the latency at max or max 10ms)
 10-End-to-End authentication and authorization using JWT 
 11-Observability
+>>Include either read this or that
+1-Discovery
+2-Load-Balancing
+3-Failure-Recovery
+4-Metrics, and Montoring 
+Istio can also handle more complex operational requirments 
+1-A/B Testing (
+2-canary releases
+3-rate-limiting 
+4-dark launches
+5-access control and 
+6-end-to-end authentication
 
 280-Explain Istio Architecture 
 
@@ -4094,12 +4106,16 @@ Envoy proxy will do
 >>control plane is going to make sure provide certicates authority for tls connection of pods. pods will use envoy proxy to talk to each other with ssl certicates 
 >>Pilot: This component is responsible for configuring the Envoy proxies in the data plane. It maintains the service registry, manages routing rules, and ensures that each proxy has the appropriate 
 configuration.Istio's Pilot component provides dynamic configuration to the Envoy proxies, enabling features like traffic routing, load balancing, and fault tolerance.
+>>pilot is core component for in control palne used for traffic managemnet 
 >>Mixer: Mixer enforces access control policies, collects telemetry data (such as request/response metrics), and supports integration with various monitoring and logging solutions.
 Mixer enforces access control policies, collects telemetry data, and allows integration with external monitoring and logging systems.
 >>Citadel: Citadel is responsible for managing security-related tasks. It handles identity and access management, providing authentication, authorization, and encryption between services.
 Citadel manages identity and security features, including mutual TLS (mTLS) encryption between services.
+>>citadel is used to serice to service authentication using mutal-TLS
 >>Galley: Galley validates and processes configuration files for Istio. It converts the high-level routing and security rules defined by users into configurations that can be understood by other 
 components in the control plane.
+>>galley is used to data configuration and galley is responsible for data interpreting the yaml files in kuberneets and transforming them into a format that isto understanding and galley makes 
+its possible istio to work with another environment other than kubernetes since its translating differnet configuration data  into the common format that istio and envoy proxy  
 Telemetry:Telemetry data is collected and can be visualized using Prometheus and Grafana, while Jaeger can be used for distributed tracing.
 >>Prometheus: Istio integrates with Prometheus for collecting and storing performance and telemetry data, which can be used for monitoring and alerting.
 >>Grafana: Grafana is a visualization tool often used in conjunction with Prometheus to create dashboards for monitoring service health and performance.
@@ -4117,7 +4133,6 @@ and enforce encryption between them.
 
 >>Along with support for Kubernetes Ingress , Istio offers another configuration model, Istio Gateway . A Gateway provides more extensive customization and flexibility than Ingress ,
 and allows Istio features such as monitoring and route rules to be applied to traffic entering the cluster
-
 
 282-what is Istiod
 
