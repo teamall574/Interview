@@ -3153,6 +3153,7 @@ spec:
 
 >>it will show the beautiful dashboard and show how the network happens and shoing the peering authentication and gateways and virtual service and editble options also 
 >>it will graph how the trafiic happines to where the traffic going using mtls or not  
+>>it works with Istio to Visualise the service mesh topology features like request rates 
 
 215-what is CAdvisior
 
