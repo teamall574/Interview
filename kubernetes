@@ -3993,6 +3993,7 @@ Advantages:-
 
 >>A Service Mesh is an extra layer of software you deploy alongside your cluster(eg: Kubernetes)
 >>Istio Service Mesh is a network connectivity(i.e mesh) within kubernetes cluster created by Envoy Proxy containers be it a standlone or a sidecar proxy. 
+another huge advantage of using service mesh by default it uses mutual-TLS . if your not using istio you need to configure ingress-controller under TLS-Termination at ingree-controller pod 
 1-Traffic control:-
 >>A differnet load balancing policy to traffic for a particular subset of service instaces 
 >>Staged rollouts with %-based traffic split
