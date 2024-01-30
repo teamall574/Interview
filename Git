@@ -702,6 +702,16 @@ anji.txt ls.txt sampi.txt
 >>Whenever a pull request is created in GitHub and someone comments on the #jira you need to write a python script to look at the github.com whenever it finds a comments called #jira python should take
 that information and pass it to a jira ticket it has to create a jira ticket 
  
+93-what is there inside .git folder
+
+1-Hooks
+2-Logs
+3-config
+4-Index
+5-HEAD
+6-Info
+7-objects
+8-refs
 
 
 
