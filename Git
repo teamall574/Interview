@@ -444,11 +444,11 @@ then you can push into the master branch
 
 three types of git reset
                 or
->>git reset --hard , which will completely destroy any changes and remove them from the local directory.
+>>git reset --hard ,  -->which will delete local and staging workdir dont recomended in production
+>>git reset --hard "commitid"
+>>git reset --soft ,  -->if your using this you have done 100 commits your git so you wnat delete the last 40 commits from local only then you can use git reset --soft 
 
->>git reset --soft , which will keep your files, and stage all changes back automatically
-
->>git reset --mixed, which will keep the files and it will come to the staging back like you will see it commited you can chnage what you want and commit into the directory
+>>git reset --mixed,  -->if your using git reset --mixe it will remove the files and commits local and staging area also 
 
 53-what are the git commands that you use to commit changes to you remote repository
 
@@ -513,6 +513,7 @@ commit to the staging area by git add command. this process can be also called i
 
 62-What is Head in Git?
 
+>>HEAD is points always top commit. it points the latest commit 
 >>Git maintains a variable for referencing, called HEAD to the latest commit in the recent checkout branch. So if we make a new commit 
 in the repo then the pointer or HEAD is going to move or change its position to point to a new commit.
 
