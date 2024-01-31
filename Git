@@ -477,12 +477,25 @@ v2.1.0
 
 57-what is git reflog
 
+>>for example your using git in your local system your moving one brach to another branch andd commits adding files everything you will see that will stored in reflogs using you can see this will not 
+share to anyone this will stored in your local repository taht will help you to see the logs of your activity in local system 
+>>we use mostly show is the only command used variant and it is the default subcommand 
+>>cd anji 
+>>cd .git  -->you will see the reflogs in logs under HEAD file 
 >>it shows when we commit,checkout branch, reset....etc
 >>git reflog 
 >>git reflog show --all
 >>git reflog show <branch_name>
 >>git reflog master@{1.minute.ago}
 >>git reflog show HEAD@{5}
+  
+>>git reflogs is a short form for reference logs . these are just logs that keeps us for as a record . git keeps a record of when the tips of branches and other references were updated in the repo. 
+we can view and update these reflogs using git reflog command. git reflogs keeps on your local activity. they are not shared with collaborators. reflogs also expire. git cleans out old entires after 
+around 90 days through this can be configured 
+
+>>git reflog commands accept this commands show, expire, delete, and exists 
+>>we use mostly show is the only command used variant and it is the default subcommand 
+
 
 58-What are the benefits of branching?
 
