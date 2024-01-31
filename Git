@@ -469,6 +469,11 @@ three types of git reset
 >>to identify/reference for a commitid to quick access/ creating specific point in history for our repository
 git tag -a <tag-name> -m "comment" <commitid> --> annotated tag
 git tag -delete <tag-name>   -->delete the tag
+>> git tag -a v2.1.0 -m "xyz feature is released in this tag."
+>>git tag
+v1.0.0
+v2.0.0
+v2.1.0
 
 57-what is git reflog
 
