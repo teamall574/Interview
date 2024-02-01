@@ -4321,7 +4321,8 @@ may be challenging to replicate when using Envoy directly.
 
 >>if you want ingress you must deploy the ingress-controller before ingress deploying(like ex:- HA-Proxy,treafik, Istio, Nginx-ingress-controller)
 >>ingress is nothing but set of rules
->>ingres is used for only web-application purpose it supports path based also
+>>ingres is used for only web-application purpose it supports path based also.
+>>Ingress Controller in kubernetes play a critical role in routing external traffic into the cluster. they act as a bridge between external clients and services running within the cluster 
 >>ingress controller using you can create a single loadbalancer using create multiple services. ingress controller is nothing bt set of rules
 >>ingress may provide load balancing ssl termination and name based virtual hosting
 >>Ingress exposes HTTP and HTTPS routes from outside the cluster to services within the cluster. Traffic routing is controlled by rules defined on the Ingress resource. 
