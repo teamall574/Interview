@@ -415,6 +415,7 @@ NAT-Instance
 36-what is the VPC end-point
 
 >>A VPC endpoint enables you to privately connect your VPC to supported AWS services and VPC endpoint services. instance in your VPC does not require a public IP address to communicate the AWS resources
+this is gateway endpoint two types of endpoints 1-gateway endpoint 2-interface endpoint 
 >>S3
 >>DynmoDB
 >>Also create Interfaces like EkS, Auto-Scaling, Cloud-Trail, Cloud-formation
