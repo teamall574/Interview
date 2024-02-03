@@ -973,6 +973,59 @@ resource "aws_instance" "sampi_instance" {
   }
 }
 
+////////////////////////////////////////////////////////////Second-type-multiple-security-groups//////////////////////////////////////////////////////////////////////
+
+resource "aws_security_group_rule" "http_ingress_rule" {
+
+  type              = "ingress"
+  from_port         = 80
+  to_port           = 80
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+}
+
+resource "aws_security_group_rule" "ssh_ingress_rule" {
+ 
+  type              = "ingress"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
+  cidr_blocks       = ["aws_security_group.sampi_security_group.id"]  # Replace <sampi_system_IP> with the actual IP address of Sampi system
+}
+# Security Group for Sampi instance
+resource "aws_security_group" "sampi_security_group" {
+  name        = "sampi-se"
+  description = "Security group for Sampi instance"
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks       = ["0.0.0.0/0"]
+  }
+}
+##sampi system only take ssh possible 
+resource "aws_instance" "anjis_instance" {
+  ami           = "ami-xxxxxxxxxxxxxxxxx"
+  instance_type = "t2.micro"
+  associate_public_ip_address = false
+  # Other instance configuration parameters...
+
+  vpc_security_group_ids = [
+    aws_security_group.http_ingress_rule.id,
+    aws_security_group.ssh_ingress_rule.id,
+    # Add other security groups as needed
+  ]
+}
+##sampi system
+resource "aws_instance" "sampi_instance" {
+  ami           = "ami-xxxxxxxxxxxxxxxxx"
+  instance_type = "t2.micro"
+  associate_public_ip_address = true
+  # Other instance configuration parameters...
+  security_group = [aws_security_group.sampi_security_group.id]  
+}
+
 86-why IAC  -->Infrastructure As Code 
 
 >>faster time to release 
