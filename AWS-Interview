@@ -1084,6 +1084,7 @@ developers load Amazon Machine Images (AMIs) into Amazon S3 and then move them b
 
 95-what is a storage gateway and what types
 
+>>AWS storage gateway using your uploading data from local or on-premises to cloud 
 >>AWS Storage Gateway is a set of hybrid cloud storage services that provide on-premises access to virtually connect the cloud storage.
 
 >>volume-gateway:- A Volume Gateway provides cloud-backed storage volumes that you can mount as Internet Small Computer System Interface (iSCSI)
