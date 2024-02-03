@@ -1993,8 +1993,8 @@ global acclerator is basically global load balancer which load balancing the reg
 >>New Flow Logs will appear in the Flow Logs tab of the VPC dashboard. The Flow Logs are saved into log groups in CloudWatch Logs. The log group will be created
 approximately 15 minutes after you create a new Flow Log. You can access them via the CloudWatch Logs dashboard.
 >>Amazon VPC Flow Logs is a feature in AWS that allows to capture information about the IP traffic going to and from network interfaces in vpc
->>VPC Flow Logs provide detailed information about the traffic, including source and destination IP addresses, ports, protocol, and more. 
-This information is valuable for network monitoring, troubleshooting, security analysis, and compliance checks.
+>>VPC Flow Logs provide detailed information about the traffic, including source and destination IP addresses, ports, protocol, and more.  This information is valuable for network monitoring, troubleshooting,
+security analysis, and compliance checks. select the vpc enable the fow logs and select the logs where to send either any s3 bucket or cloudwatch choose 1 minute 10minutes like this 
 
 200-how to port forwarding in linux or ec2
 
