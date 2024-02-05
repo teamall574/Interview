@@ -103,6 +103,41 @@ resource "aws_s3_bucket" "example_bucket" {
 >>A null resource is basically something that doesn't create anything on its own, but you can use it to define provisioners blocks. They also have a “trigger” attribute, which can 
 be used to recreate the resource, hence to rerun the provisioner block if the trigger is hit.
 
+>>if your using null resource your trigger first time then it will trigger the instance that remote exec or local exec will trigger if you do second time it will trigger but will not execute . why means 
+either id or remote exec file need to change eitheriwise it will not work 
+>>ex:-
+
+resource "aws_instance" "web" {
+  ami                    = data.aws_ami.centos8.id
+  instance_type          = "t3.micro"
+  vpc_security_group_ids = [aws_security_group.allow_tls.id]
+
+  tags = {
+    Name        = "web"
+    environment = "DEV"
+  }
+
+}
+
+resource "null_resource" "provision" {
+
+  triggers = {
+    instance_id = aws_instance.web.id
+  }
+
+  provisioner "remote-exec" {
+    connection {
+      host     = aws_instance.web.public_ip
+      user     = "centos"
+      password = "DevOps321"
+    }
+
+    inline = [
+      "echo Helo"
+    ]
+  }
+}
+
 9-what is local-exec and remote-exec
 
 >>local-exec provisioners. The local-exec using we can retrive or take information from the terraform deployment code and see. where you are executed 
