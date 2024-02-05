@@ -100,6 +100,8 @@ resource "aws_s3_bucket" "example_bucket" {
 8-Define null resource in Terraform.
 
 >>null_resource is used to run the resources using which present the resource using we can create the new resouces
+>>A null resource is basically something that doesn't create anything on its own, but you can use it to define provisioners blocks. They also have a “trigger” attribute, which can 
+be used to recreate the resource, hence to rerun the provisioner block if the trigger is hit.
 
 9-what is local-exec and remote-exec
 
