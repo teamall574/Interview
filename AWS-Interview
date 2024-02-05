@@ -192,7 +192,7 @@ Nexus    -->8081
 
 >>By using the management console
 >>access_kay and secret_key
->>AWS SDKs(software development Kits): using python boto3
+>>AWS SDKs(software development Kits): using python boto3 this is also use access and secret key (API-also came in to this type using access and secret_key)
 >>AWS SSO(single sign-on) using anji@wipro.com
 >>AWS Federation like SAML or Okta
 >>AWS STS(Security token Service)
