@@ -2121,7 +2121,9 @@ giving that will be accessbile that user anytime briefly in below see
 first-type
 >>anji aws account go to roles create a role anji-role select the sampi account 11223344 he can manage the ec2 click on create. go to sampi aws account create a policy sts-assume role policy then 
 paste the anji-role arn here assume polciy click on name sampi-policy  click on create . you have sampi user in sampi account and attach the sampi-policy to sampi user .
-then go to sampi user console and switch role give anji account name and anji-role that's it your into the anji aws account 
+then go to sampi user console and switch role give anji account name and anji-role that's it your into the anji aws account. if you have vinod and gampa account also you create role and sampi wil assume 
+the role gampa and vinod give the rule of arn then sampi will assume role then he can go to the sampi account switch to vinod and gampa like this you can do multiple accounts 
+ 
 second-type
 >>your in Anji account createing role in as anji1 role using another AWS account enter sampi AWS account number 11256 and add persmission like ec2 or s3 click on create.copy your ARN 
 go to sampi account have vinod user go to policies create STS policy in that paste anji1 role ARN and create that policy. attach that policy into vinod user and login with vinod user
