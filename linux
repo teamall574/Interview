@@ -1118,7 +1118,7 @@ for nay linux this process is handled by the cron service or daemon called crond
 
 * * * * *
 minutes, hours, day-of-month, month, day-of-week
-
+>>crontab -l --->it will list the crontabs
 >>crontab -e
 
 #execute a job 8:30 on everyday moening
