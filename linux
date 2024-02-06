@@ -222,6 +222,8 @@ hi anji  then exist use control+d
 >>cp -r /path/to/anji/* /path/to/sampi/
 >>cp -r anji/* sampi/
 >>cp anji sampi/    -->it will copy the anji diretory to sampi directory under 
+>>sudo cp -Rf /home/ec2/efs/index.html /var/lib/html/  -->copying index.html into /var/lib/html
+
 
 22-how to remove files or folders in linux
 
