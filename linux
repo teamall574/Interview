@@ -2480,6 +2480,9 @@ sampi:x:20:root:/root:/bin/bash
 hello 
 #it will replace anji in first line or first mongodb to anji value
 >>sed -e '/refernce/ s/mongodb/anji/' /anji/anji.txt
+#!/bin/bash
+sudo sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config 
+sudo systemctl restart sshd.service 
 
 225-what is Runlevel commands in linux
 
