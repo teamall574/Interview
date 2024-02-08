@@ -1973,18 +1973,23 @@ can temporarily move less frequently used data from RAM to the swap space. This 
 202-how to partition a linux system into 1tb to 500gb another drive 
 
 >>fdisk -l or lsblk 
+xvdf1  8gb
+xvdf   1TB
+>>fdisk /dev/xvdf
 >>Identify the device name of your 1 TB hard disk. It will typically be something like /dev/xvdb or /dev/xvdc.
->>Type n to create a new partition.
->>Choose the primary partition type (usually the default, press Enter).
->>Specify the starting and ending sectors. For a 500 GB partition, you might specify +500G as the ending sector.
->>Type t to change the partition type (if needed) and set the file system type.
->>Type w to write the changes to the disk and exit.
->>After you've created the partition, you should have a new partition (e.g., /dev/xvdb1)
->>sudo mkfs.ext4 /dev/xvdb1   -->You need to create a file system on the new partition. The following example creates an ext4 file system:
+>>click on "n"
+>>enter "p"   -->read carefully and do 
+>>enter "1"   -->
+>> +500G
+>> click on "m"
+>>enter "w"  -->for quit 
+>>lsblk 
+>>file -s /dev/xvdf
+>>mkfs -t xfs /dev/xvdf
 >>sudo mkdir /mnt/mynewdrive   -->Create a directory where you want to mount the new partition.
->>sudo mount /dev/xvdb1 /mnt/mynewdrive  -->Mount the new partition to this directory
+>>sudo mount /dev/xvdf /mnt/mynewdrive  -->Mount the new partition to this directory
 >>vi /etc/fstab
-/dev/xvdb1 /mnt/mynewdrive ext4 defaults 0 0
+/dev/xvdf /mnt/mynewdrive ext4 defaults 0 0
 :wq   -->To ensure the partition is mounted at boot, add an entry to the /etc/fstab file. Edit the file using a text editor (e.g., sudo nano /etc/fstab)
 >>df -h   -->You can verify that the partition is correctly mounted by running
 
