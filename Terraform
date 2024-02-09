@@ -22,7 +22,7 @@ Advantages:-
 7-Inventory management
 8-Cost optimization
 9-Modular Infra(DRY -->Dont Repeat Yourself)
-
+10-importing resource is easy
 Dis-Advantages:-
 1-Bugs will not be fixed (fast)
 2-new service might not be available(when aws developing an service when he relases aws services then he can develop the terraform )
