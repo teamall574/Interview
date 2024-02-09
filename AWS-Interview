@@ -2127,8 +2127,7 @@ the role gampa and vinod give the rule of arn then sampi will assume role then h
 second-type
 >>your in Anji account createing role in as anji1 role using another AWS account enter sampi AWS account number 11256 and add persmission like ec2 or s3 click on create.copy your ARN 
 go to sampi account have vinod user go to policies create STS policy in that paste anji1 role ARN and create that policy. attach that policy into vinod user and login with vinod user
-you can see option in support that see switch to role paste the Account number and role number you will be able to access anji1 role what the permission you have
-
+you can see option in support that see switch to role paste the anji Account number and role anji1 you will be able to access anji1 role what the permission you have
 
 219-what is role-switching
 
