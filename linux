@@ -626,7 +626,10 @@ their attributes like password or login directory etc.
 >>id anji   -->see the user information like group 
 >>groupadd anji  -->it will create the group
 >>usermod -a -G sampi anji  -->anji added into the sampi group
+>>usermod -a -G sampi, vindo   anji-->anji added into multiple groups 
+>>usermod -aG sampi anji -->like this also 
 >>usermod -g sampi anji   -->it will add sampi primary group dont use -a 
+>>useradd -m -s /bin/bash -G sampi anji   -->anji added while creating user into sampi group
 >>gpasswd  -d anji sampi   -->delete the anji user in sampi group
 >>groupdel sampi  -->deleting the sampi group
 >>sudo chage -M 30 anji -->it is used to set user only one password for 30 days only
