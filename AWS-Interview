@@ -1977,6 +1977,7 @@ giving them greater control and visibility into their cloud infrastructure.
 on your website.it is used to speed up your website over the internet. it will be cache all the content to the all edge point using of your provider . it will sit infront of your route53 
 >>The CDN (Content Delivery Network) is often used to cache and deliver content closer to the user, improving performance. The DNS resolution happens first to translate the domain (like anji.com) 
 into an IP address, then the request goes through the specified network components.
+>>you can block or put some restriction in cloudfront also like firewall
 >>User's request -> AWS Global Accelerator -> CDN (if configured) -> DNS (Route 53 or another DNS service) -> Firewall -> Load Balancer -> ElastiCache (Redis) -> Web Server  -->this is correct 
 
 197-what is global acclerator
