@@ -1484,7 +1484,6 @@ EX:-AWS:-
 18-Docker
 19-Kubernetes
 
-
 135-what is firewall
 
 >>firewall is allow or disallow the traffic in your network
@@ -1974,8 +1973,11 @@ giving them greater control and visibility into their cloud infrastructure.
 
 196-What is CDN and how it works?
 
->>A CDN or cloud-front is same. content deliver network is decrese the latency in your website and it provide the cache server in all edge locations 
-on your website.it is used to speedup your website over the internet
+>>A CDN or cloud-front is the same. content deliver network decreases the latency in your website and it provides the cache server in all edge locations 
+on your website.it is used to speed up your website over the internet. it will be cache all the content to the all edge point using of your provider . it will sit infront of your route53 
+>>The CDN (Content Delivery Network) is often used to cache and deliver content closer to the user, improving performance. The DNS resolution happens first to translate the domain (like anji.com) 
+into an IP address, then the request goes through the specified network components.
+>>User's request -> AWS Global Accelerator -> CDN (if configured) -> DNS (Route 53 or another DNS service) -> Firewall -> Load Balancer -> ElastiCache (Redis) -> Web Server  -->this is correct 
 
 197-what is global acclerator
 
@@ -1983,6 +1985,8 @@ on your website.it is used to speedup your website over the internet
 >> AWS Global accelerator is a networking service that helps you to improve the availability zones and performance of the applications that offer you to your 
 golbal users. aws global acclerator easy to setup and manage and configure. it provides static ip address and fixed entry point your application. 
 global acclerator is basically global load balancer which load balancing the regions as well .it is costly compared to dns load balancer
+>>AWS Global Accelerator helps improve the availability and performance of applications by using static Anycast IP addresses and routing traffic over the AWS global network to optimal endpoints.
+It sits in front of your resources, like a load balancer, and directs traffic based on health, geography, and routing policies you configure.
 
 198-what is WAF in AWS
 
