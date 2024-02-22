@@ -2091,9 +2091,10 @@ Since its creation in 2001 it has become the de facto standard in the open sourc
 213-what are the types IAM policies    -->see in iam.txt read inline policy
 
 >>AWS managed policies:- aws managed by this policies, you can reuse the policies
->>customer managed policies:- you can create and attach the policies to user and groups like giving permssiones and denying users or groups. you can reuse the polices
->>Inline policies:- its like same customer maneged policies but its one to one like one user or role you cant reuse the poliices it is not visible for everyone 
-it is visible for only user and it is embed directly into a single user, group, or role.
+>>customer managed policies:- you can create and attach the policies to user and groups like giving permissions and denying users or groups. you can reuse the polices
+>>Inline policies:- its like same customer managed policies but its one to one like one user or role you cant reuse the policies it is not visible for everyone 
+it is visible for only user and it is embedded directly into a single user, group, or role.
+>>AWS Managed Job Function:- this will be created by aws by default for job role purpose 
 
 214-what is IAM policy simulator?
 
