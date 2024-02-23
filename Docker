@@ -71,6 +71,11 @@ Advantages:-
 3-Isolation
 4-Scalability
 5-Rapid Development
+6-Resource Efficiency
+7-Consistency
+8-Versioning and Rollback
+9-Security
+10-Ecosystem and Community
 
 --disadvantages:-
 1-Docker is not good for application that requires rich GUI.
