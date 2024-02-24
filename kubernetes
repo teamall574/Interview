@@ -3607,6 +3607,7 @@ vi .bash_profile
 alias  ku="kubectl"
 alias  ta="terrfform apply"
 :wq
+>>source .bash_profile
 >>ku will use like this instead of kubectl we can use like this 
 ku apply -f anji.yaml 
 like this terrafrom 
