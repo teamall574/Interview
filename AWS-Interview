@@ -3372,6 +3372,8 @@ web-server this act as reverse proxy
 >>Clients send requests to the reverse proxy, thinking it is the server.
 >>The reverse proxy then forwards the request to the appropriate backend server.
 >>The backend server processes the request, and the reverse proxy sends the response back to the client.
+>>for example you configured the frontend connected with backend and backend connect with database then you created nginx reverse proxy another server and added forntend ip as reverse proxy if any hacker known 
+Ip or anything your application will not effect until you making public  
 Use-Cases:-
 1-Server Anonymity
 2-Caching
