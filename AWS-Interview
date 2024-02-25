@@ -3379,7 +3379,11 @@ Use-Cases:-
 4-DDoS Protection
 5-Canary Experimentation
 6-URL/Content Rewriting
+7-increase security
+8-scalability and flexibility
+9-SSL termination
 Examples:- Nginx, Apache, HAProxy
+https://www.youtube.com/watch?v=1uZQ0DaNGjM
 
 351-when npm install used build once build happens what you will get 
 
