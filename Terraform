@@ -856,6 +856,16 @@ This command queries the providers for each resource's actual status and updates
 
 83-You need to install or copy specific software on an AWS EC2 instance after it's created. How would you achieve this using provisioners?
 
+variable "amis" {
+    description = "AMIs by region"
+    default = {
+      us-east-1 = "ami-97785bed" # ubuntu 14.04 LTS
+		  us-east-2 = "ami-f63b1193" # ubuntu 14.04 LTS
+		  us-west-1 = "ami-824c4ee2" # ubuntu 14.04 LTS
+		  us-west-2 = "ami-f2d3638a" # ubuntu 14.04 LTS
+    }
+}
+aws_region = "us-east-1"
 resource "aws_instance" "private-instances" {
     count = "${var.environment == "prod" ? 3 : 1}"
     ami = "${lookup(var.amis, var.aws_region, "ap-south-1")}"
