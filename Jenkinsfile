@@ -23,7 +23,7 @@ pipeline {
         stages {
             stage('checkout source') {
                 steps {
-                    git 'https://github.com/teamall574/test.git'   ##it is public repository
+                    git branch: 'main', url: 'https://github.com/teamall574/test.git'   ##it is public repository
                 }
             }
 	    stages("check git secrets") {
