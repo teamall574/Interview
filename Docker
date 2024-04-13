@@ -49,6 +49,12 @@ FROM tomcat:8-jre8
 COPY webapp. war /usr/local/tomcat/webapps
 EXPOSE 8080
 
+0-how Docker will help 
+
+>>Before docker the way you deploy your application either python, java or node anything. but since the evolution of docker it has become easy to deploy different types of applications with a simple command you 
+can run different applications any environment like cloud or local environment or your servers. with that docker all need to do create docker image and run like of you java or python or nodejs or any program 
+lanaguage you can create the image and run in anywhere
+
 1-what is the difference between Kubernetes and docker
 
 >Docker is a container platform whereas Kubernetes is a container orchestration environment that offers capabilities like auto-scaling, auto-healing, clustering and enterprise-level support like load balancing
