@@ -49,6 +49,8 @@ FROM tomcat:8-jre8
 COPY webapp. war /usr/local/tomcat/webapps
 EXPOSE 8080
 
+>>like developer while developing the code or project the code size will be 100 mb or gb or more that will be compressed into one file like jar or war files with the help of tools maven or node 
+
 0-how Docker will help 
 
 >>Before docker the way you deploy your application either python, java or node anything. but since the evolution of docker it has become easy to deploy different types of applications with a simple command you 
