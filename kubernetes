@@ -9462,8 +9462,10 @@ spec:
           serviceAnnotations:
             service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
 
+39-what is sealed secret operator
 
-
+>>https://www.youtube.com/watch?v=wWMJCY2E0d4
+>>https://www.youtube.com/watch?v=wN1zJASjQDA
 
 
 
