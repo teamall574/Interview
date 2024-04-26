@@ -3188,6 +3188,91 @@ spec:
 >>created eks cluster and along with OIDC connecction create role anji or any name select the web-identity give OIDC provider and attach the policy or ccreate the policy attach create role 
 create service account and add ARN of the role then use the 
 
+apiVersion: external-secrets.io/v1beta1
+kind: SecretStore
+metadata:
+  name: aws-secrets-manager
+spec:
+  provider: 
+    aws:
+      service: SecretsManager
+      region: eu-west-1
+      auth:
+        jwt:
+          serviceAccountRef:
+            name: eso-sa
+---
+apiVersion: external-secrets.io/v1beta1
+kind: SecretStore
+metadata:
+  name: aws-parameter-store
+spec:
+  provider: 
+    aws:
+      service: ParameterStore
+      region: eu-west-1
+      auth:
+        jwt:
+          serviceAccountRef:
+            name: eso-sa
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: eso-cftc
+spec:
+  refreshInterval: 1m
+  secretStoreRef:
+    name: aws-secrets-manager
+    kind: SecretStore
+  target:
+    name: kube-secret   #this will be the name of the aws secret manager under your credentails folder name and also create the secret in k8s 
+  data:
+    - secretKey: username
+      remoteRef:
+        key: eso-cftc/username
+        property: secret.username
+    - secretKey: password
+      remoteRef:
+        key: eso-cftc/password
+        property: secret.password
+    - secretKey: url
+      remoteRef:
+        key: eso-cftc/url
+        property: secret.url
+
+>>kubectl apply -f "basic-external-secret.yaml"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+        - name: my-container
+          image: my-image
+          env:
+            - name: EXTERNAL_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: kube-secret 
+                  key: DB_USERNAME
+            - name: EXTERNAL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: kubec-secret 
+                  key: DB_PASSWORD
+
+
 207-how to find out the DNS name in svc or deployment in kubernetes
 
 >>kubectl get service <service-name> -n <namespace> -o=jsonpath='{.status.loadBalancer.ingress[0].hostname}'
