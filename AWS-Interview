@@ -451,11 +451,12 @@ define network addresses, providing a more flexible and efficient way to allocat
 
 32-what is VPC
 
->>vpc is virtual private cloud it is nothing but it will provide network level isolation and it will provide network security you can work other organisations also. vpc have somany components like subnets under public and private subnet and internet gateway and route tables and nat-gateway   
+>> VPC is a virtual private cloud it is nothing but it will provide network-level isolation and it will provide network security you can work with other organizations also. VPC has so many components like 
+subnets under public and private subnets and internet gateway and route tables and nat-gateway   
 >>Amazon VPC lets you provision a logically isolated section of the Amazon Web Services (AWS) cloud where you can launch AWS resources in a 
 virtual network that you define.
 >>Amazon Virtual Private Cloud (Amazon VPC) gives you full control over your virtual networking environment, including resource placement, 
-connectivity, and security. it is logical entity. in one network under he will create the multiple network. and isolation in every network  
+connectivity, and security. it is logical entity. in one network under he will create multiple network. and isolation in every network  
 by default vpc will not communicate each other until you peering or transit until it will  
 >>if you want communicate one more vpc its possible but IPs will not overlap if overlap it will not work 
 >>your created vpc cidr 10.1.0.0/16 if you want add onemore cidr you can select the vpc click on actions 10.2.0.0/16 is possible 
@@ -467,21 +468,23 @@ by default vpc will not communicate each other until you peering or transit unti
 >>Vpc is a logical boundary
 >>vpc id is globally unique
 >>you can stop the particular ip one ec2 to another ip through routing table in peering
->>you must enable dns hostname. eitherwise you wont get hostname you will get public ip but not hostname 
+>> You must enable DNS hostname. otherwise you wont get the hostname you will get the public ip but not the hostname 
 
 Use-Cases:-
 1-Isolation of Resources
-2-Multi-Tier Applications:You can create multi-tier applications by deploying different components of your application in separate subnets within a VPC. For example, web servers in one subnet, application servers in another, and databases in yet another, each with its own security and routing rules.
+2-Multi-Tier Applications: You can create multi-tier applications by deploying different components of your application in separate subnets within a VPC. For example, web servers in one subnet, 
+application servers in another, and databases in yet another, each with its own security and routing rules.
 3-Connectivity to On-Premises Data Centers:
 4-Hybrid Cloud Deployments
 5-IP Address Management:
 6-Highly Available Architectures:
 7-Security and Network Access Control:
-8-Elastic Load Balancing:When deploying applications with varying loads, VPCs can be used with Elastic Load Balancing (ELB) to distribute incoming traffic across multiple instances, ensuring high availability and fault tolerance
+8-Elastic Load Balancing: When deploying applications with varying loads, VPCs can be used with Elastic Load Balancing (ELB) to distribute incoming traffic across multiple instances, ensuring high availability
+and fault tolerance
 9-Managed Virtual Private Networks:
 10-VPC Peering
 
-33-when i am createing my vpc under subnet why 251 ip come 
+33-when I am creating my vpc under subnet why 251 ip come 
 
 >>If you create subnet 10.1.1.0/24 means actually the will get 256 but you will get 251 only 5 ips will reserved any subnet like this
 >>First one is network 
@@ -502,7 +505,8 @@ and your data centers, and route traffic to and from your subnets using route ta
 >>once you created subnet you cant decrease or you can't edit the subnet  
 
 Use Cases:-
-1-Multi-Tier Applications:Subnets allow you to organize components of multi-tier applications. For example, you can have separate subnets for web servers, application servers, and databases. This helps in enforcing security measures and controlling the flow of traffic between different tiers.
+1-Multi-Tier Applications: Subnets allow you to organize components of multi-tier applications. For example, you can have separate subnets for web servers, application servers, and databases. 
+This helps in enforcing security measures and controlling the flow of traffic between different tiers.
 2-High Availability:
 3-Public and Private Subnets:
 4-Network Isolation:
@@ -514,7 +518,7 @@ Use Cases:-
 10-VPC Peering:
 11-Internet Gateway and NAT Gateway Placement:
 
-36-how many subnets can create in a vpc 
+36-how many subnets can be created in a VPC 
 
 >>200 subnets per vpc 
 
@@ -548,15 +552,15 @@ subsets of resources within a VPC.
 
 38-What is IGW.
 
->>Internet Gateway (IGW) is a service that allows communication between resources in your Virtual Private Cloud (VPC) and the internet. 
+>>Internet Gateway (IGW) is a service that allows communication between resources in your Virtual Private Cloud (VPC) and the Internet. 
 It serves as a horizontally scaled, redundant, and highly available component that enables outbound and inbound traffic to and from the 
-internet.
+Internet.
 1-Connectivity to the Internet:
 2-Outbound Internet Access:
 3-Inbound Internet Access:
 4-Routing:
 5-Elastic IP Address Association:
-6-Security:Access control for traffic to and from the internet is primarily managed through Network Access Control Lists (NACLs) and Security
+6-Security: Access control for traffic to and from the internet is primarily managed through Network Access Control Lists (NACLs) and Security
  Groups associated with your VPC and its resources.
 
 To use an Internet Gateway:
@@ -579,11 +583,15 @@ maximum of 1,000 buckets by submitting a service limit increase.
 >>A NAT gateway is a Network Address Translation (NAT) service. it is used in a private system to connect over the internet to take patches or updates nat gateway is an intelligent device using 
 source destination packets. it will send only traffic through the public instance but not allow outside the traffic to your private instances. when you enable nat gateway you must select the 
 public subnet, not the private subnet
->>Nat gateway intelligent device  using source destination packets. if any request go private to internet then traffic comes to private it will allow because of source and destination packets stored in nat-gateway . if the directly come request through internet it will not allow because the source and packet is not stored in nat-gateway 
+>>Nat gateway intelligent device  using source destination packets. if any request goes private to the internet then traffic comes to private it will allow because of source and destination packets stored 
+in nat-gateway . if the directly come request through internet it will not allow because the source and packet is not stored in nat-gateway 
 >>Nat gateway used to private ip to public devices
 >>if you use nat-gateway you must select the public subnet only if you select the private subnet it will not works. so select the public subnet only  and your allocateing one elastic-ip to nat-gateway 
 
->>if you need highly available enviorment like you anji-vpc public-subnet-1 and piblic-subnet-2 and then app-private-1 and app-private-2 then db-private-1 and db-private-2 then create route tables anji-public public-subnet-1, public-subnet-2  app-private-route app-private1, app-private-2 db-private-route db-private-1, db-private-2  then create nat-gateway anji-public-1 allocate elastic-ip click on ok then go the app-private-route table add routes 0.0.0.0/0 and select the anji-public-1 nat-gateway. like this create nat-gateway anji-public-2 allocate elastic-ip click on ok then go the db-private-route table add routes 0.0.0.0/0 and select the anji-public-2 nat-gateway       
+>>if you need highly available enviorment like you anji-vpc public-subnet-1 and piblic-subnet-2 and then app-private-1 and app-private-2 then db-private-1 and db-private-2 then create route tables anji-public
+public-subnet-1, public-subnet-2  app-private-route app-private1, app-private-2 db-private-route db-private-1, db-private-2  then create nat-gateway anji-public-1 allocate elastic-ip click on ok then go the 
+app-private-route table add routes 0.0.0.0/0 and select the anji-public-1 nat-gateway. like this create nat-gateway anji-public-2 allocate elastic-ip click on ok then go the db-private-route table 
+add routes 0.0.0.0/0 and select the anji-public-2 nat-gateway       
        
 1 - nat gateway managed by AWS 
 2 - nat gateway can't assign security groups
@@ -611,7 +619,7 @@ NAT-Instance
 4 - NAT instance bandwidth depends on instance bandwidth
 5 - NAT instance performance compared to NAT gateway is average
  
-43-what is security group is stateful or stateless in aws
+43-what is security group stateful or stateless in aws
 
 >>Security groups are stateful—if you send a request from your instance, the response traffic for that request is allowed to flow in regardless of 
 inbound security group rules. For VPC security groups, this also means that responses to allowed inbound traffic are allowed to flow out, regardless of 
@@ -622,8 +630,8 @@ outbound rules.
 >>A network access control list (NACL) is an optional layer of security for your VPC that acts as a firewall for controlling traffic in and out of one or more subnets.
 You might set up network ACLs with rules similar to your security groups in order to add an additional layer of security to your VPC.
 
->>when you created vpc automatically create nacl 
->>if anyone want say to change something nacl first ask send a mail 
+>> When you create vpc automatically create NaCl 
+>> If anyone want say to change something nacl first ask to send a mail 
 >>don't do changes in nacl in production environment
 >>need to add every rule in inbound and outbound  -->if you add ssh in inbound it will not allow so you need to add outbound also
 
@@ -656,8 +664,8 @@ enabled outboind it will not work and it will sit infornt of security group
 >>For example, I want to design a security architecture, I would use a combination of NACLs and security groups. At the subnet level, I would configure NACLs to enforce inbound and
 outbound traffic restrictions based on source and destination IP addresses, ports, and protocols. NACLs are stateless and can provide an additional layer of defense by filtering traffic 
 at the subnet boundary.At the instance level, I would leverage security groups to control inbound and outbound traffic. Security groups are stateful and operate at the instance level. 
-By carefully defining security group rules, I can allow or deny specific traffic to and from the instances based on the application's security requirements.By combining NACLs and 
-security groups, I can achieve granular security controls at both the network and instance level, providing defense-in-depth for the sensitive application.
+By carefully defining security group rules, I can allow or deny specific traffic to and from the instances based on the application's security requirements. By combining NACLs and 
+security groups, I can achieve granular security controls at both the network and instance levels, providing defense-in-depth for sensitive applications.
 
 49-what is describe menas vpc
 
@@ -667,7 +675,7 @@ security groups, I can achieve granular security controls at both the network an
 
 >>VPC Flow Logs capture information about the IP traffic going to and from network interfaces in your VPC. 
 >>VPC Flow Logs provide information at the network flow level, including details like source and destination IP addresses, ports, protocols, and the amount of data transferred.
->>you can capture entire vpc or subnet level flow logs and pass to log-group in cloudwatch then you can use eleastic search to visualize them  
+>>you can capture entire vpc or subnet level flow logs and pass to log-group in Cloudwatch then you can use elastic search to visualize them  
 
 >>New Flow Logs will appear in the Flow Logs tab of the VPC dashboard. The Flow Logs are saved into log groups in CloudWatch Logs. The log group will be created
 approximately 15 minutes after you create a new Flow Log. You can access them via the CloudWatch Logs dashboard.
@@ -691,7 +699,7 @@ c.Internet Protocol Security
 
 >>* It’s not possible if we need to change ip address range we need to create new vpc then we need to migrate all resources from old vpc to new vpc
 
-54-can i want increas buckets and vpc how to do that 
+54-can I want increase buckets and vpc how to do that 
 
 >>yes its possible. go the resource quota and select which servic you want then request increase the quota AWS will increase that quota 
 
@@ -756,13 +764,16 @@ Amazon APP Mesh
 once perring is completed they can communicate with each other as if they are within the same network. There are no charges in VPC peering
 >> You can also create the VPC peering one region Mumbai to another region Ohio like this
 >> You can also VPC peering one account to another account
->>vpc peering is one to one it will not support transit like example
-you one system us-east-1 and onemore system in  us-west-1 this regions in peered it will ping each other for example you created one server in ap-south-1 you peerd us-east-1 to ap-south-1 it will ping each other but not us-west-1 ping with ap-south-1 why beacuse your not created peering this two regions thats why iam saying one to one peeering in vpc peering 
->>vpc peering is one to one if you want red vpc to green vpc then if you want green to yellow and green to blue but inorder to ping or share only green-to red and yellow and blue but not red to blue or yellow because this peered each other so its not support transit  
->>if you want give only one subnet peering yes its possible when peering  ex:-
-you created green us-east-1 subnet-1 10.1.1.0/24 and subnet-2 10.1.2.0/24 and in ohio us-east-1 red subnet 172.16.1.0/24 you want green subnet-2 only ping to red vpc yes you can create vpc peering green requester red accepter add routes in green 172.16.0.0/16 then go to red vpc add route 10.1.2.0/24 and select the vpc-peering then thats it 
+>> VPC peering is one to one it will not support transit like example
+you one system us-east-1 and onemore system in  us-west-1 this regions in peered it will ping each other for example you created one server in ap-south-1 you peerd us-east-1 to ap-south-1 it will ping 
+each other but not us-west-1 ping with ap-south-1 why beacuse your not created peering this two regions thats why iam saying one to one peeering in vpc peering 
+>> Vpc peering is one to one if you want red vpc to green vpc then if you want green to yellow and green to blue but inorder to ping or share only green-to red and yellow and blue but not red to blue or 
+yellow because these peered each other so its not support transit  
+>> If you want to give only one subnet peering yes its possible when peering  ex:-
+you created green us-east-1 subnet-1 10.1.1.0/24 and subnet-2 10.1.2.0/24 and in ohio us-east-1 red subnet 172.16.1.0/24 you want green subnet-2 only ping to red vpc yes you can create vpc peering green 
+requester red accepter add routes in green 172.16.0.0/16 then go to red vpc add route 10.1.2.0/24 and select the vpc-peering then thats it 
 if you try to ping red to green subnet-1 you will not get ping because you addes only one subnet-2 only . if you try to ping green subnet-2 ping to red . if you want full vpc you can add 10.1.0.0/16 
->>vpc peering is two way you need to accept one side if you requested to green and you need go red vpc and accept the vpc peering 
+>> Vpc peering is two way you need to accept one side if you request to green and you need go red vpc and accept the vpc peering 
 
 Use-cases:-
 1-Cross-Account Connectivity: When different AWS accounts need to communicate with each other securely.
@@ -790,20 +801,20 @@ Transit Gateway acts as a highly scalable cloud router—each new connection is 
 
 61-What is Amazon EC2?
 
->>Ec2 Means elastic cloud computing where you are requesting AWS the cloud provider to give a virtual machine or virtual server which is elastic in nature this term is called 
+>>Ec2 Means elastic cloud computing where you are requesting AWS the cloud provider to give a virtual machine or virtual server that is elastic in nature this term is called 
 compute that we called EC2
 >> Elastic is nothing but scaled up and scaled-down any time is called elastic
 ex:-Elastic cloud compute, elastic beanstalk, EKS, ECR , ECS
                                                      (or)
 >>Amazon Elastic Compute Cloud (Amazon EC2) is a web-based service that allows businesses to run application programs in the Amazon Web Services (AWS) public cloud.
->>Amazon Ec2 is scalble computing capacity and you can use the images to you cn launch the servers as you need. and its configure security and networking and storage
-amazone ec2 helps you to scale up and down handling the requirements
+>>Amazon Ec2 is scalable computing capacity and you can use the images to you can launch the servers as you need. and its configured security networking and storage
+Amazon ec2 helps you to scale up and down handling the requirements
 
 62-what is AMI In AWS
 
->>An Amazon Machine Image (AMI) is a pre-configured image using this images to launch the virtual servers
->>AMI id is different of every region and every image
->>you can use in production mostly use already created AMIs
+>>An Amazon Machine Image (AMI) is a pre-configured image using this image to launch the virtual servers
+>>AMI ID is different for every region and every image
+>> You can use in production mostly use already created AMIs
 
 63-you are trying to provide a service in a particular region, but you do not see the service in that region. Why is this happening, and how do you fix it?
 
@@ -852,11 +863,12 @@ Hybrid AMI
 
 69-what is t2/t3 unlimted in ec2 
 
->>if your not using auto-scaling to your web servers sudden spikes comes to webserver if you enable t2/t3 unlimited then that time will increase the ram and cpu according to that it will be chargeble
+>> If you're not using auto-scaling to your web servers sudden spikes come to the webserver if you enable t2/t3 unlimited then that time will increase the RAM and CPU according to that it will be chargeable
 
 70-what is ENI in ec2 
 
->>elastic network interface you can create the multiple network interface in . for example you have db instance you Can create the choose one network interface or multiple like 3 or 4 network interface you can give that endpoint to one is ssh 2 second app-server connection 3 is backup like this . but here you can choose only one availability zone you cant use multiple availability zone 
+>>elastic network interface you can create multiple network interfaces in. For example, you have a DB instance you can choose one network interface or multiple like 3 or 4 network interfaces you
+can give that endpoint to one is ssh 2 second app-server connection 3 is backup like this. but here you can choose only one availability zone you cant use multiple availability zones 
 
 71-what is bootstraping in ec2 or userdata 
 
@@ -864,18 +876,19 @@ Hybrid AMI
 
 72-how to stop the spot instance 
 
->>while launching the spot instance you cna choose the spot instance and click on customize then select the persistent and select the interpution bheaviour stop and click on launch    
+>> While launching the spot instance you can choose the spot instance and click on customize then select the persistent and select the interpution bheaviour stop and click on launch    
 
 73-how to secure the instance 
 
 >>without enabling port number 22 we can secure out Instance
->>we can connect by using aws session-manager create policy for AmazonSSMmanageinstance store attach policy to role and attahc role to 
-ec2 instance you you can stop and start then you can access using session manager 
+>>we can connect by using aws session-manager create policy for AmazonSSMmanageinstance store attach a policy to role and attach role to 
+ec2 instance you you can stop and start then you can access using the session manager 
 
 >>pom full form project object model 
->>you can move your data local env to aws using storage gateway. instead of storage gateway you can mount s3 bucekt but its not recomended 
->>for exampel you created rds read with replica in secondary also you will see the first read server details only if you want to secondary where the deployed go in the ec2 netwrok interface it will show the private ips you can see where it is deployed   
->>using secondary in rds or any database when you will taking the backup the disk will freeze that time secondary will help you 
+>>you can move your data local env to aws using a storage gateway. instead of a storage gateway, you can mount s3 bucket but its not recommended 
+>>for exampel you created rds read with replica in secondary also you will see the first read server details only if you want to secondary where the deployed go in the ec2 netwrok interface it will show 
+the private ips you can see where it is deployed   
+>>using secondary in rds or any database when you take the backup the disk will freeze that time secondary will help you 
 >>if your disaster reccovery time you thinked right how the us-east-1 and ap-south-1 dbs will synk. you can use read replica so it will
  help you to synk if us-east-1 then you route53 failover will trigger to ap-south-1 then read replica will help you 
 >>if you want rds reserved instance you can choose   
@@ -888,13 +901,15 @@ https://aws.amazon.com/blogs/containers/aws-secrets-controller-poc/
 https://www.arthurkoziel.com/sync-aws-secrets-manager-to-k8s-secrets/
 connect aws secret manager to kubernetes deployment
 https://docs.aws.amazon.com/systems-manager/latest/userguide/integrating_csi_driver.html
-https://www.google.com/search?q=aws+ssm+parameter+store+kubernetes&rlz=1C1VDKB_enIN1053IN1053&oq=aws+ssm+parameter+store+kubernetes+&gs_lcrp=EgZjaHJvbWUyCggAEEUYFhgeGDkyDQgBEAAYhgMYgAQYigUyDQgCEAAYhgMYgAQYigUyDQgDEAAYhgMYgAQYigUyDQgEEAAYhgMYgAQYigXSAQkyMTEwMmowajeoAgCwAgA&sourceid=chrome&ie=UTF-8
+https://www.google.com/search?q=aws+ssm+parameter+store+kubernetes&rlz=1C1VDKB_enIN1053IN1053&oq=aws+ssm+parameter+store+kubernetes+&gs_lcrp=EgZjaHJvbWUyCggAEEUYFhgeGDkyDQgBEAAYhgMYgAQYi
+gUyDQgCEAAYhgMYgAQYigUyDQgDEAAYhgMYgAQYigUyDQgEEAAYhgMYgAQYigXSAQkyMTEwMmowajeoAgCwAgA&sourceid=chrome&ie=UTF-8
 
 dynamodb connection to web server 
 https://yuta-san.medium.com/a-simple-web-service-by-dynamodb-lambda-cloudfront-and-s3-a94b308669c
 https://pravinmishra.in/how-to-add-aws-dynamodb-database-to-a-static-website-hosted-in-amazon-s3-a-step-by-step-guide/
 https://www.cdata.com/kb/tech/dynamodb-cloud-linked-server.rst
-you can see how to attach permission boundry to user video dymnodb sreeharsha 28 if the user is created then lambda will triger your created rule in cloudwatch selected the iam gievn code slecting lambda function code you written. if the user is created lambda will trigger user permission will add permission boundary
+you can see how to attach permission boundry to user video dymnodb sreeharsha 28 if the user is created then lambda will triger your created rule in cloudwatch selected the iam gievn code slecting 
+lambda function code you written. if the user is created lambda will trigger user permission will add permission boundary
 
 74-what is ec2 image builder 
 
@@ -902,10 +917,11 @@ you can see how to attach permission boundry to user video dymnodb sreeharsha 28
 
 75-What are Key-Pairs in AWS?.can you explain keypair how works 
 
->>>>A key pair is a combination of a public key that is used to encrypt data and a private key that is used to decrypt data. The Key-Pairs are password-protected login credentials for the Virtual Machines
+>>>>A key pair is a combination of a public key that is used to encrypt data and a private key that is used to decrypt data. The key pairs are password-protected login credentials for the Virtual Machines
 that are used to prove our identity while connecting the Amazon EC2 instances. The Key-Pairs are made up of a Private Key and a Public Key which lets us connect to the instances.
->>when you launch an instance in aws you are creating or selecting previous keypair they will store the public key into ec2-instance you will get the private .pem key you can download or else if already have you can connect 
->>if you use .pem you can easily connect the linux 
+>>when you launch an instance in aws you are creating or selecting previous key pair they will store the public key into ec2-instance you will get the private .pem key you can download or else if already 
+have you can connect 
+>>if you use .pem you can easily connect the Linux 
 
 ssh -i anji.pem ec2@55.67.95.76 -->like this 
 >>sudo su -
@@ -968,13 +984,13 @@ Console or the AWS CLI. If Session Manager is enabled for your instance, you can
 >>local system should be configured with cli 
 >>managing through cli 
 >>once you push your code you can access only 60 seconds 
->>create ec2 instance without keypair  
+>>create ec2 instance without key pair  
 >>local system 
 >>ssh-keygen -f anji 
 >>aws ec2-instance-connect send-ssh-public-key --instance-id i-0679bi --instance-os-user ec2-user --availability-zone us-east-1b --ssh-public-key /home/anji/anji.pub --region us-east-1 
->>then you can connect the server within 60 seconds when you pushed the key  
+>> Then you can connect the server within 60 seconds when you push the key  
 >>ssh -i anji.key ec2-user@56.46.37.89
-4-you can push the public key into the ec2-instance using systems manager full access attach to that ec2-instance then go the systems manager select the shell script run the 
+4-YOu can push the public key into the ec2-instance using the systems manager full access attached to that ec2-instance then go to the systems manager select the shell script run the 
 >>echo "public-key paste here" > /home/e2-user/.ssh/authorized_keys
 
 78-Can we recover the EC2 instance when we have lost the key?
@@ -993,7 +1009,7 @@ the ASG automatically creates new instances based on the Launch Configuration se
 
 80-how NAT-Gateway will work
 
->> When we use to launch the nat-gateway in the public subnet then we can add it to private route tables
+>> When we launch the nat-gateway in the public subnet then we can add it to private route tables
 
 81-Can S3 Be Used with EC2 Instances, and If Yes, How?
 
@@ -1010,13 +1026,15 @@ developers load Amazon Machine Images (AMIs) into Amazon S3 and then move them b
 
 >>Elastic IP (EIP) is a static IPv4 address designed for dynamic cloud computing. It is associated with your AWS account and can be allocated
  to and released from instances as needed. Here are key characteristics and use cases for Elastic IPs:
-Static Public IP Address:An Elastic IP is a static public IP address that you can assign to an EC2 instance or a Network Load Balancer (NLB).
+Static Public IP Address: An Elastic IP is a static public IP address that you can assign to an EC2 instance or a Network Load Balancer (NLB).
  Unlike the default public IP addresses assigned to instances, Elastic IPs remain constant unless explicitly released.
-Failover and High Availability:Elastic IPs can be used in conjunction with Amazon EC2 instances in a Virtual Private Cloud (VPC) to implement 
+Failover and High Availability: Elastic IPs can be used in conjunction with Amazon EC2 instances in a Virtual Private Cloud (VPC) to implement 
 high availability and failover configurations. If an instance fails, you can quickly remap the Elastic IP to another instance.
 
->>if you use private ip any instance it will not change until you change . you use any public ip by default if the server restarts or reboot or stop then IP will change. instead you can use elastic-ip if the server will restart or stop or reboot anything ip will not changed this elastic-ip your paying bill so the AWS will allocate until you released that IP so use of elastic-ip 
->>you can assign single elastic-ip multiple servers like you can assign one system then work is complete then remove elastic-ip to system then attach to another system like this you can attach one system after one more system 
+>> If you use a private ip any instance it will not change until you change. you use any public ip by default if the server restarts or reboot or stop then IP will change. instead you can use elastic-ip if
+the server will restart or stop or reboot anything ip will not changed this elastic-ip your paying bill so the AWS will allocate until you released that IP so use of elastic-ip 
+>>you can assign single elastic-ip multiple servers like you can assign one system then work is complete then remove elastic-ip to system then attach to another system like this you can attach one system 
+after one more system 
 
 use-Cases:-
 1-nat-gateway
@@ -1026,7 +1044,7 @@ use-Cases:-
 
 84-how many ENI can attach to one instance 
 
->>its dependent on the instance two ENIs only t2.micro 
+>> It's dependent on the instance of two ENIs only t2.micro 
 
 85-What do you understand by 'changing' in Amazon EC2?
 
@@ -1035,42 +1053,42 @@ use-Cases:-
 
 86-what EBS Volumes
 
->>Amazon Elastic Block Store (Amazon EBS) provides block level storage volumes for use with EC2 instances. EBS volumes behave like raw, unformatted block devices. You can mount these volumes as devices
+>>Amazon Elastic Block Store (Amazon EBS) provides block-level storage volumes for use with EC2 instances. EBS volumes behave like raw, unformatted block devices. You can mount these volumes as devices
 on your instances
 >>It is designed to be used with Amazon Elastic Compute Cloud (EC2) instances to provide scalable and high-performance block-level storage volumes. EBS volumes are essentially virtual hard drives that 
 can be attached to EC2 instances to provide additional storage space.it is permanent storage/persistence. it can be increased to a max of 16TB you can't decrease the ebs
->>it is availble in SSD and HDD
+>> It is available in SSD and HDD
 
 Use-Cases:-
 1-Operating System and Application Storage: EBS volumes are commonly used to store the operating system, applications, and other software required by EC2 instances.
 2-Databases: EBS is frequently used to store database files, providing the required storage for relational databases like MySQL, PostgreSQL, Oracle, and Microsoft SQL Server.
-3File Systems: EBS volumes can be used as the storage backend for file systems. For example, you can attach EBS volumes to EC2 instances to create a scalable and reliable file system.
+3-File Systems: EBS volumes can be used as the storage backend for file systems. For example, you can attach EBS volumes to EC2 instances to create a scalable and reliable file system.
 4-Data Backup and Disaster Recovery: EBS snapshots are often used for backup and disaster recovery purposes. Snapshots can be used to create copies of volumes, and these copies can be used to restore data
 in case of data loss or system failures.
 5-Development and Testing Environments: EBS volumes are valuable in development and testing scenarios where you need scalable and flexible storage for software development, testing, and debugging.
 6-Media Storage: EBS volumes can be used to store and retrieve media files, such as images, videos, and audio files, providing a scalable and high-performance storage solution.
-Dis-Advanatges:-
-1-Performance Variability:EBS performance can be variable, especially for the General Purpose (gp2) and Throughput Optimized (st1) volumes. While Provisioned IOPS (io1) volumes provide predictable performance,
+Dis-Advantages:-
+1-Performance Variability: EBS performance can be variable, especially for the General Purpose (gp2) and Throughput Optimized (st1) volumes. While Provisioned IOPS (io1) volumes provide predictable performance,
 they can be more expensive.
-2-Cold Start Latency:When launching a new EBS volume or restoring a volume from a snapshot, there can be an initial latency (cold start) as the data is loaded or provisioned.
+2-Cold Start Latency: When launching a new EBS volume or restoring a volume from a snapshot, there can be an initial latency (cold start) as the data is loaded or provisioned.
 This might impact the performance for a short period.
-3-Pricing Model:EBS costs can accumulate, particularly with Provisioned IOPS volumes or snapshots. Users should carefully consider the pricing model, especially for high-performance workloads,
+3-Pricing Model: EBS costs can accumulate, particularly with Provisioned IOPS volumes or snapshots. Users should carefully consider the pricing model, especially for high-performance workloads,
 to avoid unexpected costs.
-4-Region Dependency:EBS volumes are tied to a specific AWS region. If you need to move data between regions or have a multi-region architecture, you may need to use mechanisms like AWS DataSync 
+4-Region Dependency: EBS volumes are tied to a specific AWS region. If you need to move data between regions or have a multi-region architecture, you may need to use mechanisms like AWS DataSync 
 or third-party tools.
-5-Snapshots Are Region-Specific:EBS snapshots are region-specific. If you want to use a snapshot in another region, you need to copy it to the desired region, which might incur additional costs.
-6-Volume Size and Type Changes:While you can modify the size of an EBS volume, changing the volume type (e.g., from gp2 to io1) requires creating a new volume and migrating data, which can involve downtime.
-7-Backup and Restore Complexity:Although EBS snapshots are a powerful backup tool, managing and restoring multiple snapshots or dealing with complex backup strategies might require additional scripting
+5-Snapshots Are Region-Specific: EBS snapshots are region-specific. If you want to use a snapshot in another region, you need to copy it to the desired region, which might incur additional costs.
+6-Volume Size and Type Changes: While you can modify the size of an EBS volume, changing the volume type (e.g., from gp2 to io1) requires creating a new volume and migrating data, which can involve downtime.
+7-Backup and Restore Complexity: Although EBS snapshots are a powerful backup tool, managing and restoring multiple snapshots or dealing with complex backup strategies might require additional scripting
 or management tools.
-8-Limited Granularity for Volume Modifications:Certain modifications to EBS volumes, such as changing the volume type or encryption status, may require creating a new volume and copying data.
+8-Limited Granularity for Volume Modifications: Certain modifications to EBS volumes, such as changing the volume type or encryption status, may require creating a new volume and copying data.
 There are limitations on the granularity of modifications.
-9-Dependency on EC2 Instances:EBS volumes are associated with specific EC2 instances. If an instance is terminated, the EBS volume must be manually detached and reattached to another instance.
+9-Dependency on EC2 Instances: EBS volumes are associated with specific EC2 instances. If an instance is terminated, the EBS volume must be manually detached and reattached to another instance.
 10-ebs volume you can apply only one ec2 system
-11-ebs volume you can apply only one ec2 system and it should be same availbility zone
+11-ebs volume you can apply only one ec2 system and it should be the same availability zone
 
 advantages:-
->>you can diretly mount to the system 
->>it can shared between multiple servers and multiple availbility zones
+>> You can directly mount to the system 
+>> It can shared between multiple servers and multiple availability zones
 
 87-How to increase EBS volume size.
 
@@ -1131,12 +1149,12 @@ Once detached, you can safely delete the old volume from the EBS console.
 >>minimum 4GB to you can extend volume upto 64TB
 >>Minimum IOPS 100
 >>Maximum IOPS 256000
->>if you taken 1GB you will get 1000IOPS
+>>if you take 1GB you will get 1000IOPS
 >>you change iops what you want you can modify the iops details
 
 90--===example for iops gp2&IO1
 
-DB requirment given by client 10TB he needs 100000 IOPs using do storage
+DB requirement given by client 10TB he needs 100000 IOPs using do storage
 
 gp2:
 2 x 5120 = 10TB  30720 iops you will get
@@ -1177,25 +1195,26 @@ where we can sql databese we can use ebs volumes explaining beloow
 
 92-how to reduce my snapshot prices 
 
->>if your not using your snapshots frequently you can create archive snapshot it will reduce the prices of your snapshot
+>> If you are not using your snapshots frequently you can create an archive snapshot it will reduce the prices of your snapshot
 types of snapshot storage
 standard snapshot  -->frequently accessed 
 archive snapshot   -->in frequently accessed
 
-93-Is it possible to retrive the snapshot iam Unfortunately deleted my snapshot or ami 
+93-Is it possible to retrieve the snapshot iam Unfortunately deleted my snapshot or ami 
 
->>yes its possible to retrieve if you configure recyclebin your aws account and retention period 
+>>yes its possible to retrieve if you configure recycle bin your aws account and retention period 
 
-94-what is recyclebin in aws 
+94-what is recycle bin in aws 
 
->>you can create this for backup or Unfortunately deleted your AMIs or Snapshots you can retrive that 
+>> You can create this for backup or Unfortunately, delete your AMIs or Snapshots you can retrieve that 
 minimum 1 day to max 365 days 
 
-95-how to protect or encrypet the ebs voluems or snapshot 
+95-how to protect or encrypet the ebs volumes or snapshot 
 
 >>you can enable to encrypt the volume to secure the volume
 >>while create the volume you can select the encrypt and 
->>if you forgated to encrypet the volume you can enable ecncrypt you need to follow this first take snapshot of your volume then using that sanpshot take volume form snapshot and encryption will available you create that 
+>>if you forgated to encrypet the volume you can enable ecncrypt you need to follow this first take snapshot of your volume then using that sanpshot take volume form snapshot and encryption will
+available you create that 
 
 96-is it possible to share your snapshot to another region or another account
 
@@ -1204,7 +1223,8 @@ minimum 1 day to max 365 days
 
 97-if you want take snapshot everyday morning 6 clock how you will achive this 
 
->>in ec2 there is option lifecycle-manager you can create that in the lifecycle-manager you can choose volume or instance you can take snapshot possible by using tags name = anji this need to time and daily and retention period 
+>>in ec2 there is option lifecycle-manager you can create that in the lifecycle-manager you can choose volume or instance you can take snapshot possible by using tags name = anji this need to time and 
+daily and retention period 
 >>you can create are also then if the snapshot exists last two months back then delete that snapshot also 
 >>you can choose or do using lambda also 
 >>click on create a function -->craete a function -->lambda_function under you can paste your code and give proper permission
@@ -1282,7 +1302,7 @@ def lambda_handler(event, context):
 
 102-i have volume in us-east-1a one instance i need to move that us-east-1b onemore instance  is it possible in aws
 
->>you can take snapshot of the the volume then select a snapshot and create volume then you can attach the server 
+>>you can take snapshot of the the volume then select a snapshot and create a volume then you can attach the server 
 >>if you have an Amazon Elastic Block Store (EBS) volume attached to an EC2 instance in a specific Availability Zone (e.g., us-east-1a) 
 and you want to move it to another Availability Zone (e.g., us-east-1b), you generally cannot directly change the Availability Zone of an 
 existing EBS volume. However, there are a few approaches you can take to achieve a similar outcome:
@@ -1303,29 +1323,32 @@ Attach the new volume to your EC2 instance in us-east-1b.
 3-Create an Amazon Machine Image (AMI):
 
 Create an Amazon Machine Image (AMI) of your EC2 instance in us-east-1a.
-Launch a new EC2 instance in us-east-1b using the AMI.
+Launch a new EC2 instance in US-east-1 b using the AMI.
 Ensure that the new instance is using the desired EBS volume configuration.
 
 >>you created ec2 instance in us-east-1a and then created volume 60gb in us-east-1b  trying to attach its not possible .
  volume must be same availability_zone either wise wont accept 
 
->>you need csr and private key then you can create the cname Authentication then click on ok it will give you certificate download you need crt certificate and ca.bundle 
+>>you need CSR and private key then you can create the cname Authentication then click on ok it will give you certificate download you need crt certificate and ca.bundle 
 
 103-what is DLM (data life cycle manager) in AWS 
 
->>With Amazon Data Lifecycle Manager, you can manage the lifecycle of your AWS resources. You create lifecycle policies, which are used to automate operations on the specified resources. Amazon Data Lifecycle Manager supports Amazon EBS volumes and snapshots.
+>>With Amazon Data Lifecycle Manager, you can manage the lifecycle of your AWS resources. You create lifecycle policies, which are used to automate operations on the specified resources.
+Amazon Data Lifecycle Manager supports Amazon EBS volumes and snapshots.
 
-104-for example you have taken snapshot in ebs volume that stored in 10 gb name snapshot-A , then you stored deleted somedata or added somedata 4 gb taken snapshot-B , like this you added 6 gb size snapshot-C what will you restore in this scenrio
+104-for example you have taken snapshot in ebs volume that stored in 10 gb name snapshot-A , then you stored deleted somedata or added somedata 4 gb taken snapshot-B , like this 
+you added 6 gb size snapshot-C what will you restore in this scenrio
 
 >>In the scenrio we will take snapshot-C because this all the data for last we taken snapshot      
 
 105-what is the difference between AMI image taken and snapshot taken AWS 
 
->>if you taken Image in AMI like this will be like your operating system and tools and software and data . this operating restore and data only 
+>>if you taken Image in AMI like this will be like your operating system and tools and software and data . this operating restores and data only 
 >>if you taken snapshot your taken care by your select the volume and taking snapshot of your volume not the operating system. data restore only 
 >>your using that snapshot create a new volume and attaching to ec2 instance your recover your data . recomended last month snapshot is prefered Organizations
 >>you can share the ami into another region and another account also 
->>you can copy the snapshot into another region. and you created the volume in us-east-1a and you need to use us-east-1b then  take snapshot while createing volume you can choose or change the availability zone us-east-1b or us-east-1c also    
+>>you can copy the snapshot into another region. and you created the volume in us-east-1a and you need to use us-east-1b then  take snapshot while createing volume you can choose or change the 
+availability zone us-east-1b or us-east-1c also    
 >>if your executing or increasing the volume in a day you need to wait until the 6 hours 
 
 You are partially correct. Here's a breakdown of waiting times when modifying an EBS volume in AWS:
@@ -1379,7 +1402,8 @@ fs-02097af1ee5a927d6.efs.us-east-1.amazonaws.com:/ /usr/share/nginx/html/ nfs de
 
 :wq
 >>if you reboot the data will not go   
->>if your not select the all availability_zone like 6 is there but you selected us-east-1a and us-east-1b only if you want mount us-east-1c means it will not work or not mount you need to select the all availability_zone for fault tolerance or latency
+>>if your not select the all availability_zone like 6 is there but you selected us-east-1a and us-east-1b only if you want mount us-east-1c means it will not work or not mount you need to select all 
+availability_zone for fault tolerance or latency
 
 Uses cases:-
 >>you can directly mount the system to ec2 instances
@@ -1437,34 +1461,34 @@ the Transition into IA lifecycle policy.
 types of storage classes available in EFS:-
 1-standard
 2-standard-IA
-3-onezone-IA 
+3-one-zone-IA 
 
 112-what is the difference between EFS and EBS 
 
 EBS:-
 1-The file storage type is block storage
-2-it is attached to single instance only 
-3-limited Scalability to attach or incerse the volume 
-4-it works 	Boot volumes, data storage
+2-It is attached to a single instance only 
+3-limited Scalability to attach or increase the volume 
+4-it works Boot volumes, data storage
 5-it more expensive compared to EFS 
-6-it can be increased to max of 16TB you can't decreased the ebs
-7-so many types of stoarge classes availble  
+6-It can be increased to a max of 16TB you can't decrease the ebs
+7-so many types of storage classes availble  
 8- It is commonly used as block storage and is attached to EC2 instances using block-level protocols. EBS volumes are accessed within a single Availability Zone and can only be attached to 
 one EC2 instance at a time.
 EFS:-
-1-The file storage type is file storage
-2-it is attached to multiple instance only 
+1-The file storage type is a file storage
+2-it is attached to multiple instances only 
 3-Highly scalable
-4-it works Shared file systems, large data storage
+4-It works with Shared file systems, large data storage
 5-less expensive compared to EBS 
 6-It supports 8PB 
-7-limted stoarge classes available only 
+7-limited storage classes available only 
 8-It uses the Network File System version 4 (NFSv4) protocol, allowing multiple EC2 instances to access the file system concurrently. EFS supports shared access across multiple Availability Zones 
 within a region.
 
-113-what is the Advanatges of Storage classes
+113-what is the advantages of Storage classes
 
-1-Cost Optimization:Storage classes allow you to choose the right balance between performance and cost. If you feel your not frequently accessing then you can create the life cycle move to another
+1-Cost Optimization: Storage classes allow you to choose the right balance between performance and cost. If you feel your not frequently accessing then you can create the life cycle move to another
 cheap stoarge 
 standard 
 standard-IA
@@ -1472,15 +1496,15 @@ One-Zone-IA
 Glacier
 Glacier Deep Archive
 Intelligent-Tiering
-2-Performance Tiers: Speed based on the selecting the stoarge class if you select the standard then it will fast if you selecct the one-Zone-IA it low and glacier is to much slow 
+2-Performance Tiers: Speed based on selecting the storage class if you select the standard then it will fast if you select the one-Zone-IA it is low and glacier is to much slow 
 3-Durability: Storage classes often have different durability characteristics. For example, Standard storage in Amazon S3 has 99.999999999% (11 9's) durability,
-4-Lifecycle Management: there lifecycle management available you can move your data wheneve you wnat 
-5-Built-In Versioning Support: in this storage class there option called versioning it will help you keep data size low and if any case you deleted some file the version will help you 
+4-Lifecycle Management: there lifecycle management available you can move your data whenever you wnat 
+5-Built-In Versioning Support: in this storage class there option called versioning it will help you keep data size low and if any case you deleted some files the version will help you 
 6-Data Archiving and Compliance:Storage classes like Amazon Glacier and Amazon Glacier Deep Archive are designed for long-term data archiving and compliance. These storage classes offer extremely
 low-cost storage for data that is rarely accessed but needs to be retained for compliance reasons.
 7-Multi-Tiered Storage Strategies:By using multiple storage classes and lifecycle policies, you can implement multi-tiered storage strategies. This enables you to optimize storage costs based on the
 changing access patterns of your data over time.
-8-Integrated Services:Storage classes often integrate with other services and features provided by the cloud storage platform. For example, Amazon S3 Intelligent-Tiering integrates with the S3 Inventory
+8-Integrated Services:Storage classes often integrate with other services and features provided by the cloud storage platform. For example, Amazon S3 Intelligent Tiering integrates with the S3 Inventory
 and S3 Analytics features to provide insights into data access patterns.
 
 114-What is Amazon S3? 
@@ -1490,12 +1514,12 @@ of data from anywhere. Despite that versatility, it is practically unlimited as 
 these benefits, it offers unprecedented levels of durability and availability. Amazon S3 helps to manage data for cost optimization, access control, and compliance. 
 
 >> We can store log files 
->> Maximum uploading one file size upto 5TB
+>> Maximum uploading of one file size up to 5TB
 >>it is objeted level stoarge
->> It is the global unique name
->> You can upload files 3types 1 - cli and 2 - aws console 3 - application through API or Jenkins
+>> It is a globally unique name
+>> You can upload files 3 types 1 - cli and 2 - aws console 3 - application through API or Jenkins
 >> Mostly upload through API or application through
->>s3 bucket is not global why means when you create a bucket it asks for the region but it will show all the regions
+>> The s3 bucket is not global why means when you create a bucket it asks for the region but it will show all the regions
 >>s3 availability is 99.9 uptime
 >>s3 durability is 99.999999 it will not go delete 
 >> When you upload a file it will save in 3 az but it will not show that saving
@@ -1507,11 +1531,11 @@ these benefits, it offers unprecedented levels of durability and availability. A
 >> If we can't access frequently that old data we can use this (standard, glacier)
 >>temporary log files you can use this (One Zone-IA)
 
-115-what is S3 life cycle manager.
+115-what is the S3 life cycle manager.
 
 >>You can create the bucket using create the lifecycle then which will save in the first 30 days standard if not frequently accessed that you can move that data into
-standard-IA then this data also not frequently using then you can move into One-Zone-IA then move to S3-glacier it is permanent data storage for long-term
-if you want to delete you can specify also after 1 or 2 or 10 years after also
+standard-IA then this data also not frequently used then you can move into One-Zone-IA then move to S3-glacier which is permanent data storage for long-term
+if you want to delete you can specify after 1 or 2 or 10 years after also
 
 1-standard
 2-standard I-A
@@ -1523,7 +1547,7 @@ if you want to delete you can specify also after 1 or 2 or 10 years after also
 
 >> Transfer the data from one bucket to another bucket
 >>craete bucket anji256 on that time you should enable the replication
->> It is use for mostly log-purpose of saving
+>> It is used for mostly the log purpose of saving
 
 === How to add replication
 >>click on add rule >>enable version
@@ -1546,10 +1570,10 @@ Up to 100 buckets can be created by default
 
 119-What is Glacier
 
->> S3 glacier cheap storage
+>> S3 Glacier cheap storage
 >> For long-term backup, we can use this
->> If you stored data in Glacier if retrieving it  will charge it's not for regular purposes it's for longterm
->> You can take glacier backup using third-party tools fast glacier, altro, veritas, Netbackup,networker, Aavamar, Tivoli
+>> If you stored data in Glacier if retrieving it  will charge it's not for regular purposes it's for long-term
+>> You can take glacier backup using third-party tools Fast Glacier, altro, veritas, Netbackup, networker, Aavamar, Tivoli
 >> Glacier is called the vault
 
 120-what is the difference between s3 storage ebs or ec2 volume storage  
@@ -1559,7 +1583,8 @@ Up to 100 buckets can be created by default
 Data Type and Use Case:
 
 S3 (Simple Storage Service): It is an object storage service designed for storing and retrieving any amount of data from anywhere on the web. It is suitable for static files, backups, and data archiving.
-EBS (Elastic Block Store): It provides block-level storage volumes that can be attached to EC2 instances. EBS volumes are used as persistent storage for databases, file systems, and other data that requires frequent updates.
+EBS (Elastic Block Store): It provides block-level storage volumes that can be attached to EC2 instances. EBS volumes are used as persistent storage for databases, file systems, and other data that requires 
+frequent updates.
 EC2 Instance Storage: EC2 instances come with ephemeral storage that is directly attached to the physical host machine. It is suitable for temporary data and is lost if the instance is stopped or terminated.
 Durability and Availability:
 
@@ -1586,29 +1611,30 @@ EC2 Instance Storage: No snapshot feature for instance storage. Data needs to be
 
 >>yes its possibe. select the object or file then click on storage select which storage you want you can select 
 
-122-if your delete and permanent delete what is the difference in aws 
+122-if your delete and permanently delete what is the difference in aws 
 
->>if you use delete means it will retrive or retention some days it will get 
->>if you permanent delete it will not retrive delete permanent
+>>if you use delete means it will retrieve or retention some days it will get 
+>>if you permanently delete it will not retrieve delete permanent
 
 123-in my bucket under i have 10 folders i need to anji folder data only move to Lifecycle management is it possibe to create 
 
 >>yes you can select the bucket click lifecycle configuration and select the bucket and prefix add your folder then select the life cycle policy it will go accordingly
->>you have object tags to your that also you can set or object size like you 100mb files and 110 mb file you need send only 100 mb that is also possibe
->>you can delete the data also you can select like standard 30 days then standard-ia 60 days then onezone-ia 90 days then you can delete   
+>>you have object tags to your that also you can set or object size like you 100MB files and 110 mb file you need send only 100 mb is also possibe
+>>you can delete the data also you can select like standard 30 days then standard-ia 60 days then one-zone-ia 90 days then you can delete   
 https://www.youtube.com/watch?v=2CvTsAITNnY&list=PLneBjIzDLECkYQ7dYpvWFSgEwTMeZkykF&index=48  14hours 13 mins 
 >>you can copy or move the data in bucket
 
-124-if you use replication means both bucket must be version enabeld
+124-if you use replication means both buckets must be version-enabled
 
->>you can do replication in another aws also possibe 
+>>you can do replication in another aws also possible 
 >>when you createing replication in source bucket to destination bucket you can choose storage class also like 
-anji is source the data is standard so smapi bucket is another your anji bucket to sampi bucket sending data while sending you cna choose to stoarge onezone or Standard–Infrequent then that data will store the stoarge class only in sampi bucket  
+anji is source the data is standard so smapi bucket is another your anji bucket to sampi bucket sending data while sending you cna choose to stoarge onezone or Standard–Infrequent then that data will 
+store the storage class only in the sampi bucket  
 
 >>if you enbale server access logging in s3 enable you can choose any other bucket anyone access this bucket will store that logs in another bucket 
->>if you enable request netrics you can see how many request come get and put delete error every request will show 
+>>if you enable request netrics you can see how many request come and put a delete error every request will show 
 
-125-you can create bucket policy to read all the content from public you need to create policy without using acl or publi 
+125-you can create bucket policy to read all the content from public you need to create policy without using ACL or public 
 
 {
     "Version": "2012-10-17",
@@ -1673,7 +1699,7 @@ at the expense of slightly higher latency.
 frequent read/write operations, EBS is usually the more suitable choice. On the other hand, if you have large volumes of unstructured data, require high scalability, or need to 
 store data for long-term archival purposes, S3 is a better fit.
 
-In summary, the "faster" storage option between EBS and S3 depends on your specific workload and requirements. It is recommended to analyze your application's needs and the characteristics
+In summary, the "faster" storage option between EBS and S3 depends on your specific workload and requirements. It is recommended to analyze your application's needs and characteristics
 of the storage services to make an informed decision.
 
 132-Your application needs to access AWS services, such as S3 securely within your VPC. How would you achieve this?
@@ -1696,7 +1722,7 @@ Cost-effective: S3 offers cost-effective storage options and pricing models base
 >>S3 event notifications allow you to configure actions when specific events occur in an S3 bucket. For example, you can trigger AWS Lambda functions, send messages to 
 Amazon Simple Queue Service (SQS), or invoke other services using Amazon SNS when an object is created or deleted.
 
-135-is it possible to create policy for one user dont access the efs 
+135-is it possible to create a policy for one user dont access the efs 
 
 >>yes its possible using file system policy 
 
@@ -1716,7 +1742,7 @@ Amazon Simple Queue Service (SQS), or invoke other services using Amazon SNS whe
 
 136-what is snapshots
 
->>Snapshots are a point-in-time copy of your data, and can be used to enable disaster recovery, migrate data across regions and accounts, and improve backup compliance. 
+>>Snapshots are a point-in-time copy of your data and can be used to enable disaster recovery, migrate data across regions and accounts, and improve backup compliance. 
 
 137-what is object-level logging 
 
@@ -1724,12 +1750,14 @@ Amazon Simple Queue Service (SQS), or invoke other services using Amazon SNS whe
 
 138-server-level logging in s3 
 
->>In s3 server and access log enabling in mh account then I am choosing same bucket to store the logs what will happen. It will went to loop . It will create many log files becaude your access that bucket and the logs Or storing your seeing that logs it's repeat process. So it's not recommend so use different bucket
+>>In s3 server and access log enabling in my account then I am choosing same bucket to store the logs what will happen. It will went to loop . It will create many log files because your access that bucket 
+and the logs Or storing your seeing that logs it's repeat process. So it's not recommend so use different bucket
 >>who are accessing through internet through your bucket you will see source ip and object will stored into thte bucket 
 
 139-what is object lock in s3 
 
->>if you want protect the data from s3 bucket or knowown wants delete that data from your bucket you can use that object-lock but this would be enable while createing the bucket after that you can't modify or edit   
+>>if you want protect the data from s3 bucket or knowown wants delete that data from your bucket you can use that object-lock but this would be enable while createing the bucket after that you can't modify
+or edit   
 >>version must be enabled otherwise . when you create the bucket must enable other wise you need to contact aws then you can enable 
 >>if your enbale retention and compilance for 10 years that bucket data not delete for 10 years so becareful while createing . 
 
@@ -1796,7 +1824,7 @@ root or admin account then vinod bucket click on permissions then select bucket 
   ]
 }
 
-145-How interviews can trick this question My two user have s3 full access but one user not able to access one specific but what could be the reason.
+145-How interviews can trick this question My two user have s3 full access but one user not able to access one specific bucket what could be the reason.
 
 >>The reason for this may be admin may create the bucket policy to deny specific user or your one of user
 
@@ -1833,7 +1861,7 @@ root or admin account then vinod bucket click on permissions then select bucket 
 
 152-how to create or delete the s3 bucket using aws cli 
 
->>aws s3api create-bucket --bucket BUCKET-NAME --region REGION
+>>aws s3 api create-bucket --bucket BUCKET-NAME --region REGION
 >>aws s3 rb s3://BUCKET-NAME --force
 >>aws s3 mb s3://anji159258
 
@@ -1843,7 +1871,7 @@ root or admin account then vinod bucket click on permissions then select bucket 
 
 154-i have one scenario i have given admin access and multiple allow option but i applied one deny option what will choose by default
 
->>if you applied 100 of allow option but you denyed one it will take default deny why means it will take deny is high prority
+>>if you applied 100 of allow option but you denyed one it will take default deny why means it will take deny is high priority
 
 155-can tell this m7g  m7a m7i means in AWS instance
 
@@ -1871,7 +1899,7 @@ root or admin account then vinod bucket click on permissions then select bucket 
 
 160-how to download or upload to s3-glacier directly 
 
->>download fast glacier then using fast glacier you can download the data from s3 glacier and upload is also is possible then using your secret key and access key for authentication purpose 
+>> Download Fast Glacier Then using fast glacier you can download the data from S3 Glacier and upload is also is possible then using your secret key and access key for authentication purpose 
 >>data saving is but retiring is hard
 
 161-what is a storage gateway and what types
@@ -1907,7 +1935,8 @@ resource capacity in relation to the demand.Cloud Architect Master's
 
 >>yes you can added new version is into auto-scaling group
 select the launch-configuration click on edit select the new launch template or updated 
->>you need to enable cloudwatch montoring eitherwise it will not help why because if you enable it will track for 1 minutes or takes data from last 1 minute or else it will take last 5 minutes it will cause an issue in production 
+>>you need to enable cloudwatch montoring eitherwise it will not help why because if you enable it will track for 1 minutes or takes data from last 1 minute or else it will take last 5 minutes it will cause 
+an issue in production 
 
 164-what is predictable scaling 
 
@@ -1931,7 +1960,8 @@ any dout see https://www.youtube.com/watch?v=LbXONaiEInE&list=LL&index=14
 
 166-can i create time based scaling in aws 
 
->>for suppose your in banking or any application getting more traffic in moring 9 to evening 8 you can create the schedule auto-scaling in aws then it will launch moring time how many you want it will delete after the 8pm after and moring will create like keep on going daily  
+>>for suppose your in banking or any application getting more traffic in moring 9 to evening 8 you can create the schedule auto-scaling in aws then it will launch moring time how many you want it will
+delete after the 8pm after and moring will create like keep on going daily  
 >>in auto-scaling click on automatic scaling then select the scheduled actions then you can add time and how many you want 
 
 167-so you have multiple ec2 instance using auto-scaling the load decrease you mention schedule based auto-scaling which instance will stop 
@@ -2084,13 +2114,15 @@ multiple targets, such as Amazon EC2 instances.This increases the availability o
 174-what is stickness in apllication load balancer
 
 >>if your enable this add 300 seconds or something if any user connect number of times 5 minutes of 10 minutes after they will connect only that server 
->>it will be useful for banking application.
-example you connected the server for first for any reason your disconnected the session after 3 minutes  you came for session you connect the first server what you connected that server only you can connect after 5 minutes it will work to another server 
+>>it will be useful for banking application. example you connected the server for first for any reason your disconnected the session after 3 minutes  you came for session you connect the first server 
+what you connected that server only you can connect after 5 minutes it will work to another server 
 >>if your adding three subnets then after created the ALB loadbalancer in then if you want you can add multiple subnets or new subnets 
 >>if your adding the public subnets in load balancer it will give one susbnet to one public like this if you given 4 public subnets then you will get 4 public ips to  your load balancer
->>if my client asked the specific ip of your loadbalancer then you cna choose the elastic ip will . you can give that clinet to that ip that client side it person will open to that ip only through that network. if your not using elastic-ip in loadbalancer tehn public ips will come but it wil change accordingly 
+>>if my client asked the specific ip of your loadbalancer then you cna choose the elastic ip will . you can give that clinet to that ip that client side it person will open to that ip only through that network.
+if your not using elastic-ip in loadbalancer tehn public ips will come but it wil change accordingly 
 letme simplify:-
-anji company is there full secuirty and tight network no option to connect the internet . sampi comapny is there they have load balancer elastic-ip or static ip is there. anji company want to access sampi company they are asking specific ip to connecct over the internet or they will open to firewall port or ip 
+anji company is there full secuirty and tight network no option to connect the internet . sampi comapny is there they have load balancer elastic-ip or static ip is there. anji company want to access Sampi
+company they are asking specific ip to connecct over the internet or they will open to firewall port or ip 
 then sampi company will give the elastic-ip of the load balancer and port then you can add your elastic-ip and port into anji company firewall or security group  
 
 175-If any one asking the my load balancer is in public my subnets is private can use this subnets to connect through internet 
@@ -2155,10 +2187,10 @@ an Elastic Network Interface (ENI), or an AWS Network Load Balancer.
 >>Health checks are a way of asking a service on a particular server whether or not it is capable of performing work successfully. 
 Load balancers ask each server this question periodically to determine which servers it is safe to direct traffic to.
 
-182-what is deregistration delay
+182-what is the deregistration delay
 
 >>Elastic Load Balancing stops sending requests to targets that are deregistering. By default, Elastic Load Balancing waits 300 seconds before completing the 
-deregistration process,which can help in-flight requests to the target to complete
+deregistration process, which can help in-flight requests to the target to complete
          or
 >>Connection draining allows you to specify a maximum time (between 1 and 3,600 seconds and default 300 seconds) to keep the connections alive before reporting the
 instance as de-registered. The maximum timeout limit does not apply to connections to unhealthy instances.
@@ -2168,7 +2200,7 @@ instance as de-registered. The maximum timeout limit does not apply to connectio
 >>The AZ Affinity architectural pattern reduces the number of times an AZ boundary is crossed. In the example system we looked at in Figure 1, 
 AZ Affinity can be implemented with two changes. First, the ALB is replaced with a Network Load Balancer (NLB).
 
-184-what is gateway load balancer
+184-what is a gateway load balancer
 
 >>Gateway Load Balancer helps you easily deploy, scale, and manage your third-party virtual appliances. It gives you one gateway for distributing traffic
 across multiple virtual appliances while scaling them up or down, based on demand.
@@ -2178,9 +2210,9 @@ across multiple virtual appliances while scaling them up or down, based on deman
 >>In a previous project, we implemented AWS Elastic Load Balancers and Auto Scaling Groups to ensure that our application could handle sudden spikes in traffic and maintain high availability.
 We also set up Amazon CloudWatch to monitor the performance of the application and alert us in case of any failures, allowing us to quickly respond and ensure fault tolerance.
 
-186-can I add multiple target groups in a load balancer
+186-can I add multiple target groups in a load balancer?
 
->>yes you can add multiple target groups. for example your created two servers server-1, server-2 your created server-1 in tg-1 target group and then created tg-2 target add server-2 then
+>>yes you can add multiple target groups. for example, you created two servers server-1, and server-2 your created server-1 in the tg-1 target group and then created tg-2 target add server-2 then
 create the application load balancer and the listeners tg-1 target group it will add 100% traffic to server-1. you can goto the load-balancer in listeners go to add rules edit 
 load-balancer then add server-2 or target group and add 50% of traffic to server-1 and server-2 this will highly available
 
@@ -2238,8 +2270,7 @@ This process helps ensure that the auto-scaling group maintains a healthy and up
 193-how to protect a loadbalancer
 
 >>by default there is option delete protection we can use that enable then no one is not able to delete 
->>and also you can enable access logs that will help you to montior who is accessing any load balancer or if your using cloud trail you can
- that where also 
+>>and also you can enable access logs that will help you to montior who is accessing any load balancer or if your using cloud trail you can  that where also 
 
 194-How to upgrade or downgrade a system with zero downtime?
 
@@ -2349,7 +2380,8 @@ causing the instance to reject incoming traffic. We adjusted the security group 
 
 >>Elasticity: The ability of a system to handle an increase in the workload by simply adding hardware resources when demand rises, and rolling back scaled resources when there’s no demand.
 
->>Scalability: the ability of a system to increase the hardware resources for handling an increase in demand. It can be achieved by either increasing the hardware specs or increasing the number of processing nodes.
+>>Scalability: the ability of a system to increase the hardware resources for handling an increase in demand. It can be achieved by either increasing the hardware specs or increasing the number of
+processing nodes.
 
 206-what is latency 
 
@@ -2599,7 +2631,8 @@ check the network issues like pinging or not
 229-What are the tools can i use to do multiple region load balancing
 
 >>Route 53 and global accelartor or global load balancer . this will give you fixed entrypoints 
->>You created load balancer us-east-1 and also us-east-2. Then you route 53 under helath-check 1-us-east-1 2-us-east-2 .Then you created the anji.com selected weighted value 1 selected alb us-esat-1selected helath check also same us-east-2 but weighted value 255
+>>You created load balancer us-east-1 and also us-east-2. Then you route 53 under helath-check 1-us-east-1 2-us-east-2 .Then you created the anji.com selected weighted value 1 selected alb us-esat-1 
+selected helath check also same us-east-2 but weighted value 255
 The traffic goes us-east-2 if the us-east-2 fails tgen it will go to us-east-1 by using helath checks if you given 0 means it will not send traffic to us-eadt-1 minimum 1 must
 
 >>route53 is dns level load balancing 
@@ -2616,7 +2649,8 @@ The traffic goes us-east-2 if the us-east-2 fails tgen it will go to us-east-1 b
 
 231-what is NSlookup
 
->Nslookup is the name of a program that lets users enter a host name and find out the corresponding IP address or domain name system (DNS) record. Users can also enter a command in nslookup to do a reverse DNS lookup and find the host name for a specified IP address.
+>Nslookup is the name of a program that lets users enter a host name and find out the corresponding IP address or domain name system (DNS) record. Users can also enter a command in nslookup to do a 
+reverse DNS lookup and find the host name for a specified IP address.
 
 232-what is bandwidth 
 
@@ -2629,7 +2663,7 @@ The traffic goes us-east-2 if the us-east-2 fails tgen it will go to us-east-1 b
 236-how many certificate limits in aws 
 
 >>in a year we can request 20 certificates in a year if you want you can add enbale limit extra quota 
->>20 certificate with region if you exclude that limit enable limit or chane region in testing not production
+>>20 certificate with region if you exclude that limit enable limit or change region in testing not production
 
 237-On an EC2 instance, an application of yours is active. Once the CPU usage on your instance hits 80%, you must reduce the load on it.What strategy do you use to complete the task?
 
@@ -2713,7 +2747,7 @@ message authentication codes (MACs).
 >>you can disbale key instead of delete . for example why aws given retention period to delete that key . you created bucket and upload that add this key but you not disabled that bucket encryption you delete 
 that keys means that bucket under data will be encrypeted not able to decrypt why you deleetd that key so becareful while deleteing kms keys . aws also not help in this case  
 
-248-what is best practice for download 
+248-what is best practice for download key pair
 
 >>If you download pem directly you can create ppk if you lost pem you can't create the pem Or ppk if you download pem you can create ppk if you lost pem you can't create one more time using ppk
 >>Always try to download to pem  not ppk if you download pem you can create the ppk you can store pem somewhere for backup
@@ -2739,7 +2773,7 @@ like file systems which manage data as a file hierarchy, and object storage whic
 
 >>no its possible if you created one instance in using load-blancer using the target group.then its not possible use one more load-balancer 
 
-252-why the load-balacner and nat-gateway in public subnets
+252-why the load-balancer and nat-gateway in public subnets
 
 >>so when we create the load-balacner we must select the public subnets only in load-balancer or nat-gateway then we add the route into private route table and select the target groups under private instance    
 
@@ -2772,7 +2806,8 @@ like file systems which manage data as a file hierarchy, and object storage whic
 2-Users   --| admins and developers and users can also take or use  access_key and secret_key 
 
 roles: for aws service (not for admins) ex: ec2 to access aws s3 can access . roles will also use in users but differnet format
->>create a role anji attach permission or policy then atatch to ec2-instance . roles also use access_key and secret_key also use create one token by default. the token will expire after 6 hours or 7 hours then it will create one more token  
+>>create a role anji attach permission or policy then atatch to ec2-instance . roles also use access_key and secret_key also use create one token by default. the token will 
+expire after 6 hours or 7 hours then it will create one more token  
 >.one service can use another service that we use roles like aws ec3 need to access s3 then we can use role 
 polices: permission in json format create a role and attach the polices to role. and you can attach polices to users and roles also 
 
@@ -2970,9 +3005,8 @@ aws ec2-describe-instance | grep -i "instanceid"
 
 275-what is permission boundry in IAM users under 
 
->>your given user to ec2 access and see the instance only. then after your releised that you mistkenlu given admin access. you can set the
- permission boundary under select the ec2 full access that user will admin permission that set only ec2-only either admin any policy . 
- he can access only ec2 service your limiting the user in boundary or putting some gates 
+>>your given user to ec2 access and see the instance only. then after your releised that you mistkenlu given admin access. you can set the permission boundary under select the ec2 full access that user 
+will admin permission that set only ec2-only either admin any policy . he can access only ec2 service your limiting the user in boundary or putting some gates 
 
 276-if any new user addedd in AWS that user most get permission boundry how we can achive this 
 
@@ -3039,9 +3073,11 @@ its memory abilities. After launching an instance, it works as a traditional hos
 >>secret manager integrates with AWS logging and monitoring service provides centrailized auditing
 >>secrets are encrypted using AWS KMS key manager service
 >>using cloud watch and cloud trail all events relating to secrets manager can be monitored
+
 281-can i rotate my password in secret manager
 
->>you can rotate your username and password in secret manager you can mention one week or any days. if you want create amazon RDS username and password directly through secret manager. when you createing rds then create username and select secret manager then automatically create the password 
+>>you can rotate your username and password in secret manager you can mention one week or any days. if you want create amazon RDS username and password directly through secret manager. when you create
+rds then create username and select secret manager then automatically create the password 
 >>like DocumentDB database and Redshift also or any other service also 
 >>you can do schedule rotation of password 
 
@@ -3356,11 +3392,13 @@ AWS-Elastic-Beanstalk
 
 303-how many mfa device in aws
 
->>You can register up to eight MFA devices, in any combination of the currently supported MFA types, with your root users and IAM users. Sign in to the AWS Management Console and do the following: For a root user, choose My Security Credentials. For an IAM user, choose Security credentials.
+>>You can register up to eight MFA devices, in any combination of the currently supported MFA types, with your root users and IAM users. Sign in to the AWS Management Console and do the following: 
+For a root user, choose My Security Credentials. For an IAM user, choose Security credentials.
 
 304-how will you manage the aws account
 
->>for example we have big organization we have 8 users for aws administration purpose we create each user for specific role like anji user can do only ec2 like any ticket raise ec2 problems will solve only anji user like sampi s3 like this. reaminig you have multiple accounts then we can use aws organization to segarte the accounts
+>>for example we have big organization we have 8 users for aws administration purpose we create each user for specific role like anji user can do only ec2 like any ticket raise ec2 problems will solve 
+only anji user like sampi s3 like this. reaminig you have multiple accounts then we can use aws organization to segarte the accounts
 
 305-types of access in aws 
 
@@ -3473,13 +3511,13 @@ requested by other applications. These applications may run on the same or a dif
 
 320-What is AWS redshift used for?
 
->>it is type of database it belong to postgress sql.it used for data ware-housing purpose
+>>it is type of database it belongs to postgress sql.it used for data ware-housing purpose
 >>Amazon Redshift uses SQL to analyze structured and semi-structured data across data warehouses, operational databases, and data lakes,
 using AWS-designed hardware and machine learning to deliver the best price performance at any scale
 
 321-what is elastiCahe in aws
 
->>elastcahe is not regular satabase it is web-service that makes easy to launch manage and scale distributed in memory cache in the cloud
+>>elastcahe is not regular database it is web-service that makes easy to launch manage and scale distributed in memory cache in the cloud
 it is used to improve your website or web-application performance. it will cache the services in that memory it will increase the better performance
 >>it like ec2-service
  
