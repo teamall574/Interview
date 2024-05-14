@@ -1,6 +1,7 @@
 ============================================================Docker=========================================================================================
 virtual machines-->infrastructure->hypersvisior->guest os->librays->app1,app2,app3
 containers-->infrastructure->operating system->container engine->librays->app1,app2,app3
+>>if your not mnetion expose command in dockerfile that will work fine because using -p publish command  --p stands for publish not port 
 
 >>curl https://get.docker.com  | bash 
 how to backup andd restoe docker volume
