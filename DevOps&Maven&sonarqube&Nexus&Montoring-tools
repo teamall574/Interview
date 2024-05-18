@@ -6,6 +6,12 @@ DEVOPS--------------|
 
 1-what is CI-CD
 
+>>CI/CD is the process of automate buliding testig and deploying of applications. every time you make a code change so that you can update and deliver your applications faster.
+whenever developer make some changes and pushes to git repository like github and automated CI server like GitHub actions or jenkins or gitlab will continously monitor this repository for any new code changes
+and they are detected it triggers a pipeline which automatically build and tests the code everytime you make change this process of automatically building and testig the code is known as Continous Integration.
+once the code is build and test it is ready for next part like which deployment part. you can deploy either on applications on manually or automatically using kubernets or docker or any server and this total 
+process is called CI/CD
+
 >>CI/CD or CICD is the combined practices of continuous integration and continuous delivery or, less often, continuous deployment. 
 They are sometimes referred to collectively as continuous development or continuous software development.
 >>CI/CD is the practice of automatically building, testing, and deploying software changes to production. this approach ensures a continuous flow of high-quality software release
