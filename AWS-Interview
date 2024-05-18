@@ -5963,10 +5963,10 @@ you will see the drive and files
 which typically send the data records in simultaneously.
 >>it is availble in managed service in AWS name AmazonMSk 
 >>kafka port number 9092
-install kafka in local system then enter folder run this command 
->>bin/kafka-topics.sh --create --topic anji-1 --bootstrap-server kafaka-endpoint-here:9092
+install kafka in local system then enter the folder and run this command 
+>>bin/kafka-topics.sh --create --topic anji-1 --bootstrap-server Kafka-endpoint-here:9092
 
-557-how many rules can i add upto in application load balancer
+557-how many rules can i add up to in the application load balancer
 
 >>100 total rules per application load balancer
 >>5 condition values per rule 
@@ -5982,7 +5982,12 @@ install kafka in local system then enter folder run this command
 
 27-whay is aws x-ray in aws 
 
+560-what is Outpost rack in AWS 
 
+>>this is like private cloud if you request AWS OutPost Rack AWS person or team will come and install the server in on-premise . run your servers on your on-premise this private cloud feature Availble in AWS 
+like you think your data is secure no need to put the cloud then you can request the AWS OutPost it will create the private cloud on your company
+
+561-
 
 111-
 >>mysql -u root -p     -->login 
