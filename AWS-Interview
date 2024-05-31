@@ -5987,7 +5987,97 @@ install kafka in local system then enter the folder and run this command
 >>this is like private cloud if you request AWS OutPost Rack AWS person or team will come and install the server in on-premise . run your servers on your on-premise this private cloud feature Availble in AWS 
 like you think your data is secure no need to put the cloud then you can request the AWS OutPost it will create the private cloud on your company
 
-561-
+561-can i block the certain countries like or ips using geolocation in route53 
+
+>>yes you can use this to block the ip address or countries 
+
+562-i have snapshot taken 2018 ebs volume i forgotted to delete then later I created policy to take backup every two days retention period so that snapshot will cost more or medium any price changes will effect
+totl three shanpshot two or latest one is 2018 snapshot
+
+>>The snapshot from 2018 will incur ongoing storage costs as long as it is retained.
+>>AWS charges for snapshot storage are based on the amount of data stored, so older and larger snapshots can accumulate significant costs.
+>>Snapshot storage is billed at a per-GB-month rate.
+>>The cost for snapshots can vary based on the region and current AWS pricing.
+
+563-what are the aws secuirty servcie  for AWS account
+
+Identity and Access Management
+1-AWS Identity and Access Management (IAM):
+>>Manage user access and encryption keys.
+>>Control access to AWS services and resources.
+2-AWS Single Sign-On (SSO):
+>>Centrally manage SSO access to multiple AWS accounts and business applications.
+
+Infrastructure Protection
+3-AWS Shield:
+>>DDoS protection service that safeguards web applications running on AWS.
+>>Standard tier (automatic) and Advanced tier (additional cost and enhanced protection).
+4-AWS Web Application Firewall (WAF):
+>>Protects web applications from common web exploits.
+>>Customizable web security rules.
+5-Amazon GuardDuty:
+>>Threat detection service that continuously monitors for malicious activity and unauthorized behavior.
+6-AWS Network Firewall:
+>>Managed network firewall to protect your VPCs.
+>>Offers protection against network threats.
+
+Data Protection
+7-AWS Key Management Service (KMS):
+>>Create and control the encryption keys used to encrypt your data.
+8-AWS Certificate Manager (ACM):
+>>Provision, manage, and deploy SSL/TLS certificates.
+9-Amazon Macie:
+>>Uses machine learning to automatically discover, classify, and protect sensitive data in AWS.
+
+Threat Detection and Monitoring
+10-Amazon Inspector:
+>>Automated security assessment service that helps improve the security and compliance of applications.
+11-AWS Config:
+>>Enables assessment, auditing, and evaluation of the configurations of your AWS resources.
+12-AWS CloudTrail:
+>>Logs, continuously monitors, and retains account activity related to actions across your AWS infrastructure.
+13-AWS Security Hub:
+>>Provides a comprehensive view of your security alerts and security posture across your AWS accounts.
+
+Security Management and Governance
+14-AWS Organizations:
+>>Centrally manage and govern your environment as you grow and scale your AWS resources.
+15AWS Control Tower:
+>>Set up and govern a secure, multi-account AWS environment based on best practices.
+16-AWS Service Catalog:
+>>Create and manage catalogs of IT services that are approved for use on AWS.
+
+Application Security
+17-Amazon Detective:
+>>Analyze and visualize security data to rapidly get to the root cause of potential security issues.
+18-AWS Secrets Manager:
+>>Helps protect access to your applications, services, and IT resources without the upfront cost of hardware.
+19-AWS CloudHSM:
+>>Hardware-based key storage for regulatory compliance.
+
+Incident Response
+20-AWS Step Functions:
+>>Coordinate multiple AWS services into serverless workflows to automate and orchestrate your incident response.
+21-AWS Lambda:
+>>Run code in response to triggers such as changes in data or system states to automate incident response.
+
+Compliance and Data Privacy
+22-AWS Artifact:
+>>On-demand access to AWS’ compliance reports and select online agreements.
+
+Security Best Practices and Frameworks
+23-AWS Well-Architected Tool:
+>>Provides architectural best practices for designing and operating reliable, secure, efficient, and cost-effective systems in the cloud.
+
+Edge and Hybrid Security
+24-AWS Outposts:
+>>Extend AWS infrastructure and services to your on-premises environment for a truly consistent hybrid experience.
+
+Security Information and Event Management (SIEM)
+25-Amazon Athena:
+>>Analyze logs from AWS services, such as CloudTrail and VPC Flow Logs, for security insights.
+
+
 
 111-
 >>mysql -u root -p     -->login 
@@ -6116,5 +6206,6 @@ anji ALL=(ALL)  NOPASSWD: ALL
 >>groups   -->list the groups or provides group information
 id anji -->list user-i and group also 
 group anji  -->it will also show  
+
 
 
