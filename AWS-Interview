@@ -799,6 +799,16 @@ VPC in a region is easy to understand and easy to use. we can interconnect diffe
 >>Transit gateway advance layer of VPC peering. the transit gateway simplifies your network connection and puts an end to complex peering relationships.
 Transit Gateway acts as a highly scalable cloud router—each new connection is made only once
 
+61-is it possible to do one region to another region tranist gateway perring 
+
+>>yes you need to create the ap-south-1 region one transit and another us-east-1 region also one transit then add route table 
+
+62-is it possible to integrate jenkins to aws code pipeline 
+
+>>yes you can integrate you need to give appreate role for jenkins server then install the plugin then you create pipeline in code pipeline you will see the build in jenkins also 
+https://www.youtube.com/watch?v=fN6vA80JbwI
+
+
 61-What is Amazon EC2?
 
 >>Ec2 Means elastic cloud computing where you are requesting AWS the cloud provider to give a virtual machine or virtual server that is elastic in nature this term is called 
