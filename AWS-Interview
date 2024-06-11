@@ -790,6 +790,169 @@ Use-cases:-
 >> An increase in the VPC will increase in the VPC peerings
 >> Each VPC needs a VPG for VPN connections
 
+===VPC Peering
+
+creating connection between two vpc
+
+>>ip address must not be overlap
+
+>>vpc peering don't transit. transit means mediator or green is connected to red and red is connected to Blue but Blue is not interconnected or
+ping to Green you need to every vpc interconnection
+
+>>it is one to one connection
+
+>>real time your not giving public ips your connecting your vpn through the server
+
+Green
+
+>>create vpc name Green ip 10.1.1.0/24
+
+>>create subnet name Green-subnet select vpc Green and ip 10.1.1.0/24 select aZ us-east-1a
+
+>>create internet gateway Green-igw and attach vpc Green
+
+>>create route name Green-route and select vpc Green and edit route add 0.0.0.0/0 and select interet gateway Green-igw
+
+>>craete one instance using VPC Green and subnet green-sub and public ip enable and private ip 10.1.1.100 security group all key 
+
+Red
+
+>>create vpc name Red and ip 192.168.1.0/24
+
+>>create subnet name Red-subnet select vpc Red and ip 192.168.1.0/24 select aZ us-east-1a
+
+>>create internet gateway Red-igw and attach vpc Red
+
+>>create route name Red-route and select vpc Red and edit route add 0.0.0.0/0 and select interet gateway Red-igw
+
+>>craete one instance using VPC Red subnet Red-sub and public ip enable and private ip 192.168.1.100 security group all protocal
+
+Blue
+
+>>create vpc name Blue and ip 172.16.1.0/24
+
+>>create subnet name Blue-subnet select vpc Blue and ip 172.16.1.0/24 select aZ us-east-1a
+
+>>create internet gateway Blue-igw and attach vpc Green
+
+>>create route name Blue-route and select vpc Blue and edit route add 0.0.0.0/0 and select interet gateway Blue-igw
+
+>>craete one instance using VPC Blue and subnet Blue-sub and public ip enable and private ip 172.16.1.100 and security group all protocals
+
+>>go to peering connection
+
+>>create peering name Green-to-Red and requester Green and accepter Red and click on Create connection and accept the connection
+
+>>create peering name Green-to-Blue and Requster Green and accepter Blue and click on create connection and accept the connection
+
+>>craete peering name Blue-to-Red and requester Blue and accepter Red and click on create connection and accept the connection
+
+>>go to route table in Green-Route add edit route add 192.168.1.0/16, 172.16.1.0/16 and select peering select
+
+>>go to route table in Red-route and edit route add 10.1.1.0/16, 172.16.1.0/16 and select the peering connection
+
+>>go to route table in Blue-route and edit route add 10.1.1.0/16, 192.168.1.0/16 and select the peering connection
+
+>>ping 192 to 10 you will get
+
+>>pinh 192 to 172 you will get 
+
+>>ping 172 to 10 you will get
+
+===peering one region mumbai to another region ohio
+
+mumbai region
+
+Green
+
+>>create vpc name Green ip 10.1.1.0/24
+
+>>create subnet name Green-subnet select vpc Green and ip 10.1.1.0/24 select aZ us-east-1a
+
+>>create internet gateway Green-igw and attach vpc Green
+
+>>create route name Green-route and select vpc Green and edit route add 0.0.0.0/0 and select interet gateway Green-igw
+
+>>craete one instance using VPC Green and subnet green-sub and public ip enable and private ip 10.1.1.100 security group all key 
+
+ohio region
+
+Red
+
+>>create vpc name Red and ip 192.168.1.0/24
+
+>>create subnet name Red-subnet select vpc Red and ip 192.168.1.0/24 select aZ us-east-1a
+
+>>create internet gateway Red-igw and attach vpc Red
+
+>>create route name Red-route and select vpc Red and edit route add 0.0.0.0/0 and select interet gateway Red-igw
+
+>>craete one instance using VPC Red subnet Red-sub and public ip enable and private ip 192.168.1.100 security group all protocal
+
+create peering connection
+
+>>craete peering name mumbai to ohio and accepter mumbai vpc(green) and ohio vpc(Red) and go to ohio region and accept the peering 
+
+>>now go to route table add route edit route 10.1.1.0/16 and select the peering connection
+
+>>now go to route table and edit route 192.168.1.0/16 and select the peering connection
+
+>>now you will get ping
+
+>>ping 10 to 192 you will get
+
+>>ping 192 to 10 you will get
+
+===peering one account to another account
+
+first account
+
+mumbai region
+
+Green
+
+>>create vpc name Green ip 10.1.1.0/24
+
+>>create subnet name Green-subnet select vpc Green and ip 10.1.1.0/24 select aZ us-east-1a
+
+>>create internet gateway Green-igw and attach vpc Green
+
+>>create route name Green-route and select vpc Green and edit route add 0.0.0.0/0 and select interet gateway Green-igw
+
+>>craete one instance using VPC Green and subnet green-sub and public ip enable and private ip 10.1.1.100 security group all key 
+
+second account
+
+ohio region
+
+Red
+
+>>create vpc name Red and ip 192.168.1.0/24
+
+>>create subnet name Red-subnet select vpc Red and ip 192.168.1.0/24 select aZ us-east-1a
+
+>>create internet gateway Red-igw and attach vpc Red
+
+>>create route name Red-route and select vpc Red and edit route add 0.0.0.0/0 and select interet gateway Red-igw
+
+>>craete one instance using VPC Red subnet Red-sub and public ip enable and private ip 192.168.1.100 security group all protocal
+
+>>create peering connection in ohio to mumbai 
+
+>>create peering name second account to first account requester name Red and select another account account id and accepter vpc id then create a coonection
+
+>>then go to first account and accept
+
+first account
+>>then go to route tables add edit route add 192.168.1.0/16 and select peering connection
+
+second account
+>>go to route table and edit route add 10.1.1.0/16 and select peering connection
+
+>>now go to  ping 10 to 192 you will get
+
+>>ping 192 to 10 you will get
+
 60-What is a transit gateway?
 
 >>Transit gateway advance layer of VPC peering, in VPC peering if we create 3 or more VPCs we need to interconnect using VPC peering if we increase VPC peering it is
@@ -799,10 +962,190 @@ VPC in a region is easy to understand and easy to use. we can interconnect diffe
 >>Transit gateway advance layer of VPC peering. the transit gateway simplifies your network connection and puts an end to complex peering relationships.
 Transit Gateway acts as a highly scalable cloud router—each new connection is made only once
 
+===Transit gateways
+
+>>transit gateway is chargeble
+
+>>vpc need to connect using peering
+
+>>if in case using mutiple vpc using environment that need multiple peerings.so that why using transit gateway
+
+>>create 3vpc of transit gateway
+
+>>create vpc name Green ip 10.1.0.0/16
+
+>>create subnet Green-sub and vpc Green and ip 10.1.1.0/24
+
+>>create internet gateway Green-igw and attach vpc Green
+
+>>create route table Green-route and add 0.0.0.0/0 and select internet gateway
+
+>>create vpc name blue ip 192.168.0.0/16
+
+>>create subnet blue-sub select vpc blue and ip 192.168.1.0/24
+
+>>create internet gateway blue-igw and select vpc blue. and attach to blue vpc 
+
+>>create route blue-route and and add route 0.0.0.0/0 and internet gateway
+
+>>create vpc name red ip 172.16.0.0/16
+
+>>craete subnet red-sub select vpc red and ip 172.16.1.0/24
+
+>>create internet gateway red-igw and select vpc red. and attach to red vpc 
+
+>>create route red-route and and add route 0.0.0.0/0 and internet gateway
+
+>>go to transit gateway
+
+>>name TGW1 then ok -->it will take time mean time launch ec2-instances
+
+>>launch instance using vpc green and subnet green-sub region us-east-1a ip 10.1.1.100 and allow all protocals name green-server
+
+>>launch instance using vpc blue and subnet blue-sub region us-east-1a ip 192.168.1.100 and allow all protocals name blue-server
+
+>>launch instance using vpc red and subnet red-sub region us-east-1a ip 172.16.1.100 and allow all protocals name red-server
+
+>>try to login and ping each server you won't get ping access
+
+>>go to transit gateway attachments and select transit gateway TGW1 and select vpc and vpc of Green and subnet green-sub1 region us-east-1a  and attach
+
+>>go to transit gateway attachments and select transit gateway TGW1 and select vpc and vpc of blue and subnet blue-sub1 region us-east-1a  and attach
+
+>>go to transit gateway attachments and select transit gateway TGW1 and select vpc and vpc of red and subnet red-sub1 region us-east-1a  and attach
+
+>>go to green route table edit route add 192.168.0.0/16 and select transit gateway and edit route 172.16.0.0/16 and select transit gateway
+
+>>go to blue route table edit route add 172.16.0.0/16 and select transit gateway and edit route 10.1.0.0/16 and select transit gateway
+
+>>go to red route table edit route add 192.168.0.0/16 and select transit gateway and edit route 10.1.0.0/16 and select transit gateway
+
+>>if you try ping all the three devies you will get
+
 61-is it possible to do one region to another region tranist gateway perring 
 
 >>yes you need to create the ap-south-1 region one transit and another us-east-1 region also one transit then add route table 
 
+===you can do one region mumbai to another region ohio also
+
+mumbai
+
+>>create 3vpc of transit gateway
+
+>>create vpc name Green ip 10.1.0.0/16
+
+>>create subnet Green-sub and vpc Green and ip 10.1.1.0/24
+
+>>create internet gateway Green-igw and attach vpc Green
+
+>>create route table Green-route and add 0.0.0.0/0 and select internet gateway
+
+>>create vpc name blue ip 192.168.0.0/16
+
+>>craete subnet blue-sub select vpc blue and ip 192.168.1.0/24
+
+>>create internet gateway blue-igw and select vpc blue. and attach to blue vpc 
+
+>>create route blue-route and and add route 0.0.0.0/0 and internet gateway
+
+>>create vpc name red ip 172.16.0.0/16
+
+>>craete subnet red-sub select vpc red and ip 172.16.1.0/24
+
+>>create internet gateway red-igw and select vpc red. and attach to red vpc 
+
+>>create route red-route and and add route 0.0.0.0/0 and internet gateway
+
+>>go to transit gateway
+
+>>name TGW1 then ok -->it will take time mean time launch ec2-instances
+
+>>launch instance using vpc green and subnet green-sub region us-east-1a ip 10.1.1.100 and allow all protocals name green-server
+
+>>launch instance using vpc blue and subnet blue-sub region us-east-1a ip 192.168.1.100 and allow all protocals name blue-server
+
+>>launch instance using vpc red and subnet red-sub region us-east-1a ip 172.16.1.100 and allow all protocals name red-server
+
+>>try to login and ping each server you wont get ping access
+
+>>go to transit gateway attachments and select transit gateway TGW1 and select vpc and vpc of Green and subnet green-sub1 region us-east-1a  and attach
+
+>>go to transit gateway attachments and select transit gateway TGW1 and select vpc and vpc of blue and subnet blue-sub1 region us-east-1a  and attach
+
+>>go to transit gateway attachments and select transit gateway TGW1 and select vpc and vpc of red and subnet red-sub1 region us-east-1a  and attach
+
+>>go to green route table edit route add 192.168.0.0/16 and select transit gateway and edit route 172.16.0.0/16 and select transit gateway
+
+>>go to blue route table edit route add 172.16.0.0/16 and select transit gateway and edit route 10.1.0.0/16 and select transit gateway
+
+>>go to red route table edit route add 192.168.0.0/16 and select transit gateway and edit route 10.1.0.0/16 and select transit gateway
+
+>>if you try ping all the three devies you will get
+
+==============================
+>>do same in ohio region
+
+>>create vpc in yellow ip 172.18.0.0/16
+
+>>create subnet yellow-sub 172.18.1.0/24 select vpc yellow
+
+>>create internet gateway yellow-igw and attach the yellow
+
+>>create route table yellow-route edit route add 0.0.0.0/0 select internet gateway yellow-igw
+
+>>launch ec2 instance using vpc yellow and subnet yellow-sub region us-east-1a ip 172.18.1.100 and allow all ports and name yellow-server
+
+>>go to transit gateway create name yellow-transit
+
+>>transit gateway attachment select transit gateway yellow-transit and select vpc yellow and region us-eats-1a
+
+>>go to route tables edit route add 172.16.0.0/16 and select the transit gateway yellow-transit
+
+>>go to route tables edit route add 192.168.0.0/16 and select the transit gateway yellow-transit
+
+>>go to route tables edit route add 10.1.0.0/16 and select the transit gateway yellow-transit
+
+>>go to route in red route table add 172.18.0.0/16 and select the transit gateway TGW1
+
+>>go to route in blue route table add 172.18.0.0/16 and select the transit gateway TGW1
+
+>>go to route in green route table add 172.18.0.0/16 and select the transit gateway TGW1
+
+>>in transit gateway create transit gateway attachment in mumbai region 
+
+>>select transit gateway TGW1 and select vpc peering attachment tag mumbai to ohio and region ohio and id accepter copy id of yellow-transit id and click on ok
+
+>>then go to ohio region and accept the request in transit gateway attachmet section
+
+>>in mumbai region
+
+>>go to transit gateway route table add route of ohio region
+
+>>edit route 172.18.0.0/16 and select transit gateway TGW1
+
+>>in ohio region
+
+>>go to transit gateway route table add route of mumbai region
+
+>>edit route 10.1.0.0/16 and select transit gateway yellow-transit
+
+>>edit route 172.16.0.0/16 and select transit gateway yellow-transit
+
+>>edit route 192.168.0.0/16 and select transit gateway yellow-transit
+
+now you will get the ping
+
+63-what is the use case of transit gateway 
+
+1-Multi-VPC Connectivity
+2-Hybrid Cloud Connectivity
+3-Shared Services
+4-Security and Compliance
+5-Multi-Region Architectures
+6-Application Migration
+7-Third-Party SaaS Integration
+8-Disaster Recovery
+9-Multi-Tenancy
 62-is it possible to integrate jenkins to aws code pipeline 
 
 >>yes you can integrate you need to give appreate role for jenkins server then install the plugin then you create pipeline in code pipeline you will see the build in jenkins also 
