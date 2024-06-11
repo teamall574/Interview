@@ -5879,6 +5879,7 @@ craete a vpc with 10.1.0.0./16 and then craete two publi subsnets and two privat
 firewall.cpl 
 ncpa.cpl 
 mstsc 
+service.msc
 appwiz.cpl 
 sysdm.cpl 
 dsa.msc 
