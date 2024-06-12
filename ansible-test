@@ -1,0 +1,1266 @@
+>>launch ec2-user one instance
+
+>>ec2-user
+>>yum update -y
+>>vi /etc/hostname
+
+ansible-serevr
+:wq
+
+>>useraddd ansadmin
+>>password ansadmin
+ansadmin123
+ansadmin123
+>>visudo 
+ansadmin ALL=(ALL) NOPASSWD: ALL
+
+>>sudo su - ansadmin
+>>ssh-keygen
+>>sudo su -
+>>vi /etc/ssh/sshd_config
+
+passwordAuthentication yes
+#passwordAuthentication no
+
+:wq
+
+>>service sshd restart
+>>yum install python
+>>yum install python-pip
+>>pip install ansible (or)
+>>amazon-linux-extras install ansible2
+
+====launch node (rhel)
+
+>>launch ec2 RHEL system
+am	
+>>ec2-user
+>>yum update -y
+>>vi /etc/hostname
+rhel-node
+:wq
+>>sudo su -
+>>useradd ansadmin
+>>passwd ansadmin
+ansadmin123
+ansadmin123
+>>vi /etc/sshd/sshd_config
+
+passwordAuthentication yes
+#passwordAuthentication NO
+
+:wq
+
+>>visudo
+
+ansadmin ALL=(ALL) NOPASSWD: ALL
+
+:wq
+
+====ansible-server
+
+>>ec2-user
+>>sudo su - ansadmin
+>>vi /etc/hosts
+
+10.0.1.212
+
+:wq
+>>sudo su 
+>>service sshd restart
+>>ssh-copy-id ansadmin@10.0.1.212
+
+>>ansible all -m ping
+>>ansible all -m command -a "uptime"
+>>ansible all -m command -a "who"
+>>ansible all -m command -a "date"
+>>ansibel all -m stat -a "path=/etc/hosts"
+>>ansible all -m yum -a "name=git" -b          -->-b become its root use
+>>ansible all -m user -a "name=anji" -b
+>>ansible all -m setup 
+
+>>sudo su - ansadmin
+>>vi /etc/ansible/ansible.cfg
+
+#inventory =/etc/ansible/hosts
+inventory = /home/ansadmin/hosts       -->it will take directly this not first one
+
+:wq
+
+>>service sshd restart
+
+>>ansible all -m ping -i /etc/ansible/hosts
+>>ansible rhel -m ping -i /etc/ansible/hosts
+>>sudo mkdir ansible
+>>cd ansible
+>>chown ansadmin:ansadmin ansible
+>>vi test.yml
+
+---
+- hosts: amazone (or) all      -->all means all hosts if only given amazon under execute the hosts
+  become: true
+  tasks:
+  - user: name=john
+:wq
+
+>>ansible-playbook test.yml
+
+>>vi test.yml
+---
+- hosts: amazone (or) all 
+  become: true
+  tasks:
+  - name: creating the user
+    user: name=john 
+:wq
+
+>>ansible-playbook test.yml
+
+>>vi test.yml
+---
+- hosts: amazone (or) all 
+  become: true
+  tasks:
+  - name: creating the user
+    user: 
+      name: john 
+:wq
+
+>>ansible-playbook test.yml
+
+>>vi test.yml
+---
+- name: install the packages
+  hosts: all 
+  become: true
+  tasks:
+  - name: installing packges
+    yum:
+      name: git
+      state: installed
+:wq
+
+>>ansible-playbook test.yml
+
+>>vi anji.yml
+
+---
+- name: this playbook create a file or dir
+  hosts: all
+  become: true
+  tasks:
+  - name: creating a file
+    file:
+      path: /home/ansadmin/demofile
+      state: touch
+
+:wq
+
+>>ansible-playbook anji.yml
+
+>>vi anji.yml
+
+---
+- name: this playbook create a file or dir
+  hosts: all
+  become: true
+  tasks:
+  - name: creating a file
+    file:
+      path: /home/ansadmin/test
+      state: directory
+
+:wq
+
+>>ansible-playbook anji.yml
+
+>>vi anji.yml
+
+---
+- name: this playbook create a file or dir
+  hosts: all
+  become: true
+  tasks:
+  - name: creating a file
+    file:
+      path: /home/ansadmin/demofile
+      state: absent
+
+:wq
+
+>>ansible-playbook anji.yml
+
+>>vi anji.yml
+
+---
+- name: this playbook create a file or dir
+  hosts: all
+  become: true
+  tasks:
+  - name: creating a file
+    file:
+      path: /home/ansadmin/demofile
+      state: touch
+
+:wq
+
+>>ansible-playbook anji.yml
+
+>>vi tset.txt
+>>vi tt.yml
+
+---
+- name: ansible playbook to copy a file
+  hosts: all
+  become: true
+  tasks:
+  - name: copy a file
+    copy:
+      src: /opt/ansible/tset.txt
+      dest: /home/ansadmin
+      mode: 0600
+      owner: anji
+
+:wq
+
+>>ansible-playbook tt.yml
+
+>>vi install.yml
+
+---
+- name: this play book install packages
+  hosts: all
+  become:true
+  tasks:
+  - name: install package
+    yum:
+      name: httpd
+      state: installed
+  - name: start httpd service
+    service:
+      name: httpd
+      state: started
+
+:wq
+
+>>ansible-playbook install.yml
+>>ssh 10.0.1.250
+ps -ef | grep httpd
+>>exit
+>>vi install.yml
+
+---
+- name: this play book install packages
+  hosts: all
+  become:true
+  tasks:
+  - name: uninstall package
+    service:
+      name: httpd
+      state: stopped
+  - name: uninstall package
+    yum:
+      name: httpd
+      state: removed
+
+:wq
+
+>>ansible-playbook install.yml
+
+====ubuntu system
+
+>>vi ub.yml
+---
+- name: install ubuntu packages
+  hosts: all
+  become: true
+  tasks:
+  - name: install httpd in ubuntu
+    apt:
+      name: apach2
+      state: present
+  - name: start apache2
+    service:
+      name: apache2
+      state: started
+:wq
+
+>>ansible-playbook un.yml
+
+====notify and handlers
+
+>>vi no.yml
+
+---
+- name: this is handler
+  hosts: all
+  become: true
+  tasks: 
+  - name: install package
+    yum:
+      name: httpd
+      state: installed
+    notify: start apache   -->thisshould mache in handker name ortherwise dont execute
+  handlers:
+  - name: start apache 
+    service:
+      name: httpd
+      state: started
+:wq
+
+>>ansible-playbook no.yml
+
+>>vi te.yml
+---
+- name: this playbook create a file or dir
+  hosts: all
+  become: true
+  gather_facts: no
+  tasks:
+  - name: creating a file
+    file:
+      path: /home/ansadmin/dir1
+      state: directory
+:wq
+
+>>ansible-playbook te.yml
+
+=====when commands
+
+>>vi instal.yml
+
+---
+- name: install package
+  hosts: all
+  become: true
+  tasks:
+  - name: install package
+    yum:
+      name: httpd
+      state: installed
+    when: ansible_os_family == "RedHat"
+
+  - name: start apache
+    service:
+      name: httpd
+      state: started
+    when: ansible_os_family == "RedHat"
+ 
+  - name: install apace2
+    apt:
+      name: apach2
+      state: present
+    when: ansible_os_family == "Debain"
+  
+  - name: start apache2
+    service:
+      name: apache
+      state: started
+    when: ansible_os_family == "Debain"
+
+:wq
+
+>>ansible-playbook instal.yml
+
+>>vi install.yml
+
+---
+- name: this will install multiple packegs
+  hosts: all
+  become: true
+  tasks:
+  - name: install package
+    yum: 
+      name: ['git', 'telnet', 'make', 'wget', 'gcc']
+      state: installed
+:wq
+
+>>ansible-playbook install.yml
+
+>>vi install.yml
+---
+- name: this will install multiple packegs
+  hosts: all
+  become: true
+  tasks:
+  - name: install package
+    yum: 
+      name: "{{item}}'
+        state: installed
+      with_items:
+        - git
+        - make
+        - telnet
+:wq
+
+>>ansible-playbook install.yml
+>>it will not execute why because it is deprected
+
+=====variables
+
+>>vi var.yml
+
+---
+- name: variables to see
+  hosts: all
+  become: true
+  vars:
+    user: john
+  tasks:
+  - name: creating user john
+    user: 
+      name: "{{ user }}"
+:wq
+
+>>ansible-playbook vars.yml   -->if anyone joined just change user: modi
+
+>>vi user.yml
+user: test
+:wq
+
+>>vi vars.yml
+---
+- name: this playbook to create user
+  hosts: all
+  become: true
+  vars_files:
+    - user.yml
+  tasks:
+  - name: creating user test
+    user:
+      name: "{{ user }}"
+
+:wq
+
+>>ansible-playbook vars.yml
+
+===install image outside
+
+>>vi tom.yml
+
+---
+- name: setup tomcat
+  hosts: all
+  become: true
+  tasks: 
+  - name: install java
+    yum:
+      name: java
+      state: installe
+    when: ansible_os_family == "RedHat"
+  - name: install java in ubuntu
+    apt:
+      name: default-jdk
+      state: present
+    when_os_family  == "Debain"
+  - name: download tomcat server
+    get_url:
+      url: http://mirrors.estointernet.in/apache/tomcat/tomcat-8/v8.5.50/bin/apache-tomcat-8.5.50.tar.gz
+      dest: /opt
+  - name: untar apache packages
+    unarchive:
+      src: /opt/apache-tomcat-8.5.50.tar.gz
+      dest: /opt
+      remote_src: yes
+  - name: add execution permissions
+    file:
+      path: /opt/apache-tomcat-8.5.50.tar.gz
+      mode: 0777
+  - name: start tomcat service
+    shell: nohup ./startup.sh
+    args:
+      chdir: /opt/apache-tomcat-8.5.50/bin
+:wq
+
+>>ansible-playbook tom.yml  --check
+
+
+>>ansible vault is feature of ansible that allows you to keep sensitive data such as passwords or keys in encrypted files
+rather than as plaintext in playbooks or roles
+
+>>ansible-vault craete encrypt install.yml
+it will ask password create the password anji
+>>ansible-vault view install.yml
+it will ask the password anji
+>>ansible-vault edit install.yml
+it will ask the password anji    -->you can edit the data
+
+
+====you can clone the repository using the code
+
+>>vi cl.yml
+
+---
+- name: clone the repository
+  become:true
+  hosts: all
+  tasks:
+  - name: git clo
+    git:
+      repo: https://anji:anji1592@github.com/teamall574/yankils.git
+      dest: /opt/ansadmin/test-vault
+
+:wq
+
+>>ansible-playbook cl.yml 
+
+
+====roles
+
+>>ansible-galaxy init anji            -->it will craete the anji role
+>>cd anji
+>>ls
+-tasks:-contains the main list of taks
+-handlers:-contains handlers which may be used by this role
+-defaults:-defaults variables for the role
+-vars:- other variables for the role
+-files:- contains files which can be deployed via this role
+-templates:- contains templates which can be deployed in this role
+-meta:-defines some meta data for this role
+
+>>vi test.yml
+
+---
+- name: testing the hnadler
+  hosts: all
+  become: true
+  tasks: 
+  - name: install package
+    yum: 
+      name: httpd
+      state: installed
+    when: ansible_os_family == "RedHat"
+    notify: start apache
+  - name: install apache2
+    apt:
+      name: apache2
+      state: present
+    when: ansible_os_family == "Debian"
+  - name: ensure the default apache port is 8081
+    lineinfile:
+      path: /etc/httpd/conf/httpd.conf
+      regexp: '^Listen'
+      insertafter: '^#Listen'
+      line: Listen 8081
+    when: ansible_os_family == "RedHat"
+    notify: restart apache
+
+  - name: ensure the default apache port is 8081 on ubuntu
+    lineinfile: 
+      path: /etc/apache2/ports.conf
+      regexp: '^Listen'
+      insertafter: '^#Listen'
+      line: Listen 8081
+    when: ansible_os_family == "Debian"
+    notify: restart apache2
+
+  handlers:
+  - name: start apache
+    service:
+      name: httpd
+      state: started
+  - name: start apache2
+    service:
+      name: apache2
+      state: started
+  - name: restart apache
+    service: 
+      name: httpd
+      state: restarted
+
+  - name: restart apache2
+    service: 
+      name: apache2
+      state: restarted
+
+:wq
+>>ansible-playbook test.yml
+
+>>vi /etc/httpd/conf/httpd.conf                 -->you can change your port number rhel
+>>vi /etc/apache2/ports.conf
+
+
+
+===Ansible commands
+
+Ansible is Idempotent
+
+===Need to install Ansible  needs some pre-requisites to install 
+
+Download epel repository.
+Install epel repository.
+Update epel repository.
+Install all individual packages inside the repository.
+
+>>wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm 
+
+>>yum install  epel-release-latest-8.noarch.rpm 
+
+>>yum update -y
+
+>>yum install git python python-level python-pip openssl ansible -y
+
+>> sudo amazon-linux-extras install ansible2   -->ansible already have use this commands to install
+
+>>ansible --version
+
+===to create one group and add this ip address in ansible server
+
+>>ec2-user  ansible-server
+
+>>sudo su
+
+>>vi /etc/ansible/hosts
+
+demo
+172.31.38.167
+172.31.32.86
+
+:wq
+
+>>vi /etc/ansible/ansible.cfg
+
+inventory =/etc/ansible/hosts    -->uncomment this or remove #
+
+===add user 
+
+>>adduser anji
+
+>>passwd anji
+
+enter password= anji
+enter password= anji
+
+===similarly do same in the nodes
+
+>>adduser anji
+
+>>passwd anji
+
+enter password= anji
+enter password= anji
+
+===login into server give root permision to anji
+
+>>ec2-user
+
+>>visudo
+
+root ALL=(ALL)     ALL
+anji ALL=(ALL)  NOPASSWD: ALL      -->write this it will give all permission to anji
+
+===need to configure ssh keys of nodes
+your in server
+
+>>ec2-user
+
+>>sudo su
+
+>>vi /etc/ssh/sshd_config
+
+>>===uncomment this 
+
+passwordauthentication yes
+permitrootlogin yes
+#passwordauthentication no  -->you need comment this 
+
+:wq
+
+service sshd restart
+
+===do same in remaning nodes
+
+===you need take ssh connetion on nodes o this commands
+>>ec2-user  -->server
+
+>>sudo su
+
+>>su -anji
+
+>>ssh  172.31.32.86
+
+it will ask anji password give then your logged in as 172.31.32.86 this node do same if you want to login another system
+
+===it will take every-time asking password need to solve this,  to do this commands
+
+===create ssh_keys (private and public)
+>>ec2-user
+
+>>sudo su
+
+>>su - anji
+
+>>ssh-keygen
+
+>>press enter
+>>press enter
+
+>>ls -a
+
+>>cd .ssh
+
+>>ls
+
+
+>>ssh-copy-id anji@172.31.38.167   -->it will ask passwd give next time it will not ask do same in remaing systems
+
+>>ssh-copy-id anji@172.31.32.86  -->press enter check ssh connection it wll not ask passwd
+
+>>ssh 172.31.32.86  -->it will not ask passwd
+
+>>ssh 172.31.38.167  -->it will not ask passwd
+
+===AD-HOC commands
+
+>>ansible all --list-hosts       -->it will show the nodes or hosts
+
+>>ansible demo --list-hosts       -->it will show the nodes or hosts
+
+>>ansible demo[0] --list-hosts     -->it will show the nodes or hosts
+
+>>ansible demo[2] --list-hosts   -->it will show the nodes or hosts
+
+>>ansible demo[-1] --list-hosts    -->it will show the nodes or hosts
+
+>>ansible demo[0:1]  --list-hosts   -->it will show the nodes or hosts
+
+>>ansible demo -a "ls"      -->to see the all the node inside the files
+
+>>ansible all -a "ls"       -->to see the all the node inside the files&if you have hundred groups then it will show
+
+>>ansible all -a "touch file1"   -->it will create the file in all the nodes
+
+>>there is no idempotent in ad-hoc commands it overwrite the commands every time
+means if the command ansible all -a "touch file1"  is used for first time then it will execute second time also that file create 
+not saying the file name is already exist this idempotance
+
+>>ansible demo -a "ls -al"  -->it will show all the hiden files
+ 
+>>ansible demo -a "sudo yum install httpd -y"   -->it will install the httpd server in the nodes
+
+>>ansible demo -b -a "yum remove httpd -y"     -->it will remove httpd in all the nodes  -ba indicates sudo  
+
+>>ansible demo -b -a "which httpd"    -->it will show where installed httpd in nodes
+
+>>ansible -i hosts --list-hosts       -->it will show the nodes or hosts
+
+>>ansible -i hosts "sudo yum install httpd -y"   -->it will install the httpd server in the nodes
+
+
+===modules
+ss
+ansible module is idempoteance
+
+install   =present
+uninstall =absent
+update    =latest
+-b        =sudo
+-m        =module
+
+>>ansible demo -b -m yum -a "pkg=httpd state=present"   -->it will install the httpd
+
+>>ansible demo -b -m yum -a "pkg=httpd state=absent"     -->it will uninstall the httpd
+
+>>ansible demo -b -m yum -a "pkg=httpd state=latest"     -->it will update the httpd to check and update
+
+>>ansible demo -b -a "httpd -v"  -->it will show the version of the httpd
+ansi
+>>ansible demo -b -m service -a "name=httpd state=started"   -->it will start the httpd 
+
+>>ansible demo -b -m user -a "name=sampi"   -->it will create the user in all the nodes
+
+>>ansible demo -b -m user -a "name=sampi state=absent"   -->it will delete the user in all the nodes
+
+>>ansible demo[-1] -b -m copy -a "src=copiedfile dest=/tmp"  -->it will copy the file from server to nodes 
+
+src=copiedfile    -->in your server file name
+dest=/tmp         -->in your nodes destination where the you want to save
+demo[-1]          -->last node from the group
+
+>>ansible demo -b -m  file -a "name=ktexperts state=touch"   -->it will create the file in nodes
+
+>>ansible demo -b -m file -a "name=ktexperts state=absent"   -->it will delete the file in nodes
+
+>>ansible demo -b -m  file  -a "name=ktexperts-dir state=directory"  -->it will create the directory in nodes
+
+>>ansible demo -b -m  file  -a "name=ktexperts-dir state=absent"  -->it will delete the directory in nodes
+
+>>ansible demo -b -m group -a "name=ktexperts-DevOps state=present"  -->create one group in nodes
+
+>>ansible demo -b -m group -a "name=ktexperts-DevOps state=absent"   -->remove group in all the nodes
+
+>>ansible demo -b -m user -a "name=rammy groups=ktexperts-DevOps"   -->adding user into group in nodes
+
+>>ansible Ktexperts-Group -b -m get_url -a "url=https://packages.chef.io/files/stable/chef-workstation/0.15.6/el/7/chef-workstation-0.15.6-1.el7.x86_64.rpm dest=/home/kt-ansible"
+ 
+-->it will install the package through internet from the nodes
+
+>>ansible demo -b -m yum -a "pkg=chef-workstation-0.15.6-1.el7.x86_64.rpm state=present"  -->it will install the chef package
+
+>>ansible demo -m ping     -->it will ping the all the demo group nodes
+
+>>ansible demo -m command -a "hostname"  -->it will show the hostname
+
+>>ansible demo -m setup    -->it will show all the nodes configuration
+
+>>ansible - hosts -m setup    -->it will show all the nodes configuration
+
+>>ansible demo -m setup -a "filter=*ipv4*"  -->it will show only ipv4 details
+
+>>ansible demo -b -m service -a "name=httpd state=stopped"   -->it will stop the httpd in nodes
+
+>>ansible demo -b -m service -a "name=httpd state=restarted"   -->it will restart the httpd server in all the nodes
+
+>>ansible demo -b -a "cat /etc/os-release"  --> to see os information of 2 nodes
+
+===Ansible-playbook   to write yaml file 
+>>ec2-user 
+
+>>su - anji
+
+>>vi playbook.yml     -->it will show that ip address of the nodes 
+--- # my first yaml
+- hosts: demo
+  user: anji
+  become: yes
+  connection: ssh  
+  gather_facts: yes 
+
+:wq
+>>ansible-playbook playbook.yml    
+
+>>vi playbook.yml    -->it will install the httpd
+--- # My tasks YAML playbook (Target and Tasks)i
+- hosts: demo
+  user: anji
+  become: yes
+  connection: ssh
+  tasks:
+    - name: Install HTTPD on Amazon Linux
+      action: yum name=httpd state=installed
+
+:wq
+>>ansible-playbook playbook.yml
+
+>>vi playbook.yml   -->it will uninstall httpd
+>>--- # My tasks YAML playbook (Target and Tasks)i
+- hosts: demo
+  user: anji
+  become: yes
+  connection: ssh
+  tasks:
+    - name: Install HTTPD on Amazon Linux
+      #action: yum name=httpd state=installed
+      action: yum name=httpd state=removed
+
+:wq
+>>ansible-playbook playbook.yml
+
+>>vi playbook.yml   -->it will install httpd using variables in the nodes
+--- # My Variables YAML playbook(Target,Variables and Tasks)
+- hosts: demo
+  user: anji
+  become: yes
+  connection: ssh
+  vars:
+    pkgname: httpd
+  tasks:
+    - name: Install the package "httpd" server on Amazon Linux
+      action: yum name='{{pkgname}}' state=installed
+
+:wq
+>>ansible-playbook playbook.yml
+
+>>vi playbook.yml  -->remove httpd on noes using variables
+--- # My Variables YAML playbook(Target,Variables and Tasks)
+- hosts: demo
+  user: anji
+  become: yes
+  connection: ssh
+  vars:
+    pkgname: httpd
+  tasks:
+  # - name: Install the package "httpd" on Amazon Linux Server
+    # action: yum name='{{pkgname}}' state=installed
+    - name: Remove the package "httpd" on Amazon Linux Server
+      action: yum name='{{pkgname}}' state=removed
+
+:wq
+>>ansible-playbook playbook.yml
+
+>>vi playbook.yml   -->install httpd using handlers
+--- # My Handlers YAML playbook (Target,Tasks and Handlers)
+- hosts: demo
+  user: anji
+  become: yes
+  connection: ssh
+  tasks:
+    - name: Install the package "httpd" on Amazon Linux Server
+      action: yum name=httpd state=installed
+      notify: start the service "httpd"   #is called only if the action is ran &amp; successful #
+  handlers:
+    - name: start the service "httpd"   #has to match the notify name. Otherwise throws error #
+      action: service name=httpd state=started
+:wq
+>>ansible-playbook.yml
+
+>>loops using install httpd and users and groups
+
+>>vi playbook.yml  --> to add user and files and groups and directory
+--- #My  Loop Playbook (Target,Tasks with loops)
+- hosts: demo
+  user: anji
+  become: yes
+  connection: ssh
+  tasks:
+    - name: add a list of files
+      file: name='{{ item }}' state=touch
+      with_items:
+        - ktexperts-1
+        - ktexperts-2
+        - ktexperts-3
+    - name: add a list of directories
+      file: name='{{ item }}' state=directory
+      with_items:
+        - ktexperts-dir-1
+        - ktexperts-dir-2
+        - ktexperts-dir-3
+    - name: add a list of users
+      user: name='{{ item }}' state=present
+      with_items:
+        - Vinod
+        - Ajay
+        - Ramesh
+    - name: add a list of groups
+      group: name='{{ item }}' state=present
+      with_items:
+        - Ktexperts-1
+        - Ktexperts-2
+        - Ktexperts-3
+:wq
+>>ansible-playbook playbook.yml
+
+>>vi playbook.yml
+--- # conditional playbook
+- hosts: demo
+  user: anji
+  become: yes
+  connection: ssh
+  tasks: 
+         - name: install apache server for debian family
+           command: apt-get install apache2
+-          when: ansible_os_family =="Debian"
+         - name: install apache server for redhat family
+           command: yum install httpd
+           when: ansible_os_family =="RedHat"
+:wq
+>>ansible-playbook playbook.yml
+
+===vault is used to encrypt the data
+
+>>ansible-vault create playbook.yml    -->it will create the playbook file and its encrypt
+
+set passwd          =anji
+conform set passwd  =anji
+
+--- # conditional playbook
+- hosts: demo
+  user: anji
+  become: yes
+  connection: ssh
+  tasks: 
+         - name: install apache server for debian family
+           command: apt-get install apache2
+           when: ansible_os_family =="Debian"
+         - name: install apache server for redhat family
+           command: yum install httpd
+           when: ansible_os_family =="RedHat"
+:wq
+>>ansible-playbook playbook.yml
+
+>>vi playbook.yml     -->it will encrypted you cant see the plantext AES256 encryption
+
+>>ansible-vault edit palybook.yml  -->it will edit yml file its ecncrypted decrypte ask the password gievthem
+
+>>ansible-vault rekey playbook.yml   -->it will recreate the file ask the old pssword and give new passwd
+
+>>ansible-vault encrypt playbook.yml   -->it will create old file encrypt set passwd
+
+>>ansible-vault decrypt playbook.yml   -->it will decrypt the file enetr passwd
+
+===ansible-roles
+
+>>ec2-user
+>>sudo su
+>>su - anji
+>>mkdir -p playbook/roles/webserver/tasks     -->it will create the directories
+>>tree
+
+>>cd playbook
+
+>>touch roles/webserver/tasks/main.yml
+
+>>touch master.yml   -->it will create master.yml file inside the playbook
+
+>>vi roles/websever/tasks/main.yml
+- name: install apache on RedHat
+  yum: pkg=httpd state=latest
+:wq
+
+>>vi master.yml
+--# master playbook
+- hosts: demo
+  user: anji
+  become: yes
+  connection: ssh
+  roles:
+       - webserver
+:wq
+
+>>ansible-playbook master.yml
+
+
+======================================Ansible-cashing-facts==========================
+it will store your caching files
+
+>>mkdir /tmp/factsjson/
+
+>>vi /etc/ansible/ansible.cfg
+
+[default]  -->after add this 
+
+gathering = smart
+fact_caching = jsonfile
+fact_caching_connection = /tmp/factsjson/
+fact_caching_timeout = 86400
+
+:wq
+
+>>now you can deploy your servers the data will cache in 24 hours
+
+>>ansible -i hosts -m setup 
+
+>>ll /tmp/factsjson
+it will show the details of your nodes 
+
+>>cat /tmp/factsjson/172.xx.xx.xx
+it will show your details of 172.xx.xx.xx ip address
+
+if we have 2000 servers it will hard to store the data in this folder. so we can use redis server
+
+>>you can save that data in redis server its like database
+
+=======================================================================================
+
+===to create one group and add this ip address in ansible server
+
+>>ec2-user  ansible-server
+
+>>sudo su
+
+>>vi /etc/ansible/hosts
+
+demo
+172.31.38.167
+172.31.32.86
+
+web
+172.31.39.165
+172.32.38.164
+
+:wq
+
+>>vi /etc/ansible/ansible.cfg
+
+inventory =/etc/ansible/hosts    -->uncomment this or remove #
+
+===add user 
+
+>>adduser anji
+
+>>passwd anji
+
+enter password= anji
+enter password= anji
+
+===similarly do same in the nodes
+
+>>adduser anji
+
+>>passwd anji
+
+enter password= anji
+enter password= anji
+
+===login into server give root permision to anji
+
+>>ec2-user
+
+>>visudo
+
+root ALL=(ALL)     ALL
+anji ALL=(ALL)  NOPASSWD: ALL      -->write this it will give all permission to anji
+
+===need to configure ssh keys of nodes
+your in server
+
+>>ec2-user
+
+>>sudo su
+
+>>vi /etc/ssh/sshd_config
+
+>>===uncomment this 
+
+passwordauthentication yes
+permitrootlogin yes
+#passwordauthentication no  -->you need comment this 
+
+:wq
+
+service sshd restart
+
+===do same in remaning nodes
+
+===you need take ssh connetion on nodes o this commands
+>>ec2-user  -->server
+
+>>sudo su
+
+>>su -anji
+
+>>ssh  172.31.32.86
+
+it will ask anji password give then your logged in as 172.31.32.86 this node do same if you want to login another system
+
+===it will take every-time asking password need to solve this,  to do this commands
+
+===create ssh_keys (private and public)
+>>ec2-user
+
+>>sudo su
+
+>>su - anji
+
+>>ssh-keygen
+
+>>press enter
+>>press enter
+
+>>ls -a
+
+>>cd .ssh
+
+>>ls
+
+
+>>ssh-copy-id anji@172.31.38.167   -->it will ask passwd give next time it will not ask do same in remaing systems
+
+>>ssh-copy-id anji@172.31.32.86  -->press enter check ssh connection it wll not ask passwd
+
+>>ssh-copy-id anji@172.31.39.165  -->it will ask passwd give next time it will not ask do same in remaing systems
+
+>>ssh-copy-id anji@172.32.38.164   -->it will ask passwd give next time it will not ask do same in remaing systems
+
+>>ssh 172.31.32.86  -->it will not ask passwd
+
+>>ssh 172.31.38.167  -->it will not ask passwd
+
+>>ssh 172.31.39.165   -->it will not ask passwd
+
+>>ssh 172.32.38.164   -->it will not ask passwd
+
+
+====================================================================================
+
+install nginx in demousers only using playbook
+
+>>first install git in ubuntu
+
+>>vi demo2.yml
+
+---
+ - name: play for Install Nginx on WebServers
+   hosts: demo
+   tasks:
+      - name: Run Apt Update
+        shell: apt update
+        tags:
+          - update
+      - name: Install Nginx server
+        apt: >
+          name=nginx
+          state=present
+        tags:
+          - install
+      - name: copy the files to index destination folder
+        copy: >
+          src=/tmp/dockertest1/index.html
+          dest=/var/www/html/index.nginx-debian.html
+          owner=root
+          group=root
+          mode=0644
+        tags:
+          - html
+      - name: Copy the style files to destination folder
+        copy: >
+          src=/tmp/dockertest1/style.css
+          dest=/var/www/html/style.css
+          owner=root
+          group=root
+          mode=0644
+        tags:
+          - css
+
+       - name: Copy the style files to destination folder
+         copy: >
+           src=/tmp/dockertest1/scorekeeper.js
+           dest=/var/www/html/scorekeeper.js
+           owner=root
+           group=root
+           mode=0644
+         tags:
+           - js
+       - name: restart nginx
+         command: service nginx restart
+         tags: 
+           - service
+:wq
+
+>>ansible-playbook -i /hosts demo2.yml --check
+it will check the code or dry run the code
+
+>>ansible-playbook -i /hosts demo2.yml --syntax-check
+it will also check the code
+
+============download-files-from-client-to-local===================================
+
+>>vi download.yml
+
+---
+- hosts: web
+  gather_facts: no
+  tasks:
+  - name: ansible copy file from remote to local
+    fetch:
+     src: /var/www/html/index.nginx-debian.html
+     dest: /tmp
+
+:wq
+
+>>ansoble-playbook -i /hosts download.yml
+
+it download the files in the remote system to local system 
+
+===========================================================================================
+
+
+
+ 
+
+
+
+
+
+
+
