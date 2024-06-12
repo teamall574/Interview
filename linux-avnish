@@ -1,0 +1,285 @@
+
+8-why linux 
+
+>>free 
+>>stable 
+>>secure 
+>>open-source 
+
+9-what is running on linux 
+
+1-super computers 
+2-embedded systems
+3-robotic operating systems 
+4-satelite communication systems 
+5-flight simulators 
+6-bitcoin and cryptocurrency 
+7-internet of things 
+8-Asvanced driver assistace systems 
+
+10-What is `sudo` in Linux? 
+
+>>Sudo is a command in Linux that allows users to run commands with privileges that only root user have. It helps users to do tasks with administrative power without logging in as the root user, though sometimes it can be risky
+
+11-What does su stand for in Linux?
+
+>>Su is a command-line utility and stands for switch user or substitute user. Like sudo, the utility enables a user to run commands under a different account. However, sudo has some important advantages over su. The sudo command enabling a standard user to create another user account.
+
+pwd  -->oresent working directory 
+ls  -->list the files 
+df -Th   -->list the disks 
+cd /
+pwd 
+ls 
+cd /bin  -->inside have somany commands
+ls 
+whoami   -->see the username logged in 
+sudo su -
+su anji  -->it will switch user 
+su - anji  ##it will switch anji user 
+mkdir anji 
+ls -a   -->list hidden file 
+touch anji.txt  -->create a file 
+uname -->show system information 
+uname -a 
+man uname   -->it will show all the command or flags of uname 
+man ls -->how to use man command show 
+man cp 
+cd ..   -->back to the previous directory 
+head anji.txt  -->it will show top ten lines 
+tail anji.txt  -->it will show last ten lines 
+head -n 2 anji.txt -->it will show top 2 lines  
+tail -n 2 anji.txt -->it will show last top 2 lines  
+sort anji.txt -->it will show alphabetic format 
+pr anji.txt -->it will give proper format for if you ten pages it will shows
+wc a nji.txt --<how many lines and word ans size 
+wc -l anji.txt 
+zip -r anji.zip anji/  -->it will zip inside anji folder 
+tar cvzf anji.tar an.txt sa.txt wi.txt -->this three files add anji.tar file 
+-c: create a new archive 
+-z: compress the archive using gzip 
+-v: berbose mode, showing progress in the terminal 
+-f: specifies the name of the archive file  
+tar xzvf anji.tar  -->extract the file  
+drwxrwxr-x 5 ec2-user ec2-user 198 may 22 1:20 
+d  -->directory 
+rwx  -->user 
+rwx   -->group 
+r-x  -->other 
+5  -->This number indicates the number of hard links to the directory. A hard link is essentially a pointer to the file or directory.
+ec2-user -->user 
+ec2-user -->groip 
+198: size of the direcory 
+may -->create date and time 
+
+777 -->all permission 
+r : 4 
+w : 2
+x : 1 
+chmod 660 anji.txt -->readwrite to user and group 
+
+in alphabet 
+user: u 
+group: g 
+other: o 
+a: reveryone 
+=set 
++ add 
+- remove
+ 
+chmod a=rwx anji.tx -->full permission
+chmod o-wx  anji.txt -->removing read permission
+chmod a-rwx anji.txt -->removeing all permission to all users 
+chmod g+r anji.txt -->groups will get read permission
+
+getfacl anji.txt   -->give full clarity full information of permission
+getfacl anji 
+
+chmod -R a-x anji  -->removing all for execute permission
+chown sampi anji.txt -->change owner anji to sampi
+chown sampi:sampi anji.txt  -->change owner and group anji to sampi 
+
+
+history  -->list the commands you used 
+rm anji.txt -->delete the file 
+rmdir anji  -->delete anji folder 
+rm -r anji -->delete recervisley 
+rm -rf anji  -->forcefully delete 
+rm anji/*   -->delete inside anji folder data 
+cp anji.txt anji.mp3 movies/  -->copy files into movies folder 
+mv anji.txt anji.mp3 movies/  -->move files into movies folder 
+mv anji.txt anji.mp4   -->rename anji.txt to anji.mp4
+ls -ll  -->list all files 
+touch a.txt and.txt sampi.txt 
+cat a.txt  -->see the data from a.txt 
+more a.txt  -->see the data from a.txt 
+vi anji.txt  -->this is an editor 
+ctrl+i or i -->insert mode 
+now you can write your code 
+press escape 
+:wq -->exit from editor 
+
+you erongley enter something that dont want save then use this
+escape 
+:q!  -->it will quite not write or save that 
+if you press O then you will get new line to go  
+if you press k the cursor will go up 
+if you press j the cursor will go down 
+
+if you have  -->if you press dw delete if you press one more time you will delete 
+if you have -->delete full line you can press dd delete the full line 
+if you press escape 3w it will delete the three lines 
+anji 
+Space
+sampi -->this 3 lines will delete like this you can do 10 or 20 also 10w
+press escape : set number 
+press escape : set no number  
+
+if you press 6g -->it will go directly to 6th line 
+
+>>every user have it's own home directory(/home)
+>>yes it possible by default userid will start from users 1000  
+1-types of accounts in linux 
+
+1-root 
+2-system Accounts 
+3-Regular users 
+
+>>id  -->see the uid of current user 
+>>id anji -->see or show the userid of anji 
+
+>>useradd anji  -->add user into linux 
+it will store two locations /etc/passwd and /etc/shadow 
+>>getent passwd anji 
+
+>>usermod -aG wheel anji -->anji added into wheel group he can perform sudo commands 
+>>su anji 
+>>sudo yum install httpd
+>>userdel anji  -->delete the user 
+>>usermod -s /abin/nologin anji  -->not able to login user restrict user to login 
+>>groups  -->show groups present user part of that userr 
+>>groups anji -->show groups parts of anji user 
+>>groupadd anji 
+>>usermod -aG anji sampi  -->sampi added into anji group  
+>>usermod -L anji -->lock the anji user 
+>>usermod _u anji  -->unlock the anji user he can login 
+>>chage -l anji  -->to see user deatils last passwd changed 
+>>chage anji -->it will ask passwd age and max and min and passwd expiration warning and inactive and account expiration date 
+
+>>windows 
+tasklist taskkill /F /PID 1300  -->kill the process 
+
+>>linux
+>>jobs  -->it will show the jobs 1, 2 and select the job and kill 
+>>kill %1 
+>>ps  -->show the process of running in 
+>>ps aux  -->it will show the background and forground all show 
+>>ps faux  -->show the process list 
+>>top  -->show all the process 
+>>ps -ef        -->it is like task manager in linux
+>>kill 395   -->kill the pid of 395 
+>>uptime   -->when the system up and load average 
+>>w   -->see the user login details 
+>>who  -->see the user login details 
+>>free  -->it will show how much user or free 
+>>free -h 
+
+yum: yellowdog updater modified 
+/etc/yum.repos.d/*.repo   -->redhat package will locate here 
+
+cd /etc/yum.repos.d/
+service httpd status 
+service httpd start 
+chkconfig httpd on   -->if system restart automatically 
+systemctl enable httpd -->same restart the system automatically on the server  
+
+yum repolist   -->list the package 
+yum install nginx  -->get error 
+amazon-linux-extras install epel-y   -->install or added into packages into the amazon repos   now nginx 
+yum update 
+yum info nginx 
+yum info tree 
+yum remove httpd 
+yum history  -->using only yum command through you will see 
+yum info history 4 
+yum history undo 4  -->you uninstall httpd need to rollback or reinstall httpd then use this command
+
+hostname
+vi /etc/hostname or hostnamectl set-hostname anji  
+change your hostname
+
+ping -->Packet InterNet Groper 
+ping google.com -c10  -->sendd 10 packets only 
+dig google.com 
+dig mx google.com  -->mx records will show 
+dig ns google.com   -->name server records   
+dig google.com ANY 
+ping -t google.com   -->continously packets will send 
+mtr google.com   -->its like traceroute  it will show how many network will change reach destination 
+
+telnet google.com 443 
+ss   -->it will show which ports your using 
+ss -lt   -->it will show only tcp ports 
+ipconfig  -->windows purpose 
+ifconfig   -->linux 
+ip addr  -->show the ip address of linux 
+ip a s   -->show ip address 
+ip address show  -->show ip address 
+
+6-can i attach extra nic card to ec2 instace 
+
+>>yes you can but this nic or eni will ne same availbilty zone will accept 
+>>go the network interface name anji select subnet you can given custom private or automatic give security group
+then select the interfface click on attach vpc and instance 
+>>ip a s  -->you will see the two ip etho and eth1 
+
+cd /etc/sysconfig/network-scripts/
+ls 
+cat ipcfg-eth0
+
+curl http://169.254.169.254/latest/meta-data/  -->if version v1 then you will get 
+
+echo "hello" > anji.txt   -->it willoverride the data 
+echo "helo" >>anji.txt  -->it will store the data and remain data will also kept 
+
+>>ls -l sda   -->show xvda
+>>ls -l sda1  -->show xvda1 
+>>lsblk 
+>>df 
+>>df -Th 
+>>file -s /dev/xvdb 
+>>file -s /dev/xvda1 
+>>mkdir anji 
+>>mkfs -t xfs /dev/xvdb 
+>>mount /dev/xvdb anji/
+>>lsblk 
+>>cat /etc/mtab  -->take last entry copy then use that 
+>>vi /etc/fstab 
+>>mount -all 
+>>xfs_growfs -d /home/ec2-user/anji/   -->grow the size 
+>>
+
+>>nfs port number 2049 
+
+>>passwd anji 
+
+>>vi /etc/ssh/sshd_config 
+
+passwordAuthentication yes 
+
+:wq
+>>service sshd restart 
+>>useradd sampi 
+>>usermod -aG wheel sampi 
+>>groups sampi 
+>>passwd sampi 
+>>ssh sampi@34.178.89.87 
+
+date -->show dat and time 
+timedatectl 
+timedatectl   list-timezones -->list the timezones how many availble
+timedatectl set-timezone Asia/Kolkata   -->change timezone 
+date   -->you will see indian time zone 
+timedatectl set-time 09:00:00  -->give error of the ntp dont use this in production
+timedatectl set-ntp off
+timedatectl set-time 09:00:00   -->now you can change 
