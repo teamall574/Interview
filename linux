@@ -421,7 +421,7 @@ that helps users and system administrators manage software efficiently.
 Debian and its derivatives (e.g., Ubuntu) use dpkg for package management, with apt or apt-get as the user-friendly front-end.
 Red Hat-based distributions (e.g., CentOS and Fedora) use rpm and yum or dnf as package managers.
 SUSE Linux uses zypper as its package manager.
->>yum   -->yellow dog utility manager
+>>yum   --> YellowDog updater modified
 >>rpm   -->redhat package manager
 >>yum or dnf install httpd -y   -->install package
 
