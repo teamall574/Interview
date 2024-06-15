@@ -246,6 +246,7 @@ echo "helo" >>anji.txt  -->it will store the data and remain data will also kept
 >>ls -l sda1  -->show xvda1 
 >>lsblk 
 >>df 
+>>df -h 
 >>df -Th 
 >>file -s /dev/xvdb 
 >>file -s /dev/xvda1 
@@ -257,7 +258,7 @@ echo "helo" >>anji.txt  -->it will store the data and remain data will also kept
 >>vi /etc/fstab 
 >>mount -all 
 >>xfs_growfs -d /home/ec2-user/anji/   -->grow the size 
->>
+>> df -h | grep -E '^/dev/'    --->show only dev after disks 
 
 >>nfs port number 2049 
 
