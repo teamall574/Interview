@@ -242,6 +242,30 @@ curl http://169.254.169.254/latest/meta-data/  -->if version v1 then you will ge
 echo "hello" > anji.txt   -->it willoverride the data 
 echo "helo" >>anji.txt  -->it will store the data and remain data will also kept 
 
+
+----see this--partition
+https://www.youtube.com/watch?v=-JojIThEUHI&list=PLjHnA84niff7N69jIPpp_plIEsGzNhuWB&index=74
+
+lsblk
+   28  fdisk /dev/xvdj
+   29  lsblk
+   30  fdisk /dev/xvdj
+   31  lsblk
+   32  file -s /dev/xvdj1  -->if you get data you xfs or ext2.ext3 or ext4
+   33  mkfs -t xfs /dev/xvdj1
+   34  mkdir anji
+   35  mount /dev/xvdj1 anji/
+   36  lsblk
+   37  df -Th
+   38  mkfs -t xfs /dev/xvdj2
+   39  mkdir anji1
+   40  mount /dev/xvdj1 anji1/
+   41  df -Th
+   42  lsblk
+   43  mkdir anji2
+   44  mount /dev/xvdj2 anji2/
+   45  lsblk
+
 >>ls -l sda   -->show xvda
 >>ls -l sda1  -->show xvda1 
 >>lsblk 
