@@ -284,3 +284,29 @@ date   -->you will see indian time zone
 timedatectl set-time 09:00:00  -->give error of the ntp dont use this in production
 timedatectl set-ntp off
 timedatectl set-time 09:00:00   -->now you can change 
+
+
+
+
+
+create iam role with sssmfull access attach to private instance then create vpc endpoint with this s3, ssmmessages , ec2messages then go to the session manager with select which subnet your using 
+like if you launched public subnet then use public with the same avaialbilty zone with subnet
+
+
+point-to-site vpn
+create a vpc with public and private subnet with internet gateway route table public and private 
+launch openvpn with public ip then login while setup create username and password carefully becuase it will give OpenVPN
+
+clinetvpn
+https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/mutual.html
+git clone https://github.com/OpenVPN/easy-rsa.git
+cd easy-rsa/easyrsa3
+./easyrsa init-pki
+./easyrsa build-ca nopass
+./easyrsa --san=DNS:server build-server-full server nopass
+./easyrsa build-client-full client1.domain.tld nopass
+aws acm import-certificate --certificate fileb://server.crt --private-key fileb://server.key --certificate-chain fileb://ca.crt   --region us-east-2       --need role for upload this 
+aws acm import-certificate --certificate fileb://client1.domain.tld.crt --private-key fileb://client1.domain.tld.key --certificate-chain fileb://ca.crt --region us-east-2
+then create clinet vpn config subnet authorization target then download the config file then download aws clinet vpn upload or import config file your connected  
+
+
