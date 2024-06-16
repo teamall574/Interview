@@ -1,4 +1,5 @@
-
+if your alowing acl enable and and block all public access then all the objects are not in public if you wnat you can create every object you need to make public instead you can create the bucket policy allow 
+the all objects its not recommended instead create one folder in that bucket copy or move that to folder make that folder in public  
 8-why linux 
 
 >>free 
