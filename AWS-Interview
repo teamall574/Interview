@@ -6783,5 +6783,20 @@ group anji  -->it will also show
 2-how many (PUT/GET) operations happen like upload and download 
 3-Data Retrivals based 
 
-560-
+560-i have anji778 bucket stored in standard then moved to standars-IA after a week my mind is changed I want the object to standard storage it possible
 
+>>Yes, it is possible to move objects back from "standard-IA" (Infrequent Access) storage to "standard" storage in cloud services like AWS or Azure. Here’s how you can typically accomplish this:
+
+Console Method:
+
+Log in to your AWS Management Console.
+Navigate to the Amazon S3 dashboard.
+Select the bucket anji778 where your objects are stored.
+Navigate to the folder or object you want to move.
+Select the object and choose "Actions" or right-click to see options.
+Choose "Change storage class."
+Select "Standard" as the desired storage class.
+Confirm the change.
+Using AWS CLI:
+
+You can use the AWS CLI (aws s3 cp or aws s3 mv) with the --storage-class parameter to specify STANDARD for moving objects back to standard storage.
