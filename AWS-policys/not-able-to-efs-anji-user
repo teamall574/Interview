@@ -1,0 +1,13 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Deny",
+            "Action": "elasticfilesystem:CreateFileSystem",
+            "Resource": "*",
+            "NotPrincipal": {
+                "AWS": "arn:aws:iam::<your-account-id>:user/anji"     #anji user not able to create efs file system
+            } 
+        }
+    ]
+}
