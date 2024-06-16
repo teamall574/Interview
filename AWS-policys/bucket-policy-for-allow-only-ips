@@ -1,0 +1,24 @@
+{
+  "Id": "VpcSourceIp",
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "VpcSourceIp",
+      "Action": "s3:*",
+      "Effect": "Allow",
+      "Resource": [
+        "arn:aws:s3:::anji159258/*",
+        "arn:aws:s3:::anji159258/sampi/*"
+      ],
+      "Condition": {
+        "IpAddress": {
+          "aws:VpcSourceIp": [
+            "10.1.1.1/32",
+            "172.1.1.1/32"
+          ]
+        }
+      },
+      "Principal": "*"
+    }
+  ]
+}
