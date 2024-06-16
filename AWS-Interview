@@ -6777,5 +6777,11 @@ anji ALL=(ALL)  NOPASSWD: ALL
 id anji -->list user-i and group also 
 group anji  -->it will also show  
 
+559-what bases s3 will charge 
 
+1-how much data we are storing
+2-how many (PUT/GET) operations happen like upload and download 
+3-Data Retrivals based 
+
+560-
 
