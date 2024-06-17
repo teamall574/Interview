@@ -1,0 +1,47 @@
+>>create vpc name Green and ip 10.1.0.0/16 
+
+>>create subnet name Green-public and select vpc Green and ip 10.1.1.0/24
+
+>>create subnet name Green-private and select vpc Green and ip 10.1.10.0/24
+
+>>create internet gateway name Green-igw and attach to Green
+
+>>create route table name Green-pub and select vpc Green and edit add route 0.0.0.0/0 and select internet gateway Green-igw and subnet associations select Green-public
+
+>>create route table name Green-priv and select vpc Green and edit subnet association select Green-private
+
+>>launch one instance using Green vpc and Green-public subnet and region us-east-1a and enable public ip and all protocal allow
+
+>>launch one instance using Green vpc and Green-private subnet and region us-east-1a and disable public ip and allow all protocals
+
+>>click on launch instance and select aws marketplace and do select vpc Green and subnet Green-public enable public ip and allow all protocals and launch
+
+>>connect that vpn using putty 3.6.86.195 username openvpnas or root then yes and enter and ok
+
+>>ssh -i anji.pem root@3.6.86.195 or openvpnas@3.6.86.195 
+>> create password of openvpn 
+
+>>sudo su -
+
+>>passwd openvpn
+openvpn
+openvpn
+
+>>then copy the url and past it url bar then download windows 
+
+>>install that software in your system and then give username and password and and enable openvpn
+
+>>now your good to go
+
+>>you can ping 192 to 10    -->your system to aws environment
+
+>>if you want ping the system to aws to local system you need to add routes in Green-pub add 192.168.0.0/16 and select network intrafce of openvpn and then ok
+
+>>now ping 10 to 192
+
+9-types of VPN providers or third-party providers  
+
+1-cicso any connect 
+2-zscaler 
+3-openvpn
+4-filezilla 
