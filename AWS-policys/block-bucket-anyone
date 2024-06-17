@@ -1,3 +1,6 @@
+#you can go to the policy generator select the policy type principal which user you wnat block paste the arn if you arn::sampi, arn::anji like this select deny or allow and select the service s3 
+and paste the buket arn and select action like dont delete object or upload nay object or dont chnage bucket policys like this you can do 
+
 {
     "Version": "2012-10-17",
     "Statement": [
