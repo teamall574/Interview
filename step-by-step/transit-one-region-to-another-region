@@ -1,0 +1,160 @@
+===you can do one region mumbai to another region ohio also
+
+mumbai
+
+>>create 3vpc of transit gateway
+
+>>create vpc name Green ip 10.1.0.0/16
+
+>>create subnet Green-sub and vpc Green and ip 10.1.1.0/24
+
+>>create internet gateway Green-igw and attach vpc Green
+
+>>create route table Green-route and add 0.0.0.0/0 and select internet gateway
+
+>>create vpc name blue ip 192.168.0.0/16
+
+>>craete subnet blue-sub select vpc blue and ip 192.168.1.0/24
+
+>>create internet gateway blue-igw and select vpc blue. and attach to blue vpc 
+
+>>create route blue-route and and add route 0.0.0.0/0 and internet gateway
+
+>>create vpc name red ip 172.16.0.0/16
+
+>>craete subnet red-sub select vpc red and ip 172.16.1.0/24
+
+>>create internet gateway red-igw and select vpc red. and attach to red vpc 
+
+>>create route red-route and and add route 0.0.0.0/0 and internet gateway
+
+>>go to transit gateway
+
+>>name TGW1 then ok -->it will take time mean time launch ec2-instances
+
+>>launch instance using vpc green and subnet green-sub region us-east-1a ip 10.1.1.100 and allow all protocals name green-server
+
+>>launch instance using vpc blue and subnet blue-sub region us-east-1a ip 192.168.1.100 and allow all protocals name blue-server
+
+>>launch instance using vpc red and subnet red-sub region us-east-1a ip 172.16.1.100 and allow all protocals name red-server
+
+>>try to login and ping each server you wont get ping access
+
+>>go to transit gateway attachments and select transit gateway TGW1 and select vpc and vpc of Green and subnet green-sub1 region us-east-1a  and attach
+
+>>go to transit gateway attachments and select transit gateway TGW1 and select vpc and vpc of blue and subnet blue-sub1 region us-east-1a  and attach
+
+>>go to transit gateway attachments and select transit gateway TGW1 and select vpc and vpc of red and subnet red-sub1 region us-east-1a  and attach
+
+>>go to green route table edit route add 192.168.0.0/16 and select transit gateway and edit route 172.16.0.0/16 and select transit gateway
+
+>>go to blue route table edit route add 172.16.0.0/16 and select transit gateway and edit route 10.1.0.0/16 and select transit gateway
+
+>>go to red route table edit route add 192.168.0.0/16 and select transit gateway and edit route 10.1.0.0/16 and select transit gateway
+
+>>if you try ping all the three devies you will get
+
+==============================
+>>do same in ohio region
+
+>>create vpc in yellow ip 172.18.0.0/16
+
+>>create subnet yellow-sub 172.18.1.0/24 select vpc yellow
+
+>>create internet gateway yellow-igw and attach the yellow
+
+>>create route table yellow-route edit route add 0.0.0.0/0 select internet gateway yellow-igw
+
+>>launch ec2 instance using vpc yellow and subnet yellow-sub region us-east-1a ip 172.18.1.100 and allow all ports and name yellow-server
+
+>>go to transit gateway create name yellow-transit
+
+>>transit gateway attachment select transit gateway yellow-transit and select vpc yellow and region us-eats-1a
+
+>>go to route tables edit route add 172.16.0.0/16 and select the transit gateway yellow-transit
+
+>>go to route tables edit route add 192.168.0.0/16 and select the transit gateway yellow-transit
+
+>>go to route tables edit route add 10.1.0.0/16 and select the transit gateway yellow-transit
+
+>>go to route in red route table add 172.18.0.0/16 and select the transit gateway TGW1
+
+>>go to route in blue route table add 172.18.0.0/16 and select the transit gateway TGW1
+
+>>go to route in green route table add 172.18.0.0/16 and select the transit gateway TGW1
+
+>>in transit gateway create transit gateway attachment in mumbai region 
+
+>>select transit gateway TGW1 and select vpc peering attachment tag mumbai to ohio and region ohio and id accepter copy id of yellow-transit id and click on ok
+
+>>then go to ohio region and accept the request in transit gateway attachmet section
+
+>>in mumbai region
+
+>>go to transit gateway route table add route of ohio region
+
+>>edit route 172.18.0.0/16 and select transit gateway TGW1
+
+>>in ohio region
+
+>>go to transit gateway route table add route of mumbai region
+
+>>edit route 10.1.0.0/16 and select transit gateway yellow-transit
+
+>>edit route 172.16.0.0/16 and select transit gateway yellow-transit
+
+>>edit route 192.168.0.0/16 and select transit gateway yellow-transit
+
+now you will get the ping
+
+===using vpn connection
+
+>>create 3vpc of transit gateway
+
+>>create vpc name blue ip 192.168.0.0/16
+
+>>craete subnet blue-sub select vpc blue and ip 192.168.1.0/24
+
+>>create internet gateway blue-igw and select vpc blue. and attach to blue vpc 
+
+>>create route blue-route and and add route 0.0.0.0/0 and internet gateway
+
+>>create vpc name red ip 172.16.0.0/16
+
+>>craete subnet red-sub select vpc red and ip 172.16.1.0/24
+
+>>create internet gateway red-igw and select vpc red. and attach to red vpc 
+
+>>create route red-route and and add route 0.0.0.0/0 and internet gateway
+
+>>go to transit gateway
+
+>>name TGW1 then ok -->it will take time mean time launch ec2-instances
+
+>>launch instance using vpc green and subnet green-sub region us-east-1a ip 10.1.1.100 and allow all protocals name green-server
+
+>>launch instance using vpc blue and subnet blue-sub region us-east-1a ip 192.168.1.100 and allow all protocals name blue-server
+
+>>launch instance using vpc red and subnet red-sub region us-east-1a ip 172.16.1.100 and allow all protocals name red-server
+
+>>try to login and ping each server you wont get ping access
+
+>>go to transit gateway attachments and select transit gateway TGW1 and select vpc and vpc of Green and subnet green-sub1 region us-east-1a  and attach
+
+>>go to transit gateway attachments and select transit gateway TGW1 and select vpc and vpc of blue and subnet blue-sub1 region us-east-1a  and attach
+
+>>go to transit gateway attachments and select transit gateway TGW1 and select vpc and vpc of red and subnet red-sub1 region us-east-1a  and attach
+
+>>go to green route table edit route add 192.168.0.0/16 and select transit gateway and edit route 172.16.0.0/16 and select transit gateway
+
+>>go to blue route table edit route add 172.16.0.0/16 and select transit gateway and edit route 10.1.0.0/16 and select transit gateway
+
+>>go to red route table edit route add 192.168.0.0/16 and select transit gateway and edit route 10.1.0.0/16 and select transit gateway
+
+>>if you try ping all the three devies you will get
+
+>> you need rv402 cisco router
+
+>>go to transit gateway and select gateway TGW1 and attach type vpn give public ip of cisco router 
+
+>>
