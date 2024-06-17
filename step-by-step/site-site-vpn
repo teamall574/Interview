@@ -1,0 +1,37 @@
+---VPG   -->virtual private gateway
+
+>>the virtual private gateway needs cisco rv042 router
+
+>>create one vpc name Green and ip 10.1.0.0/16 enable public dnshostname
+
+>>create subnet name Green-public and select vpc Green and ip 10.1.1.0/24
+
+>>create subnet name Green-private and select vpc Green and ip 10.1.10.0/24
+
+>>create internet gateway name Green-igw and attach to Green
+
+>>create route table name Green-pub and select vpc Green and edit add route 0.0.0.0/0 and select internet gateway Green-igw and subnet associations select Green-public
+
+>>create route table name Green-priv and select vpc Green and edit subnet association select Green-private
+
+>>launch one instance using Green vpc and Green-public subnet and region us-east-1a and enable public ip and all protocal allow
+
+>>launch one instance using Green vpc and Green-private subnet and region us-east-1a and disable public ip and allow all protocals
+
+>>go to vpc inside  click on customer create gateway  copy the public ip of your home public ip
+
+>>click on create customar gateway Green-to-home give public ip of home and click on ok
+
+>>click on create virtual private gateway Green-to-Home2 and ok create virtual private gateway and attach to Green vpc
+
+>>Click on site-to-sitevpn  name Green-to-home3 select vpg Green-to-home2  and select customar gateway Green-to-home and give privat ip of 192.168.0.0/16 and click on ok
+
+>>click on download configuration and download  >>go to your cisco rv042 router and configure those things in downloades that file
+
+>>important on that file is preshared-key and ip address and key
+
+>>go to route table and add route edit add 192.168.0.0/16 and select virtual private gateway
+
+>>now you can ping this systems
+
+>>now do same in second route also 
