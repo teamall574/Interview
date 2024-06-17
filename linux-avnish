@@ -182,8 +182,10 @@ tasklist taskkill /F /PID 1300  -->kill the process
 >>uptime   -->when the system up and load average 
 >>w   -->see the user login details 
 >>who  -->see the user login details 
->>free  -->it will show how much user or free 
->>free -h 
+>>free  -->it will show how much memory used or free 
+>>free -h   -->it will show how much memory used or free 
+>>htop   -->see cpu information
+>>df -Th  -->disk space 
 
 yum: yellowdog updater modified 
 /etc/yum.repos.d/*.repo   -->redhat package will locate here 
@@ -321,6 +323,11 @@ like if you launched public subnet then use public with the same avaialbilty zon
 point-to-site vpn
 create a vpc with public and private subnet with internet gateway route table public and private 
 launch openvpn with public ip then login while setup create username and password carefully becuase it will give OpenVPN
+
+>>you have open secuirty group 80 port for alb or anything. so you want implement NACL then you can configure 
+edit inbound rule 100 http and 200 https 500 1024-65535 source you can select anywhere or security group also you can 
+edit the outbound rules with same rule numbers less number have more proirity  
+
 
 clinetvpn
 https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/mutual.html
