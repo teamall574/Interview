@@ -1,0 +1,43 @@
+===peering one region mumbai to another region ohio
+
+mumbai region
+
+Green
+
+>>create vpc name Green ip 10.1.1.0/24
+
+>>create subnet name Green-subnet select vpc Green and ip 10.1.1.0/24 select aZ us-east-1a
+
+>>create internet gateway Green-igw and attach vpc Green
+
+>>create route name Green-route and select vpc Green and edit route add 0.0.0.0/0 and select interet gateway Green-igw
+
+>>craete one instance using VPC Green and subnet green-sub and public ip enable and private ip 10.1.1.100 security group all key 
+
+ohio region
+
+Red
+
+>>create vpc name Red and ip 192.168.1.0/24
+
+>>create subnet name Red-subnet select vpc Red and ip 192.168.1.0/24 select aZ us-east-1a
+
+>>create internet gateway Red-igw and attach vpc Red
+
+>>create route name Red-route and select vpc Red and edit route add 0.0.0.0/0 and select interet gateway Red-igw
+
+>>craete one instance using VPC Red subnet Red-sub and public ip enable and private ip 192.168.1.100 security group all protocal
+
+create peering connection
+
+>>craete peering name mumbai to ohio and accepter mumbai vpc(green) and ohio vpc(Red) and go to ohio region and accept the peering 
+
+>>now go to route table add route edit route 10.1.1.0/16 and select the peering connection
+
+>>now go to route table and edit route 192.168.1.0/16 and select the peering connection
+
+>>now you will get ping
+
+>>ping 10 to 192 you will get
+
+>>ping 192 to 10 you will get
