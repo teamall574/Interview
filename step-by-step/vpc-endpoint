@@ -1,0 +1,100 @@
+>>vpc nat gateway is expensive that why some of the companies use vpc end-points
+
+>>Nat gateway used to connect private ip to public devices
+
+>>create vpc name Green ip 10.1.1.0/16
+
+>>create subnet name Green-public(webapp) az (us-east-1a) select vpc Green and ip 10.1.1.0/24
+
+>>craete subnet name Green-private(app-server) az (us-east-1a) select vpc Green and ip 10.1.10.0/24
+
+>>create subnet name Green-private(db-server) az (us-east-1b) select vpc Green and ip 10.1.20.0/24
+
+>>create internet gateway name Green-igw and attach vpc Green
+
+>>create route table name Green-public and select vpc Green
+
+>>create route table name Green-private and select vpc Green
+
+>>click on Green-public edit route add 0.0.0.0/0 and select internet gateway Green-igw and click on subnet assosication select Green-public click  on ok
+
+>>click on Green-private edit subnet assocation select Green-private(appserver)and Green-private(dbserver) click on ok don't add internet gateway
+
+>> click on nat gateway 
+
+>>create nat name Green-nat and select subnet Green-public and allocate elastic ip, don't select Green-private any case
+
+>>its take sometime
+
+>>create one security group name Green-sec and select vpc Green allow all ports 
+
+>>launch one ec2 using vpc Green and subnet Green-public enable public ip and select security group Green-sec and launch
+
+>>launch one ec2 using vpc Green and subnet Green-private(appserver) disable public ip and select security group Green-sec and launch
+
+>>connect one system using Green-public login using putty
+
+>>sudo su -
+
+>>if you want to connect private(appserver or dbserver) system do this things in public(web) system
+
+>>vi anji.pem
+
+paste the private key
+
+:wq
+
+>>chmod 400 anji.pem
+
+>>ssh -i anji.pem ec2-user@10.1.10.200    -->your login as private system lets connect google or ping the servers
+
+>>ping google.com
+
+>>your not get ping resopnnce because your not add route table
+
+>>go route table select Green-private add 0.0.0.0/0 and select nat gateway and done
+
+>> then try to ping google.com you will get
+
+>>create a S3 bucket name Green-s3 and upload one file and make public (create .txt)
+
+>>wget http://s3.url   -->in private system
+
+>>create one user with admin access and create secret and access keys
+
+>>login private system and configure
+
+>>sudo su -
+
+>>aws configure
+secret-key = xxxxxxxxxx
+access-key = xxxxxxxxxx
+
+>aws s3 ls
+
+>>touch onefile.txt
+
+hai hello 
+
+:wq
+
+>>aws s3 cp onefile.txt s3://Green-s3     -->copy that file in s3 bucket
+
+>>make public that file    -->copy that file
+
+>>wget https://xxxxxxx    -->it will copy into that file in your system
+
+>>remove nat gateway in route table
+
+>>what is gateway end-point
+gateway end-point is a gateway that you specific as a target for a route in your table for traffic destined to a supported AWS service
+Amazon S3
+DynmoDB
+
+--if you created s3 gateway automatically updated route table
+>>remove nat gatewau in private route table 
+>>create end-point select s3 gateway select vpc Green select routing table in Green-priv and creating endpoint
+>>it will add the route table in 2 minutes wait until
+>>next try the to download the file using s3
+>>wget https://s3.xxxxxxx            -->only s3 files will download
+>>
