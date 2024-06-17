@@ -1,0 +1,38 @@
+In Linux 
+
+>>git clone https://github.com/OpenVPN/easy-rsa.git
+>>cd easy-rsa/easyrsa3
+>>./easyrsa init-pki
+>>./easyrsa build-ca nopass
+>>./easyrsa --san=DNS:server build-server-full server nopass
+>>./easyrsa build-client-full client1.domain.tld nopass
+>>mkdir ~/custom_folder/
+cp pki/ca.crt ~/custom_folder/
+cp pki/issued/server.crt ~/custom_folder/
+cp pki/private/server.key ~/custom_folder/
+cp pki/issued/client1.domain.tld.crt ~/custom_folder
+cp pki/private/client1.domain.tld.key ~/custom_folder/
+cd ~/custom_folder/
+>>need to upload this key in certficate manager so use iam role for proper access 
+>>aws acm import-certificate --certificate fileb://server.crt --private-key fileb://server.key --certificate-chain fileb://ca.crt --region us-east-1
+>>aws acm import-certificate --certificate fileb://client1.domain.tld.crt --private-key fileb://client1.domain.tld.key --certificate-chain fileb://ca.crt --region us-east-1
+>>go the AWS client VPN endpoint 
+>>create anji-vpn client ip range any range 12.0.0.0/16 and select server authentication certficate and click on use multiple authentication
+and select client certficate and select vpc and security group cliCk on create 
+>>select the vpn and click on target group assocation select the private subnet and select vpc click on ok 
+>>select vpn and the security allow all traffic 
+>>select the vpn and click on authorization rule add the vpc cide like 10.1.0.0/16 click on create 
+>>select the vpn click on client configuration and downalod
+>>download aws client vpn to local laptop 
+
+>>.vpn file you need to edit crt certificate in this maaner 
+https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/cvpn-getting-started.html#cvpn-getting-started-certs
+<cert>
+Contents of client certificate (.crt) file
+</cert>
+
+<key>
+Contents of private key (.key) file
+</key>
+:wq
+>>then connect you will get 
