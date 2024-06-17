@@ -1,0 +1,59 @@
+>>Nat gateway intelligent device  using source destination packets
+
+>>Nat gateway used to private ip to public devices
+
+>>create vpc name Green ip 10.1.1.0/16
+
+>>create subnet name Green-public(webapp) az (us-east-1a) select vpc Green and ip 10.1.1.0/24
+
+>>craete subnet name Green-private(app-server) az (us-east-1a) select vpc Green and ip 10.1.10.0/24
+
+>>create subnet name Green-private(db-server) az (us-east-1b) select vpc Green and ip 10.1.20.0/24
+
+>>create internet gateway name Green-igw and attach vpc Green
+
+>>create route table name Green-public and select vpc Green
+
+>>create route table name Green-private and select vpc Green
+
+>>click on Green-public edit route add 0.0.0.0/0 and select internet gateway Green-igw and click on subnet assosication select Green-public click  on ok
+
+>>click on Green-private edit subnet assocation select Green-private(appserver)and Green-private(dbserver) click on ok don't add internet gateway
+
+>> click on nat gateway 
+
+>>create nat name Green-nat and select subnet Green-public and allocate elastic ip, don't select Green-private any case
+
+>>its take sometime
+
+>>create one security group name Green-sec and select vpc Green allow all ports 
+
+>>launch one ec2 using vpc Green and subnet Green-public enable public ip and select security group Green-sec and launch
+
+>>launch one ec2 using vpc Green and subnet Green-private(appserver) disable public ip and select security group Green-sec and launch
+
+>>launch one ec2 using vpc Green and subnet Green-private(dbserver) diable public ip and select security group Green-sec and launch
+
+>>connect one system using Green-public login using putty
+
+>>sudo su -
+
+>>if you want to connect private(appserver or dbserver) system do this things in public(web) system
+
+>>vi anji.pem
+
+paste the private key
+
+:wq
+
+>>chmod 400 anji.pem
+
+>>ssh -i anji.pem ec2-user@10.1.10.200    -->your login as private system lets connect google or ping the servers
+
+>>ping google.com
+
+>>your not get ping responce because your not add route table
+
+>>go to route table select Green-private add 0.0.0.0/0 and select nat gateway and done
+
+>> then try to ping google.com you will get
