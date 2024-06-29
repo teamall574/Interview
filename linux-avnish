@@ -314,6 +314,23 @@ timedatectl set-time 09:00:00  -->give error of the ntp dont use this in product
 timedatectl set-ntp off
 timedatectl set-time 09:00:00   -->now you can change 
 
+>>see last update of my linux system 
+sudo less /var/log/apt/history.log   -->debian
+sudo tail -n 20 /var/log/apt/history.log
+
+sudo less /var/log/yum.log   # For yum (older systems)
+sudo less /var/log/dnf.log   # For dnf (newer systems)
+sudo less /var/log/dnf.log   # For dnf (newer systems)   -->redhat
+
+>>if i deletd one file in linux can i retrive that is it possible
+sudo apt update
+sudo apt install extundelete
+sudo yum install extundelete   # for older systems
+sudo dnf install extundelete   # for newer systems using dnf
+
+ 
+
+
 
 
 
