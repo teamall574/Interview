@@ -327,6 +327,10 @@ sudo apt update
 sudo apt install extundelete
 sudo yum install extundelete   # for older systems
 sudo dnf install extundelete   # for newer systems using dnf
+>>sudo umount /dev/sdX1   -->Unmount the partition where the file was located. If it was on the root partition (/), you need to use a live CD/USB to boot into a different environment.
+sudo extundelete /dev/sdX1 --restore-file /path/to/anji.txt
+
+
 
  
 
