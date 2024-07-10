@@ -1,0 +1,815 @@
+>>curl https://get.docker.com | bash  -->it will install docker
+
+>>we can use everytime bridge network
+>>ip address have dont value in docker if the container cancled or removed next the same ip not gone come
+>>pets and catle -->if are forming animals like goat are hen you need to sell meat shop there is no 
+attachement over the animals but if in your dog the attachment has peaks so before comming docker 
+there is an attachment between servers you need update and backup taking snapshorts care everything  but now 
+the docker has come if the containers gone your adding so many containers 
+
+>>containers is microservices container is process
+>>container system come important name resolution
+
+>>docker have many containers have the traffic will go docker0 in realtime docker0 is not using 
+we use we own network
+
+>>we are creating anji as network and putting docker containers in anji network it can ping each other in anji
+if we came out it will not gone ping . if we are not in a anji network with bridge network created system we can ping 
+using ip address but anji network is not gone you need to enter one container ping between another container
+
+>>you can't connect connect two different networks . you can connect using one network to connect different containers and the containers are not in a network
+
+>>if we deploying conatiner in production or anywhere we must create network and deploying a containers
+
+>>you can connect one container into multipule networks
+
+>>name resolution is important in docker containers
+
+>>the main problem in docker shared files (we are using multiple servers then if you want centrailized storage means 
+need to install plugins)
+
+
+===docker storage or volumes
+
+>>docker has come to used in first stateless applications later it come to used  stateful applications also
+stateless applications means is no need to save the data or stateful applications is storing the data
+
+>>you need persistent storage if the container deleted the data should be store 
+
+two types 
+
+1-docker volumes
+>>
+
+
+
+2-bind mounts
+
+
+
+===commands
+
+>>sudo su -
+
+>>apt install zip
+
+>>curl https://get.docker.com | bash        -->install docker
+
+>>docker version  --> 19.03.12 19 is major 03 is minor 12 is micro
+
+>>docker network ls     -->it shows the network ids
+
+>>docker info        -->it will show docker information
+
+>>docker network inspect bridge       -->it will show the bridge network details
+
+>>docker run --rm -dit sreeharshav/utils      -->it will download sree harsh docker image 
+--rm     -->is used if the container get failed automatically delete the container
+
+>>docker ps       -->it will show your images
+
+>>docker ps -aq      -->it will show your images
+docker psd
+>>docker exec -it "conatiner ID" bash   -->your login into container
+
+>>docker rmi xxxxxxxxxx         -->it will remove the container
+
+>>docker rm $(docker ps -aq)       -->it will delete the container
+
+>>docker stop $(docker ps -aq)        -->stop all containers and delete the containers
+
+===using shell script run number of docker instance
+
+>>for C in {2..5}; do docker run --rm -dit --name CON$C sreeharshav/utils; sleep 1 ; done
+
+>>docker inspect "container id" | grep -i "ipadress"     -->it wil show the ip address
+
+>>for C in $(docker ps -aq); do docker inspect $C | grep -i "IPAddress"; done
+
+>>for C in $ (docker ps -aq)
+>do 
+>docker inspect $C | grep -i "IPAddress" 
+>done          -->it will show the all ipaddress
+
+>>docker exec -it "container id" bash
+
+ping 172.17.0.6 
+ping 172.17.0.5
+ping 172.17.0.4
+ping 172.17.0.3         -->all the containers are within a range and ping all the containers
+
+>>docker stop $(docker ps -aq)        -->stop all containers and delete the containers
+
+>>docker network prune    -->it will delete the unused networks
+>>docker volume prune     -->it will delete the unused volumes
+
+>>docker network create anji                -->it will create anji name as network interface
+
+>>for C in {1..5}; do docker run --rm -dit --name CON$C --network anji sreeharshav/utils; sleep 1 ; done
+it will create network interface as anji you can ping using hostname and ip address also
+
+>>docker exec -it CON1 bash      -->it will login into the CON1  
+
+>>ping CON2              -->its ping CON2 container
+
+--we are craeting anji as network and putting docker containers in anji network it can ping each other in anji
+if we came out it will not gone ping . if we are not in anji network with bridge network created system we can ping 
+using ip address but anji network is not gone you need to enter one container ping between another container
+
+-->>you can connect one container into multipule networks
+
+>>docker run --rm -dit sreeharshav/utils    -->this container name is sampi example
+>>docker run --rm -dit sreeharshav/utils    -->this container name is vinod example
+
+>>docker network connect anji sampi        -->sampi added into anji network
+>>docker network connect anji vinod        -->vinod added into anji network
+
+>>docker exec -it sampi ifconfig             -->you will see two ips anji network ip and default
+
+>>docker exec -it CON1 ping sampi             -->this will ping each other
+
+>>docker exec -it CON1 ping vinod             -->this will ping each other
+
+>>docker exec -it CON3 bash   -->your enetr into container and do ping vinod and sampi
+
+>>ping sampi
+>>ping vinod    -->you will get
+
+>>docker rm $(docker ps -aq)       -->it will delete the container
+
+======docker storage or volumes
+
+>>if your using docker saving some data in docker machine if the machine is deleted your data will be lost
+thats we are using docker volumes
+
+>>docker volume create anji            -->it is used to create the volumes
+docker volume create anji2
+
+>>docker volume ls                     -->it is used to showing an docker volumes
+
+>>ls /var/lib/docker/volumes/anji            -->it will show inside the docker volume anji 
+
+>>docker run --rm -dit -v anji:/myapp sreeharshav/utils            -->it will create one container and create the myapp one folder
+
+>>docker exec -it "conatiner id" bash              -->it will go inside container
+
+>>cd /myapp
+
+>>for I in {1..10}
+do
+echo $(date) > File$I
+cat File$I
+sleep 
+done            -->it will create 10 files
+
+if you stop the conainer one more using same using same command launch one container the data not gone delete
+
+>>docker stop $(docker ps -aq)
+
+>>docker run --rm -dit -v anji:/myapp sreeharshav/utils
+
+>>docker exec -it "container id" bash        
+
+>>cd myapp              -->you can see the data is here not deleted
+
+
+f727331d318e4a5bbd9f8861492bd43c
+===mysql server installing
+
+>>$ docker exec -it -u root baeldung bash   ->to login root user
+
+>>docker run --rm -dit --name mysql mysql/mysql-server:latest           -->it is installing mysql
+
+>>docker logs mysql                 -->it will show logs and password take it
+
+>>docker exec -it mysql bash      -->your inside the mysql server
+
+>>mysql -u root -p              -->it will ask password paste it
+4P8jm5t8_bD0#Q^Vi4x,9uj+@7p?ii+Z
+
+>>ALTER USER 'root'@'localhost' IDENTIFIED BY 'India12345';            -->it is used changed the password
+
+===another method  attaching volumes  -v volume
+
+>>docker run --rm -dit --name mysql -v anji2:/var/lib/mysql mysql/mysql-server:latest         -->it is attaching the volume anji2 directly 
+if the container delete the data is not gone delete
+
+>>docker logs mysql   -->take password
+@+7HKOaLN7.dyVg5*Zd^@j3392=9BjZ%
+
+>>mysql -u root -p      -->it asking password enetr
+@+7HKOaLN7.dyVg5*Zd^@j3392=9BjZ%
+
+>>ALTER USER 'root'@'localhost' IDENTIFIED BY 'India12345';       -->changing the password 
+
+now you can put your database and if the container delete the data is not gone delete
+
+===mount
+
+>>docker volume create anji2              -->create anji2 volume
+
+>>docker run --rm -dit source=anji2,target=/var/lib/mysql  --name mysql mysql/mysql-server:latest
+
+>>docker inspect mysql       -->it will show where the mount has happen
+
+you can apply multiple volumes also
+
+===you can copy using the -v means volume path or path option see below
+
+>>sudo su -
+>>mkdir bind
+>>git clone https://github.com/mavrick202/dockertest1.git /bind
+>>docker run --rm -dit -v /bind:/usr/share/nginx/html -p 8000:80 nginx:latest    -->you can access using
+public ip through browser the nginx server is going on 
+
+===docker file creation
+
+>>vi Dockerfile
+
+FROM             -->to pull the base image 
+RUN              -->to run linux commands
+CMD              -->to provide default an executing container
+ENTRYPOINT       -->to configure a container that will tun an executable 
+WORKDIR          -->to sets the working directory
+COPY             -->to copy a directory from your local machine to docker container
+ADD              -->to copy files and folder from your local machine to docker container
+EXPOSE           -->informs docker that the container listens on the specified network ports
+ENV              -->to set environment variables
+LABEL            -->
+
+USER             -->to create an user user
+VOLUME           -->
+ARG              -->
+ENV              -->
+STOPSIGNAL       -->
+VOLUME
+
+>>vi Dockerfile
+
+FROM centos:latest
+RUN yum install java -y
+RUN mkdir /opt/tomcat
+WORKDIR /opt/tomcat
+ADD https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.54/bin/apache-tomcat-9.0.54.tar.gz .
+RUN tar -xvzf apache-tomcat-9.0.54.tar.gz
+RUN mv apache-tomcat-9.0.54/* /opt/tomcat
+EXPOSE 8080
+CMD ['/opt/tomcat/bin/catalina.sh", "run"]
+
+:wq
+
+>>Docker build -t mytomcat .
+
+
+---user can read aws or any credentilas easily i will show you
+
+>>sudo su -
+
+>>aws configure
+access-key=xxxxxxxxxxxx
+secret-key=xxxxxxxxxxxx
+region    =xxxxxxxxxxxx
+
+>>cat ./aws/credentials
+access-key=xxxxxxxxxxxx
+secret-key=xxxxxxxxxxxx
+
+>>usermod -aG docker ubuntu           -->root user giving permisiion to ubuntu user in the docker servie
+
+user taking advantages to read the ./aws/credentials
+
+>>su - ubuntu
+
+>>cat /root/.aws/credentials
+>>docker run --rm -dit -v /root/.aws/:/tmp/aws/ sreeharshav/utils
+
+>>docker exec -it :container id" cat /tmp/aws/credentials
+access-key=xxxxxxxxxxxx
+secret-key=xxxxxxxxxxxx
+
+user can take advantage to read the access-key and secret-keys
+
+===Docker file creation
+
+--vi Dockerfile
+FROM ubuntu
+LABEL  owner=kanji5413@gmail.com
+RUN apt-get update; \
+    apt install -y nginx vi nano wget curl net-tools; \
+    mkdir /myapp 
+RUN groupadd -r mongodb && useradd -r -g mongodb mongodb
+WORKDIR /myapp
+CMD ["nginx", "-g", "daemon off;"]
+USER mongodb
+
+:wq
+
+>>docker build .       -->. means present directory 
+
+====Docker compose
+>>docker compose will allow developer or devops person to create multiple containers and it will save 
+lot time .and its not for production purpose it is only per tseting. if the container get stopped the 
+web application will be face down-time
+
+>>docker compose is not for production
+>>docker compoe helps developers to deploy multiple container in easy way
+>>docker compose written in yaml file
+
+>>install docker compose and docker in a system
+
+>>sudo su -
+>>curl https://get.docker.com | bash
+>>cd /usr/local/bin
+>>wget https://github.com/docker/compose/releases/download/1.26.2/docker-compose-linux-x86_64
+>>mv docker-compose-linux-x86_64 docker-compose
+>>chmod 700 docker-compose
+>>cd ~
+
+
+example-voting app in github
+>>git clone https://github.com/dockersamples/example-voting-app.git
+>>cd example-voting-app
+>>docker-compose up
+
+---to write compose file
+
+>>vi compose.yml
+version: "v3"
+services:
+     test1:
+	  image: sreeharshav/rollingupdate:v3
+        container_name: nginx
+        ports: ["8000"]
+        networks:
+        - network1
+        - network2
+      test2:
+        image: sreeharshav/utils
+        container_name: utils
+        command: sleep 3600
+        networks:
+        - network1
+        - network2
+networks:
+  network1:
+  network2:
+
+:wq
+
+>>docker-compose up
+
+
+===docker stack
+
+>>docker stack is used in docker swarm
+>>
+
+
+ 
+
+
+===docker swarm
+>>docker swarm is similar to kubernets
+>>docker swarm is kluster
+>>docker swarm orcus station layers or management layer (ex: AKS/EKS/Kubernets)
+>>docker swarm you can upto use masters in docker swarm is 7 master either you can use idd numbers 1 3 5 7
+>>docker masters must be in odd numbers ex:-1,3,5,7
+>>docker swarm uses Raft Algorithm up to (N-1)/2 failures and reauires a majority or quoram 
+of (N/2)+1 members to agree on values proposed to the cluster
+>>when you enable docke swarm automatically enable two networks one ingress and docker gwbridge
+>>docker swarm distribute the load into multiple worker nodes
+
+
+--in simple words If I have 10 nodes cluster with 5 masters and 10 workr nodes
+
+How many masters can i loose:(N-1)/2 = 5-1/2 = 4/2 = 2   2 we can loose
+
+How may master I need to run the cluster:(N/2)/1 = 5/2 = 2.5+1  = 3.5 minimum
+
+ex:- 7 masters 13 nodes   7-1/2 = 3 we can loose
+                          7/2/+1 = 4.5 minimum 
+
+>>
+
+
+
+>>docker swarm init           -->it is used to start the service it is the master
+
+>>docker info | grep -i swarm    -->you can swarm is active
+
+>>docker swarm join-token worker     -->it will give you token copy and paste that remaing two systems
+
+>>docker node ls                     -->it will show nodes how may workes joine under master
+
+>>docker node promote ip-10.1.2.56 ip-10.1.2.253   -->it will add node in reachable state
+
+>>docker node demote ip-10.1.2.56            -->it will remove in docker swarm
+
+===docker swarm lab
+
+>>create 3 instances in differnet zones
+
+>>login first system install docker in 3 systems and docker swarm
+
+>>docker swarm init 
+
+>>docker info | grep -i swarm 
+
+>>docker swarm join-token worker   -->it will give token add this token in remaning systems
+
+>>docker node ls 
+
+>>docker run --rm -dit --name nginx01 -p 8000:80 sreeharshav/rollingupdate:v3
+if any one can stop easily by using this command
+>>docker stop nginx01
+
+>>docker service create --name mynginx --publish 8000:80 sreeharshav/rollingupdate:v3
+if you can come and see this command you cant find. but this will create the container in nodes
+>>docker ps
+
+>>docker service rm nginx               -->to remove container
+
+===you can use docker visualizer to see the graphical view in browser this command below
+
+>>docker service create --name=viz --publish=8080:8080/tcp --constraint=node.role==manager --mount=type=bind,src=/var/run/docker.sock,dst=/var/run/docker.sock dockersamples/visualizers
+to access this in browser use this public ip you can access
+
+>>if your adding any container using docker swarm you can see the graphical in browser
+
+>>docker service create --name nginx5 -p 8100:80 sreeharshav/testcontainer:v1
+
+you can add multiple copies using master to nodes or workers
+
+>>docker service scale nginx5=5           -->it will create 5 containers
+
+>>docker service update nginx5 --replicas 5           -->you can this command also to increase the containers
+       
+running one container but you can access any public ip in the container it will redirected to the running container
+
+>>docker service ls              -->it will show running conatiners
+
+>>docker service ps nginx            -->if the nginx conatiner runing 5 conatiner this command will help you to see the full details
+
+>>docker service rm nginx                -->it will remove the conatiner
+
+>>docker service create --name=nginx01 --publish=8000:80 --constraint=node.role!=manager sreeharshav/rollingupdate:v3
+role!=manager    -->any container is not created in master node
+
+>>docker service scale nginx01=03
+
+---you can add your own labels customize the portal or graphical portal
+
+>>docker node update --label-add=perf=high ip-192-168-2-199
+
+>>docker node update --label-add=perf=low ip-192-168-2-42
+
+===
+
+>>docker service create --name=highnginx01 --publish=8100:80 --constraint=node.labels.perf==high sreeharshav/rollingupdate:v3
+
+>>docker service scale highnginx01=3
+
+>>docker service create --name=highnginx01 --publish=8200:80 --constraint=node.labels.perf==low sreeharshav/rollingupdate:v3
+
+>>docker service scale lownginx01=3
+
+
+=========docker swarm networking
+
+>>if your 3 containers is there your hosting different sites on each container if your using load balancer to connect the
+website you will get only one website
+
+>>we have runing 3 containers in different systems we need different ports
+
+>>docker service create --name app1 =p 8000:80 sreeharshav/rollingupdate:v1
+>>docker service create --name app2 =p 8100:80 sreeharshav/rollingupdate:v2
+>>docker service create --name app3 =p 8200:80 sreeharshav/rollingupdate:v3
+
+>>create target group in aws and add this 3 systems
+>>create load -balancer using this target group done
+
+>>if your accessing this application you will get only one web-server how to overcome this probleam
+
+problem solve solution using docker traefik
+
+>>traefik is creating your own vnet network
+
+>>first create target group name docker-target suing 3 systems
+>>docker network ls
+>>docker network create --driver=overlay traefik-net 
+>>docker service create --name traefik --constraint=node.role==manager --publish 80:80 --publish 8080:8080 --mount type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock --network traefik-net traefik:v1.6 --docker --docker.swarmmode --docker.domain=traefik --docker.watch --web
+
+>>create websites in systems
+
+>>docker service create --name app1 --label traefik.port=80 --network traefik-net --label traefik.frontend.rule=host:app1.bughunteranji.xyz sreeharshav/rollingupdate:v1
+>>docker service create --name app2 --label traefik.port=80 --network traefik-net --label traefik.frontend.rule=host:app2.bughunteranji.xyz sreeharshav/rollingupdate:v3
+>>docker service create --name app3 --label traefik.port=80 --network traefik-net --label traefik.frontend.rule=host:app3.bughunteranji.xyz sreeharshav/testcontainer:v1
+
+>>now add rout53 and create recodrs using app1.bughunteranji.xyz
+app1.bughunteranji.xyz
+app2.bughunteranji.xyz
+app3.bughunteranji.xyz
+
+>>docker service logs app1                   -->it will show your logs
+
+>>now try access the browser
+
+====node maintaince
+
+>>node maintaince are 3 types
+
+--pause  -->if your runing in 3 container your need to troubleshoot or maintaince the one container
+no need to send any new activies in first container use pause option only run old activites but not added
+any new activites
+
+>>docker node ls
+
+>>docker node update --availability pause ip-192-168-2-199
+
+--Drain
+if your using drain means the activites will go on to add another container no new activites is not
+gone add its like temporarily suspended
+
+>>docker node update --availability drain ip-192-168-2-199
+
+-- active
+active means the containers running ood no need to maintaine the work so it split the activites
+
+>>>>docker node update --availability active ip-192-168-2-199
+
+
+===rolling update 
+
+>>rolling update is used without downtime you change your version or image on container or servers
+
+>>docker service create --name anji --publish 80:80 sreeharshav/testcontainer:v1 
+-->changing this to below without downtime
+>>docker service update --image sreeharshav/rollingupdate:v1 anji
+
+===docker resource managment 
+>>resource managment is nothing but how much cpu utilization and memory utilization docker container
+ container consume the total memory
+
+>>docker service create --name limittest --reserve-memory 100M --reserve-cpu .25 --limit-cpu 1 --limit-memory 300M
+--repicas 3 --publish 3000:80 sreeharshav/rollingupdate:v3
+
+>docker servicce inspect limittest
+
+>>docker service update limittest --limit-memory 500M
+
+===docker config
+
+>>vi index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="style.css">
+	<title>Color Game</title>
+</head>
+<body>
+	<h1>Welcome To DevOps Training In Telugu Batch 20 & 21 By Sreeharsha Veerapalli</h1>
+	<h1>Ansible Playbook Testing With Tags</h1>
+	<div id="smallcont">
+		<div></div>
+		<div id="try1">Lets Play</div>
+	</div>
+	<div id="container">
+		<div class="square"></div>
+		<div class="square"></div>
+		<div class="square"></div>
+		<div class="square"></div>
+		<div class="square"></div>
+		<div class="square"></div>
+	</div>
+	
+</body>
+<script type="text/javascript" src="scorekeeper.js"></script>
+</html>
+:wq
+
+>>docker config create nginxindex1 index.html
+
+>>vi index.html      -->change something then save
+
+>>docker config create nginxindex2 index.html
+
+>>docker service create --name nginx1 --config src=nginxindex1,target=/usr/share/nginx/index.html --publish 8000:80 sreeharshav/rollingupdate:v1
+
+>>docker service create --name nginx2 --config src=nginxindex2,target=/usr/share/nginx/index.html --publish 8000:80 sreeharshav/rollingupdate:v1
+
+>>docker service update --config-rm nginxindex1 --config-add src=nginxindex2,target=/usr/share/nginx/index.html nginx2
+
+>>
+
+===docker swarm health-checks
+
+>>vi Dockerfile
+
+FROM sreeharshav/rollingupdate:v4
+RUN apt-get update
+RUN apt install -y curl
+HEALTHCHECK CMD curl --fail http://localhost || exit 1
+CMD ["nginx", "-g", "daemon off;"]
+
+:wq
+
+>>docker build -t anji1592/healthcheck .
+
+>>docker login
+give username and password
+
+>>docker push anji1592/healthcheck
+
+>>docker service create --name healthcheck -p 80:80 anji1592/healthcheck
+
+>>docker ps        -->now you can see helathy option
+
+>>
+
+====docker stack
+
+>>docker stack deploy -c docker-stack.yml anji12
+>>docker stack ps anji12
+>>docker stack 
+>>docker service scale anji12_result=3
+
+==docker integration
+
+>>launch ec2 instance 
+
+>>sudo su -
+
+>>apt-get update
+
+>>apt install openjdk-11-jdk -y
+
+>>curl https://get.docker.com | bash
+
+>>install jenkins
+
+>>usermod -aG docker jenkins
+>>usermod -aG root jenkins
+>>systemctl reload docker.service 
+>>service docker restart
+>>service jenkins restart               jenkins user will get all permissions
+
+>>su - jenkins
+
+>>login jenkins browser through install plugins and install docker-pipeline,pipeline,global-credentials
+
+>>click on manage jenkins and click on manage credentilas click on jenkins add docker hub credentilas
+
+>>pipeline {
+environment {
+registry = "anji1592/devopsb13"
+registrycredential = 'anjiokok'
+dockerImage = ''
+}
+agent any
+stages {
+stage('Cloning our Git') {
+steps {
+git 'https://github.com/teamall574/dockertest1.git'
+}
+}
+stage('Push Image To Docker_Hub') {
+steps{
+script {
+dockerImage = docker.build registry + ":v$BUILD_NUMBER"
+}
+}
+}
+stage('Deploy our image') {
+steps{
+script {
+docker.withRegistry( '', registryCredential ) {
+dockerImage.push()
+}
+}
+}
+}
+stage('Cleaning up') {
+steps{
+sh "docker rmi $registry:v$BUILD_NUMBER"
+}
+}
+stage('Deploying to Docker Swarm') {
+steps{
+sh "docker -H tcp://10.1.2.8:2375 service create --name anji --publish 800:80 sreeharshav/testcontainer:v1"
+}
+}
+
+
+>>build now
+
+
+===jenkins system to connect master system
+
+>>docker master system
+
+>>sudo su -
+
+>>vi /lib/systemd/syatem/docker.service
+
+EXEC=/usr  in this line add this  -H unix -H tcp://0.0.0.0:2375    --containerid already is there
+
+:wq
+
+>>systemctl daemon-reload
+>>systemctl restart docker
+
+==jenkins system 
+
+>>docker -H  10.1.1.37:2375 ps 
+
+you can execute your command jenkins system to docker master
+
+>>docker -H  10.1.1.37:2375  service create --name anji --publish 800:80 sreeharshav/testcontainer:v1
+you can see this command executed in docker master
+
+>>click on manage jenkins and click on manage credentilas click on jenkins add docker hub credentilas
+
+>>pipeline {
+environment {
+registry = "anji1592/devopsb13"
+registrycredential = 'anjiokok'
+dockerImage = ''
+}
+agent any
+stages {
+stage('Cloning our Git') {
+steps {
+git 'https://github.com/teamall574/dockertest1.git'
+}
+}
+stage('Push Image To Docker_Hub') {
+steps{
+script {
+dockerImage = docker.build registry + ":v$BUILD_NUMBER"
+}
+}
+}
+stage('Deploy our image') {
+steps{
+script {
+docker.withRegistry( '', registryCredential ) {
+dockerImage.push()
+}
+}
+}
+}
+stage('Cleaning up') {
+steps{
+sh "docker rmi $registry:v$BUILD_NUMBER"
+}
+}
+stage('Deploying to Docker Swarm') {
+steps{
+sh "docker -H tcp://10.1.2.8:2375 service create --name anji --publish 800:80 sreeharshav/testcontainer:v1"
+}
+}
+
+
+>>build now
+
+>>docker -v     -->it will show the version
+>>docker network ls  -->it will show the network list
+>>docker info          -->it will show the information
+>>docker network inspect bridge  -->it will show the network full details
+>>docker run --rm -dit --name anji sreeharshav/utils        -->it is used to run the docker image and run the container
+>>rm -->if any container failed then it will delete the container
+>>dit  -->it will detach mode like run in background
+>>docker ps    -->it will show the docker containers
+>>dokcer ps -aq   -->it will show only container ids
+>>docker exec -it anji bash      -->you will enter into the anji container
+>>docker stop $(docker ps -aq)    -->it will stop all containers
+>>docker run --rm -dit --name anji --hostname anji1 --network host sreeharshav/utils    -->it will create conatiner and hostname
+>>docker run --help  -->it will show the help commands
+>>docker rmi xxxxxxxxxx         -->it will remove the container
+>>docker rm $(docker ps -aq)       -->it will delete the container
+>>docker network prune    -->it will delete the unused networks
+>>docker volume prune     -->it will delete the unused volumes
+>>docker network create anji2 --ip-range 172.25.0.0/16 --subnet 172.25.0.0/24 --gateway 172.250.254 
+>>docker network create anji                -->it will create anji name as network interface
+>>docker run --rm -dit --name test1 --network anji sreeharsav/utils
+>>docker run --rm -dit --name test2 --network anji sreeharsav/utils
+>>docker run --rm -dit --name test3 --network anji sreeharsav/utils
+>>docker run --rm -dit --name test4 --network anji sreeharsav/utils
+
+>>docker exec -it test1 bash
+>>ping test3
+>>ping test2
+>>ping test4
+
+>>docker network connect anji sampi        -->sampi added into anji network
+>>docker network connect anji vinod        -->vinod added into anji network
+
+>>docker exec -it sampi ifconfig             -->you will see two ips anji network ip and default
+
+>>docker exec -it CON1 ping sampi             -->this will ping each other
+>>docker exec -it CON1 ping vinod             -->this will ping each other
+>>d0cker logs anji
+>>docker-compose version    -->it will docker-compose version
