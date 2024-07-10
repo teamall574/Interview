@@ -1,0 +1,588 @@
+>>launch ec2-user one instance
+
+>>ec2-user
+>>yum update -y
+>>vi /etc/hostname
+
+ansible-serevr
+:wq
+
+>>useraddd ansadmin
+>>password ansadmin
+ansadmin123
+ansadmin123
+>>visudo 
+ansadmin ALL=(ALL) NOPASSWD: ALL
+
+>>sudo su - ansadmin
+>>ssh-keygen
+>>sudo su -
+>>vi /etc/ssh/sshd_config
+
+passwordAuthentication yes
+#passwordAuthentication no
+
+:wq
+
+>>service sshd restart
+>>yum install python
+>>yum install python-pip
+>>pip install ansible (or)
+>>amazon-linux-extras install ansible2
+
+====launch node (rhel)
+
+>>launch ec2 RHEL system
+am	
+>>ec2-user
+>>yum update -y
+>>vi /etc/hostname
+rhel-node
+:wq
+>>sudo su -
+>>useradd ansadmin
+>>passwd ansadmin
+ansadmin123
+ansadmin123
+>>vi /etc/sshd/sshd_config
+
+passwordAuthentication yes
+#passwordAuthentication NO
+
+:wq
+
+>>visudo
+
+ansadmin ALL=(ALL) NOPASSWD: ALL
+
+:wq
+
+====ansible-server
+
+>>ec2-user
+>>sudo su - ansadmin
+>>vi /etc/hosts
+
+10.0.1.212
+
+:wq
+>>sudo su 
+>>service sshd restart
+>>ssh-copy-id ansadmin@10.0.1.212
+
+>>ansible all -m ping
+>>ansible all -m command -a "uptime"
+>>ansible all -m command -a "who"
+>>ansible all -m command -a "date"
+>>ansibel all -m stat -a "path=/etc/hosts"
+>>ansible all -m yum -a "name=git" -b          -->-b become its root use
+>>ansible all -m user -a "name=anji" -b
+>>ansible all -m setup 
+
+>>sudo su - ansadmin
+>>vi /etc/ansible/ansible.cfg
+
+#inventory =/etc/ansible/hosts
+inventory = /home/ansadmin/hosts       -->it will take directly this not first one
+
+:wq
+
+>>service sshd restart
+
+>>ansible all -m ping -i /etc/ansible/hosts
+>>ansible rhel -m ping -i /etc/ansible/hosts
+>>sudo mkdir ansible
+>>cd ansible
+>>chown ansadmin:ansadmin ansible
+>>vi test.yml
+
+---
+- hosts: amazone (or) all      -->all means all hosts if only given amazon under execute the hosts
+  become: true
+  tasks:
+  - user: name=john
+:wq
+
+>>ansible-playbook test.yml
+
+>>vi test.yml
+---
+- hosts: amazone (or) all 
+  become: true
+  tasks:
+  - name: creating the user
+    user: name=john 
+:wq
+
+>>ansible-playbook test.yml
+
+>>vi test.yml
+---
+- hosts: amazone (or) all 
+  become: true
+  tasks:
+  - name: creating the user
+    user: 
+      name: john 
+:wq
+
+>>ansible-playbook test.yml
+
+>>vi test.yml
+---
+- name: install the packages
+  hosts: all 
+  become: true
+  tasks:
+  - name: installing packges
+    yum:
+      name: git
+      state: installed
+:wq
+
+>>ansible-playbook test.yml
+
+>>vi anji.yml
+
+---
+- name: this playbook create a file or dir
+  hosts: all
+  become: true
+  tasks:
+  - name: creating a file
+    file:
+      path: /home/ansadmin/demofile
+      state: touch
+
+:wq
+
+>>ansible-playbook anji.yml
+
+>>vi anji.yml
+
+---
+- name: this playbook create a file or dir
+  hosts: all
+  become: true
+  tasks:
+  - name: creating a file
+    file:
+      path: /home/ansadmin/test
+      state: directory
+
+:wq
+
+>>ansible-playbook anji.yml
+
+>>vi anji.yml
+
+---
+- name: this playbook create a file or dir
+  hosts: all
+  become: true
+  tasks:
+  - name: creating a file
+    file:
+      path: /home/ansadmin/demofile
+      state: absent
+
+:wq
+
+>>ansible-playbook anji.yml
+
+>>vi anji.yml
+
+---
+- name: this playbook create a file or dir
+  hosts: all
+  become: true
+  tasks:
+  - name: creating a file
+    file:
+      path: /home/ansadmin/demofile
+      state: touch
+
+:wq
+
+>>ansible-playbook anji.yml
+
+>>vi tset.txt
+>>vi tt.yml
+
+---
+- name: ansible playbook to copy a file
+  hosts: all
+  become: true
+  tasks:
+  - name: copy a file
+    copy:
+      src: /opt/ansible/tset.txt
+      dest: /home/ansadmin
+      mode: 0600
+      owner: anji
+
+:wq
+
+>>ansible-playbook tt.yml
+
+>>vi install.yml
+
+---
+- name: this play book install packages
+  hosts: all
+  become:true
+  tasks:
+  - name: install package
+    yum:
+      name: httpd
+      state: installed
+  - name: start httpd service
+    service:
+      name: httpd
+      state: started
+
+:wq
+
+>>ansible-playbook install.yml
+>>ssh 10.0.1.250
+ps -ef | grep httpd
+>>exit
+>>vi install.yml
+
+---
+- name: this play book install packages
+  hosts: all
+  become:true
+  tasks:
+  - name: uninstall package
+    service:
+      name: httpd
+      state: stopped
+  - name: uninstall package
+    yum:
+      name: httpd
+      state: removed
+
+:wq
+
+>>ansible-playbook install.yml
+
+====ubuntu system
+
+>>vi ub.yml
+---
+- name: install ubuntu packages
+  hosts: all
+  become: true
+  tasks:
+  - name: install httpd in ubuntu
+    apt:
+      name: apach2
+      state: present
+  - name: start apache2
+    service:
+      name: apache2
+      state: started
+:wq
+
+>>ansible-playbook un.yml
+
+====notify and handlers
+
+>>vi no.yml
+
+---
+- name: this is handler
+  hosts: all
+  become: true
+  tasks: 
+  - name: install package
+    yum:
+      name: httpd
+      state: installed
+    notify: start apache   -->thisshould mache in handker name ortherwise dont execute
+  handlers:
+  - name: start apache 
+    service:
+      name: httpd
+      state: started
+:wq
+
+>>ansible-playbook no.yml
+
+>>vi te.yml
+---
+- name: this playbook create a file or dir
+  hosts: all
+  become: true
+  gather_facts: no
+  tasks:
+  - name: creating a file
+    file:
+      path: /home/ansadmin/dir1
+      state: directory
+:wq
+
+>>ansible-playbook te.yml
+
+=====when commands
+
+>>vi instal.yml
+
+---
+- name: install package
+  hosts: all
+  become: true
+  tasks:
+  - name: install package
+    yum:
+      name: httpd
+      state: installed
+    when: ansible_os_family == "RedHat"
+
+  - name: start apache
+    service:
+      name: httpd
+      state: started
+    when: ansible_os_family == "RedHat"
+ 
+  - name: install apace2
+    apt:
+      name: apach2
+      state: present
+    when: ansible_os_family == "Debain"
+  
+  - name: start apache2
+    service:
+      name: apache
+      state: started
+    when: ansible_os_family == "Debain"
+
+:wq
+
+>>ansible-playbook instal.yml
+
+>>vi install.yml
+
+---
+- name: this will install multiple packegs
+  hosts: all
+  become: true
+  tasks:
+  - name: install package
+    yum: 
+      name: ['git', 'telnet', 'make', 'wget', 'gcc']
+      state: installed
+:wq
+
+>>ansible-playbook install.yml
+
+>>vi install.yml
+---
+- name: this will install multiple packegs
+  hosts: all
+  become: true
+  tasks:
+  - name: install package
+    yum: 
+      name: "{{item}}'
+        state: installed
+      with_items:
+        - git
+        - make
+        - telnet
+:wq
+
+>>ansible-playbook install.yml
+>>it will not execute why because it is deprected
+
+=====variables
+
+>>vi var.yml
+
+---
+- name: variables to see
+  hosts: all
+  become: true
+  vars:
+    user: john
+  tasks:
+  - name: creating user john
+    user: 
+      name: "{{ user }}"
+:wq
+
+>>ansible-playbook vars.yml   -->if anyone joined just change user: modi
+
+>>vi user.yml
+user: test
+:wq
+
+>>vi vars.yml
+---
+- name: this playbook to create user
+  hosts: all
+  become: true
+  vars_files:
+    - user.yml
+  tasks:
+  - name: creating user test
+    user:
+      name: "{{ user }}"
+
+:wq
+
+>>ansible-playbook vars.yml
+
+===install image outside
+
+>>vi tom.yml
+
+---
+- name: setup tomcat
+  hosts: all
+  become: true
+  tasks: 
+  - name: install java
+    yum:
+      name: java
+      state: installe
+    when: ansible_os_family == "RedHat"
+  - name: install java in ubuntu
+    apt:
+      name: default-jdk
+      state: present
+    when_os_family  == "Debain"
+  - name: download tomcat server
+    get_url:
+      url: http://mirrors.estointernet.in/apache/tomcat/tomcat-8/v8.5.50/bin/apache-tomcat-8.5.50.tar.gz
+      dest: /opt
+  - name: untar apache packages
+    unarchive:
+      src: /opt/apache-tomcat-8.5.50.tar.gz
+      dest: /opt
+      remote_src: yes
+  - name: add execution permissions
+    file:
+      path: /opt/apache-tomcat-8.5.50.tar.gz
+      mode: 0777
+  - name: start tomcat service
+    shell: nohup ./startup.sh
+    args:
+      chdir: /opt/apache-tomcat-8.5.50/bin
+:wq
+
+>>ansible-playbook tom.yml  --check
+
+
+>>ansible vault is feature of ansible that allows you to keep sensitive data such as passwords or keys in encrypted files
+rather than as plaintext in playbooks or roles
+
+>>ansible-vault craete encrypt install.yml
+it will ask password create the password anji
+>>ansible-vault view install.yml
+it will ask the password anji
+>>ansible-vault edit install.yml
+it will ask the password anji    -->you can edit the data
+
+
+====you can clone the repository using the code
+
+>>vi cl.yml
+
+---
+- name: clone the repository
+  become:true
+  hosts: all
+  tasks:
+  - name: git clo
+    git:
+      repo: https://anji:anji1592@github.com/teamall574/yankils.git
+      dest: /opt/ansadmin/test-vault
+
+:wq
+
+>>ansible-playbook cl.yml 
+
+
+====roles
+
+>>ansible-galaxy init anji            -->it will craete the anji role
+>>cd anji
+>>ls
+-tasks:-contains the main list of taks
+-handlers:-contains handlers which may be used by this role
+-defaults:-defaults variables for the role
+-vars:- other variables for the role
+-files:- contains files which can be deployed via this role
+-templates:- contains templates which can be deployed in this role
+-meta:-defines some meta data for this role
+
+>>vi test.yml
+
+---
+- name: testing the hnadler
+  hosts: all
+  become: true
+  tasks: 
+  - name: install package
+    yum: 
+      name: httpd
+      state: installed
+    when: ansible_os_family == "RedHat"
+    notify: start apache
+  - name: install apache2
+    apt:
+      name: apache2
+      state: present
+    when: ansible_os_family == "Debian"
+  - name: ensure the default apache port is 8081
+    lineinfile:
+      path: /etc/httpd/conf/httpd.conf
+      regexp: '^Listen'
+      insertafter: '^#Listen'
+      line: Listen 8081
+    when: ansible_os_family == "RedHat"
+    notify: restart apache
+
+  - name: ensure the default apache port is 8081 on ubuntu
+    lineinfile: 
+      path: /etc/apache2/ports.conf
+      regexp: '^Listen'
+      insertafter: '^#Listen'
+      line: Listen 8081
+    when: ansible_os_family == "Debian"
+    notify: restart apache2
+
+  handlers:
+  - name: start apache
+    service:
+      name: httpd
+      state: started
+  - name: start apache2
+    service:
+      name: apache2
+      state: started
+  - name: restart apache
+    service: 
+      name: httpd
+      state: restarted
+
+  - name: restart apache2
+    service: 
+      name: apache2
+      state: restarted
+
+:wq
+>>ansible-playbook test.yml
+
+>>vi /etc/httpd/conf/httpd.conf                 -->you can change your port number rhel
+>>vi /etc/apache2/ports.conf
+
+
+
+
+
+
+
+
